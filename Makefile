@@ -1,10 +1,11 @@
 HASHTABLELIST=./hashTable/hashTableList
 HASHTABLE=./hashTable
+PARSING=./hashTable
 
 CC=gcc
-CFLAGS= -g -Wall -I$(HASHTABLELIST) -I$(HASHTABLE)
+CFLAGS= -g -Wall -I$(HASHTABLELIST) -I$(HASHTABLE) -I$(PARSING)
 
-OBJ1= main.o $(HASHTABLE)/hashTable.o $(HASHTABLELIST)/hashTableList.o
+OBJ1= main.o $(HASHTABLE)/hashTable.o $(HASHTABLELIST)/hashTableList.o $(PARSING)/parsing.o
 
 EXEC= demo
 
