@@ -1,6 +1,22 @@
 #include "hashTable.h"
 
 
+typedef struct hashtable_node *hashtable_nodePtr;
+typedef struct hashtable *hashtablePtr;
+
+struct hashtable_node{
+  int key;
+  List head;
+};
+
+struct hashtable{
+  hashtable_node* table;
+  int buckets;
+  int numberOfVectors;
+};
+
+
+
 int hashFunction(const hashtable* ht,int id){
   return (id % ht->buckets);
 }

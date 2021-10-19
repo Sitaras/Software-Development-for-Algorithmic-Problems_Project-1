@@ -5,31 +5,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct listNode listNode;
-typedef struct node node;
-typedef struct vector vector;
+typedef struct listNode *List;
 
-// hash table's linked list
-
-struct vector{
-  int id;
-  unsigned int bit;
-};
-
-struct node{
-  int id;
-  unsigned int bit;
-};
-
-struct listNode {
-  node n;
-  listNode* next;
-};
-
-listNode* allocateListNode(vector);
-listNode* listInsert(listNode *, vector);
-listNode* listSearchId(listNode * ,int );
-void listPrint(listNode *);
-listNode* listDelete(listNode *);
+List allocateListNode(vector);
+List listInsert(List, vector);
+List listSearchId(List ,int );
+void listPrint(List );
+List listDelete(List );
 
 #endif

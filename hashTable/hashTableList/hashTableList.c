@@ -1,36 +1,57 @@
-#include "hashTableList.h"
+// #include "hashTableList.h"
+
+
+
+typedef struct node{
+  int* coords;
+}vec;
+typedef struct vec *Vector;
+
+struct listNode {
+  vector *v;
+  listNode* next;
+};
+typedef struct listNode *List;
+
 
 // hash table's linked list
 
-listNode* allocateListNode(vector v){
-  listNode* node=malloc(sizeof(listNode));
-  node->n.id=v.id;
-  node->n.bit=v.bit;
-  node->next=NULL;
+List allocateListNode(Vector v,int *dimensions){
+  List node=malloc(sizeof(List));
+  initVector()
   return node;
 }
 
+void initVector(Vector v,int *dimensions){
+  // v=malloc(sizeof());
 
-listNode* listInsert(listNode* list,vector v){
+}
+
+void deleteVector(){
+
+}
+
+
+List listInsert(List list,vector v){
   if (list==NULL){
     // list is empty
-    listNode* node=allocateListNode(v);
+    List node=allocateListNode(v);
     list=node;
     return list;
   }
   //////////////////////////////////////////////////
   // Just push
-  // listNode* node=allocateListNode(v);
+  // List* node=allocateListNode(v);
   // node->next=list;
   // list=node;
   //////////////////////////////////////////////////
   // insert a new node at the end of the list
-  listNode* temp = list;
+  List temp = list;
   while (temp->next!=NULL){
         temp = temp->next;
   }
 
-  listNode* node=allocateListNode(v);
+  List node=allocateListNode(v);
   list->next=node;
   //////////////////////////////////////////////////
 
@@ -40,8 +61,8 @@ listNode* listInsert(listNode* list,vector v){
 }
 
 
-listNode* listSearchId(listNode *list, int id){
-  listNode* current=list;
+List listSearchId(List list, int id){
+  List current=list;
   while (current!=NULL){
       if (current->n.id==id)
           return current;
@@ -51,9 +72,9 @@ listNode* listSearchId(listNode *list, int id){
 }
 
 
-void listPrint(listNode *list){
+void listPrint(List list){
     if(list==NULL) return;
-    listNode *temp=list;
+    List temp=list;
     while(temp!=NULL){
         printf(" --Id:%d-Bit:%d-- ",temp->n.id,temp->n.bit);
         temp=temp->next;
@@ -61,15 +82,16 @@ void listPrint(listNode *list){
 }
 
 
-listNode* listDelete(listNode *list){
+List listDelete(List list){
     // delete whole list
     if(list==NULL) return NULL;
 
-    listNode *current = list;
-    listNode *next;
+    List current = list;
+    List next;
 
     while(current!=NULL){
         next=current->next;
+        deleteVector(current->v);
         free(current);
         current=next;
     }

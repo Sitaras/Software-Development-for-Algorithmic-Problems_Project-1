@@ -5,22 +5,7 @@
 #include <stdlib.h>
 #include "./hashTableList/hashTableList.h"
 
-typedef struct hashtable_node hashtable_node;
-typedef struct hashtable hashtable;
 
-// hash table with separate chaining
-// each bucket of hash table point to a linked list (bucket)
-
-struct hashtable_node{
-  int key;
-  listNode* head;
-};
-
-struct hashtable{
-  hashtable_node* table;
-  int buckets;
-  int numberOfNodes;
-};
 
 int hashFunction(const hashtable*,int);
 void htInitialize(hashtable *,int);
