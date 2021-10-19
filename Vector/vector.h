@@ -3,10 +3,12 @@
 
 typedef struct vec_node *Vector;
 
-Vector initVector(int *);
+Vector initVector(double *);
 
 void deleteVector(Vector);
 
 void printVector(Vector );
+
+double *getCoords(Vector );
 
 #endif

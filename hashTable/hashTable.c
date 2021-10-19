@@ -20,9 +20,9 @@ typedef struct hashtable_head *HashTable;
 
 
 
-int hashFunction(const HashTable ht,int id){
-  return (id % ht->buckets);
-}
+// int hashFunction(const HashTable ht,int id){
+//   return (id % ht->buckets);
+// }
 
 
 HashTable htInitialize(int buckets) {
@@ -52,8 +52,8 @@ HashTable htInitialize(int buckets) {
 // }
 
 
-int htInsert(HashTable ht, Vector v){
-  int index=hashFunction(ht,1);
+int htInsert(HashTable ht, Vector v,int index){
+  // int index=hashFunction(ht,1);
   ht->table[index].head=listInsert(ht->table[index].head,v);
   ht->numberOfVectors++;
   return 1;

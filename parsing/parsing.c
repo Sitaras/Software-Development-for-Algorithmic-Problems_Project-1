@@ -90,7 +90,7 @@ void readFile(char* fileName){
       d = dims-1;
     }
 
-    int vec[d];
+    double vec[d];
     char * token = strtok(buffer, "  ");
     printf("NAME = %s\n",token);
     token = strtok(NULL, "  ");
@@ -98,7 +98,7 @@ void readFile(char* fileName){
      int counter = 0;
      while( token != NULL ) {
         printf( " - %s\n", token ); //printing each token
-        vec[counter++]=atoi(token);
+        vec[counter++]=atof(token);
         token = strtok(NULL, "  ");
      }
      // Vector vecTmp=initVector(vec);

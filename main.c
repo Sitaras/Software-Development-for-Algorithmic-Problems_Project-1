@@ -8,6 +8,10 @@
 
 int d;
 
+int w;
+int k;
+int hashTableSize;
+
 int main(int argc, char const *argv[]) {
 
 // test
