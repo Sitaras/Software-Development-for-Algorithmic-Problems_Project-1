@@ -11,7 +11,7 @@ int d;
 int main(int argc, char const *argv[]) {
 
 // test
-  srand(time(NULL));
+  // srand(time(NULL));
   readFile("testing.txt");
 
 
