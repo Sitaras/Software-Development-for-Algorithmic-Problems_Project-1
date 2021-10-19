@@ -1,18 +1,15 @@
 #ifndef HASH_TABLE_H
 #define HASH_TABLE_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "./hashTableList/hashTableList.h"
 
+typedef struct hashtable_head *HashTable;
 
-
-int hashFunction(const hashtable*,int);
-void htInitialize(hashtable *,int);
-int htUniqueInsert(hashtable* ,vector);
-node* htSearch(const hashtable*,int);
-void htPrint(const hashtable*);
-void htDelete(hashtable*);
-int htDeleteNode(hashtable*,int);
+int hashFunction(const HashTable,int);
+HashTable htInitialize(int);
+int htInsert(HashTable ,Vector);
+// hashtable_nodePtr htSearch(const HashTable,int);
+void htPrint(const HashTable);
+HashTable htDelete(HashTable);
+int htDeleteNode(HashTable,int);
 
 #endif

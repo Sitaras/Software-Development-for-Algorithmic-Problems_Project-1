@@ -1,82 +1,61 @@
-// #include "hashTableList.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "../../Vector/vector.h"
 
 
-
-typedef struct node{
-  int* coords;
-}vec;
-typedef struct vec *Vector;
-
-struct listNode {
-  vector *v;
-  listNode* next;
-};
 typedef struct listNode *List;
+struct listNode {
+  Vector v;
+  List next;
+};
 
 
-// hash table's linked list
-
-List allocateListNode(Vector v,int *dimensions){
-  List node=malloc(sizeof(List));
-  initVector()
-  return node;
-}
-
-void initVector(Vector v,int *dimensions){
-  // v=malloc(sizeof());
-
-}
-
-void deleteVector(){
-
-}
-
-
-List listInsert(List list,vector v){
-  if (list==NULL){
-    // list is empty
-    List node=allocateListNode(v);
-    list=node;
-    return list;
-  }
-  //////////////////////////////////////////////////
-  // Just push
-  // List* node=allocateListNode(v);
-  // node->next=list;
-  // list=node;
-  //////////////////////////////////////////////////
-  // insert a new node at the end of the list
-  List temp = list;
-  while (temp->next!=NULL){
-        temp = temp->next;
-  }
-
-  List node=allocateListNode(v);
-  list->next=node;
-  //////////////////////////////////////////////////
-
-
-
-  return list;
-}
-
-
-List listSearchId(List list, int id){
-  List current=list;
-  while (current!=NULL){
-      if (current->n.id==id)
-          return current;
-      current=current->next;
-  }
+List initializeList(){
   return NULL;
 }
 
 
+// hash table's linked list
+
+List allocateListNode(Vector v){
+  List node=malloc(sizeof(struct listNode));
+  node->v=v;
+  node->next=NULL;
+  return node;
+}
+
+
+
+List listInsert(List list,Vector v){
+  if (list==NULL){
+    // list is empty
+    List node=allocateListNode(v);
+    return node;
+  }
+  List newnode = allocateListNode(v);
+  newnode->next = list;
+
+  return newnode;
+}
+
+
+// List listSearchId(List list, int id){
+//   List current=list;
+//   while (current!=NULL){
+//       if (current->n.id==id)
+//           return current;
+//       current=current->next;
+//   }
+//   return NULL;
+// }
+//
+//
 void listPrint(List list){
-    if(list==NULL) return;
+    if(list==NULL){ printf("List Empty!\n");  return;}
     List temp=list;
     while(temp!=NULL){
-        printf(" --Id:%d-Bit:%d-- ",temp->n.id,temp->n.bit);
+        printVector(temp->v);
         temp=temp->next;
     }
 }
