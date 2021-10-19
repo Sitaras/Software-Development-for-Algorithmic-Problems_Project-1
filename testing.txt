@@ -1,0 +1,4 @@
+item_id1  5  4
+item_id2  0  13
+item_id3  7  2
+item_id4  2  3
