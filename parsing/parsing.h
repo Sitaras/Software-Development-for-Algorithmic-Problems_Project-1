@@ -1,12 +1,8 @@
 #ifndef PARSING_H
 #define PARSING_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#define MAX_INPUT_LENGTH 1024
 
-
-void readFile(char*);
+void readFile(char*,LSH );
+int findDim(char* );
 
 #endif

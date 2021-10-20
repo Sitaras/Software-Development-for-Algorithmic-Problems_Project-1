@@ -20,9 +20,9 @@ typedef struct hashtable_head *HashTable;
 
 
 
-int hashFunction(const HashTable ht,int id){
-  return (id % ht->buckets);
-}
+// int hashFunction(const HashTable ht,int id){
+//   return (id % ht->buckets);
+// }
 
 
 HashTable htInitialize(int buckets) {
@@ -52,8 +52,8 @@ HashTable htInitialize(int buckets) {
 // }
 
 
-int htInsert(HashTable ht, Vector v){
-  int index=hashFunction(ht,1);
+int htInsert(HashTable ht, Vector v,int index){
+  // int index=hashFunction(ht,1);
   ht->table[index].head=listInsert(ht->table[index].head,v);
   ht->numberOfVectors++;
   return 1;
@@ -69,12 +69,16 @@ void htPrint(const HashTable ht){
 }
 
 
-HashTable htDelete(HashTable ht){
+HashTable htDelete(HashTable ht,int freeVectors){
   // delete whole hash table
   for (int i=0;i<ht->buckets;i++){
-    ht->table[i].head=listDelete(ht->table[i].head);
+    ht->table[i].head=listDelete(ht->table[i].head,freeVectors);
   }
   free(ht->table);
   free(ht);
   return NULL;
+}
+
+void htFindNearestNeighbor(HashTable ht,int index,Vector q,Vector *nearest,double *nearestDist,int d){
+  listFindNearestNeighbor(ht->table[index].head,q,nearest,nearestDist,d);
 }

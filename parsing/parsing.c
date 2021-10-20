@@ -1,11 +1,17 @@
 #include <string.h>
-#include "parsing.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "../Vector/vector.h"
 #include "../hashTable/hashTable.h"
+#include "../LSH/lsh.h"
+
 #define OUT    0
 #define IN    1
 #define FALSE    0
 #define TRUE    1
+
+#define MAX_INPUT_LENGTH 1024
 
 extern int d;
 
@@ -53,8 +59,30 @@ int countLines(FILE *fp){
   return count;
 }
 
+int findDim(char* fileName){
+  FILE *file = fopen(fileName, "r"); // read mode
 
-void readFile(char* fileName){
+  if (file == NULL){
+     perror("Error while opening the file.\n");
+     exit(-1);
+  }
+
+ if (feof(file)){ // empty file, return
+   return -1;
+ }
+  char buffer[MAX_INPUT_LENGTH];
+ fflush(stdin);  // clear stdin buffer
+ if(fscanf(file,"%[^\n]\n",buffer)<0){ // read a line from the file
+   perror("Error while reading the file.\n");
+   exit(-1);
+ }
+ int dims = countWords(buffer)-1;
+ fclose(file);
+ return dims;
+}
+
+
+void readFile(char* fileName,LSH lsh){
 
    FILE *file = fopen(fileName, "r"); // read mode
 
@@ -74,23 +102,14 @@ void readFile(char* fileName){
 
   char buffer[MAX_INPUT_LENGTH];
 
-  int firstLine = TRUE;
-  int dims = -1;
-
 
   while(!feof(file)){
     fflush(stdin);  // clear stdin buffer
     if(fscanf(file,"%[^\n]\n",buffer)<0){ // read a line from the file
       continue;
     }
-    if(firstLine){
-      dims = countWords(buffer);
-      firstLine = FALSE;
-      printf("Dimensions = %d\n",dims-1);
-      d = dims-1;
-    }
 
-    int vec[d];
+    double vec[d];
     char * token = strtok(buffer, "  ");
     printf("NAME = %s\n",token);
     token = strtok(NULL, "  ");
@@ -98,10 +117,11 @@ void readFile(char* fileName){
      int counter = 0;
      while( token != NULL ) {
         printf( " - %s\n", token ); //printing each token
-        vec[counter++]=atoi(token);
+        vec[counter++]=atof(token);
         token = strtok(NULL, "  ");
      }
-     // Vector vecTmp=initVector(vec);
+     Vector vecTmp=initVector(vec);
+     insertToLSH(lsh,vecTmp);
 
 
 
