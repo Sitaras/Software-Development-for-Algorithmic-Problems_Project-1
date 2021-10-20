@@ -25,6 +25,8 @@ void deleteVector(Vector v){
 
 
 void printVector(Vector v){
+  if(v==NULL)
+    return;
   printf("\n[");
   for(int i=0;i<d;i++){
     printf(" %f",v->coords[i]);

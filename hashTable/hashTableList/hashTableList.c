@@ -119,26 +119,73 @@ void swapVectors(Vector *xp, Vector *yp)
   *yp = temp;
 }
 
-// A function to implement bubble sort
-void bubbleSort(double arr[], Vector *nearest, int n)
-{
-  for (int i = 0; i < n - 1; i++){
-    for (int j = 0; j < n - i - 1; j++){
-      if (arr[j] < arr[j + 1]){
-        swapDoubles(&arr[j], &arr[j + 1]);
-        swapVectors(&nearest[j], &nearest[j + 1]);
-      }
+// void bubbleSort(double arr[], Vector *nearest, int n)
+// {
+//   for (int i = 0; i < n - 1; i++){
+//     for (int j = 0; j < n - i - 1; j++){
+//       if (arr[j] < arr[j + 1]){
+//         swapDoubles(&arr[j], &arr[j + 1]);
+//         swapVectors(&nearest[j], &nearest[j + 1]);
+//       }
+//     }
+//   }
+// }
+
+
+// function to find the partition position
+int partition(double arr[], Vector *nearest, int low, int high){
+  double pivot = arr[high];
+  int i = (low - 1);
+  for (int j = low; j < high; j++) {
+    if (arr[j] >= pivot) {
+
+      i++;
+
+      swapDoubles(&arr[i], &arr[j]);
+      swapVectors(&nearest[i], &nearest[j]);
     }
   }
 
+  swapDoubles(&arr[i + 1], &arr[high]);
+  swapVectors(&nearest[i + 1], &nearest[high]);
+
+  return (i + 1);
+}
+
+void quickSort(double arr[], Vector *nearest, int low, int high){
+  if (low < high) {
+
+    int pi = partition(arr, nearest, low, high);
+
+    quickSort(arr,nearest, low, pi - 1);
+
+    quickSort(arr, nearest, pi + 1, high);
+  }
+}
+
+int binarySearch(double arr[], int l, int r, double x){
+  if (r >= l){
+    int mid = l + (r - l) / 2;
+    if (arr[mid] == x)
+      return mid;
+
+    if (arr[mid] < x)
+      return binarySearch(arr, l, mid - 1, x);
+
+    return binarySearch(arr, mid + 1, r, x);
+  }
+
+  return -1;
 }
 
 void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *nearestDist,int d,int k){
   if(list==NULL){ return;}
   List temp=list;
+  int filled=0;
   while(temp!=NULL){
       int flag = 1;
       int eq = 0;
+      int added=0;
       double dist = distance_metric(temp->v,q,d);
 
       printf("---------------------------------------------------\n");
@@ -146,37 +193,36 @@ void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *neares
       printVector(temp->v);
       printf("WITH DISTANCE =  %f\n", dist);
       printf("---------------------------------------------------\n");
-      for (int i = 0; i < k; i++){
-        if(nearestDist[i]<0){
-          flag=0;
-          for (int i = 0; i < k; i++){
-            if (nearest[i] != NULL && compareVectors(nearest[i], temp->v))
-              eq = 1;
-          }
-          if (eq)
-            break;
-          nearestDist[i]=dist;
-          nearest[i]=temp->v;
-          break;
-        }
+
+      int index=binarySearch(nearestDist,0,k-1,dist);
+      if(index!=-1 && nearest[index] != NULL && compareVectors(nearest[index], temp->v)){
+        eq = 1;
       }
+      if (eq){
+        temp = temp->next;
+        continue;
+      }      
+      if(!filled)
+        for (int i = 0; i < k; i++){
+          if(nearestDist[i]<0){
+            flag=0;
+            added=1;
+            nearestDist[i]=dist;
+            nearest[i]=temp->v;
+            break;
+          }
+        }
       
       if (flag){
-        for (int i = 0; i < k; i++){
-          if(dist<nearestDist[i]){
-            for (int i = 0; i < k; i++){
-              if (nearest[i] != NULL && compareVectors(nearest[i], temp->v))
-                eq=1;
-            }
-            if(eq) break;
-
-            nearestDist[i] = dist;
-            nearest[i] = temp->v;
-            break;
+        filled=1;
+          if(dist<nearestDist[0]){
+            added = 1;
+            nearestDist[0] = dist;
+            nearest[0] = temp->v;
           }
-        }
       }
-      bubbleSort(nearestDist,nearest,k);
+      if(added)
+        quickSort(nearestDist, nearest,0, k-1);
       temp = temp->next;
   } 
 }
