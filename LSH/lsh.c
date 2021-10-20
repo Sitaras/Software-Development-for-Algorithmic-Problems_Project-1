@@ -62,7 +62,7 @@ void generateG(g_function *gfun){
   gfun->r = malloc(k*sizeof(int));
   for(int i=0;i<k;i++){
      gfun->r[i]=rand();
-
+     printf("*** R%d = %d\n",i,gfun->r[i]);
   }
   gfun->m=(UINT_MAX-4);
 }
@@ -80,6 +80,7 @@ int computeG(g_function gfun,Vector p){
   for(int i=0;i<k;i++){
     sum += mod(gfun.r[i]*computeH(gfun.h_functions[i],p),gfun.m);
   }
+
   return mod(mod(sum,gfun.m),hashTableSize);
 }
 
@@ -95,6 +96,23 @@ LSH initializeLSH(int l){
   }
   tempLSH->l=l;
   return tempLSH;
+}
+
+void insertToLSH(LSH lsh,Vector v){
+  int l = lsh->l;
+  for(int i=0;i<l;i++){
+    int index = computeG(lsh->g_fun[i],v);
+    htInsert(lsh->hts[i],v,index);
+  }
+}
+
+void printLSH(LSH lsh){
+  int l = lsh->l;
+  for(int i=0;i<l;i++){
+    printf("-------- HASH %d --------\n",i+1);
+    htPrint(lsh->hts[i]);
+    printf("--------------------------\n");
+  }
 }
 
 void destroyLSH(LSH lsh){

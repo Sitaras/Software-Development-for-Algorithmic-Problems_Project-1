@@ -4,8 +4,8 @@
 #include <time.h>
 #include "Vector/vector.h"
 #include "./hashTable/hashTable.h"
-#include "./parsing/parsing.h"
 #include "LSH/lsh.h"
+#include "./parsing/parsing.h"
 
 int d;
 
@@ -16,11 +16,18 @@ int hashTableSize;
 int main(int argc, char const *argv[]) {
 
 // test
-  // srand(time(NULL));
+  srand(time(NULL));
   int l = 3;
+  hashTableSize = 5;
+  k = 4;
+  w = 6;
+  d = findDim("testing.txt");
+  printf("DIMENSION = %d\n",d);
+
   LSH temp = initializeLSH(l);
-  readFile("testing.txt");
-  destroyLSH(temp);
+  readFile("testing.txt",temp);
+  printLSH(temp);
+  // destroyLSH(temp);
 
 
 

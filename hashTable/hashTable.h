@@ -6,7 +6,7 @@ typedef struct hashtable_head *HashTable;
 
 int hashFunction(const HashTable,int);
 HashTable htInitialize(int);
-int htInsert(HashTable ,Vector);
+int htInsert(HashTable ,Vector, int);
 // hashtable_nodePtr htSearch(const HashTable,int);
 void htPrint(const HashTable);
 HashTable htDelete(HashTable);
