@@ -148,11 +148,11 @@ void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *neares
       printf("---------------------------------------------------\n");
       for (int i = 0; i < k; i++){
         if(nearestDist[i]<0){
+          flag=0;
           for (int i = 0; i < k; i++){
             if (nearest[i] != NULL && compareVectors(nearest[i], temp->v))
               eq = 1;
           }
-          flag=0;
           if (eq)
             break;
           nearestDist[i]=dist;
