@@ -161,6 +161,7 @@ void kNearestNeigbors(LSH lsh,Vector q,int k){
   double knearestDists[k];
   for (int i = 0; i < k; i++){
     knearestDists[i]=-1;
+    nearest[i]=NULL;
   }
   
   int l = getL(lsh);

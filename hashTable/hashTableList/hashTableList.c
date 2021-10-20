@@ -137,7 +137,8 @@ void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *neares
   if(list==NULL){ return;}
   List temp=list;
   while(temp!=NULL){
-      int flag=1;
+      int flag = 1;
+      int eq = 0;
       double dist = distance_metric(temp->v,q,d);
 
       printf("---------------------------------------------------\n");
@@ -147,9 +148,15 @@ void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *neares
       printf("---------------------------------------------------\n");
       for (int i = 0; i < k; i++){
         if(nearestDist[i]<0){
+          for (int i = 0; i < k; i++){
+            if (nearest[i] != NULL && compareVectors(nearest[i], temp->v))
+              eq = 1;
+          }
+          flag=0;
+          if (eq)
+            break;
           nearestDist[i]=dist;
           nearest[i]=temp->v;
-          flag=0;
           break;
         }
       }
@@ -157,6 +164,12 @@ void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *neares
       if (flag){
         for (int i = 0; i < k; i++){
           if(dist<nearestDist[i]){
+            for (int i = 0; i < k; i++){
+              if (nearest[i] != NULL && compareVectors(nearest[i], temp->v))
+                eq=1;
+            }
+            if(eq) break;
+
             nearestDist[i] = dist;
             nearest[i] = temp->v;
             break;

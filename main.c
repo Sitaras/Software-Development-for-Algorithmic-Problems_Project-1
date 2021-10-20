@@ -17,7 +17,7 @@ int main(int argc, char const *argv[]) {
 
 // test
   srand(time(NULL));
-  int l = 3;
+  int l =5;
   hashTableSize = 5;
   k = 4;
   w = 6;
@@ -29,12 +29,12 @@ int main(int argc, char const *argv[]) {
   // printLSH(temp);
 
 
-  double vec[2] = {17.0 , 5.5};
+  double vec[2] = {1.0 , 1.0};
   Vector vecTmp=initVector(vec);
 
   nearestNeigbor(temp,vecTmp);
   printf("================================================\n");
-  kNearestNeigbors(temp, vecTmp, 2);
+  kNearestNeigbors(temp, vecTmp, 3);
 
   deleteVector(vecTmp);
 
