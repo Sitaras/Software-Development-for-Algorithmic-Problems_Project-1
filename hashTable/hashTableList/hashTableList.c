@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "../../Vector/vector.h"
+
+#define SQUARE(x) ((x)*(x))
 
 
 typedef struct listNode *List;
@@ -78,4 +81,27 @@ List listDelete(List list,int freeVectors){
     }
     list=NULL;
     return list;
+}
+
+double distance_metric(Vector v1,Vector v2,int d){
+  double sum = 0.0;
+  double *coords1 = getCoords(v1);
+  double *coords2 = getCoords(v2);
+  for(int i=0;i<d;i++){
+    sum += SQUARE(coords1[i]-coords2[i]);
+  }
+  return sqrt(sum);
+}
+
+void listFindNearestNeighbor(List list,Vector q,Vector *nearest,double *nearestDist,int d){
+  if(list==NULL){ return;}
+  List temp=list;
+  while(temp!=NULL){
+      double dist = distance_metric(temp->v,q,d);
+      if(dist<(*nearestDist) || (*nearestDist)<0){
+        (*nearestDist) = dist;
+        (*nearest) = temp->v;
+      }
+      temp=temp->next;
+  }
 }

@@ -12,4 +12,6 @@ List listSearchId(List ,int );
 void listPrint(List );
 List listDelete(List ,int );
 
+void listFindNearestNeighbor(List ,Vector ,Vector *,double *,int );
+
 #endif

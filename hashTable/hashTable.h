@@ -12,4 +12,6 @@ void htPrint(const HashTable);
 HashTable htDelete(HashTable,int );
 int htDeleteNode(HashTable,int);
 
+void htFindNearestNeighbor(HashTable ,int ,Vector ,Vector *,double *,int );
+
 #endif

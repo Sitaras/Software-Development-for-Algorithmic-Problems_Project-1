@@ -27,6 +27,15 @@ int main(int argc, char const *argv[]) {
   LSH temp = initializeLSH(l);
   readFile("testing.txt",temp);
   printLSH(temp);
+
+
+  double vec[2] = {17.0 , 5.5};
+  Vector vecTmp=initVector(vec);
+
+  nearestNeigbor(temp,vecTmp);
+
+  deleteVector(vecTmp);
+
   destroyLSH(temp);
 
 

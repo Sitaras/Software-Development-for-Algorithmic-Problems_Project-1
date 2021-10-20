@@ -32,6 +32,16 @@ typedef struct lsh_n{
 }lshNode;
 typedef lshNode *LSH;
 
+int getL(LSH lsh){
+  return lsh->l;
+}
+HashTable *getHts(LSH lsh){
+  return lsh->hts;
+}
+g_function *getGfuns(LSH lsh){
+  return lsh->g_fun;
+}
+
 /* H FUNCTIONS*/
 
 void generateH(h_function *hfun){
@@ -62,7 +72,6 @@ void generateG(g_function *gfun){
   gfun->r = malloc(k*sizeof(int));
   for(int i=0;i<k;i++){
      gfun->r[i]=rand();
-     printf("*** R%d = %d\n",i,gfun->r[i]);
   }
   gfun->m=(UINT_MAX-4);
 }
@@ -121,4 +130,26 @@ void destroyLSH(LSH lsh){
      htDelete(lsh->hts[i],!i);
   }
   free(lsh);
+}
+
+
+void nearestNeigbor(LSH lsh,Vector q){
+  printf("ABOUT TO SEARCH NEAREST NEIGHBOR FOR : ");
+  printVector(q);
+  Vector nearest=NULL;
+  double nearestDist=-1;
+  int l = getL(lsh);
+  HashTable *hts = getHts(lsh);
+  g_function *gfuns = getGfuns(lsh);
+  for(int i=0;i<l;i++){
+    int q_index = computeG(gfuns[i],q);
+    htFindNearestNeighbor(hts[i],q_index,q,&nearest,&nearestDist,d);
+  }
+  if(nearestDist>=0 && nearest!=NULL){
+    printf("FOUND NEAREST NEIGHBOR ");
+    printVector(nearest);
+    printf("WITH DISTANCE =  %f\n",nearestDist);
+  }else{
+    printf("- DID NOT FIND NEAREST NEIGHBOR\n");
+  }
 }

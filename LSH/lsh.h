@@ -7,4 +7,6 @@ LSH initializeLSH(int );
 void insertToLSH(LSH ,Vector );
 void printLSH(LSH );
 void destroyLSH(LSH );
+
+void nearestNeigbor(LSH ,Vector );
 #endif

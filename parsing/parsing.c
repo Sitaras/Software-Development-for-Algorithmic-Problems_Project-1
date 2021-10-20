@@ -76,7 +76,7 @@ int findDim(char* fileName){
    perror("Error while reading the file.\n");
    exit(-1);
  }
- int dims = countWords(buffer);
+ int dims = countWords(buffer)-1;
  fclose(file);
  return dims;
 }
