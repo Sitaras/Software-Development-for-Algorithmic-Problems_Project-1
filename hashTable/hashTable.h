@@ -13,5 +13,6 @@ HashTable htDelete(HashTable,int );
 int htDeleteNode(HashTable,int);
 
 void htFindNearestNeighbor(HashTable ,int ,Vector ,Vector *,double *,int );
+void htKFindNearestNeighbors(HashTable, int, Vector, Vector *, double *, int ,int );
 
 #endif

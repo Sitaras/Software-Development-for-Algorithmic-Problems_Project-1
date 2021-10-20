@@ -82,3 +82,6 @@ HashTable htDelete(HashTable ht,int freeVectors){
 void htFindNearestNeighbor(HashTable ht,int index,Vector q,Vector *nearest,double *nearestDist,int d){
   listFindNearestNeighbor(ht->table[index].head,q,nearest,nearestDist,d);
 }
+void htKFindNearestNeighbors(HashTable ht,int index,Vector q,Vector *nearest,double *nearestDist,int d,int k){
+  listFindKNearestNeighbors(ht->table[index].head, q, nearest, nearestDist, d,k);
+}

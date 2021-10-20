@@ -9,6 +9,8 @@ void deleteVector(Vector);
 
 void printVector(Vector );
 
-double *getCoords(Vector );
+int compareVectors(Vector , Vector );
+
+double *getCoords(Vector);
 
 #endif
