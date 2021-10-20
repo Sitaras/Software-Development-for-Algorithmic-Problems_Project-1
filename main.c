@@ -17,7 +17,7 @@ int main(int argc, char const *argv[]) {
 
 // test
   srand(time(NULL));
-  int l =5;
+  int l =10;
   hashTableSize = 5;
   k = 4;
   w = 6;
@@ -35,6 +35,8 @@ int main(int argc, char const *argv[]) {
   nearestNeigbor(temp,vecTmp);
   printf("================================================\n");
   kNearestNeigbors(temp, vecTmp, 3);
+  printf("================================================\n");
+  radiusNeigbor(temp,vecTmp,20.0);
 
   deleteVector(vecTmp);
 

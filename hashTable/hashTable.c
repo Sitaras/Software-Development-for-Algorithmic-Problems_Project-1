@@ -20,9 +20,7 @@ typedef struct hashtable_head *HashTable;
 
 
 
-// int hashFunction(const HashTable ht,int id){
-//   return (id % ht->buckets);
-// }
+
 
 
 HashTable htInitialize(int buckets) {
@@ -52,6 +50,19 @@ HashTable htInitialize(int buckets) {
 // }
 
 
+int hashFunction(const HashTable ht,Vector v,int d){ /* Hash function only used in temorary hash table of Radius Search*/
+  /* Not used in LSH*/
+  /* Based on djb2 hash function*/
+  double *coords = getCoords(v);
+  double hash = 5381;
+  int c;
+  for(int i=0;i<d;i++){
+    c = coords[i];
+    hash = ((hash * 33) + hash) + c; /* hash * 33 + c */
+  }
+  return (((int)hash) % ht->buckets);
+}
+
 int htInsert(HashTable ht, Vector v,int index,int id){
   // int index=hashFunction(ht,1);
   ht->table[index].head=listInsert(ht->table[index].head,v,id);
@@ -59,11 +70,24 @@ int htInsert(HashTable ht, Vector v,int index,int id){
   return 1;
 }
 
+void htRangeInsert(HashTable ht, Vector v,int id,int d){
+  int index=hashFunction(ht,v,d);
+  ht->table[index].head=listUniqueInsert(ht->table[index].head,v,id);
+  ht->numberOfVectors++;
+}
+
 
 void htPrint(const HashTable ht){
   for (int i=0;i<ht->buckets;i++){
     printf("\n>>Bucket %d: ",i+1);
     listPrint(ht->table[i].head);
+  }
+  printf("\n\n");
+}
+
+void htRangePrint(const HashTable ht,Vector q,int d){
+  for (int i=0;i<ht->buckets;i++){
+    listRangePrint(ht->table[i].head,q,d);
   }
   printf("\n\n");
 }
@@ -84,4 +108,8 @@ void htFindNearestNeighbor(HashTable ht,int index,Vector q,Vector *nearest,doubl
 }
 void htKFindNearestNeighbors(HashTable ht,int index,Vector q,Vector *nearest,double *nearestDist,int d,int k,int id){
   listFindKNearestNeighbors(ht->table[index].head, q, nearest, nearestDist, d,k,id);
+}
+
+void htFindNeighborsInRadius(HashTable ht,int index,HashTable storeNeighbors,Vector q,int d,int id,int radius){
+  listFindNeighborsInRadius(ht->table[index].head,storeNeighbors,q,d,id,radius);
 }

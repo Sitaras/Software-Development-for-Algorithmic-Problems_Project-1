@@ -189,3 +189,19 @@ void kNearestNeigbors(LSH lsh,Vector q,int k){
     printf("- DID NOT FIND NEAREST NEIGHBOR\n");
   }
 }
+
+void radiusNeigbor(LSH lsh,Vector q,double radius){
+  printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
+  HashTable vecsInRadius = htInitialize(100); // TODO: CHANGE SIZE
+  int l = getL(lsh);
+  HashTable *hts = getHts(lsh);
+  g_function *gfuns = getGfuns(lsh);
+  for(int i=0;i<l;i++){
+    int q_ID;
+    int q_index = computeG(gfuns[i],q,&q_ID);
+    htFindNeighborsInRadius(hts[i],q_index,vecsInRadius,q,d,q_ID,radius);
+  }
+  htRangePrint(vecsInRadius,q,d);
+
+  htDelete(vecsInRadius,0);
+}
