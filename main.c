@@ -26,13 +26,15 @@ int main(int argc, char const *argv[]) {
 
   LSH temp = initializeLSH(l);
   readFile("testing.txt",temp);
-  printLSH(temp);
+  // printLSH(temp);
 
 
   double vec[2] = {17.0 , 5.5};
   Vector vecTmp=initVector(vec);
 
   nearestNeigbor(temp,vecTmp);
+  printf("================================================\n");
+  kNearestNeigbors(temp, vecTmp, 2);
 
   deleteVector(vecTmp);
 

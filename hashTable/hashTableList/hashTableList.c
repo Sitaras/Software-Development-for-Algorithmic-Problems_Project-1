@@ -105,3 +105,65 @@ void listFindNearestNeighbor(List list,Vector q,Vector *nearest,double *nearestD
       temp=temp->next;
   }
 }
+
+void swapDoubles(double *xp, double *yp)
+{
+  double temp = *xp;
+  *xp = *yp;
+  *yp = temp;
+}
+void swapVectors(Vector *xp, Vector *yp)
+{
+  Vector temp = *xp;
+  *xp = *yp;
+  *yp = temp;
+}
+
+// A function to implement bubble sort
+void bubbleSort(double arr[], Vector *nearest, int n)
+{
+  for (int i = 0; i < n - 1; i++){
+    for (int j = 0; j < n - i - 1; j++){
+      if (arr[j] < arr[j + 1]){
+        swapDoubles(&arr[j], &arr[j + 1]);
+        swapVectors(&nearest[j], &nearest[j + 1]);
+      }
+    }
+  }
+
+}
+
+void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *nearestDist,int d,int k){
+  if(list==NULL){ return;}
+  List temp=list;
+  while(temp!=NULL){
+      int flag=1;
+      double dist = distance_metric(temp->v,q,d);
+
+      printf("---------------------------------------------------\n");
+      printf("Vector:\n");
+      printVector(temp->v);
+      printf("WITH DISTANCE =  %f\n", dist);
+      printf("---------------------------------------------------\n");
+      for (int i = 0; i < k; i++){
+        if(nearestDist[i]<0){
+          nearestDist[i]=dist;
+          nearest[i]=temp->v;
+          flag=0;
+          break;
+        }
+      }
+      
+      if (flag){
+        for (int i = 0; i < k; i++){
+          if(dist<nearestDist[i]){
+            nearestDist[i] = dist;
+            nearest[i] = temp->v;
+            break;
+          }
+        }
+      }
+      bubbleSort(nearestDist,nearest,k);
+      temp = temp->next;
+  } 
+}

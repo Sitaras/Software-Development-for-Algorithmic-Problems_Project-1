@@ -9,4 +9,5 @@ void printLSH(LSH );
 void destroyLSH(LSH );
 
 void nearestNeigbor(LSH ,Vector );
+void kNearestNeigbors(LSH, Vector,int);
 #endif

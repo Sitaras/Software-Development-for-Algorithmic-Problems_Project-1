@@ -13,5 +13,5 @@ void listPrint(List );
 List listDelete(List ,int );
 
 void listFindNearestNeighbor(List ,Vector ,Vector *,double *,int );
-
+void listFindKNearestNeighbors(List, Vector, Vector *, double *, int,int);
 #endif

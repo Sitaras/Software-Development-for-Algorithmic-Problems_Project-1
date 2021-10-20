@@ -153,3 +153,33 @@ void nearestNeigbor(LSH lsh,Vector q){
     printf("- DID NOT FIND NEAREST NEIGHBOR\n");
   }
 }
+
+void kNearestNeigbors(LSH lsh,Vector q,int k){
+  printf("ABOUT TO SEARCH %d NEAREST NEIGHBORS FOR : ",k);
+  printVector(q);
+  Vector nearest[k];
+  double knearestDists[k];
+  for (int i = 0; i < k; i++){
+    knearestDists[i]=-1;
+  }
+  
+  int l = getL(lsh);
+  HashTable *hts = getHts(lsh);
+  g_function *gfuns = getGfuns(lsh);
+  for(int i=0;i<l;i++){
+    int q_index = computeG(gfuns[i],q);
+    htKFindNearestNeighbors(hts[i], q_index, q, nearest, knearestDists, d,k);
+  }
+  int flag=1;
+  for (int i = k-1; i >= 0; i--){
+    if (knearestDists[i] >= 0 && nearest[i] != NULL){
+      printf("FOUND %d NEAREST NEIGHBOR: ",i);
+      printVector(nearest[i]);
+      printf("WITH DISTANCE =  %f\n", knearestDists[i]);
+      flag=0;
+    }
+  }
+  if(flag){
+    printf("- DID NOT FIND NEAREST NEIGHBOR\n");
+  }
+}

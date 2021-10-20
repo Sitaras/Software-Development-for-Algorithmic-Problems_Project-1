@@ -14,7 +14,7 @@ EXEC= demo
 all: $(EXEC)
 
 $(EXEC): $(OBJ1)
-	$(CC) $(CFLAGS) $(OBJ1) -o $(EXEC)
+	$(CC) $(CFLAGS) $(OBJ1) -o $(EXEC) -lm
 
 
 .PHONY: clean
