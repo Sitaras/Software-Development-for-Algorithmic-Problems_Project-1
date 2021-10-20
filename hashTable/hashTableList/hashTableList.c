@@ -10,6 +10,7 @@
 typedef struct listNode *List;
 struct listNode {
   Vector v;
+  int vector_ID;
   List next;
 };
 
@@ -21,22 +22,23 @@ List initializeList(){
 
 // hash table's linked list
 
-List allocateListNode(Vector v){
+List allocateListNode(Vector v,int id){
   List node=malloc(sizeof(struct listNode));
   node->v=v;
+  node->vector_ID=id;
   node->next=NULL;
   return node;
 }
 
 
 
-List listInsert(List list,Vector v){
+List listInsert(List list,Vector v,int id){
   if (list==NULL){
     // list is empty
-    List node=allocateListNode(v);
+    List node=allocateListNode(v,id);
     return node;
   }
-  List newnode = allocateListNode(v);
+  List newnode = allocateListNode(v,id);
   newnode->next = list;
 
   return newnode;
@@ -93,16 +95,18 @@ double distance_metric(Vector v1,Vector v2,int d){
   return sqrt(sum);
 }
 
-void listFindNearestNeighbor(List list,Vector q,Vector *nearest,double *nearestDist,int d){
+void listFindNearestNeighbor(List list,Vector q,Vector *nearest,double *nearestDist,int d,int id){
   if(list==NULL){ return;}
   List temp=list;
   while(temp!=NULL){
+    if(id==(temp->vector_ID)){
       double dist = distance_metric(temp->v,q,d);
       if(dist<(*nearestDist) || (*nearestDist)<0){
         (*nearestDist) = dist;
         (*nearest) = temp->v;
       }
-      temp=temp->next;
+    }
+    temp=temp->next;
   }
 }
 
@@ -178,11 +182,15 @@ int binarySearch(double arr[], int l, int r, double x){
   return -1;
 }
 
-void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *nearestDist,int d,int k){
+void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *nearestDist,int d,int k,int id){
   if(list==NULL){ return;}
   List temp=list;
   int filled=0;
   while(temp!=NULL){
+      if(id!=(temp->vector_ID)){
+        temp = temp->next;
+        continue;
+      }
       int flag = 1;
       int eq = 0;
       int added=0;
@@ -201,7 +209,7 @@ void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *neares
       if (eq){
         temp = temp->next;
         continue;
-      }      
+      }
       if(!filled)
         for (int i = 0; i < k; i++){
           if(nearestDist[i]<0){
@@ -212,7 +220,7 @@ void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *neares
             break;
           }
         }
-      
+
       if (flag){
         filled=1;
           if(dist<nearestDist[0]){
@@ -224,5 +232,5 @@ void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *neares
       if(added)
         quickSort(nearestDist, nearest,0, k-1);
       temp = temp->next;
-  } 
+  }
 }

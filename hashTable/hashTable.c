@@ -52,9 +52,9 @@ HashTable htInitialize(int buckets) {
 // }
 
 
-int htInsert(HashTable ht, Vector v,int index){
+int htInsert(HashTable ht, Vector v,int index,int id){
   // int index=hashFunction(ht,1);
-  ht->table[index].head=listInsert(ht->table[index].head,v);
+  ht->table[index].head=listInsert(ht->table[index].head,v,id);
   ht->numberOfVectors++;
   return 1;
 }
@@ -79,9 +79,9 @@ HashTable htDelete(HashTable ht,int freeVectors){
   return NULL;
 }
 
-void htFindNearestNeighbor(HashTable ht,int index,Vector q,Vector *nearest,double *nearestDist,int d){
-  listFindNearestNeighbor(ht->table[index].head,q,nearest,nearestDist,d);
+void htFindNearestNeighbor(HashTable ht,int index,Vector q,Vector *nearest,double *nearestDist,int d,int id){
+  listFindNearestNeighbor(ht->table[index].head,q,nearest,nearestDist,d,id);
 }
-void htKFindNearestNeighbors(HashTable ht,int index,Vector q,Vector *nearest,double *nearestDist,int d,int k){
-  listFindKNearestNeighbors(ht->table[index].head, q, nearest, nearestDist, d,k);
+void htKFindNearestNeighbors(HashTable ht,int index,Vector q,Vector *nearest,double *nearestDist,int d,int k,int id){
+  listFindKNearestNeighbors(ht->table[index].head, q, nearest, nearestDist, d,k,id);
 }

@@ -84,14 +84,16 @@ void destroyG(g_function g){
   free(g.r);
 }
 
-int computeG(g_function gfun,Vector p){
+int computeG(g_function gfun,Vector p,int *id){
   int sum = 0;
   for(int i=0;i<k;i++){
     sum += mod(gfun.r[i]*computeH(gfun.h_functions[i],p),gfun.m);
   }
-
-  return mod(mod(sum,gfun.m),hashTableSize);
+  int temp_ID = mod(sum,gfun.m);
+  (*id) = temp_ID;
+  return mod(temp_ID,hashTableSize);
 }
+
 
 /* LSH IMPLEMENTATION*/
 
@@ -110,8 +112,9 @@ LSH initializeLSH(int l){
 void insertToLSH(LSH lsh,Vector v){
   int l = lsh->l;
   for(int i=0;i<l;i++){
-    int index = computeG(lsh->g_fun[i],v);
-    htInsert(lsh->hts[i],v,index);
+    int id;
+    int index = computeG(lsh->g_fun[i],v,&id);
+    htInsert(lsh->hts[i],v,index,id);
   }
 }
 
@@ -142,8 +145,9 @@ void nearestNeigbor(LSH lsh,Vector q){
   HashTable *hts = getHts(lsh);
   g_function *gfuns = getGfuns(lsh);
   for(int i=0;i<l;i++){
-    int q_index = computeG(gfuns[i],q);
-    htFindNearestNeighbor(hts[i],q_index,q,&nearest,&nearestDist,d);
+    int q_ID;
+    int q_index = computeG(gfuns[i],q,&q_ID);
+    htFindNearestNeighbor(hts[i],q_index,q,&nearest,&nearestDist,d,q_ID);
   }
   if(nearestDist>=0 && nearest!=NULL){
     printf("FOUND NEAREST NEIGHBOR ");
@@ -163,13 +167,14 @@ void kNearestNeigbors(LSH lsh,Vector q,int k){
     knearestDists[i]=-1;
     nearest[i]=NULL;
   }
-  
+
   int l = getL(lsh);
   HashTable *hts = getHts(lsh);
   g_function *gfuns = getGfuns(lsh);
   for(int i=0;i<l;i++){
-    int q_index = computeG(gfuns[i],q);
-    htKFindNearestNeighbors(hts[i], q_index, q, nearest, knearestDists, d,k);
+    int q_ID;
+    int q_index = computeG(gfuns[i],q,&q_ID);
+    htKFindNearestNeighbors(hts[i], q_index, q, nearest, knearestDists, d,k,q_ID);
   }
   int flag=1;
   for (int i = k-1; i >= 0; i--){

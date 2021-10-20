@@ -6,12 +6,12 @@
 typedef struct listNode *List;
 
 List initializeList();
-List allocateListNode(Vector);
-List listInsert(List, Vector);
+List allocateListNode(Vector ,int );
+List listInsert(List, Vector,int );
 List listSearchId(List ,int );
 void listPrint(List );
 List listDelete(List ,int );
 
-void listFindNearestNeighbor(List ,Vector ,Vector *,double *,int );
-void listFindKNearestNeighbors(List, Vector, Vector *, double *, int,int);
+void listFindNearestNeighbor(List ,Vector ,Vector *,double *,int ,int );
+void listFindKNearestNeighbors(List, Vector, Vector *, double *, int,int ,int );
 #endif
