@@ -3,8 +3,20 @@
 #include <string.h>
 #include <math.h>
 #include "../../Vector/vector.h"
+#include "../hashTable.h"
+
 
 #define SQUARE(x) ((x)*(x))
+
+double distance_metric(Vector v1,Vector v2,int d){
+  double sum = 0.0;
+  double *coords1 = getCoords(v1);
+  double *coords2 = getCoords(v2);
+  for(int i=0;i<d;i++){
+    sum += SQUARE(coords1[i]-coords2[i]);
+  }
+  return sqrt(sum);
+}
 
 
 typedef struct listNode *List;
@@ -44,6 +56,26 @@ List listInsert(List list,Vector v,int id){
   return newnode;
 }
 
+List listUniqueInsert(List list,Vector v,int id){
+  if (list==NULL){
+    // list is empty
+    List node=allocateListNode(v,id);
+    return node;
+  }
+  List origin = list;
+  while(list!=NULL){
+    if(compareVectors(v, list->v)){
+      return origin;
+    }
+    list=list->next;
+  }
+
+  List newnode = allocateListNode(v,id);
+  newnode->next = origin;
+
+  return newnode;
+}
+
 
 // List listSearchId(List list, int id){
 //   List current=list;
@@ -61,6 +93,16 @@ void listPrint(List list){
     List temp=list;
     while(temp!=NULL){
         printVector(temp->v);
+        temp=temp->next;
+    }
+}
+void listRangePrint(List list,Vector q,int d){
+    if(list==NULL){  return;}
+    List temp=list;
+    while(temp!=NULL){
+        printf("Found vector: ");
+        printVector(temp->v);
+        printf("inside range with distance: %f\n",distance_metric(temp->v,q,d));
         temp=temp->next;
     }
 }
@@ -83,16 +125,6 @@ List listDelete(List list,int freeVectors){
     }
     list=NULL;
     return list;
-}
-
-double distance_metric(Vector v1,Vector v2,int d){
-  double sum = 0.0;
-  double *coords1 = getCoords(v1);
-  double *coords2 = getCoords(v2);
-  for(int i=0;i<d;i++){
-    sum += SQUARE(coords1[i]-coords2[i]);
-  }
-  return sqrt(sum);
 }
 
 void listFindNearestNeighbor(List list,Vector q,Vector *nearest,double *nearestDist,int d,int id){
@@ -232,5 +264,19 @@ void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *neares
       if(added)
         quickSort(nearestDist, nearest,0, k-1);
       temp = temp->next;
+  }
+}
+
+void listFindNeighborsInRadius(List list,HashTable storeNeighbors,Vector q,int d,int id,int radius){
+  if(list==NULL){ return;}
+  List temp=list;
+  while(temp!=NULL){
+    if(id==(temp->vector_ID)){
+      double dist = distance_metric(temp->v,q,d);
+      if(dist<=radius){
+        htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
+      }
+    }
+    temp=temp->next;
   }
 }

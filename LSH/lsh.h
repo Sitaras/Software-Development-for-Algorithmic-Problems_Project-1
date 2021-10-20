@@ -10,4 +10,5 @@ void destroyLSH(LSH );
 
 void nearestNeigbor(LSH ,Vector );
 void kNearestNeigbors(LSH, Vector,int);
+void radiusNeigbor(LSH ,Vector ,double );
 #endif
