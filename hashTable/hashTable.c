@@ -69,10 +69,10 @@ void htPrint(const HashTable ht){
 }
 
 
-HashTable htDelete(HashTable ht){
+HashTable htDelete(HashTable ht,int freeVectors){
   // delete whole hash table
   for (int i=0;i<ht->buckets;i++){
-    ht->table[i].head=listDelete(ht->table[i].head);
+    ht->table[i].head=listDelete(ht->table[i].head,freeVectors);
   }
   free(ht->table);
   free(ht);

@@ -10,6 +10,6 @@ List allocateListNode(Vector);
 List listInsert(List, Vector);
 List listSearchId(List ,int );
 void listPrint(List );
-List listDelete(List );
+List listDelete(List ,int );
 
 #endif

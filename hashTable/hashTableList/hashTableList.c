@@ -61,7 +61,7 @@ void listPrint(List list){
 }
 
 
-List listDelete(List list){
+List listDelete(List list,int freeVectors){
     // delete whole list
     if(list==NULL) return NULL;
 
@@ -70,7 +70,9 @@ List listDelete(List list){
 
     while(current!=NULL){
         next=current->next;
-        deleteVector(current->v);
+        if(freeVectors){
+          deleteVector(current->v);
+        }
         free(current);
         current=next;
     }

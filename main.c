@@ -27,7 +27,7 @@ int main(int argc, char const *argv[]) {
   LSH temp = initializeLSH(l);
   readFile("testing.txt",temp);
   printLSH(temp);
-  // destroyLSH(temp);
+  destroyLSH(temp);
 
 
 

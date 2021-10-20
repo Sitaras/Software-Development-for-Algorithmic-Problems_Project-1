@@ -118,7 +118,7 @@ void printLSH(LSH lsh){
 void destroyLSH(LSH lsh){
   for(int i=0;i<lsh->l;i++){
      destroyG(lsh->g_fun[i]);
-     htDelete(lsh->hts[i]);
+     htDelete(lsh->hts[i],!i);
   }
   free(lsh);
 }
