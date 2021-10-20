@@ -5,79 +5,13 @@
 #include <limits.h>
 #include "../Vector/vector.h"
 #include "../hashTable/hashTable.h"
-
-#define SIGMA 1.00
-#define MI 0.00
+#include "./helperFunctions.h"
 
 
 extern int w;
 extern int d;
 extern int k;
 extern int hashTableSize;
-
-int uniform_distribution(int rangeLow, int rangeHigh) {
-    double myRand = rand()/(1.0 + RAND_MAX);
-    int range = rangeHigh - rangeLow + 1;
-    int myRand_scaled = (myRand * range) + rangeLow;
-    return myRand_scaled;
-}
-
-double rand_gen() {
-   // return a uniformly distributed random value
-   return ( (double)(rand()) + 1. )/( (double)(RAND_MAX) + 1. );
-}
-double normalRandom() {
-   // return a normally distributed random value
-   double v1=rand_gen();
-   double v2=rand_gen();
-   return (cos(2*3.14*v2)*sqrt(-2.*log(v1)))*SIGMA+MI;
-}
-
-double dot_product(double *v, double *u){
-    double result = 0.0;
-    for (int i = 0; i < d; i++)
-        result += v[i]*u[i];
-    return result;
-}
-
-// double randn (){
-//   double mu = 0;
-//   double sigma = 1;
-//   double U1, U2, W, mult;
-//   static double X1, X2;
-//   static int call = 0;
-//
-//   if (call == 1){
-//       call = !call;
-//       return (mu + sigma * (double) X2);
-//     }
-//   do{
-//       U1 = -1 + ((double) rand () / RAND_MAX) * 2;
-//       U2 = -1 + ((double) rand () / RAND_MAX) * 2;
-//       W = pow (U1, 2) + pow (U2, 2);
-//     }
-//   while (W >= 1 || W == 0);
-//
-//   mult = sqrt ((-2 * log (W)) / W);
-//   X1 = U1 * mult;
-//   X2 = U2 * mult;
-//
-//   call = !call;
-//
-//   return (mu + sigma * (double) X1)/RAND_MAX;
-// }
-
-int mod(int a, int b){
-  int r = a % b;
-  return r < 0 ? r + b : r;
-}
-
-// int mod(int x, int y)
-// {
-//    int t = x - ((x / y) * y);
-//    if (t < 0) t += y;
-//    return t;
-// }
 
 
 typedef struct hfunc{
@@ -98,6 +32,8 @@ typedef struct lsh_n{
 }lshNode;
 typedef lshNode *LSH;
 
+/* H FUNCTIONS*/
+
 void generateH(h_function *hfun){
   hfun->v=malloc(d*sizeof(double));
   for(int i=0;i<d;i++){
@@ -111,10 +47,12 @@ void destroyH(h_function h){
 }
 
 int computeH(h_function hfun,Vector vector){
-  double pv = dot_product(hfun.v,getCoords(vector));
+  double pv = dot_product(hfun.v,getCoords(vector),d);
   double temp = (double) (pv+hfun.t)/(double)w;
   return floor(temp);
 }
+
+/* G FUNCTIONS*/
 
 void generateG(g_function *gfun){
   gfun->h_functions = malloc(k*sizeof(h_function));
@@ -144,6 +82,8 @@ int computeG(g_function gfun,Vector p){
   }
   return mod(mod(sum,gfun.m),hashTableSize);
 }
+
+/* LSH IMPLEMENTATION*/
 
 LSH initializeLSH(int l){
   LSH tempLSH = malloc(sizeof(lshNode));

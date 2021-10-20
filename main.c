@@ -5,6 +5,7 @@
 #include "Vector/vector.h"
 #include "./hashTable/hashTable.h"
 #include "./parsing/parsing.h"
+#include "LSH/lsh.h"
 
 int d;
 
@@ -16,7 +17,10 @@ int main(int argc, char const *argv[]) {
 
 // test
   // srand(time(NULL));
+  int l = 3;
+  LSH temp = initializeLSH(l);
   readFile("testing.txt");
+  destroyLSH(temp);
 
 
 

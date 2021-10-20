@@ -7,7 +7,7 @@ LSH=./LSH
 CC=gcc
 CFLAGS= -g -Wall -I$(HASHTABLELIST) -I$(HASHTABLE) -I$(PARSING) -I$(VECTOR) -I$(LSH)
 
-OBJ1= main.o $(HASHTABLE)/hashTable.o $(HASHTABLELIST)/hashTableList.o $(PARSING)/parsing.o $(VECTOR)/vector.o  $(LSH)/lsh.o
+OBJ1= main.o $(HASHTABLE)/hashTable.o $(HASHTABLELIST)/hashTableList.o $(PARSING)/parsing.o $(VECTOR)/vector.o  $(LSH)/lsh.o $(LSH)/helperFunctions.o
 
 EXEC= demo
 
