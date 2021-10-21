@@ -149,7 +149,7 @@ void searchForHammingDistance(HyperCube hc,Vector v,int *v_index,int hammingDist
   }
   for(int i=startFrom;i<k;i++){
       v_index[i] = v_index[i]^1;
-      searchForHammingDistance(hc,v,v_index,hammingDist-1,i,nearest,nearestDist,numOfSearched,maxToSearch);
+      searchForHammingDistance(hc,v,v_index,hammingDist-1,i+1,nearest,nearestDist,numOfSearched,maxToSearch);
       // search
       v_index[i] = v_index[i]^1;
       if((*numOfSearched)>=maxToSearch){
@@ -173,7 +173,7 @@ void nearestNeigbor(HyperCube hc,Vector q,int hammingDist,int m){
   int index_decimal = binaryArrayToDecimal(index,k);
   printf("** INITIAL INDEX =%d\n",index_decimal);
   htFindNearestNeighborCube(hc->hypercube,index_decimal,q,&nearest,&nearestDist,d,&searched,m);
-  printf("OK\n");
+
   for(int i=1;i<=hammingDist;i++){
     if(searched>=m){
       break;
@@ -189,6 +189,67 @@ void nearestNeigbor(HyperCube hc,Vector q,int hammingDist,int m){
     printf("- DID NOT FIND NEAREST NEIGHBOR\n");
   }
   printf("Checked: %d  vectors\n",searched);
+}
+
+void searchForHammingDistanceKNN(HyperCube hc,Vector v,int *v_index,int hammingDist,int startFrom,Vector *nearest,double *nearestDist,int *numOfSearched,int maxToSearch,int knn){
+  if(hammingDist<=0){
+    int new_index = binaryArrayToDecimal(v_index,k);
+    printf("** HAMMING INDEX =%d\n",new_index);
+    htKFindNearestNeighborsCube(hc->hypercube,new_index,v,nearest,nearestDist,d,knn,numOfSearched,maxToSearch);
+    return;
+  }
+  for(int i=startFrom;i<k;i++){
+      v_index[i] = v_index[i]^1;
+      searchForHammingDistanceKNN(hc,v,v_index,hammingDist-1,i+1,nearest,nearestDist,numOfSearched,maxToSearch,knn);
+      // search
+      v_index[i] = v_index[i]^1;
+      if((*numOfSearched)>=maxToSearch){
+        break;
+      }
+  }
+}
+
+void kNearestNeigbors(HyperCube hc,Vector q,int knn,int hammingDist,int m){
+  printf("ABOUT TO SEARCH %d NEAREST NEIGHBORS FOR : ",knn);
+  printVector(q);
+  Vector nearest[knn];
+  double knearestDists[knn];
+  for (int i = 0; i < knn; i++){
+    knearestDists[i]=-1;
+    nearest[i]=NULL;
+  }
+
+  int index[k];
+  int searched = 0;
+  for(int i=0;i<k;i++){
+    int h_result = computeH(hc->h_functions[i],q);
+    int f_result = computeF(hc->f_funs[i],h_result);
+    index[i] = f_result;
+  }
+  int index_decimal = binaryArrayToDecimal(index,k);
+  printf("** INITIAL INDEX =%d\n",index_decimal);
+  htKFindNearestNeighborsCube(hc->hypercube,index_decimal,q,nearest,knearestDists,d,knn,&searched,m);
+
+  for(int i=1;i<=hammingDist;i++){
+    if(searched>=m){
+      break;
+    }
+    printf("--------*********--------------\n");
+    searchForHammingDistanceKNN(hc,q,index,i,0,nearest,knearestDists,&searched,m,knn);
+  }
+
+  int flag=1;
+  for (int i = knn-1; i >= 0; i--){
+    if (knearestDists[i] >= 0 && nearest[i] != NULL){
+      printf("FOUND %d NEAREST NEIGHBOR: ",i);
+      printVector(nearest[i]);
+      printf("WITH DISTANCE =  %f\n", knearestDists[i]);
+      flag=0;
+    }
+  }
+  if(flag){
+    printf("- DID NOT FIND NEAREST NEIGHBOR\n");
+  }
 }
 
 

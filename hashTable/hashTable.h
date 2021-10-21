@@ -20,5 +20,6 @@ void htFindNeighborsInRadius(HashTable ,int ,HashTable ,Vector ,int ,int ,int );
 void htRangeInsert(HashTable , Vector ,int ,int );
 
 void htFindNearestNeighborCube(HashTable ,int ,Vector ,Vector *,double *,int ,int *,int );
+void htKFindNearestNeighborsCube(HashTable ,int ,Vector ,Vector *,double *,int ,int ,int *,int );
 
 #endif

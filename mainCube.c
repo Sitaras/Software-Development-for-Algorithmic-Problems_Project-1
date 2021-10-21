@@ -137,6 +137,8 @@ int main(int argc, char *argv[]) {
   Vector vecTmp=initVector(vec);
 
   nearestNeigbor(hc,vecTmp,1,4);
+  printf("================================================\n");
+  kNearestNeigbors(hc,vecTmp,3,3,100);
 
   // printOptions(); // just printing the commands options for the user
   //

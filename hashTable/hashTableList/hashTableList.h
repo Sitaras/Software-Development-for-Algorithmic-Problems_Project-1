@@ -21,4 +21,5 @@ void listFindKNearestNeighbors(List, Vector, Vector *, double *, int,int ,int );
 void listFindNeighborsInRadius(List ,HashTable ,Vector ,int ,int ,int );
 
 void listFindNearestNeighborCube(List ,Vector ,Vector *,double *,int ,int *,int );
+void listFindKNearestNeighborsCube(List ,Vector ,Vector *,double *,int ,int ,int *,int );
 #endif

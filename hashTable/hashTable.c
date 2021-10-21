@@ -118,3 +118,7 @@ void htFindNeighborsInRadius(HashTable ht,int index,HashTable storeNeighbors,Vec
 void htFindNearestNeighborCube(HashTable ht,int index,Vector q,Vector *nearest,double *nearestDist,int d,int *numOfSearched,int maxToSearch){
   listFindNearestNeighborCube(ht->table[index].head,q,nearest,nearestDist,d,numOfSearched,maxToSearch);
 }
+
+void htKFindNearestNeighborsCube(HashTable ht,int index,Vector q,Vector *nearest,double *nearestDist,int d,int k,int *numOfSearched,int maxToSearch){
+  listFindKNearestNeighborsCube(ht->table[index].head, q, nearest, nearestDist, d,k,numOfSearched,maxToSearch);
+}
