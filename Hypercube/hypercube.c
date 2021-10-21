@@ -48,6 +48,20 @@ int binaryToDecimal(int n)
 
     return dec_value;
 }
+
+int binaryArrayToDecimal(int s[],int size)
+{
+    int n = 0;
+    int i;
+
+    for (i = 0; i < size; ++i) {
+        n <<= 1;
+        n += s[i];
+    }
+
+    return n;
+}
+
 /* H FUNCTIONS*/
 
 void generateH(h_function *hfun){
@@ -124,3 +138,178 @@ void deleteHyperCube(HyperCube hc){
   htDelete(hc->hypercube,1);
   free(hc);
 }
+
+
+void searchForHammingDistance(HyperCube hc,Vector v,int *v_index,int hammingDist,int startFrom,Vector *nearest,double *nearestDist,int *numOfSearched,int maxToSearch){
+  if(hammingDist<=0){
+    int new_index = binaryArrayToDecimal(v_index,k);
+    printf("** HAMMING INDEX =%d\n",new_index);
+    htFindNearestNeighborCube(hc->hypercube,new_index,v,nearest,nearestDist,d,numOfSearched,maxToSearch);
+    return;
+  }
+  for(int i=startFrom;i<k;i++){
+      v_index[i] = v_index[i]^1;
+      searchForHammingDistance(hc,v,v_index,hammingDist-1,i+1,nearest,nearestDist,numOfSearched,maxToSearch);
+      // search
+      v_index[i] = v_index[i]^1;
+      if((*numOfSearched)>=maxToSearch){
+        break;
+      }
+  }
+}
+
+void nearestNeigbor(HyperCube hc,Vector q,int hammingDist,int m){
+  printf("ABOUT TO SEARCH NEAREST NEIGHBOR FOR : ");
+  printVector(q);
+  Vector nearest=NULL;
+  double nearestDist=-1;
+  int index[k];
+  int searched = 0;
+  for(int i=0;i<k;i++){
+    int h_result = computeH(hc->h_functions[i],q);
+    int f_result = computeF(hc->f_funs[i],h_result);
+    index[i] = f_result;
+  }
+  int index_decimal = binaryArrayToDecimal(index,k);
+  printf("** INITIAL INDEX =%d\n",index_decimal);
+  htFindNearestNeighborCube(hc->hypercube,index_decimal,q,&nearest,&nearestDist,d,&searched,m);
+
+  for(int i=1;i<=hammingDist;i++){
+    if(searched>=m){
+      break;
+    }
+    searchForHammingDistance(hc,q,index,i,0,&nearest,&nearestDist,&searched,m);
+  }
+
+  if(nearestDist>=0 && nearest!=NULL){
+    printf("FOUND NEAREST NEIGHBOR ");
+    printVector(nearest);
+    printf("WITH DISTANCE =  %f\n",nearestDist);
+  }else{
+    printf("- DID NOT FIND NEAREST NEIGHBOR\n");
+  }
+  printf("Checked: %d  vectors\n",searched);
+}
+
+void searchForHammingDistanceKNN(HyperCube hc,Vector v,int *v_index,int hammingDist,int startFrom,Vector *nearest,double *nearestDist,int *numOfSearched,int maxToSearch,int knn){
+  if(hammingDist<=0){
+    int new_index = binaryArrayToDecimal(v_index,k);
+    printf("** HAMMING INDEX =%d\n",new_index);
+    htKFindNearestNeighborsCube(hc->hypercube,new_index,v,nearest,nearestDist,d,knn,numOfSearched,maxToSearch);
+    return;
+  }
+  for(int i=startFrom;i<k;i++){
+      v_index[i] = v_index[i]^1;
+      searchForHammingDistanceKNN(hc,v,v_index,hammingDist-1,i+1,nearest,nearestDist,numOfSearched,maxToSearch,knn);
+      // search
+      v_index[i] = v_index[i]^1;
+      if((*numOfSearched)>=maxToSearch){
+        break;
+      }
+  }
+}
+
+void kNearestNeigbors(HyperCube hc,Vector q,int knn,int hammingDist,int m){
+  printf("ABOUT TO SEARCH %d NEAREST NEIGHBORS FOR : ",knn);
+  printVector(q);
+  Vector nearest[knn];
+  double knearestDists[knn];
+  for (int i = 0; i < knn; i++){
+    knearestDists[i]=-1;
+    nearest[i]=NULL;
+  }
+
+  int index[k];
+  int searched = 0;
+  for(int i=0;i<k;i++){
+    int h_result = computeH(hc->h_functions[i],q);
+    int f_result = computeF(hc->f_funs[i],h_result);
+    index[i] = f_result;
+  }
+  int index_decimal = binaryArrayToDecimal(index,k);
+  printf("** INITIAL INDEX =%d\n",index_decimal);
+  htKFindNearestNeighborsCube(hc->hypercube,index_decimal,q,nearest,knearestDists,d,knn,&searched,m);
+
+  for(int i=1;i<=hammingDist;i++){
+    if(searched>=m){
+      break;
+    }
+    printf("--------*********--------------\n");
+    searchForHammingDistanceKNN(hc,q,index,i,0,nearest,knearestDists,&searched,m,knn);
+  }
+
+  int flag=1;
+  for (int i = knn-1; i >= 0; i--){
+    if (knearestDists[i] >= 0 && nearest[i] != NULL){
+      printf("FOUND %d NEAREST NEIGHBOR: ",i);
+      printVector(nearest[i]);
+      printf("WITH DISTANCE =  %f\n", knearestDists[i]);
+      flag=0;
+    }
+  }
+  if(flag){
+    printf("- DID NOT FIND NEAREST NEIGHBOR\n");
+  }
+}
+
+
+
+void searchForHammingDistanceRadius(HyperCube hc,Vector v,int *v_index,int hammingDist,int startFrom,HashTable vecsInRadius,int *numOfSearched,int maxToSearch,int radius){
+  if(hammingDist<=0){
+    int new_index = binaryArrayToDecimal(v_index,k);
+    printf("** HAMMING INDEX =%d\n",new_index);
+    htFindNeighborsInRadiusCube(hc->hypercube,new_index,vecsInRadius,v,d,radius,numOfSearched,maxToSearch);
+    return;
+  }
+  for(int i=startFrom;i<k;i++){
+      v_index[i] = v_index[i]^1;
+      searchForHammingDistanceRadius(hc,v,v_index,hammingDist-1,i+1,vecsInRadius,numOfSearched,maxToSearch,radius);
+      // search
+      v_index[i] = v_index[i]^1;
+      if((*numOfSearched)>=maxToSearch){
+        break;
+      }
+  }
+}
+
+
+void radiusNeigbor(HyperCube hc,Vector q,double radius,int hammingDist,int m){
+  printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
+  HashTable vecsInRadius = htInitialize(100); // TODO: CHANGE SIZE
+
+  int index[k];
+  int searched = 0;
+  for(int i=0;i<k;i++){
+    int h_result = computeH(hc->h_functions[i],q);
+    int f_result = computeF(hc->f_funs[i],h_result);
+    index[i] = f_result;
+  }
+  int index_decimal = binaryArrayToDecimal(index,k);
+  printf("** INITIAL INDEX =%d\n",index_decimal);
+  htFindNeighborsInRadiusCube(hc->hypercube,index_decimal,vecsInRadius,q,d,radius,&searched,m);
+
+  for(int i=1;i<=hammingDist;i++){
+    if(searched>=m){
+      break;
+    }
+    printf("--------*********--------------\n");
+    searchForHammingDistanceRadius(hc,q,index,i,0,vecsInRadius,&searched,m,radius);
+  }
+
+  htRangePrint(vecsInRadius,q,d);
+
+  htDelete(vecsInRadius,0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+///

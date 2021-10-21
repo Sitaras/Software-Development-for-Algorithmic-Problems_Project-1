@@ -58,7 +58,7 @@ int hashFunction(const HashTable ht,Vector v,int d){ /* Hash function only used 
   int c;
   for(int i=0;i<d;i++){
     c = coords[i];
-    hash = ((hash * 33) + hash) + c; /* hash * 33 + c */
+    hash = (int)(((hash * 33) + hash) + c)% ht->buckets; /* hash * 33 + c */
   }
   return (((int)hash) % ht->buckets);
 }
@@ -112,4 +112,17 @@ void htKFindNearestNeighbors(HashTable ht,int index,Vector q,Vector *nearest,dou
 
 void htFindNeighborsInRadius(HashTable ht,int index,HashTable storeNeighbors,Vector q,int d,int id,int radius){
   listFindNeighborsInRadius(ht->table[index].head,storeNeighbors,q,d,id,radius);
+}
+
+
+void htFindNearestNeighborCube(HashTable ht,int index,Vector q,Vector *nearest,double *nearestDist,int d,int *numOfSearched,int maxToSearch){
+  listFindNearestNeighborCube(ht->table[index].head,q,nearest,nearestDist,d,numOfSearched,maxToSearch);
+}
+
+void htKFindNearestNeighborsCube(HashTable ht,int index,Vector q,Vector *nearest,double *nearestDist,int d,int k,int *numOfSearched,int maxToSearch){
+  listFindKNearestNeighborsCube(ht->table[index].head, q, nearest, nearestDist, d,k,numOfSearched,maxToSearch);
+}
+
+void htFindNeighborsInRadiusCube(HashTable ht,int index,HashTable storeNeighbors,Vector q,int d,int radius,int *numOfSearched,int maxToSearch){
+  listFindNeighborsInRadiusCube(ht->table[index].head,storeNeighbors,q,d,radius,numOfSearched,maxToSearch);
 }

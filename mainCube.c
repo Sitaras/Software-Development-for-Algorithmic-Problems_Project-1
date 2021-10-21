@@ -133,6 +133,15 @@ int main(int argc, char *argv[]) {
 
   printHyperCube(hc);
 
+  double vec[6] = {21,  3,  3,  18,  25,  11};
+  Vector vecTmp=initVector(vec);
+
+  nearestNeigbor(hc,vecTmp,1,4);
+  printf("================================================\n");
+  kNearestNeigbors(hc,vecTmp,3,3,100);
+  printf("================================================\n");
+  radiusNeigbor(hc,vecTmp,25,2,100);
+
   // printOptions(); // just printing the commands options for the user
   //
   //
