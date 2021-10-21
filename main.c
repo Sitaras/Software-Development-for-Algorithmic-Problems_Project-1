@@ -5,7 +5,7 @@
 #include "Vector/vector.h"
 #include "./hashTable/hashTable.h"
 #include "LSH/lsh.h"
-#include "./parsing/parsing.h"
+#include "./parsing/parsingLSH.h"
 
 int d;
 

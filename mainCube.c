@@ -3,6 +3,8 @@
 #include <string.h>
 #include <time.h>
 
+int d;
+
 int main(int argc, char const *argv[]) {
 
   printf("Hello Johny\n");
