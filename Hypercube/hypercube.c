@@ -116,9 +116,11 @@ void printHyperCube(HyperCube hc){
 
 void deleteHyperCube(HyperCube hc){
   for(int i=0;i<k;i++){
+    destroyH(hc->h_functions[i]);
     hmDestroy(hc->f_funs[i]);
   }
   free(hc->f_funs);
+  free(hc->h_functions);
   htDelete(hc->hypercube,1);
   free(hc);
 }

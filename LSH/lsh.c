@@ -132,6 +132,8 @@ void destroyLSH(LSH lsh){
      destroyG(lsh->g_fun[i]);
      htDelete(lsh->hts[i],!i);
   }
+  free(lsh->g_fun);
+  free(lsh->hts);
   free(lsh);
 }
 

@@ -13,12 +13,25 @@ int m;
 int probes;
 int w;
 
+void printOptions(){
+  printf("_________________Options____________________\n\n");
+	printf("1. /repeat <new_input_file>\n\n");
+	printf("2. /exit\n\n");
+	printf("_____________________________________\n\n");
+}
+
+
+
 int main(int argc, char *argv[]) {
   srand(time(NULL));
   int option;
+  char str[200];
   char inputFile[100];
+  int inputflag=0;
   char queryFile[100];
+  int queryflag=0;
   char outputFile[100];
+  int outputflag=0;
   int m=10;
   int n=1;
   int r=10000;
@@ -79,10 +92,36 @@ int main(int argc, char *argv[]) {
   }
 
 
-  if(checkflag!=3){
-    // fprintf(stderr, "Usage: %s –i <input file> –q <query file> –k <int> -M <int> -probes <int> -ο <output file> -Ν <number of nearest> -R <radius>\n",argv[0]);
-    // exit(EXIT_FAILURE);
-  }
+  // if(!inputflag){
+  //   printf(">Input file name: ");
+  //   fflush(stdin); // clear stdin buffer
+  //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+  //     perror("Error reading string with fgets\n");
+  //     exit(1);
+  //   }
+  //   strcpy(inputFile,str);
+  //   printf("Given input File : %s\n", inputFile);
+  // }
+  // if(!queryflag){
+  //   printf(">Query file name: ");
+  //   fflush(stdin); // clear stdin buffer
+  //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+  //     perror("Error reading string with fgets\n");
+  //     exit(1);
+  //   }
+  //   strcpy(queryFile,str);
+  //   printf("Given query File : %s\n", queryFile);
+  // }
+  // if(!outputflag){
+  //   printf(">Output file name: ");
+  //   fflush(stdin); // clear stdin buffer
+  //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+  //     perror("Error reading string with fgets\n");
+  //     exit(1);
+  //   }
+  //   strcpy(outputFile,str);
+  //   printf("Given output File : %s\n", outputFile);
+  // }
 
   k = 4;
   w = 6;
@@ -93,6 +132,35 @@ int main(int argc, char *argv[]) {
   readFile("testing2.txt",hc);
 
   printHyperCube(hc);
+
+  // printOptions(); // just printing the commands options for the user
+  //
+  //
+  // char command[200];
+  // while(1){
+  //
+  //   printf("\n");
+  //   printf(">Enter a command: ");
+  //   fflush(stdin); // clear stdin buffer
+  //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+  //     perror("Error reading string with fgets\n");
+  //     exit(1);
+  //   }
+  //   else if(strstr(str, "/repeat") != NULL) {
+  //     sscanf(str,"%s %s\n",command,inputFile);
+  //     printf("FILE: %s\n",inputFile);
+  //     continue;
+  //   }
+  //   else if(strcmp(str,"/exit\n")==0){
+  //     break;
+  //   }
+  //   else{
+  //     printf("\n\n  --- Wrong command ! Please, try again. ---  \n\n");
+  //     printOptions(); // just printing the commands options for the user
+  //     continue;
+  //   }
+  //
+  // }
 
   deleteHyperCube(hc);
   return 0;
