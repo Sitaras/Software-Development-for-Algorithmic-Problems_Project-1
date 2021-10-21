@@ -4,7 +4,7 @@
 #include <string.h>
 #include "../Vector/vector.h"
 #include "../hashTable/hashTable.h"
-#include "../LSH/lsh.h"
+#include "../Hypercube/hypercube.h"
 
 #define OUT    0
 #define IN    1
@@ -82,54 +82,54 @@ int findDim(char* fileName){
 }
 
 
-// void readFile(char* fileName,LSH lsh){
-//
-//    FILE *file = fopen(fileName, "r"); // read mode
-//
-//    if (file == NULL){
-//       perror("Error while opening the file.\n");
-//       exit(-1);
-//    }
-//
-//   if (feof(file)){ // empty file, return
-//     return;
-//   }
-//
-//   // int numberOfVectors=countLines(file);
-//   // int** arrVectors = malloc(numberOfVectors * sizeof(int*));
-//   // for (i = 0; i < numberOfVectors; i++)
-//   //     arrVectors[i] = malloc(dimensions * sizeof(int));
-//
-//   char buffer[MAX_INPUT_LENGTH];
-//
-//
-//   while(!feof(file)){
-//     fflush(stdin);  // clear stdin buffer
-//     if(fscanf(file,"%[^\n]\n",buffer)<0){ // read a line from the file
-//       continue;
-//     }
-//
-//     double vec[d];
-//     char * token = strtok(buffer, "  ");
-//     printf("NAME = %s\n",token);
-//     token = strtok(NULL, "  ");
-//      // loop through the string to extract all other tokens
-//      int counter = 0;
-//      while( token != NULL ) {
-//         printf( " - %s\n", token ); //printing each token
-//         vec[counter++]=atof(token);
-//         token = strtok(NULL, "  ");
-//      }
-//      Vector vecTmp=initVector(vec);
-//      insertToLSH(lsh,vecTmp);
-//
-//
-//
-//
-//   }
-//
-//
-//   fclose(file);
-//
-//
-// }
+void readFile(char* fileName,HyperCube hc){
+
+   FILE *file = fopen(fileName, "r"); // read mode
+
+   if (file == NULL){
+      perror("Error while opening the file.\n");
+      exit(-1);
+   }
+
+  if (feof(file)){ // empty file, return
+    return;
+  }
+
+  // int numberOfVectors=countLines(file);
+  // int** arrVectors = malloc(numberOfVectors * sizeof(int*));
+  // for (i = 0; i < numberOfVectors; i++)
+  //     arrVectors[i] = malloc(dimensions * sizeof(int));
+
+  char buffer[MAX_INPUT_LENGTH];
+
+
+  while(!feof(file)){
+    fflush(stdin);  // clear stdin buffer
+    if(fscanf(file,"%[^\n]\n",buffer)<0){ // read a line from the file
+      continue;
+    }
+
+    double vec[d];
+    char * token = strtok(buffer, "  ");
+    printf("NAME = %s\n",token);
+    token = strtok(NULL, "  ");
+     // loop through the string to extract all other tokens
+     int counter = 0;
+     while( token != NULL ) {
+        printf( " - %s\n", token ); //printing each token
+        vec[counter++]=atof(token);
+        token = strtok(NULL, "  ");
+     }
+     Vector vecTmp=initVector(vec);
+     insertToHyperCube(hc,vecTmp);
+
+
+
+
+  }
+
+
+  fclose(file);
+
+
+}

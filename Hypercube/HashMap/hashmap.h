@@ -11,13 +11,13 @@ typedef struct hash *HashMap;
 Key getKey(Record );
 Value getValue(Record );
 
-HashMap htCreate(int );
+HashMap hmCreate(int );
 
-Record htSearchOrInsert(HashMap ,Key ,Value );
+Record hmSearchOrInsert(HashMap ,Key ,Value );
 
-Record htSearch(HashMap ,Key );
+Record hmSearch(HashMap ,Key );
 
-void htDestroy(HashMap );
+void hmDestroy(HashMap );
 
 
 
