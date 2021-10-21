@@ -97,7 +97,7 @@ void listPrint(List list){
     }
 }
 void listRangePrint(List list,Vector q,int d){
-    if(list==NULL){  return;}
+    if(list==NULL){ return;}
     List temp=list;
     while(temp!=NULL){
         printf("Found vector: ");
@@ -345,6 +345,22 @@ void listFindNeighborsInRadius(List list,HashTable storeNeighbors,Vector q,int d
       if(dist<=radius){
         htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
       }
+    }
+    temp=temp->next;
+  }
+}
+
+void listFindNeighborsInRadiusCube(List list,HashTable storeNeighbors,Vector q,int d,int radius,int *numOfSearched,int maxToSearch){
+  if(list==NULL){ return;}
+  List temp=list;
+  while(temp!=NULL){
+    if((*numOfSearched)>=maxToSearch){
+      return;
+    }
+    double dist = distance_metric(temp->v,q,d);
+    (*numOfSearched) += 1;
+    if(dist<=radius){
+      htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
     }
     temp=temp->next;
   }
