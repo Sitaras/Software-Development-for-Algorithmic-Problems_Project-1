@@ -142,6 +142,23 @@ void listFindNearestNeighbor(List list,Vector q,Vector *nearest,double *nearestD
   }
 }
 
+void listFindNearestNeighborCube(List list,Vector q,Vector *nearest,double *nearestDist,int d,int *numOfSearched,int maxToSearch){
+  if(list==NULL){ return;}
+  List temp=list;
+  while(temp!=NULL){
+    if((*numOfSearched)>=maxToSearch){
+      return;
+    }
+    double dist = distance_metric(temp->v,q,d);
+    if(dist<(*nearestDist) || (*nearestDist)<0){
+      (*nearestDist) = dist;
+      (*nearest) = temp->v;
+    }
+    (*numOfSearched)+=1;
+    temp=temp->next;
+  }
+}
+
 void swapDoubles(double *xp, double *yp)
 {
   double temp = *xp;
