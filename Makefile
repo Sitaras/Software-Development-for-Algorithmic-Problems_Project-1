@@ -4,12 +4,13 @@ PARSING=./parsing
 VECTOR=./Vector
 LSH=./LSH
 HASHMAP = ./Hypercube/HashMap
+HYPERCUBE = ./HyperCube
 
 CC=gcc
 CFLAGS= -g -Wall -I$(HASHTABLELIST) -I$(HASHTABLE) -I$(PARSING) -I$(VECTOR) -I$(LSH)
 
 OBJ1= main.o $(HASHTABLE)/hashTable.o $(HASHTABLELIST)/hashTableList.o $(PARSING)/parsingLSH.o $(VECTOR)/vector.o  $(LSH)/lsh.o $(LSH)/helperFunctions.o
-OBJ2= mainCube.o $(HASHTABLE)/hashTable.o $(HASHTABLELIST)/hashTableList.o $(PARSING)/parsingCube.o $(VECTOR)/vector.o $(HASHMAP)/hashmap.o
+OBJ2= mainCube.o $(HASHTABLE)/hashTable.o $(HASHTABLELIST)/hashTableList.o $(PARSING)/parsingCube.o $(VECTOR)/vector.o $(HYPERCUBE)/hypercube.o $(HASHMAP)/hashmap.o $(LSH)/helperFunctions.o
 
 EXEC1 = demo
 EXEC2 = demoCube
