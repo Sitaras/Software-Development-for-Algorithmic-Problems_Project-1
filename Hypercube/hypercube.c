@@ -104,7 +104,7 @@ void insertToHyperCube(HyperCube hc,Vector v){
     index += f_result;
   }
   printf("INDEX = %d\n",index);
-  int decimal_index = binaryToDecimal(index);
+  int decimal_index = binaryToDecimal(index); // "hashTable key"
   htInsert(hc->hypercube,v,decimal_index,-1);
 }
 
