@@ -23,16 +23,19 @@ int main(int argc, char *argv[])  {
   int l=5;
   int n=1;
   int r=10000;
+  int checkflag=0;
   k=4;
 
   while((option = getopt(argc, argv, "i:q:k:L:o:N:R:")) != -1){
      switch(option){
         case 'i':
+        checkflag++;
         strcpy(inputFile,optarg);
         printf("Given input File : %s\n", inputFile);
         break;
 
         case 'q':
+        checkflag++;
         strcpy(queryFile,optarg);
         printf("Given query File : %s\n", queryFile);
         break;
@@ -48,6 +51,7 @@ int main(int argc, char *argv[])  {
         break;
 
         case 'o':
+        checkflag++;
         strcpy(outputFile,optarg);
         printf("Given output File : %s\n", outputFile);
         break;
@@ -67,6 +71,11 @@ int main(int argc, char *argv[])  {
           fprintf(stderr, "Usage: %s –i <input file> –q <query file> –k <int> -L <int> -ο <output file> -Ν <number of nearest> -R <radius> name\n",argv[0]);
           exit(EXIT_FAILURE);
      }
+  }
+
+  if(checkflag!=3){
+    // fprintf(stderr, "Usage: %s –i <input file> –q <query file> –k <int> -L <int> -ο <output file> -Ν <number of nearest> -R <radius> name\n",argv[0]);
+    // exit(EXIT_FAILURE);
   }
 
   srand(time(NULL));

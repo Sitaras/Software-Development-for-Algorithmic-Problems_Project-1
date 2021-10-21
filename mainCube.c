@@ -23,16 +23,19 @@ int main(int argc, char *argv[]) {
   int n=1;
   int r=10000;
   int probes=2;
+  int checkflag=0;
   k=14;
 
   while((option = getopt(argc, argv, "i:q:k:M:p:o:N:R:")) != -1){
      switch(option){
         case 'i':
+        checkflag++;
         strcpy(inputFile,optarg);
         printf("Given input File : %s\n", inputFile);
         break;
 
         case 'q':
+        checkflag++;
         strcpy(queryFile,optarg);
         printf("Given query File : %s\n", queryFile);
         break;
@@ -53,6 +56,7 @@ int main(int argc, char *argv[]) {
         break;
 
         case 'o':
+        checkflag++;
         strcpy(outputFile,optarg);
         printf("Given output File : %s\n", outputFile);
         break;
@@ -69,13 +73,16 @@ int main(int argc, char *argv[]) {
          printf("option needs a value\n");
          break;
         default: /* '?' */
-          fprintf(stderr, "Usage: %s –i <input file> –q <query file> –k <int> -M <int> -probes <int> -ο <output file> -Ν <number of nearest> -R <radius>\n",
-                  argv[0]);
+          fprintf(stderr, "Usage: %s –i <input file> –q <query file> –k <int> -M <int> -probes <int> -ο <output file> -Ν <number of nearest> -R <radius>\n",argv[0]);
           exit(EXIT_FAILURE);
      }
   }
 
 
+  if(checkflag!=3){
+    // fprintf(stderr, "Usage: %s –i <input file> –q <query file> –k <int> -M <int> -probes <int> -ο <output file> -Ν <number of nearest> -R <radius>\n",argv[0]);
+    // exit(EXIT_FAILURE);
+  }
 
   k = 4;
   w = 6;
