@@ -1,7 +1,7 @@
-item_id1  5  4
-item_id2  0  13
-item_id3  7  2
-item_id4  2  3
-item_id5  10  15
-item_id6  17  3
-item_id7  5  23
+item_id1 5 4
+item_id2 0 13
+item_id3 7 2
+item_id4 2 3
+item_id5 10 15
+item_id6 17 3
+item_id7 5 23

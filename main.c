@@ -119,6 +119,7 @@ int main(int argc, char *argv[])  {
   hashTableSize = 5;
   k = 4;
   w = 6;
+  // d = findDim("input_small_id");
   d = findDim("testing.txt");
   printf("DIMENSION = %d\n",d);
 

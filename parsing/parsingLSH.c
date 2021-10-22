@@ -110,7 +110,7 @@ void readFile(char* fileName,LSH lsh){
     }
 
     double vec[d];
-    char * token = strtok(buffer, "  ");
+    char * token = strtok(buffer, " ");
     printf("NAME = %s\n",token);
     token = strtok(NULL, "  ");
      // loop through the string to extract all other tokens
