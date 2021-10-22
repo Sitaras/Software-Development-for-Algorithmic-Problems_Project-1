@@ -119,23 +119,26 @@ int main(int argc, char *argv[])  {
   hashTableSize = 5;
   k = 4;
   w = 6;
-  // d = findDim("input_small_id");
-  d = findDim("testing.txt");
+  d = findDim("input_small_id");
+  // d = findDim("testing.txt");
   printf("DIMENSION = %d\n",d);
 
   LSH temp = initializeLSH(l);
-  readFile("testing.txt",temp);
+  readFile("input_small_id",temp);
   // printLSH(temp);
 
 
-  double vec[2] = {1.0 , 1.0};
+  double vec[129] = {1.0 , 1.0};
+  for (int i = 3; i < d; i++) {
+    vec[d]=0;
+  }
   Vector vecTmp=initVector(vec);
-
+  //
   nearestNeigbor(temp,vecTmp);
-  printf("================================================\n");
+  // printf("================================================\n");
   kNearestNeigbors(temp, vecTmp, 3);
-  printf("================================================\n");
-  radiusNeigbor(temp,vecTmp,20.0);
+  // printf("================================================\n");
+  // radiusNeigbor(temp,vecTmp,20.0);
 
 
   // printOptions(); // just printing the commands options for the user
