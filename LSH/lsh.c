@@ -149,7 +149,6 @@ void nearestNeigbor(LSH lsh,Vector q){
   for(int i=0;i<l;i++){
     int q_ID;
     int q_index = computeG(gfuns[i],q,&q_ID);
-    if(i==0) printf("INDEX = %d\n",q_index );
     htFindNearestNeighbor(hts[i],q_index,q,&nearest,&nearestDist,d,q_ID);
   }
   if(nearestDist>=0 && nearest!=NULL){
