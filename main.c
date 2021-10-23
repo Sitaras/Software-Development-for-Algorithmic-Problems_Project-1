@@ -32,7 +32,7 @@ int main(int argc, char *argv[])  {
   int queryflag=0;
   char outputFile[100];
   int outputflag=0;
-  int l=5;
+  int l=6;
   int n=1;
   int r=10000;
   k=4;
@@ -116,9 +116,9 @@ int main(int argc, char *argv[])  {
   // }
 
   srand(time(NULL));
-  hashTableSize = 5;
-  k = 4;
-  w = 6;
+  hashTableSize = 50;
+  k = 6;
+  w = 8;
   d = findDim("input_small_id");
   // d = findDim("testing.txt");
   printf("DIMENSION = %d\n",d);
@@ -128,17 +128,20 @@ int main(int argc, char *argv[])  {
   // printLSH(temp);
 
 
-  double vec[129] = {1.0 , 1.0};
+  double vec[128] = {1.0 , 1.0};
   for (int i = 3; i < d; i++) {
     vec[d]=0;
   }
-  Vector vecTmp=initVector(vec);
+  double vec2[128] = {0,16,35,5,32,31,14,10,11,78,55,10,45,83,11,6,14,57,102,75,20,8,3,5,67,17,19,26,5,0,1,22,60,26,7,1,18,22,84,53,85,119,119,4,24,18,7,7,1,81,106,102,72,30,6,0,9,1,9,119,72,1,4,33,119,29,6,1,0,1,14,52,119,30,3,0,0,55,92,111,2,5,4,9,22,89,96,14,1,0,1,82,59,16,20,5,25,14,11,4,0,0,1,26,47,23,4,0,0,4,38,83,30,14,9,4,9,17,23,41,0,0,2,8,19,25,23,1};
+  Vector vecTmp=initVector(vec2);
   //
+  printf("================================================\n");
   nearestNeigbor(temp,vecTmp);
-  // printf("================================================\n");
+  printf("================================================\n");
   kNearestNeigbors(temp, vecTmp, 3);
-  // printf("================================================\n");
-  // radiusNeigbor(temp,vecTmp,20.0);
+  printf("================================================\n");
+  // printLSH(temp);
+  radiusNeigbor(temp,vecTmp,200.0);
 
 
   // printOptions(); // just printing the commands options for the user

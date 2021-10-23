@@ -25,7 +25,7 @@ int countWords(char *str){
     {
         // If next character is a separator, set the
         // state as OUT
-        if (*str == ' ' || *str == '\n' || *str == '\t')
+        if (*str == ' ' || *str == '\n' || *str == '\t' || *str == '\0')
             state = OUT;
 
         // If next character is not a word separator and
@@ -42,6 +42,22 @@ int countWords(char *str){
     }
 
     return wc;
+}
+
+// returns number of words in str
+int countWords2(char *str){
+    char * token = strtok(str, " ");
+    // printf("NAME = %s\n",token);
+    token = strtok(NULL, " ");
+     // loop through the string to extract all other tokens
+     int counter = 0;
+     while( token != NULL ) {
+        // printf( " - %s\n", token ); //printing each token
+        counter++;
+        token = strtok(NULL, " ");
+     }
+
+    return counter;
 }
 
 int countLines(FILE *fp){
@@ -76,9 +92,9 @@ int findDim(char* fileName){
    perror("Error while reading the file.\n");
    exit(-1);
  }
- int dims = countWords(buffer)-1;
+ int dims = countWords2(buffer);
  fclose(file);
- return dims;
+ return dims-1;
 }
 
 
@@ -102,7 +118,6 @@ void readFile(char* fileName,LSH lsh){
 
   char buffer[MAX_INPUT_LENGTH];
 
-
   while(!feof(file)){
     fflush(stdin);  // clear stdin buffer
     if(fscanf(file,"%[^\n]\n",buffer)<0){ // read a line from the file
@@ -112,13 +127,13 @@ void readFile(char* fileName,LSH lsh){
     double vec[d];
     char * token = strtok(buffer, " ");
     // printf("NAME = %s\n",token);
-    token = strtok(NULL, "  ");
+    token = strtok(NULL, " ");
      // loop through the string to extract all other tokens
      int counter = 0;
      while( token != NULL ) {
         // printf( " - %s\n", token ); //printing each token
         vec[counter++]=atof(token);
-        token = strtok(NULL, "  ");
+        token = strtok(NULL, " ");
      }
      Vector vecTmp=initVector(vec);
      insertToLSH(lsh,vecTmp);
