@@ -1,5 +1,5 @@
-#ifndef PARSING_H
-#define PARSING_H
+#ifndef PARSINGCUBE_H
+#define PARSINGCUBE_H
 
 
 void readFile(char*,HyperCube );
