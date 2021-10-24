@@ -108,7 +108,6 @@ int findClosestCentroid(Vector v,Vector *clusters,int numOfClusters){
 
 void lloyds(Vector* clusters,Vector *oldClusters,Vector* vectors,List* clustersList,int numberOfVectors,int numOfClusters) {
   static int flag=0;
-  printf("**** lloyds->%d\n",flag);
   if(flag) //skip it for the first time
     for(int i=0;i<numOfClusters;i++){
       Vector newCenter;
@@ -117,7 +116,6 @@ void lloyds(Vector* clusters,Vector *oldClusters,Vector* vectors,List* clustersL
       }else{
         newCenter=copyVector(oldClusters[i]);
       }
-      printf("HERERERE22333\n");
       listDelete(clustersList[i],0);
       clustersList[i] = NULL;
 
@@ -138,8 +136,8 @@ void clustering(List vecList,int numOfClusters){
   double *props;
 
   vectors = transformListToArray(vecList,numOfVecs);
-  clusters = malloc(numOfClusters*sizeof(int));
-  oldClusters = malloc(numOfClusters*sizeof(int));
+  clusters = malloc(numOfClusters*sizeof(Vector));
+  oldClusters = malloc(numOfClusters*sizeof(Vector));
   for(int i=0;i<numOfClusters;i++){
     clusters[i] = NULL;
     oldClusters[i] = NULL;
@@ -157,11 +155,11 @@ void clustering(List vecList,int numOfClusters){
     clustersList[i]=initializeList();
   }
   int count =0;
-  while(firstIter || !centroidsCovnerge(clusters,oldClusters,numOfClusters,d)){
+  while((count<2) || !centroidsCovnerge(clusters,oldClusters,numOfClusters,d)){
   // while(firstIter || count<20){
     printf("ITER %d\n",count);
     count++;
-    if(count<2){
+    if(!firstIter){
       Vector *temp = oldClusters;
       oldClusters=clusters;
       clusters = temp;
@@ -179,14 +177,14 @@ void clustering(List vecList,int numOfClusters){
     firstIter=FALSE;
   }
 
-
+  printf("==============================\n");
   //
-  // for(int i=0;i<numOfClusters;i++){
-  //   printf("- CLUSTER :%d\n",i);
-  //   printVector(clusters[i]);
-  //   // printf("- CLUSTER LIST\n");
-  //   // listPrint(clustersList[i]);
-  // }
+  for(int i=0;i<numOfClusters;i++){
+    printf("- CLUSTER :%d\n",i);
+    printVector(clusters[i]);
+    printf("- CLUSTER LIST\n");
+    listPrint(clustersList[i]);
+  }
 
 
 

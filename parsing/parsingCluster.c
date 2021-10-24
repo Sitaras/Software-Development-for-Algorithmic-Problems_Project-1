@@ -17,31 +17,18 @@ extern int d;
 
 // returns number of words in str
 int countWords(char *str){
-    int state = OUT;
-    int wc = 0;  // word count
+  char * token = strtok(str, " ");
+  // printf("NAME = %s\n",token);
+  token = strtok(NULL, " ");
+   // loop through the string to extract all other tokens
+   int counter = 0;
+   while( token != NULL ) {
+      // printf( " - %s\n", token ); //printing each token
+      counter++;
+      token = strtok(NULL, " ");
+   }
 
-    // Scan all characters one by one
-    while (*str)
-    {
-        // If next character is a separator, set the
-        // state as OUT
-        if (*str == ' ' || *str == '\n' || *str == '\t')
-            state = OUT;
-
-        // If next character is not a word separator and
-        // state is OUT, then set the state as IN and
-        // increment word count
-        else if (state == OUT)
-        {
-            state = IN;
-            ++wc;
-        }
-
-        // Move to next character
-        ++str;
-    }
-
-    return wc;
+  return counter;
 }
 
 int countLines(FILE *fp){
