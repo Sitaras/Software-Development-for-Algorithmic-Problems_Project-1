@@ -217,6 +217,7 @@ void clustering(List vecList,int numOfClusters){
     clustersHt[i]= htInitialize(50); // TODO: CHANGE SIZE
   }
   double radius=DBL_MAX;
+  vectors = transformListToArray(vecList,numOfVecs);
   kmeansplusplus(vectors,numOfClusters,clusters,props);
   minDistbetweenCentroids(clusters,numOfClusters,&radius);
   hashTableSize=numOfVecs/8;

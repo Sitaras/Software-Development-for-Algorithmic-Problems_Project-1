@@ -387,6 +387,7 @@ void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List confLi
           continue;
         }
         htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
+        setVectorConflictArrIndex(temp->v,centroidIndex);
         vectorCheckFlag(temp->v,1);
         vectorAssignFlag(temp->v,1);
         // move it at the end of the list
