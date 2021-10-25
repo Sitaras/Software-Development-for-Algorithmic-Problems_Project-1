@@ -204,12 +204,12 @@ void clustering(List vecList,int numOfClusters){
 
   printf("==============================\n");
   //
-  for(int i=0;i<numOfClusters;i++){
-    printf("- CLUSTER :%d\n",i);
-    printVector(clusters[i]);
-    printf("- CLUSTER LIST\n");
-    listPrint(clustersList[i]);
-  }
+  // for(int i=0;i<numOfClusters;i++){
+  //   printf("- CLUSTER :%d\n",i);
+  //   printVector(clusters[i]);
+  //   printf("- CLUSTER LIST\n");
+  //   listPrint(clustersList[i]);
+  // }
 
   //Reverse approach
   HashTable *clustersHt=malloc(numOfClusters*sizeof(HashTable *));
@@ -226,17 +226,18 @@ void clustering(List vecList,int numOfClusters){
   for(int i=0;i<numOfVecs;i++)
     initVectorConflictArr(vectors[i],numOfClusters);
 
-  List confList=initializeList();
-  // while(){
+  // while(){ // stop when the 80% of vectors has a cluster (do it with global var)
+    List confList=initializeList();
     for(int i=0;i<numOfClusters;i++){
       radiusNeigborClustering(lsh,clusters[i],radius,clustersHt[i],i,confList);
 
-      // conflicts to clusters;
-      listDelete(confList,0);
     }
+
+
+    // manage the conflicts to clusters, conflicts vectors are inside the list
+    // at the conflicts vectors set the corresponding indexes of their array (conflictArr) to zero
+    listDelete(confList,0);
     radius*=2;
-
-
   // }
 
 
@@ -246,6 +247,7 @@ void clustering(List vecList,int numOfClusters){
     listDelete(clustersList[i],0);
     deleteVector(oldClusters[i]);
     deleteVector(clusters[i]);
+    htDelete(clustersHt[i],0);
   }
   free(clustersList);
 

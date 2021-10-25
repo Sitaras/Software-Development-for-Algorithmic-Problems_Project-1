@@ -17,7 +17,10 @@ double* getCoords(Vector v){
 }
 
 void initVectorConflictArr(Vector v,int numOfClusters){
-  v->conflictArr=calloc(numOfClusters,sizeof(int));
+  v->conflictArr=malloc(numOfClusters*sizeof(int));
+  for(int i=0;i<numOfClusters;i++){
+    v->conflictArr[i]=0;
+  }
 }
 
 void setVectorConflictArrZero(Vector v,int numOfClusters){
@@ -51,6 +54,7 @@ Vector initVector(double *vec){
   v->coords = malloc(d*sizeof(double));
   v->checkFlag=0;
   v->assignFlag=0;
+  v->conflictArr=NULL;
   for(int i=0;i<d;i++){
     (v->coords)[i] = vec[i];
   }
@@ -69,6 +73,7 @@ Vector copyVector(Vector vec){
 
 void deleteVector(Vector v){
   free(v->coords);
+  free(v->conflictArr);
   free(v);
 }
 
