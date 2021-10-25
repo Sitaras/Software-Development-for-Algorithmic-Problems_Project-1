@@ -4,6 +4,7 @@
 extern int d;
 
 typedef struct vec_node{
+  // add the ID of vector
   double* coords;
 }vec;
 typedef vec *Vector;
@@ -46,6 +47,16 @@ void printVector(Vector v){
     printf(" %f",v->coords[i]);
   }
   printf(" ]\n");
+}
+
+void printVectorInFile(Vector v,FILE *fptr){
+  if(v==NULL)
+    return;
+  fprintf(fptr,"\n[");
+  for(int i=0;i<d;i++){
+    fprintf(fptr," %f",v->coords[i]);
+  }
+  fprintf(fptr," ]\n");
 }
 
 int compareVectors(Vector v1,Vector v2){

@@ -11,10 +11,10 @@ void printHyperCube(HyperCube );
 
 void deleteHyperCube(HyperCube );
 
-void nearestNeigbor(HyperCube ,Vector ,int ,int );
+void nearestNeigbor(HyperCube ,Vector ,int ,int,FILE* );
 
-void kNearestNeigbors(HyperCube ,Vector ,int ,int ,int );
+void kNearestNeigbors(HyperCube ,Vector ,int ,int ,int,FILE* );
 
-void radiusNeigbor(HyperCube ,Vector ,double ,int ,int );
+void radiusNeigbor(HyperCube ,Vector ,double ,int ,int,FILE* );
 
 #endif

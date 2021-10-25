@@ -85,9 +85,9 @@ void htPrint(const HashTable ht){
   printf("\n\n");
 }
 
-void htRangePrint(const HashTable ht,Vector q,int d){
+void htRangePrint(const HashTable ht,Vector q,int d,FILE *fptr){
   for (int i=0;i<ht->buckets;i++){
-    listRangePrint(ht->table[i].head,q,d);
+    listRangePrint(ht->table[i].head,q,d,fptr);
   }
   printf("\n\n");
 }

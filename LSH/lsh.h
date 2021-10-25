@@ -8,7 +8,7 @@ void insertToLSH(LSH ,Vector );
 void printLSH(LSH );
 void destroyLSH(LSH );
 
-void nearestNeigbor(LSH ,Vector );
-void kNearestNeigbors(LSH, Vector,int);
-void radiusNeigbor(LSH ,Vector ,double );
+void nearestNeigbor(LSH ,Vector,FILE* );
+void kNearestNeigbors(LSH, Vector,int,FILE*);
+void radiusNeigbor(LSH ,Vector ,double,FILE* );
 #endif

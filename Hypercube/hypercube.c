@@ -158,9 +158,11 @@ void searchForHammingDistance(HyperCube hc,Vector v,int *v_index,int hammingDist
   }
 }
 
-void nearestNeigbor(HyperCube hc,Vector q,int hammingDist,int m){
+void nearestNeigbor(HyperCube hc,Vector q,int hammingDist,int m,FILE *fptr){
   printf("ABOUT TO SEARCH NEAREST NEIGHBOR FOR : ");
+  fprintf(fptr,"ABOUT TO SEARCH NEAREST NEIGHBOR FOR : ");
   printVector(q);
+  printVectorInFile(q,fptr);
   Vector nearest=NULL;
   double nearestDist=-1;
   int index[k];
@@ -183,11 +185,16 @@ void nearestNeigbor(HyperCube hc,Vector q,int hammingDist,int m){
 
   if(nearestDist>=0 && nearest!=NULL){
     printf("FOUND NEAREST NEIGHBOR ");
+    fprintf(fptr,"FOUND NEAREST NEIGHBOR ");
     printVector(nearest);
     printf("WITH DISTANCE =  %f\n",nearestDist);
+    printf("WITH DISTANCE =  %f\n",nearestDist);
+    fprintf(fptr,"WITH DISTANCE =  %f\n",nearestDist);
   }else{
+    fprintf(fptr,"- DID NOT FIND NEAREST NEIGHBOR\n");
     printf("- DID NOT FIND NEAREST NEIGHBOR\n");
   }
+  fprintf(fptr,"Checked: %d  vectors\n",searched);
   printf("Checked: %d  vectors\n",searched);
 }
 
@@ -209,9 +216,11 @@ void searchForHammingDistanceKNN(HyperCube hc,Vector v,int *v_index,int hammingD
   }
 }
 
-void kNearestNeigbors(HyperCube hc,Vector q,int knn,int hammingDist,int m){
+void kNearestNeigbors(HyperCube hc,Vector q,int knn,int hammingDist,int m,FILE *fptr){
   printf("ABOUT TO SEARCH %d NEAREST NEIGHBORS FOR : ",knn);
+  fprintf(fptr,"ABOUT TO SEARCH %d NEAREST NEIGHBORS FOR : ",knn);
   printVector(q);
+  printVectorInFile(q,fptr);
   Vector nearest[knn];
   double knearestDists[knn];
   for (int i = 0; i < knn; i++){
@@ -242,13 +251,16 @@ void kNearestNeigbors(HyperCube hc,Vector q,int knn,int hammingDist,int m){
   for (int i = knn-1; i >= 0; i--){
     if (knearestDists[i] >= 0 && nearest[i] != NULL){
       printf("FOUND %d NEAREST NEIGHBOR: ",i);
+      fprintf(fptr,"FOUND %d NEAREST NEIGHBOR: ",i);
       printVector(nearest[i]);
       printf("WITH DISTANCE =  %f\n", knearestDists[i]);
+      fprintf(fptr,"WITH DISTANCE =  %f\n", knearestDists[i]);
       flag=0;
     }
   }
   if(flag){
     printf("- DID NOT FIND NEAREST NEIGHBOR\n");
+    fprintf(fptr,"- DID NOT FIND NEAREST NEIGHBOR\n");
   }
 }
 
@@ -273,8 +285,9 @@ void searchForHammingDistanceRadius(HyperCube hc,Vector v,int *v_index,int hammi
 }
 
 
-void radiusNeigbor(HyperCube hc,Vector q,double radius,int hammingDist,int m){
+void radiusNeigbor(HyperCube hc,Vector q,double radius,int hammingDist,int m,FILE *fptr){
   printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
+  fprintf(fptr,"ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
   HashTable vecsInRadius = htInitialize(100); // TODO: CHANGE SIZE
 
   int index[k];
@@ -296,7 +309,7 @@ void radiusNeigbor(HyperCube hc,Vector q,double radius,int hammingDist,int m){
     searchForHammingDistanceRadius(hc,q,index,i,0,vecsInRadius,&searched,m,radius);
   }
 
-  htRangePrint(vecsInRadius,q,d);
+  htRangePrint(vecsInRadius,q,d,fptr);
 
   htDelete(vecsInRadius,0);
 }

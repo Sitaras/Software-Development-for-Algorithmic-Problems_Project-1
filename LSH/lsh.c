@@ -138,9 +138,10 @@ void destroyLSH(LSH lsh){
 }
 
 
-void nearestNeigbor(LSH lsh,Vector q){
+void nearestNeigbor(LSH lsh,Vector q,FILE *fptr){
   printf("ABOUT TO SEARCH NEAREST NEIGHBOR FOR : ");
   printVector(q);
+  printVectorInFile(q,fptr);
   Vector nearest=NULL;
   double nearestDist=-1;
   int l = getL(lsh);
@@ -153,16 +154,21 @@ void nearestNeigbor(LSH lsh,Vector q){
   }
   if(nearestDist>=0 && nearest!=NULL){
     printf("FOUND NEAREST NEIGHBOR ");
+    fprintf(fptr,"FOUND NEAREST NEIGHBOR ");
     printVector(nearest);
+    printVectorInFile(nearest,fptr);
     printf("WITH DISTANCE =  %f\n",nearestDist);
+    fprintf(fptr,"WITH DISTANCE =  %f\n",nearestDist);
   }else{
     printf("- DID NOT FIND NEAREST NEIGHBOR\n");
+    fprintf(fptr,"- DID NOT FIND NEAREST NEIGHBOR\n");
   }
 }
 
-void kNearestNeigbors(LSH lsh,Vector q,int k){
+void kNearestNeigbors(LSH lsh,Vector q,int k,FILE* fptr){
   printf("ABOUT TO SEARCH %d NEAREST NEIGHBORS FOR : ",k);
   printVector(q);
+  printVectorInFile(q,fptr);
   Vector nearest[k];
   double knearestDists[k];
   for (int i = 0; i < k; i++){
@@ -182,18 +188,23 @@ void kNearestNeigbors(LSH lsh,Vector q,int k){
   for (int i = k-1; i >= 0; i--){
     if (knearestDists[i] >= 0 && nearest[i] != NULL){
       printf("FOUND %d NEAREST NEIGHBOR: ",i);
+      fprintf(fptr,"FOUND %d NEAREST NEIGHBOR: ",i);
       printVector(nearest[i]);
+      printVectorInFile(nearest[i],fptr);
       printf("WITH DISTANCE =  %f\n", knearestDists[i]);
+      fprintf(fptr,"WITH DISTANCE =  %f\n", knearestDists[i]);
       flag=0;
     }
   }
   if(flag){
     printf("- DID NOT FIND NEAREST NEIGHBOR\n");
+    fprintf(fptr,"- DID NOT FIND NEAREST NEIGHBOR\n");
   }
 }
 
-void radiusNeigbor(LSH lsh,Vector q,double radius){
+void radiusNeigbor(LSH lsh,Vector q,double radius,FILE *fptr){
   printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
+  fprintf(fptr,"ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
   HashTable vecsInRadius = htInitialize(100); // TODO: CHANGE SIZE
   int l = getL(lsh);
   HashTable *hts = getHts(lsh);
@@ -203,7 +214,7 @@ void radiusNeigbor(LSH lsh,Vector q,double radius){
     int q_index = computeG(gfuns[i],q,&q_ID);
     htFindNeighborsInRadius(hts[i],q_index,vecsInRadius,q,d,q_ID,radius);
   }
-  htRangePrint(vecsInRadius,q,d);
+  htRangePrint(vecsInRadius,q,d,fptr);
 
   htDelete(vecsInRadius,0);
 }

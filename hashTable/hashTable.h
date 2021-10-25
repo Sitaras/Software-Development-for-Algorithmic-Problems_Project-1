@@ -9,7 +9,7 @@ HashTable htInitialize(int);
 int htInsert(HashTable ,Vector, int,int );
 // hashtable_nodePtr htSearch(const HashTable,int);
 void htPrint(const HashTable);
-void htRangePrint(const HashTable ,Vector ,int );
+void htRangePrint(const HashTable ,Vector ,int,FILE* );
 HashTable htDelete(HashTable,int );
 int htDeleteNode(HashTable,int);
 

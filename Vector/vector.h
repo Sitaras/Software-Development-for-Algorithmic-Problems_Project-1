@@ -11,6 +11,8 @@ void deleteVector(Vector);
 
 void printVector(Vector );
 
+void printVectorInFile(Vector,FILE* );
+
 int compareVectors(Vector , Vector );
 
 double *getCoords(Vector);

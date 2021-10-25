@@ -31,6 +31,7 @@ int main(int argc, char *argv[]) {
   char queryFile[100];
   int queryflag=0;
   char outputFile[100];
+  strcpy(outputFile,"outputTestingHyper");
   int outputflag=0;
   int m=10;
   int n=1;
@@ -136,11 +137,19 @@ int main(int argc, char *argv[]) {
   double vec[6] = {21,  3,  3,  18,  25,  11};
   Vector vecTmp=initVector(vec);
 
-  nearestNeigbor(hc,vecTmp,1,4);
+  FILE* fPtr;
+  fPtr = fopen(outputFile, "w");
+  if(fPtr == NULL){
+    /* File not created hence exit */
+    printf("Unable to create file.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  nearestNeigbor(hc,vecTmp,1,4,fPtr);
   printf("================================================\n");
-  kNearestNeigbors(hc,vecTmp,3,3,100);
+  kNearestNeigbors(hc,vecTmp,3,3,100,fPtr);
   printf("================================================\n");
-  radiusNeigbor(hc,vecTmp,25,2,100);
+  radiusNeigbor(hc,vecTmp,25,2,100,fPtr);
 
   // printOptions(); // just printing the commands options for the user
   //
@@ -172,5 +181,7 @@ int main(int argc, char *argv[]) {
   // }
 
   deleteHyperCube(hc);
+  fclose(fPtr);
+  deleteVector(vecTmp);
   return 0;
 }
