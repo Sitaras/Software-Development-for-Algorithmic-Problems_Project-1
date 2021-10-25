@@ -6,6 +6,8 @@
 #include <float.h>
 #include "../Vector/vector.h"
 #include "../hashTable/hashTableList/hashTableList.h"
+#include "../hashTable/hashTable.h"
+#include "../LSH/lsh.h"
 
 #define SQUARE(x) ((x)*(x))
 
@@ -15,6 +17,7 @@
 
 extern int numOfVecs;
 extern int d;
+extern int hashTableSize;
 
 int existsInArray(int *array,int check,int arraySize){
   for(int i=0;i<arraySize;i++){
@@ -38,6 +41,27 @@ void minDistToCentroids(Vector v,Vector* vecs,Vector *clusters,int numOfClusters
     double tempDist = distance_metric(clusters[i],v,d);
     if(tempDist<(*minDistance)){
         (*minDistance) = tempDist;
+    }
+  }
+}
+
+void minDistbetweenCentroids(Vector *centroids,int numOfClusters,double *minDistance){
+  // can be impoved
+  for(int i=0;i<numOfClusters;i++){
+    if(centroids[i]==NULL){
+      break;
+    }
+    for(int j=0;j<numOfClusters;j++){
+      if(i!=j){
+        if(centroids[j]==NULL){
+          break;
+        }
+        double tempDist = distance_metric(centroids[i],centroids[j],d);
+        if(tempDist<(*minDistance)){
+          (*minDistance) = tempDist;
+        }
+      }
+
     }
   }
 }
@@ -155,7 +179,7 @@ void clustering(List vecList,int numOfClusters){
   for(int i=0;i<numOfClusters;i++){
     clustersList[i]=initializeList();
   }
-  int count =0;
+  int count=0;
   while((count<2) || !centroidsCovnerge(clusters,oldClusters,numOfClusters,d)){
   // while(firstIter || count<20){
     printf("ITER %d\n",count);
@@ -187,6 +211,35 @@ void clustering(List vecList,int numOfClusters){
     listPrint(clustersList[i]);
   }
 
+  //Reverse approach
+  HashTable *clustersHt=malloc(numOfClusters*sizeof(HashTable *));
+  for(int i=0;i<numOfClusters;i++){
+    clustersHt[i]= htInitialize(50); // TODO: CHANGE SIZE
+  }
+  double radius=DBL_MAX;
+  kmeansplusplus(vectors,numOfClusters,clusters,props);
+  minDistbetweenCentroids(clusters,numOfClusters,&radius);
+  hashTableSize=numOfVecs/8;
+  LSH lsh = initializeLSH(6);
+  for(int i=0;i<numOfVecs;i++)
+    insertToLSH(lsh,vectors[i]);
+  for(int i=0;i<numOfVecs;i++)
+    initVectorConflictArr(vectors[i],numOfClusters);
+
+  List confList=initializeList();
+  // while(){
+    for(int i=0;i<numOfClusters;i++){
+      radiusNeigborClustering(lsh,clusters[i],radius,clustersHt[i],i,confList);
+
+      // conflicts to clusters;
+      listDelete(confList,0);
+    }
+    radius*=2;
+
+
+  // }
+
+
 
 
   for(int i=0;i<numOfClusters;i++){
@@ -200,4 +253,5 @@ void clustering(List vecList,int numOfClusters){
   free(vectors);
   free(oldClusters);
   free(clusters);
+  destroyLSH(lsh);
 }

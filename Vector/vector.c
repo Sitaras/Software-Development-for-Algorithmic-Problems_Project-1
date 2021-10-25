@@ -6,17 +6,51 @@ extern int d;
 typedef struct vec_node{
   // add the ID of vector
   double* coords;
+  int checkFlag;
+  int assignFlag;
+  int *conflictArr;
 }vec;
 typedef vec *Vector;
 
-double *getCoords(Vector v){
+double* getCoords(Vector v){
   return v->coords;
+}
+
+void initVectorConflictArr(Vector v,int numOfClusters){
+  v->conflictArr=calloc(numOfClusters,sizeof(int));
+}
+
+void setVectorConflictArrZero(Vector v,int numOfClusters){
+  for(int i=0;i<numOfClusters;i++){
+    v->conflictArr[i]=0;
+  }
+}
+void setVectorConflictArrIndex(Vector v,int index){
+    v->conflictArr[index]=1;
+}
+
+void vectorCheckFlag(Vector v,int i){
+  v->checkFlag=i;
+}
+
+void vectorAssignFlag(Vector v,int i){
+  v->assignFlag=i;
+}
+
+int getVectorCheckFlag(Vector v){
+  return v->checkFlag;
+}
+
+int getVectorAssignFlag(Vector v){
+  return v->assignFlag;
 }
 
 
 Vector initVector(double *vec){
   Vector v=malloc(sizeof(struct vec_node));
   v->coords = malloc(d*sizeof(double));
+  v->checkFlag=0;
+  v->assignFlag=0;
   for(int i=0;i<d;i++){
     (v->coords)[i] = vec[i];
   }

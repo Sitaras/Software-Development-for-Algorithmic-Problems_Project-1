@@ -218,3 +218,24 @@ void radiusNeigbor(LSH lsh,Vector q,double radius,FILE *fptr){
 
   htDelete(vecsInRadius,0);
 }
+void radiusNeigborClustering(LSH lsh,Vector q,double radius,HashTable vecsInRadius,int centroidIndex,List confList){
+  printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
+  // fprintf(fptr,"ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
+  FILE *fptr;
+  fptr = fopen("lala", "w");
+  if(fptr == NULL){
+    /* File not created hence exit */
+    printf("Unable to create file.\n");
+    exit(EXIT_FAILURE);
+  }
+  int l = getL(lsh);
+  HashTable *hts = getHts(lsh);
+  g_function *gfuns = getGfuns(lsh);
+  for(int i=0;i<l;i++){
+    int q_ID;
+    int q_index = computeG(gfuns[i],q,&q_ID);
+    htFindNeighborsInRadiusClustering(hts[i],q_index,centroidIndex,confList,vecsInRadius,q,d,q_ID,radius);
+  }
+  htRangePrint(vecsInRadius,q,d,fptr);
+  fclose(fptr);
+}

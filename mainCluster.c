@@ -15,6 +15,7 @@ int m;
 int probes;
 int w;
 int numOfVecs;
+int hashTableSize;
 
 void printOptions(){
   printf("_________________Options____________________\n\n");
@@ -155,7 +156,7 @@ int main(int argc, char *argv[]) {
   //
   // }
 
-  listDelete(list,1);
+  // listDelete(list,1);
   deleteVector(vecTmp);
   return 0;
 }

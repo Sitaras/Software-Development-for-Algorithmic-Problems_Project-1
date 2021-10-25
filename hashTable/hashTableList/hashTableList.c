@@ -78,7 +78,6 @@ List listUniqueInsert(List list,Vector v,int id){
 }
 
 
-
 // List listSearchId(List list, int id){
 //   List current=list;
 //   while (current!=NULL){
@@ -364,6 +363,33 @@ void listFindNeighborsInRadius(List list,HashTable storeNeighbors,Vector q,int d
       double dist = distance_metric(temp->v,q,d);
       if(dist<=radius){
         htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
+      }
+    }
+    temp=temp->next;
+  }
+}
+
+void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List confList,HashTable storeNeighbors,Vector q,int d,int id,int radius){
+  if(list==NULL){ return;}
+  List temp=list;
+  while(temp!=NULL){
+    if(id==(temp->vector_ID)){
+      double dist = distance_metric(temp->v,q,d);
+      if(dist<=radius){
+        if(getVectorAssignFlag(temp->v)){
+          temp=temp->next;
+          continue;
+        }
+        if(getVectorCheckFlag(temp->v)){
+          setVectorConflictArrIndex(temp->v,centroidIndex);
+          listUniqueInsert(confList,temp->v,-1);
+          temp=temp->next;
+          continue;
+        }
+        htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
+        vectorCheckFlag(temp->v,1);
+        vectorAssignFlag(temp->v,1);
+        // move it at the end of the list
       }
     }
     temp=temp->next;
