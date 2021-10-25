@@ -42,13 +42,13 @@ int main(int argc, char *argv[]) {
   while((option = getopt(argc, argv, "i:q:k:M:p:o:N:R:")) != -1){
      switch(option){
         case 'i':
-        checkflag++;
+        inputflag++;
         strcpy(inputFile,optarg);
         printf("Given input File : %s\n", inputFile);
         break;
 
         case 'q':
-        checkflag++;
+        queryflag++;
         strcpy(queryFile,optarg);
         printf("Given query File : %s\n", queryFile);
         break;
@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
         break;
 
         case 'o':
-        checkflag++;
+        outputflag++;
         strcpy(outputFile,optarg);
         printf("Given output File : %s\n", outputFile);
         break;

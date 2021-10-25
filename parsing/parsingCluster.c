@@ -69,6 +69,68 @@ int findDim(char* fileName){
 }
 
 
+void readConfFile(char* fileName){
+  FILE *file = fopen(fileName, "r"); // read mode
+
+  if (file == NULL){
+     perror("Error while opening the file.\n");
+     exit(-1);
+  }
+
+ if (feof(file)){ // empty file, return
+   return;
+ }
+
+  char buffer[MAX_INPUT_LENGTH];
+  char command[100];
+  char temp[100];
+  int numOfClusters,l,kLsh,mHyper,kHyper,probes;
+  while(!feof(file)){
+    fflush(stdin);  // clear stdin buffer
+    if(fscanf(file,"%[^\n]\n",buffer)<0){ // read a line from the file
+      continue;
+    }
+    if(strstr(buffer, "number_of_clusters:") != NULL) {
+      sscanf(buffer,"%s %s\n",command,temp);
+      numOfClusters=atoi(temp);
+      printf("number_of_clusters: %d\n",numOfClusters);
+      continue;
+    }
+    else if(strstr(buffer, "number_of_vector_hash_tables:") != NULL) {
+      sscanf(buffer,"%s %s\n",command,temp);
+      l=atoi(temp);
+      printf("number_of_vector_hash_tables: %d\n",l);
+      continue;
+    }
+    else if(strstr(buffer, "number_of_vector_hash_functions:") != NULL) {
+      sscanf(buffer,"%s %s\n",command,temp);
+      kLsh=atoi(temp);
+      printf("number_of_vector_hash_functions: %d\n",kLsh);
+      continue;
+    }
+    else if(strstr(buffer, "max_number_M_hypercube:") != NULL) {
+      sscanf(buffer,"%s %s\n",command,temp);
+      mHyper=atoi(temp);
+      printf("max_number_M_hypercube: %d\n",mHyper);
+      continue;
+    }
+    else if(strstr(buffer, "number_of_hypercube_dimensions:") != NULL) {
+      sscanf(buffer,"%s %s\n",command,temp);
+      kHyper=atoi(temp);
+      printf("number_of_hypercube_dimensions:  %d\n",kHyper);
+      continue;
+    }
+    else if(strstr(buffer, "number_of_probes:") != NULL) {
+      sscanf(buffer,"%s %s\n",command,temp);
+      probes=atoi(temp);
+      printf("number_of_probes: %d\n",probes);
+      continue;
+    }
+  }
+
+}
+
+
 void readFile(char* fileName,List *list,int *numOfVecs){
 
    FILE *file = fopen(fileName, "r"); // read mode

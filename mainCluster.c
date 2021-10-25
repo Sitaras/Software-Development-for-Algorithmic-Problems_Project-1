@@ -31,34 +31,27 @@ int main(int argc, char *argv[]) {
   char str[200];
   char inputFile[100];
   int inputflag=0;
-  char queryFile[100];
-  int queryflag=0;
+  char confFile[100];
+  int confflag=0;
   char outputFile[100];
   int outputflag=0;
   int m=10;
   int n=1;
-  int r=10000;
-  int probes=2;
   int checkflag=0;
   k=14;
 
-  while((option = getopt(argc, argv, "i:q:k:M:p:o:N:R:")) != -1){
+  while((option = getopt(argc, argv, "i:c:o:M:m:")) != -1){
      switch(option){
         case 'i':
-        checkflag++;
+        inputflag++;
         strcpy(inputFile,optarg);
         printf("Given input File : %s\n", inputFile);
         break;
 
-        case 'q':
-        checkflag++;
-        strcpy(queryFile,optarg);
-        printf("Given query File : %s\n", queryFile);
-        break;
-
-        case 'k':
-        k=atoi(optarg);
-        printf("k : %d\n", k);
+        case 'c':
+        confflag++;
+        strcpy(confFile,optarg);
+        printf("Given configuration File : %s\n", confFile);
         break;
 
         case 'M':
@@ -66,30 +59,17 @@ int main(int argc, char *argv[]) {
         printf("L : %d\n", m);
         break;
 
-        case 'p':
-        probes=atoi(optarg);
-        printf("probes : %d\n", probes);
-        break;
-
         case 'o':
-        checkflag++;
+        outputflag++;
         strcpy(outputFile,optarg);
         printf("Given output File : %s\n", outputFile);
         break;
 
-        case 'N':
-        n=atoi(optarg);
-        printf("number of nearest : %d\n", n);
-        break;
-        case 'R':
-         r=atoi(optarg);
-         printf("Radius : %d\n", r);
-         break;
         case ':':
          printf("option needs a value\n");
          break;
         default: /* '?' */
-          fprintf(stderr, "Usage: %s –i <input file> –q <query file> –k <int> -M <int> -probes <int> -ο <output file> -Ν <number of nearest> -R <radius>\n",argv[0]);
+          fprintf(stderr, "Usage: %s –i <input file> –c <configuration file> -o <output file> -complete <optional> -m <method: Classic OR LSH or Hypercube>\n",argv[0]);
           exit(EXIT_FAILURE);
      }
   }
@@ -105,8 +85,8 @@ int main(int argc, char *argv[]) {
   //   strcpy(inputFile,str);
   //   printf("Given input File : %s\n", inputFile);
   // }
-  // if(!queryflag){
-  //   printf(">Query file name: ");
+  // if(!confflag){
+  //   printf(">Conf file name: ");
   //   fflush(stdin); // clear stdin buffer
   //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
   //     perror("Error reading string with fgets\n");
@@ -132,6 +112,7 @@ int main(int argc, char *argv[]) {
   printf("DIMENSION = %d\n",d);
 
   List list = initializeList();
+  readConfFile("cluster.conf");
   readFile("query_small_id",&list,&numOfVecs);
 
   clustering(list,5);
