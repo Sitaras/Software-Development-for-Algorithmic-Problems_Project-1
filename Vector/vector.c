@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#define TRUE 1
+#define FALSE 0
 extern int d;
+
 
 typedef struct vec_node{
   // add the ID of vector
   double* coords;
-  int checkFlag;
-  int assignFlag;
-  int *conflictArr;
+  int assignedCluster;
 }vec;
 typedef vec *Vector;
 
@@ -16,50 +16,61 @@ double* getCoords(Vector v){
   return v->coords;
 }
 
-void initVectorConflictArr(Vector v,int numOfClusters){
-  v->conflictArr=malloc(numOfClusters*sizeof(int));
-  for(int i=0;i<numOfClusters;i++){
-    v->conflictArr[i]=0;
-  }
+int assignedToCluster(Vector v){
+  return (v->assignedCluster==-1) ? FALSE : TRUE;
 }
 
-void setVectorConflictArrZero(Vector v,int numOfClusters){
-  for(int i=0;i<numOfClusters;i++){
-    v->conflictArr[i]=0;
-  }
-}
-void setVectorConflictArrIndex(Vector v,int index){
-    v->conflictArr[index]=1;
+int getAssignedCluster(Vector v){
+  return v->assignedCluster;
 }
 
-void vectorCheckFlag(Vector v,int i){
-  v->checkFlag=i;
+void setAssignedCluster(Vector v,int cluster){
+   v->assignedCluster = cluster;
 }
 
-void vectorAssignFlag(Vector v,int i){
-  v->assignFlag=i;
-}
-
-int getVectorCheckFlag(Vector v){
-  return v->checkFlag;
-}
-
-int getVectorAssignFlag(Vector v){
-  return v->assignFlag;
-}
+// void initVectorConflictArr(Vector v,int numOfClusters){
+//   v->clusterInfo->conflictArr=malloc(numOfClusters*sizeof(int));
+//   for(int i=0;i<numOfClusters;i++){
+//     v->clusterInfo->conflictArr[i]=0;
+//   }
+// }
+//
+// void setVectorConflictArrZero(Vector v,int numOfClusters){
+//   for(int i=0;i<numOfClusters;i++){
+//     v->clusterInfo->conflictArr[i]=0;
+//   }
+// }
+// void setVectorConflictArrIndex(Vector v,int index){
+//     v->clusterInfo->conflictArr[index]=1;
+// }
+//
+// void vectorCheckFlag(Vector v,int i){
+//   v->clusterInfo->checkFlag=i;
+// }
+//
+// void vectorAssignFlag(Vector v,int i){
+//   v->clusterInfo->assignFlag=i;
+// }
+//
+// int getVectorCheckFlag(Vector v){
+//   return v->clusterInfo->checkFlag;
+// }
+//
+// int getVectorAssignFlag(Vector v){
+//   return v->clusterInfo->assignFlag;
+// }
 
 
 Vector initVector(double *vec){
   Vector v=malloc(sizeof(struct vec_node));
   v->coords = malloc(d*sizeof(double));
-  v->checkFlag=0;
-  v->assignFlag=0;
-  v->conflictArr=NULL;
   for(int i=0;i<d;i++){
     (v->coords)[i] = vec[i];
   }
+  v->assignedCluster = -1;
   return v;
 }
+
 
 Vector copyVector(Vector vec){
   double *coords = getCoords(vec);
@@ -71,9 +82,9 @@ Vector copyVector(Vector vec){
   return v;
 }
 
+
 void deleteVector(Vector v){
   free(v->coords);
-  free(v->conflictArr);
   free(v);
 }
 

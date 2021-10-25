@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <float.h>
 #include "../../Vector/vector.h"
 #include "../hashTable.h"
 
@@ -75,6 +76,30 @@ List listUniqueInsert(List list,Vector v,int id){
   newnode->next = origin;
 
   return newnode;
+}
+
+List listDeleteItem(List list,Vector v,int id){
+  if (list==NULL){
+    // list is empty
+    return list;
+  }
+  List origin = list;
+  List prev = NULL;
+  while(list!=NULL){
+    if(compareVectors(v, list->v)){
+      if(prev==NULL){
+        origin = list->next;
+      }else{
+        prev->next = list->next;
+      }
+      free(list);
+      return origin;
+    }
+    prev = list;
+    list=list->next;
+  }
+
+  return origin;
 }
 
 
@@ -369,32 +394,56 @@ void listFindNeighborsInRadius(List list,HashTable storeNeighbors,Vector q,int d
   }
 }
 
-void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List confList,HashTable storeNeighbors,Vector q,int d,int id,int radius){
+void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List confList,HashTable storeNeighbors,Vector q,int d,int id,int radius,int *assignCounter){
   if(list==NULL){ return;}
   List temp=list;
   while(temp!=NULL){
     if(id==(temp->vector_ID)){
       double dist = distance_metric(temp->v,q,d);
       if(dist<=radius){
-        if(getVectorAssignFlag(temp->v)){
-          temp=temp->next;
-          continue;
+
+        if(assignedToCluster(temp->v)){
+          int assignedCluster = getAssignedCluster(temp->v);
+          if(assignedCluster==centroidIndex){
+            temp=temp->next;
+            continue;
+          }else{
+            listUniqueInsert(confList,temp->v,-1);
+            temp=temp->next;
+            continue;
+          }
+        }else{
+          htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
+          setAssignedCluster(temp->v,centroidIndex);
+          (*assignCounter)++;
         }
-        if(getVectorCheckFlag(temp->v)){
-          setVectorConflictArrIndex(temp->v,centroidIndex);
-          listUniqueInsert(confList,temp->v,-1);
-          temp=temp->next;
-          continue;
-        }
-        htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
-        setVectorConflictArrIndex(temp->v,centroidIndex);
-        vectorCheckFlag(temp->v,1);
-        vectorAssignFlag(temp->v,1);
         // move it at the end of the list
       }
     }
     temp=temp->next;
   }
+}
+
+void listSolveRangeConflicts(List conflictList,HashTable *clustersHt,Vector *clusters,int numOfClusters,int d){
+  if(conflictList==NULL){ return;}
+  List temp=conflictList;
+  while(temp!=NULL){
+    htRangeDelete(clustersHt[getAssignedCluster(temp->v)],temp->v,temp->vector_ID,d);
+    double minDist = DBL_MAX;
+    int closestCentroid = -1;
+    for(int i=0;i<numOfClusters;i++){
+      double dist = distance_metric(temp->v,clusters[i],d);
+      if(dist<minDist){
+        minDist = dist;
+        closestCentroid = i;
+      }
+    }
+    htRangeInsert(clustersHt[closestCentroid],temp->v,temp->vector_ID,d);
+    setAssignedCluster(temp->v,closestCentroid);
+
+    temp=temp->next;
+  }
+
 }
 
 void listFindNeighborsInRadiusCube(List list,HashTable storeNeighbors,Vector q,int d,int radius,int *numOfSearched,int maxToSearch){
@@ -415,6 +464,7 @@ void listFindNeighborsInRadiusCube(List list,HashTable storeNeighbors,Vector q,i
 
 
 Vector listMeanOfCluster(List list,int d){
+  if(list==NULL) return NULL;
   List temp = list;
   int count=0;
   double *sumDims=calloc(d,sizeof(double));
@@ -433,4 +483,18 @@ Vector listMeanOfCluster(List list,int d){
   free(sumDims);
 
   return newCentroid;
+}
+
+double *listSumOfVectors(List list,int d,int *count){
+  if(list==NULL) return NULL;
+  List temp = list;
+  double *sumDims=calloc(d,sizeof(double));
+  while(temp!=NULL){
+    for(int i=0;i<d;i++){
+      sumDims[i]+=getCoords(temp->v)[i];
+    }
+    (*count)++;
+    temp=temp->next;
+  }
+  return sumDims;
 }
