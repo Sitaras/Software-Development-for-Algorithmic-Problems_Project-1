@@ -113,7 +113,8 @@ void lloyds(Vector* clusters,Vector *oldClusters,Vector* vectors,List* clustersL
       Vector newCenter;
       if(clustersList[i]!=NULL){
         newCenter=listMeanOfCluster(clustersList[i],d);
-      }else{
+      }
+      else{
         newCenter=copyVector(oldClusters[i]);
       }
       listDelete(clustersList[i],0);
@@ -190,9 +191,13 @@ void clustering(List vecList,int numOfClusters){
 
   for(int i=0;i<numOfClusters;i++){
     listDelete(clustersList[i],0);
+    deleteVector(oldClusters[i]);
+    deleteVector(clusters[i]);
   }
   free(clustersList);
 
   free(props);
+  free(vectors);
+  free(oldClusters);
   free(clusters);
 }

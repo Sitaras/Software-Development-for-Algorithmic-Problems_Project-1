@@ -175,5 +175,6 @@ int main(int argc, char *argv[]) {
   // }
 
   listDelete(list,1);
+  deleteVector(vecTmp);
   return 0;
 }
