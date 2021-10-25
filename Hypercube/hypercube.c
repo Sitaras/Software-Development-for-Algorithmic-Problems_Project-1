@@ -147,7 +147,7 @@ void searchForHammingDistance(HyperCube hc,Vector v,int *v_index,int hammingDist
     htFindNearestNeighborCube(hc->hypercube,new_index,v,nearest,nearestDist,d,numOfSearched,maxToSearch);
     return;
   }
-  for(int i=startFrom;i<k;i++){
+  for(int i=startFrom;i<k;i++){// 001 2, 000 1 ,010 0,000 1, 100 0, 000 1
       v_index[i] = v_index[i]^1;
       searchForHammingDistance(hc,v,v_index,hammingDist-1,i+1,nearest,nearestDist,numOfSearched,maxToSearch);
       // search

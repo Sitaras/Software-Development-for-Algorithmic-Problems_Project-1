@@ -8,6 +8,7 @@
 
 #define SQUARE(x) ((x)*(x))
 
+
 double distance_metric(Vector v1,Vector v2,int d){
   double sum = 0.0;
   double *coords1 = getCoords(v1);
@@ -77,6 +78,7 @@ List listUniqueInsert(List list,Vector v,int id){
 }
 
 
+
 // List listSearchId(List list, int id){
 //   List current=list;
 //   while (current!=NULL){
@@ -105,6 +107,22 @@ void listRangePrint(List list,Vector q,int d){
         printf("inside range with distance: %f\n",distance_metric(temp->v,q,d));
         temp=temp->next;
     }
+}
+
+
+Vector *transformListToArray(List list,int size){
+  Vector *array = malloc(size*sizeof(Vector));
+  List temp = list;
+  int index=0;
+  while(temp!=NULL){
+      if(index>=size){
+        printf("!! OUT OF RANGE (transformListToArray)\n");
+        break;
+      }
+      array[index++] = temp->v;
+      temp=temp->next;
+  }
+  return array;
 }
 
 
@@ -364,4 +382,26 @@ void listFindNeighborsInRadiusCube(List list,HashTable storeNeighbors,Vector q,i
     }
     temp=temp->next;
   }
+}
+
+
+Vector listMeanOfCluster(List list,int d){
+  List temp = list;
+  int count=0;
+  double *sumDims=calloc(d,sizeof(double));
+  while(temp!=NULL){
+    for(int i=0;i<d;i++){
+      sumDims[i]+=getCoords(temp->v)[i];
+    }
+    count++;
+    temp=temp->next;
+  }
+  for(int i=0;i<d;i++){
+    sumDims[i]/=(double)count;
+  }
+
+  Vector newCentroid  = initVector(sumDims);
+  free(sumDims);
+
+  return newCentroid;
 }

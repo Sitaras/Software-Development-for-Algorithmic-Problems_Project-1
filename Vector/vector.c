@@ -8,12 +8,26 @@ typedef struct vec_node{
 }vec;
 typedef vec *Vector;
 
+double *getCoords(Vector v){
+  return v->coords;
+}
+
 
 Vector initVector(double *vec){
   Vector v=malloc(sizeof(struct vec_node));
   v->coords = malloc(d*sizeof(double));
   for(int i=0;i<d;i++){
     (v->coords)[i] = vec[i];
+  }
+  return v;
+}
+
+Vector copyVector(Vector vec){
+  double *coords = getCoords(vec);
+  Vector v=malloc(sizeof(struct vec_node));
+  v->coords = malloc(d*sizeof(double));
+  for(int i=0;i<d;i++){
+    (v->coords)[i] = coords[i];
   }
   return v;
 }
@@ -40,9 +54,4 @@ int compareVectors(Vector v1,Vector v2){
       return 0;
   }
   return 1;
-}
-
-
-double *getCoords(Vector v){
-  return v->coords;
 }
