@@ -179,8 +179,9 @@ void reverseAssignmentLSH(LSH lsh,Vector *clusters,Vector *oldClusters,HashTable
     }
     listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d);
     printf("---- ASSINGED ITEMS = %d\n",assignCounter);
-    // manage the conflicts to clusters, conflicts vectors are inside the list
-    // at the conflicts vectors set the corresponding indexes of their array (conflictArr) to zero
+    // manage the conflicts
+    if(confList==NULL)
+      printf("LALALLSLALSDKAJSKFJKSJk\n");
     listDelete(confList,0);
     radius*=2;
   }
@@ -245,8 +246,19 @@ void clustering(List vecList,int numOfClusters){
   }
 
   // free clusters
+  for(int i=0;i<numOfClusters;i++){
+    listDelete(clustersList[i],0);
+    deleteVector(oldClusters[i]);
+    deleteVector(clusters[i]);
+  }
 
-    printf("\n==============================2\n");
+  free(props);
+  free(vectors);
+  free(clustersList);
+  printf("\n==============================2\n");
+
+
+
 
   //Reverse approach
   HashTable *clustersHt=malloc(numOfClusters*sizeof(HashTable *));
@@ -305,17 +317,18 @@ void clustering(List vecList,int numOfClusters){
 
 
 
-  // for(int i=0;i<numOfClusters;i++){
-  //   listDelete(clustersList[i],0);
-  //   deleteVector(oldClusters[i]);
-  //   deleteVector(clusters[i]);
-  //   htDelete(clustersHt[i],0);
-  // }
-  // free(clustersList);
-  //
-  // free(props);
-  // free(vectors);
-  // free(oldClusters);
-  // free(clusters);
-  // destroyLSH(lsh);
+  for(int i=0;i<numOfClusters;i++){
+    if(oldClusters[i]!=NULL)
+      deleteVector(oldClusters[i]);
+    if(clusters[i]!=NULL)
+      deleteVector(clusters[i]);
+    htDelete(clustersHt[i],0);
+  }
+
+  free(props);
+  free(vectors);
+  free(oldClusters);
+  free(clustersHt);
+  free(clusters);
+  destroyLSH(lsh);
 }

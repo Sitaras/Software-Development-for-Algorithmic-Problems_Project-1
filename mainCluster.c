@@ -156,7 +156,7 @@ int main(int argc, char *argv[]) {
   //
   // }
 
-  listDelete(list,1);
+  listDelete(list,0);
   deleteVector(vecTmp);
   return 0;
 }
