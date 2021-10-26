@@ -127,7 +127,7 @@ void readConfFile(char* fileName){
       continue;
     }
   }
-
+  fclose(file);
 }
 
 

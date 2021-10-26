@@ -6,15 +6,19 @@
 #include <float.h>
 #include "../Vector/vector.h"
 #include "../hashTable/hashTableList/hashTableList.h"
+#include "../hashTable/hashTable.h"
+#include "../LSH/lsh.h"
 
 #define SQUARE(x) ((x)*(x))
 
 #define TRUE 1
 #define FALSE 0
-#define CONVERGENCE 100
+#define CONVERGENCE 50
+#define MAX_RECENTER_ITERATIONS 30
 
 extern int numOfVecs;
 extern int d;
+extern int hashTableSize;
 
 int existsInArray(int *array,int check,int arraySize){
   for(int i=0;i<arraySize;i++){
@@ -38,6 +42,27 @@ void minDistToCentroids(Vector v,Vector* vecs,Vector *clusters,int numOfClusters
     double tempDist = distance_metric(clusters[i],v,d);
     if(tempDist<(*minDistance)){
         (*minDistance) = tempDist;
+    }
+  }
+}
+
+void minDistbetweenCentroids(Vector *centroids,int numOfClusters,double *minDistance){
+  // can be impoved
+  for(int i=0;i<numOfClusters;i++){
+    if(centroids[i]==NULL){
+      break;
+    }
+    for(int j=0;j<numOfClusters;j++){
+      if(i!=j){
+        if(centroids[j]==NULL){
+          break;
+        }
+        double tempDist = distance_metric(centroids[i],centroids[j],d);
+        if(tempDist<(*minDistance)){
+          (*minDistance) = tempDist;
+        }
+      }
+
     }
   }
 }
@@ -130,6 +155,58 @@ void lloyds(Vector* clusters,Vector *oldClusters,Vector* vectors,List* clustersL
   flag=1;
 }
 
+void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldClusters,HashTable *clustersHt,int numOfClusters,int iteration){
+  static int flag=0;
+  printf("ITERATION WITH LSH %d\n",iteration);
+  if(flag) //skip it for the first time
+    for(int i=0;i<numOfClusters;i++){
+
+      Vector newCenter = htMeanOfCluster(clustersHt[i],d);
+      if(newCenter==NULL){
+        newCenter=copyVector(oldClusters[i]);
+      }
+
+      htDelete(clustersHt[i],0);
+      clustersHt[i] = htInitialize(50);
+
+      clusters[i]=newCenter;
+    }
+  double radius=DBL_MAX;
+  minDistbetweenCentroids(clusters,numOfClusters,&radius);
+  radius/=2;
+  int assignCounter = 0;
+  while((double)assignCounter<(0.8*numOfVecs)){ // stop when the 80% of vectors has a cluster (do it with global var)
+    printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
+    List confList=initializeList();
+    for(int i=0;i<numOfClusters;i++){
+      radiusNeigborClustering(lsh,clusters[i],radius,clustersHt[i],i,&confList,&assignCounter,iteration);
+    }
+    listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d);
+    printf("---- ASSINGED ITEMS = %d\n",assignCounter);
+    // manage the conflicts
+    if(confList==NULL)
+      printf("- NO CONFLICTS FOUND\n");
+    listDelete(confList,0);
+    radius*=2;
+  }
+  int remainderCounter = 0;
+  if(assignCounter<numOfVecs){
+    for(int i=0;i<numOfVecs;i++){
+      if(assignedToCluster(vectors[i]) && (getAssignedIteration(vectors[i])==iteration)){
+        continue;
+      }
+      int closestCentroid = findClosestCentroid(vectors[i],clusters,numOfClusters);
+      htRangeInsert(clustersHt[closestCentroid],vectors[i],-1,d);
+      setAssignedCluster(vectors[i],closestCentroid);
+      setAssignedIteration(vectors[i],iteration);
+      setAssignedAtRadius(vectors[i],radius);
+      remainderCounter++;
+    }
+  }
+  printf("---- ASSINGED REMAINING ITEMS = %d\n",remainderCounter);
+  flag=1;
+}
+
 void clustering(List vecList,int numOfClusters){
   Vector *vectors;
   Vector *clusters;
@@ -155,7 +232,7 @@ void clustering(List vecList,int numOfClusters){
   for(int i=0;i<numOfClusters;i++){
     clustersList[i]=initializeList();
   }
-  int count =0;
+  int count=0;
   while((count<2) || !centroidsCovnerge(clusters,oldClusters,numOfClusters,d)){
   // while(firstIter || count<20){
     printf("ITER %d\n",count);
@@ -178,26 +255,105 @@ void clustering(List vecList,int numOfClusters){
     firstIter=FALSE;
   }
 
-  printf("==============================\n");
+
   //
   for(int i=0;i<numOfClusters;i++){
     printf("- CLUSTER :%d\n",i);
     printVector(clusters[i]);
-    printf("- CLUSTER LIST\n");
-    listPrint(clustersList[i]);
+    // printf("- CLUSTER LIST\n");
+    // listPrint(clustersList[i]);
   }
 
-
-
+  // free clusters
   for(int i=0;i<numOfClusters;i++){
     listDelete(clustersList[i],0);
     deleteVector(oldClusters[i]);
     deleteVector(clusters[i]);
   }
+
+  free(props);
+  free(vectors);
   free(clustersList);
+  printf("\n==============================2\n");
+
+
+
+
+  //Reverse approach
+  HashTable *clustersHt=malloc(numOfClusters*sizeof(HashTable *));
+  for(int i=0;i<numOfClusters;i++){
+    clustersHt[i]= htInitialize(50); // TODO: CHANGE SIZE
+  }
+  double radius=DBL_MAX;
+  vectors = transformListToArray(vecList,numOfVecs);
+  for(int i=0;i<numOfClusters;i++){
+    clusters[i]=NULL;
+    oldClusters[i]=NULL;
+  }
+  props = calloc(numOfVecs,sizeof(double));
+  kmeansplusplus(vectors,numOfClusters,clusters,props);
+  for(int i=0;i<numOfClusters;i++){
+    printf("- CLUSTER :%d\n",i);
+    printVector(clusters[i]);
+  }
+
+  hashTableSize=numOfVecs/8;
+  LSH lsh = initializeLSH(6);
+  for(int i=0;i<numOfVecs;i++){
+    initializeClusterInfo(vectors[i]);
+    insertToLSH(lsh,vectors[i]);
+  }
+
+
+
+  // reverseAssignmentLSH(lsh,clusters,oldClusters,clustersHt,radius,numOfClusters);
+
+  int firstIterLSH = TRUE;
+  int countLSH=0;
+  while((countLSH<2) || !centroidsCovnerge(clusters,oldClusters,numOfClusters,d)){
+    if(countLSH==MAX_RECENTER_ITERATIONS)
+      break;
+  // while(firstIter || count<20){
+    countLSH++;
+    if(!firstIterLSH){
+      Vector *temp = oldClusters;
+      oldClusters=clusters;
+      clusters = temp;
+      for(int i=0;i<numOfClusters;i++){
+        if(clusters[i]!=NULL){
+          deleteVector(clusters[i]);
+          clusters[i] = NULL;
+        }
+      }
+    }
+
+    //
+    reverseAssignmentLSH(lsh,vectors,clusters,oldClusters,clustersHt,numOfClusters,countLSH);
+
+    firstIterLSH=FALSE;
+
+  }
+
+  for(int i=0;i<numOfClusters;i++){
+    printf("- CLUSTER :%d\n",i);
+    printVector(clusters[i]);
+  }
+
+
+
+
+  for(int i=0;i<numOfClusters;i++){
+    if(oldClusters[i]!=NULL)
+      deleteVector(oldClusters[i]);
+    if(clusters[i]!=NULL)
+      deleteVector(clusters[i]);
+    htDelete(clustersHt[i],0);
+  }
 
   free(props);
   free(vectors);
   free(oldClusters);
+  free(clustersHt);
   free(clusters);
+  destroyLSH(lsh);
 }

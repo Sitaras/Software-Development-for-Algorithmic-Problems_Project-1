@@ -76,6 +76,12 @@ void htRangeInsert(HashTable ht, Vector v,int id,int d){
   ht->numberOfVectors++;
 }
 
+void htRangeDelete(HashTable ht, Vector v,int id,int d){
+  int index=hashFunction(ht,v,d);
+  ht->table[index].head=listDeleteItem(ht->table[index].head,v,id);
+  ht->numberOfVectors--;
+}
+
 
 void htPrint(const HashTable ht){
   for (int i=0;i<ht->buckets;i++){
@@ -113,6 +119,9 @@ void htKFindNearestNeighbors(HashTable ht,int index,Vector q,Vector *nearest,dou
 void htFindNeighborsInRadius(HashTable ht,int index,HashTable storeNeighbors,Vector q,int d,int id,int radius){
   listFindNeighborsInRadius(ht->table[index].head,storeNeighbors,q,d,id,radius);
 }
+void htFindNeighborsInRadiusClustering(HashTable ht,int index,int centroidIndex,List* confList,HashTable storeNeighbors,Vector q,int d,int id,int radius,int *assignCounter,int iteration){
+  listFindNeighborsInRadiusClustering(ht->table[index].head,centroidIndex,confList,storeNeighbors,q,d,id,radius,assignCounter,iteration);
+}
 
 
 void htFindNearestNeighborCube(HashTable ht,int index,Vector q,Vector *nearest,double *nearestDist,int d,int *numOfSearched,int maxToSearch){
@@ -125,4 +134,26 @@ void htKFindNearestNeighborsCube(HashTable ht,int index,Vector q,Vector *nearest
 
 void htFindNeighborsInRadiusCube(HashTable ht,int index,HashTable storeNeighbors,Vector q,int d,int radius,int *numOfSearched,int maxToSearch){
   listFindNeighborsInRadiusCube(ht->table[index].head,storeNeighbors,q,d,radius,numOfSearched,maxToSearch);
+}
+
+Vector htMeanOfCluster(HashTable ht,int d){
+  int count =0;
+  double *sumDims=calloc(d,sizeof(double));
+  for (int i=0;i<ht->buckets;i++){
+    double *tempSum = listSumOfVectors(ht->table[i].head,d,&count);
+    if(tempSum!=NULL){
+      for(int i=0;i<d;i++){
+        sumDims[i]+=tempSum[i];
+      }
+      free(tempSum);
+    }
+  }
+  if(count==0){ free(sumDims); return NULL;}
+  for(int i=0;i<d;i++){
+    sumDims[i]/=(double)count;
+  }
+  Vector newCentroid  = initVector(sumDims);
+  free(sumDims);
+
+  return newCentroid;
 }

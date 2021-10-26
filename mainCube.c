@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
   int m=10;
   int n=1;
   int r=10000;
-  int probes=2;
+  int probes=20;
   int checkflag=0;
   k=14;
 
@@ -145,11 +145,11 @@ int main(int argc, char *argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  nearestNeigbor(hc,vecTmp,1,4,fPtr);
+  nearestNeigbor(hc,vecTmp,4,10,fPtr);
   printf("================================================\n");
-  kNearestNeigbors(hc,vecTmp,3,3,100,fPtr);
+  kNearestNeigbors(hc,vecTmp,3,10,100,fPtr);
   printf("================================================\n");
-  radiusNeigbor(hc,vecTmp,25,2,100,fPtr);
+  radiusNeigbor(hc,vecTmp,25,10,100,fPtr);
 
   // printOptions(); // just printing the commands options for the user
   //
