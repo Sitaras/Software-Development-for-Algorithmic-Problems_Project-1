@@ -32,4 +32,10 @@ void setAssignedCluster(Vector ,int );
 
 double *getCoords(Vector);
 
+void initializeClusterInfo(Vector );
+int getAssignedIteration(Vector );
+void setAssignedIteration(Vector ,int );
+double getAssignedAtRadius(Vector );
+void setAssignedAtRadius(Vector ,double );
+
 #endif

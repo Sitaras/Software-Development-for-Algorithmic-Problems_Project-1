@@ -101,6 +101,7 @@ LSH initializeLSH(int l){
   LSH tempLSH = malloc(sizeof(lshNode));
   tempLSH->g_fun = malloc(l*sizeof(g_function));
   tempLSH->hts = malloc(l*sizeof(HashTable));
+  printf("*!*!**!*!* HASHSIZE = %d\n",hashTableSize);
   for(int i=0;i<l;i++){
      generateG(&(tempLSH->g_fun[i]));
      tempLSH->hts[i] = htInitialize(hashTableSize);
@@ -218,8 +219,7 @@ void radiusNeigbor(LSH lsh,Vector q,double radius,FILE *fptr){
 
   htDelete(vecsInRadius,0);
 }
-void radiusNeigborClustering(LSH lsh,Vector q,double radius,HashTable vecsInRadius,int centroidIndex,List* confList,int *assignCounter){
-  printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
+void radiusNeigborClustering(LSH lsh,Vector q,double radius,HashTable vecsInRadius,int centroidIndex,List* confList,int *assignCounter,int iteration){
   // fprintf(fptr,"ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
   FILE *fptr;
   fptr = fopen("lala", "w");
@@ -234,7 +234,7 @@ void radiusNeigborClustering(LSH lsh,Vector q,double radius,HashTable vecsInRadi
   for(int i=0;i<l;i++){
     int q_ID;
     int q_index = computeG(gfuns[i],q,&q_ID);
-    htFindNeighborsInRadiusClustering(hts[i],q_index,centroidIndex,confList,vecsInRadius,q,d,q_ID,radius,assignCounter);
+    htFindNeighborsInRadiusClustering(hts[i],q_index,centroidIndex,confList,vecsInRadius,q,d,q_ID,radius,assignCounter,iteration);
   }
   // htRangePrint(vecsInRadius,q,d,fptr);
   fclose(fptr);

@@ -4,11 +4,19 @@
 #define FALSE 0
 extern int d;
 
+typedef struct extra_info_node{
+  // add the ID of vector
+  int assignedCluster;
+  int iterationAssigned;
+  double assignedAtRadius;
+}extraInfoNode;
+typedef extraInfoNode *extraInfo;
+
 
 typedef struct vec_node{
   // add the ID of vector
   double* coords;
-  int assignedCluster;
+  extraInfo clusterInfo;
 }vec;
 typedef vec *Vector;
 
@@ -17,15 +25,31 @@ double* getCoords(Vector v){
 }
 
 int assignedToCluster(Vector v){
-  return (v->assignedCluster==-1) ? FALSE : TRUE;
+  return (v->clusterInfo->assignedCluster==-1) ? FALSE : TRUE;
 }
 
 int getAssignedCluster(Vector v){
-  return v->assignedCluster;
+  return v->clusterInfo->assignedCluster;
 }
 
 void setAssignedCluster(Vector v,int cluster){
-   v->assignedCluster = cluster;
+   v->clusterInfo->assignedCluster = cluster;
+}
+
+int getAssignedIteration(Vector v){
+  return v->clusterInfo->iterationAssigned;
+}
+
+void setAssignedIteration(Vector v,int iter){
+   v->clusterInfo->iterationAssigned = iter;
+}
+
+double getAssignedAtRadius(Vector v){
+  return v->clusterInfo->assignedAtRadius;
+}
+
+void setAssignedAtRadius(Vector v,double radius){
+   v->clusterInfo->assignedAtRadius = radius;
 }
 
 // void initVectorConflictArr(Vector v,int numOfClusters){
@@ -67,8 +91,15 @@ Vector initVector(double *vec){
   for(int i=0;i<d;i++){
     (v->coords)[i] = vec[i];
   }
-  v->assignedCluster = -1;
+  v->clusterInfo = NULL;
   return v;
+}
+
+void initializeClusterInfo(Vector v){
+  v->clusterInfo = malloc(sizeof(extraInfoNode));
+  v->clusterInfo->assignedCluster = -1;
+  v->clusterInfo->iterationAssigned = -1;
+  v->clusterInfo->assignedAtRadius = -1;
 }
 
 
@@ -79,12 +110,16 @@ Vector copyVector(Vector vec){
   for(int i=0;i<d;i++){
     (v->coords)[i] = coords[i];
   }
+  v->clusterInfo=NULL;
   return v;
 }
 
 
 void deleteVector(Vector v){
   free(v->coords);
+  if(v->clusterInfo!=NULL){
+    free(v->clusterInfo);
+  }
   free(v);
 }
 

@@ -13,7 +13,8 @@
 
 #define TRUE 1
 #define FALSE 0
-#define CONVERGENCE 100
+#define CONVERGENCE 50
+#define MAX_RECENTER_ITERATIONS 30
 
 extern int numOfVecs;
 extern int d;
@@ -154,11 +155,12 @@ void lloyds(Vector* clusters,Vector *oldClusters,Vector* vectors,List* clustersL
   flag=1;
 }
 
-void reverseAssignmentLSH(LSH lsh,Vector *clusters,Vector *oldClusters,HashTable *clustersHt,int numOfClusters){
+void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldClusters,HashTable *clustersHt,int numOfClusters,int iteration){
   static int flag=0;
-
+  printf("ITERATION WITH LSH %d\n",iteration);
   if(flag) //skip it for the first time
     for(int i=0;i<numOfClusters;i++){
+
       Vector newCenter = htMeanOfCluster(clustersHt[i],d);
       if(newCenter==NULL){
         newCenter=copyVector(oldClusters[i]);
@@ -171,20 +173,37 @@ void reverseAssignmentLSH(LSH lsh,Vector *clusters,Vector *oldClusters,HashTable
     }
   double radius=DBL_MAX;
   minDistbetweenCentroids(clusters,numOfClusters,&radius);
+  radius/=2;
   int assignCounter = 0;
   while((double)assignCounter<(0.8*numOfVecs)){ // stop when the 80% of vectors has a cluster (do it with global var)
+    printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
     List confList=initializeList();
     for(int i=0;i<numOfClusters;i++){
-      radiusNeigborClustering(lsh,clusters[i],radius,clustersHt[i],i,&confList,&assignCounter);
+      radiusNeigborClustering(lsh,clusters[i],radius,clustersHt[i],i,&confList,&assignCounter,iteration);
     }
     listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d);
     printf("---- ASSINGED ITEMS = %d\n",assignCounter);
     // manage the conflicts
     if(confList==NULL)
-      printf("LALALLSLALSDKAJSKFJKSJk\n");
+      printf("- NO CONFLICTS FOUND\n");
     listDelete(confList,0);
     radius*=2;
   }
+  int remainderCounter = 0;
+  if(assignCounter<numOfVecs){
+    for(int i=0;i<numOfVecs;i++){
+      if(assignedToCluster(vectors[i]) && (getAssignedIteration(vectors[i])==iteration)){
+        continue;
+      }
+      int closestCentroid = findClosestCentroid(vectors[i],clusters,numOfClusters);
+      htRangeInsert(clustersHt[closestCentroid],vectors[i],-1,d);
+      setAssignedCluster(vectors[i],closestCentroid);
+      setAssignedIteration(vectors[i],iteration);
+      setAssignedAtRadius(vectors[i],radius);
+      remainderCounter++;
+    }
+  }
+  printf("---- ASSINGED REMAINING ITEMS = %d\n",remainderCounter);
   flag=1;
 }
 
@@ -280,8 +299,11 @@ void clustering(List vecList,int numOfClusters){
 
   hashTableSize=numOfVecs/8;
   LSH lsh = initializeLSH(6);
-  for(int i=0;i<numOfVecs;i++)
+  for(int i=0;i<numOfVecs;i++){
+    initializeClusterInfo(vectors[i]);
     insertToLSH(lsh,vectors[i]);
+  }
+
 
 
   // reverseAssignmentLSH(lsh,clusters,oldClusters,clustersHt,radius,numOfClusters);
@@ -289,8 +311,9 @@ void clustering(List vecList,int numOfClusters){
   int firstIterLSH = TRUE;
   int countLSH=0;
   while((countLSH<2) || !centroidsCovnerge(clusters,oldClusters,numOfClusters,d)){
+    if(countLSH==MAX_RECENTER_ITERATIONS)
+      break;
   // while(firstIter || count<20){
-    printf("ITER LSH %d\n",countLSH);
     countLSH++;
     if(!firstIterLSH){
       Vector *temp = oldClusters;
@@ -305,13 +328,15 @@ void clustering(List vecList,int numOfClusters){
     }
 
     //
-    reverseAssignmentLSH(lsh,clusters,oldClusters,clustersHt,numOfClusters);
+    reverseAssignmentLSH(lsh,vectors,clusters,oldClusters,clustersHt,numOfClusters,countLSH);
 
     firstIterLSH=FALSE;
 
+  }
 
-    //REMOVE
-    break;
+  for(int i=0;i<numOfClusters;i++){
+    printf("- CLUSTER :%d\n",i);
+    printVector(clusters[i]);
   }
 
 
