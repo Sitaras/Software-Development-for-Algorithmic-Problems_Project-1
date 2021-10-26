@@ -175,7 +175,7 @@ void reverseAssignmentLSH(LSH lsh,Vector *clusters,Vector *oldClusters,HashTable
   while((double)assignCounter<(0.8*numOfVecs)){ // stop when the 80% of vectors has a cluster (do it with global var)
     List confList=initializeList();
     for(int i=0;i<numOfClusters;i++){
-      radiusNeigborClustering(lsh,clusters[i],radius,clustersHt[i],i,confList,&assignCounter);
+      radiusNeigborClustering(lsh,clusters[i],radius,clustersHt[i],i,&confList,&assignCounter);
     }
     listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d);
     printf("---- ASSINGED ITEMS = %d\n",assignCounter);

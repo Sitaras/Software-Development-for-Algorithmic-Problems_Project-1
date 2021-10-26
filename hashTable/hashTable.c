@@ -119,7 +119,7 @@ void htKFindNearestNeighbors(HashTable ht,int index,Vector q,Vector *nearest,dou
 void htFindNeighborsInRadius(HashTable ht,int index,HashTable storeNeighbors,Vector q,int d,int id,int radius){
   listFindNeighborsInRadius(ht->table[index].head,storeNeighbors,q,d,id,radius);
 }
-void htFindNeighborsInRadiusClustering(HashTable ht,int index,int centroidIndex,List confList,HashTable storeNeighbors,Vector q,int d,int id,int radius,int *assignCounter){
+void htFindNeighborsInRadiusClustering(HashTable ht,int index,int centroidIndex,List* confList,HashTable storeNeighbors,Vector q,int d,int id,int radius,int *assignCounter){
   listFindNeighborsInRadiusClustering(ht->table[index].head,centroidIndex,confList,storeNeighbors,q,d,id,radius,assignCounter);
 }
 

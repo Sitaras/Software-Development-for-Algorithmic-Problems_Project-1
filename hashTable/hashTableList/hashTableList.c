@@ -394,7 +394,7 @@ void listFindNeighborsInRadius(List list,HashTable storeNeighbors,Vector q,int d
   }
 }
 
-void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List confList,HashTable storeNeighbors,Vector q,int d,int id,int radius,int *assignCounter){
+void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List* confList,HashTable storeNeighbors,Vector q,int d,int id,int radius,int *assignCounter){
   if(list==NULL){ return;}
   List temp=list;
   while(temp!=NULL){
@@ -408,7 +408,8 @@ void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List confLi
             temp=temp->next;
             continue;
           }else{
-            listUniqueInsert(confList,temp->v,-1);
+            *confList=listUniqueInsert(*confList,temp->v,-1);
+            // printf("SURE NOT NULL\n");
             temp=temp->next;
             continue;
           }

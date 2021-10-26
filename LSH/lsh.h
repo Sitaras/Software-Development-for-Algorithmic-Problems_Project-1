@@ -12,5 +12,5 @@ void destroyLSH(LSH );
 void nearestNeigbor(LSH ,Vector,FILE* );
 void kNearestNeigbors(LSH, Vector,int,FILE*);
 void radiusNeigbor(LSH ,Vector ,double,FILE* );
-void radiusNeigborClustering(LSH ,Vector ,double ,HashTable ,int ,List ,int *);
+void radiusNeigborClustering(LSH ,Vector ,double ,HashTable ,int ,List* ,int *);
 #endif

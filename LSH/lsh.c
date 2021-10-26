@@ -218,7 +218,7 @@ void radiusNeigbor(LSH lsh,Vector q,double radius,FILE *fptr){
 
   htDelete(vecsInRadius,0);
 }
-void radiusNeigborClustering(LSH lsh,Vector q,double radius,HashTable vecsInRadius,int centroidIndex,List confList,int *assignCounter){
+void radiusNeigborClustering(LSH lsh,Vector q,double radius,HashTable vecsInRadius,int centroidIndex,List* confList,int *assignCounter){
   printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
   // fprintf(fptr,"ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
   FILE *fptr;
