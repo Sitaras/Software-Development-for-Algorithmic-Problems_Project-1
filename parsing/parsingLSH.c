@@ -122,6 +122,8 @@ void readFile(char* fileName,LSH lsh){
     double vec[d];
     char * token = strtok(buffer, " ");
     // printf("NAME = %s\n",token);
+    char name[MAX_INPUT_LENGTH];
+    strcpy(name,token);
     token = strtok(NULL, " ");
      // loop through the string to extract all other tokens
      int counter = 0;
@@ -130,7 +132,7 @@ void readFile(char* fileName,LSH lsh){
         vec[counter++]=atof(token);
         token = strtok(NULL, " ");
      }
-     Vector vecTmp=initVector(vec);
+     Vector vecTmp=initVector(vec,name);
      insertToLSH(lsh,vecTmp);
 
 
@@ -171,6 +173,8 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh){
     double vec[d];
     int id;
     char * token = strtok(buffer, " ");
+    char name[MAX_INPUT_LENGTH];
+    strcpy(name,token);
     id=atoi(token);
     token = strtok(NULL, " ");
      // loop through the string to extract all other tokens
@@ -180,7 +184,7 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh){
         vec[counter++]=atof(token);
         token = strtok(NULL, " ");
      }
-     Vector vecTmp=initVector(vec);
+     Vector vecTmp=initVector(vec,name);
      fprintf(fptr, "Query %d:\n",id);
      printf("================================================\n");
      nearestNeigbor(lsh,vecTmp,fptr);

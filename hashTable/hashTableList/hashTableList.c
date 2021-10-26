@@ -483,7 +483,7 @@ Vector listMeanOfCluster(List list,int d){
     sumDims[i]/=(double)count;
   }
 
-  Vector newCentroid  = initVector(sumDims);
+  Vector newCentroid  = initVector(sumDims,"tempCentroid");
   free(sumDims);
 
   return newCentroid;

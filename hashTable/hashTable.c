@@ -152,7 +152,7 @@ Vector htMeanOfCluster(HashTable ht,int d){
   for(int i=0;i<d;i++){
     sumDims[i]/=(double)count;
   }
-  Vector newCentroid  = initVector(sumDims);
+  Vector newCentroid  = initVector(sumDims,"temp");
   free(sumDims);
 
   return newCentroid;

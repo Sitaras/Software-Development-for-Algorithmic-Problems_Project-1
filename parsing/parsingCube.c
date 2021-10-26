@@ -106,16 +106,16 @@ void readFile(char* fileName,HyperCube hc){
 
     double vec[d];
     char * token = strtok(buffer, " ");
-    printf("NAME = %s\n",token);
+    char name[MAX_INPUT_LENGTH];
+    strcpy(name,token);
     token = strtok(NULL, "  ");
      // loop through the string to extract all other tokens
      int counter = 0;
      while( token != NULL ) {
-        printf( " - %s\n", token ); //printing each token
         vec[counter++]=atof(token);
         token = strtok(NULL, "  ");
      }
-     Vector vecTmp=initVector(vec);
+     Vector vecTmp=initVector(vec,name);
      insertToHyperCube(hc,vecTmp);
 
 
@@ -163,6 +163,8 @@ void readQueryFile(char* queryFile,char* outputFile,int hammingDist,HyperCube hc
     int id;
     char * token = strtok(buffer, " ");
     id=atoi(token);
+    char name[MAX_INPUT_LENGTH];
+    strcpy(name,token);
     token = strtok(NULL, " ");
      // loop through the string to extract all other tokens
      int counter = 0;
@@ -171,7 +173,7 @@ void readQueryFile(char* queryFile,char* outputFile,int hammingDist,HyperCube hc
         vec[counter++]=atof(token);
         token = strtok(NULL, " ");
      }
-     Vector vecTmp=initVector(vec);
+     Vector vecTmp=initVector(vec,name);
      fprintf(fptr, "Query %d:\n",id);
      nearestNeigbor(hc,vecTmp,1,4,fptr);
      printf("================================================\n");

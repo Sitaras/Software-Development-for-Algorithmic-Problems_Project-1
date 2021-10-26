@@ -8,11 +8,11 @@ ABOUT TO SEARCH 3 NEAREST NEIGHBORS FOR :
 FOUND 2 NEAREST NEIGHBOR: WITH DISTANCE =  6.708204
 FOUND 1 NEAREST NEIGHBOR: WITH DISTANCE =  16.552945
 FOUND 0 NEAREST NEIGHBOR: WITH DISTANCE =  21.633308
-Checked: 7  vectors
+Checked: 6  vectors
 Checked: 10  hypercube nodes
 ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : 25.000000
 Found vector: inside range with distance: 16.552945
 Found vector: inside range with distance: 21.633308
 Found vector: inside range with distance: 6.708204
-Checked: 7  vectors
+Checked: 6  vectors
 Checked: 10  hypercube nodes

@@ -3,7 +3,7 @@
 
 typedef struct vec_node *Vector;
 
-Vector initVector(double *);
+Vector initVector(double *, char []);
 
 Vector copyVector(Vector );
 

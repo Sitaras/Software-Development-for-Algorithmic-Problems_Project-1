@@ -135,7 +135,7 @@ int main(int argc, char *argv[]) {
   printHyperCube(hc);
 
   double vec[6] = {21,  3,  3,  18,  25,  11};
-  Vector vecTmp=initVector(vec);
+  Vector vecTmp=initVector(vec,"TEMPNAME");
 
   FILE* fPtr;
   fPtr = fopen(outputFile, "w");

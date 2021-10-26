@@ -37,6 +37,9 @@ int main(int argc, char *argv[])  {
   int n=1;
   int r=10000;
   k=4;
+  hashTableSize = 50;
+  k = 6;
+  w = 8;
 
   while((option = getopt(argc, argv, "i:q:k:L:o:N:R:")) != -1){
      switch(option){
@@ -117,9 +120,6 @@ int main(int argc, char *argv[])  {
   // }
 
   srand(time(NULL));
-  hashTableSize = 50;
-  k = 6;
-  w = 8;
   d = findDim("input_small_id");
   // d = findDim("testing.txt");
   printf("DIMENSION = %d\n",d);

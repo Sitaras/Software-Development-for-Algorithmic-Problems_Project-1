@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #define TRUE 1
 #define FALSE 0
 extern int d;
@@ -15,6 +16,7 @@ typedef extraInfoNode *extraInfo;
 
 typedef struct vec_node{
   // add the ID of vector
+  char *vec_id;
   double* coords;
   extraInfo clusterInfo;
 }vec;
@@ -85,12 +87,14 @@ void setAssignedAtRadius(Vector v,double radius){
 // }
 
 
-Vector initVector(double *vec){
+Vector initVector(double *vec, char id[]){
   Vector v=malloc(sizeof(struct vec_node));
   v->coords = malloc(d*sizeof(double));
   for(int i=0;i<d;i++){
     (v->coords)[i] = vec[i];
   }
+  v->vec_id = malloc((strlen(id)+1)*sizeof(char));
+  strcpy(v->vec_id,id);
   v->clusterInfo = NULL;
   return v;
 }
@@ -110,6 +114,8 @@ Vector copyVector(Vector vec){
   for(int i=0;i<d;i++){
     (v->coords)[i] = coords[i];
   }
+  v->vec_id = malloc((strlen(vec->vec_id)+1)*sizeof(char));
+  strcpy(v->vec_id,vec->vec_id);
   v->clusterInfo=NULL;
   return v;
 }
@@ -117,6 +123,7 @@ Vector copyVector(Vector vec){
 
 void deleteVector(Vector v){
   free(v->coords);
+  free(v->vec_id);
   if(v->clusterInfo!=NULL){
     free(v->clusterInfo);
   }

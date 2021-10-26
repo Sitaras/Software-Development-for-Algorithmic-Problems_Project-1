@@ -123,7 +123,7 @@ int main(int argc, char *argv[]) {
   // listPrint(list);
 
   double vec[6] = {21,  3,  3,  18,  25,  11};
-  Vector vecTmp=initVector(vec);
+  Vector vecTmp=initVector(vec,"TEMPNAME");
 
 
 

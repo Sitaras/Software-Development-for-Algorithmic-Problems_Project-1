@@ -161,6 +161,8 @@ void readFile(char* fileName,List *list,int *numOfVecs){
 
     double vec[d];
     char * token = strtok(buffer, " ");
+    char name[MAX_INPUT_LENGTH];
+    strcpy(name,token);
     token = strtok(NULL, "  ");
      // loop through the string to extract all other tokens
      int counter = 0;
@@ -168,7 +170,7 @@ void readFile(char* fileName,List *list,int *numOfVecs){
         vec[counter++]=atof(token);
         token = strtok(NULL, "  ");
      }
-     Vector vecTmp=initVector(vec);
+     Vector vecTmp=initVector(vec,name);
      (*list) = listInsert((*list),vecTmp,-1);
      (*numOfVecs)++;
 
