@@ -3,6 +3,7 @@
 
 
 void readFile(char*,List *,int *);
+void readQueryFile(char* ,char* ,HyperCube );
 void readConfFile(char*);
 int findDim(char* );
 
