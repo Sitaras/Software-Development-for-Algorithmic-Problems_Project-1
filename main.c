@@ -127,30 +127,30 @@ int main(int argc, char *argv[])  {
   LSH temp = initializeLSH(l);
   readFile("input_small_id",temp);
   // printLSH(temp);
+  readQueryFile("query_small_id",outputFile,temp);
 
-
-  double vec[128] = {1.0 , 1.0};
-  for (int i = 3; i < d; i++) {
-    vec[d]=0;
-  }
-  double vec2[128] = {0,16,35,5,32,31,14,10,11,78,55,10,45,83,11,6,14,57,102,75,20,8,3,5,67,17,19,26,5,0,1,22,60,26,7,1,18,22,84,53,85,119,119,4,24,18,7,7,1,81,106,102,72,30,6,0,9,1,9,119,72,1,4,33,119,29,6,1,0,1,14,52,119,30,3,0,0,55,92,111,2,5,4,9,22,89,96,14,1,0,1,82,59,16,20,5,25,14,11,4,0,0,1,26,47,23,4,0,0,4,38,83,30,14,9,4,9,17,23,41,0,0,2,8,19,25,23,1};
-  Vector vecTmp=initVector(vec2);
-  //
-  FILE* fPtr;
-  fPtr = fopen(outputFile, "w");
-  if(fPtr == NULL){
-    /* File not created hence exit */
-    printf("Unable to create file.\n");
-    exit(EXIT_FAILURE);
-  }
-  fprintf(fPtr, "Query:\n");
-  printf("================================================\n");
-  nearestNeigbor(temp,vecTmp,fPtr);
-  printf("================================================\n");
-  kNearestNeigbors(temp, vecTmp, 3,fPtr);
-  printf("================================================\n");
-  // printLSH(temp);
-  radiusNeigbor(temp,vecTmp,200.0,fPtr);
+  // double vec[128] = {1.0 , 1.0};
+  // for (int i = 3; i < d; i++) {
+  //   vec[d]=0;
+  // }
+  // double vec2[128] = {0,16,35,5,32,31,14,10,11,78,55,10,45,83,11,6,14,57,102,75,20,8,3,5,67,17,19,26,5,0,1,22,60,26,7,1,18,22,84,53,85,119,119,4,24,18,7,7,1,81,106,102,72,30,6,0,9,1,9,119,72,1,4,33,119,29,6,1,0,1,14,52,119,30,3,0,0,55,92,111,2,5,4,9,22,89,96,14,1,0,1,82,59,16,20,5,25,14,11,4,0,0,1,26,47,23,4,0,0,4,38,83,30,14,9,4,9,17,23,41,0,0,2,8,19,25,23,1};
+  // Vector vecTmp=initVector(vec2);
+  // //
+  // FILE* fPtr;
+  // fPtr = fopen(outputFile, "w");
+  // if(fPtr == NULL){
+  //   /* File not created hence exit */
+  //   printf("Unable to create file.\n");
+  //   exit(EXIT_FAILURE);
+  // }
+  // fprintf(fPtr, "Query:\n");
+  // printf("================================================\n");
+  // nearestNeigbor(temp,vecTmp,fPtr);
+  // printf("================================================\n");
+  // kNearestNeigbors(temp, vecTmp, 3,fPtr);
+  // printf("================================================\n");
+  // // printLSH(temp);
+  // radiusNeigbor(temp,vecTmp,200.0,fPtr);
 
 
   // printOptions(); // just printing the commands options for the user
@@ -182,10 +182,10 @@ int main(int argc, char *argv[])  {
   //
   // }
 
-  deleteVector(vecTmp);
+  // deleteVector(vecTmp);
 
   destroyLSH(temp);
-  fclose(fPtr);
+  // fclose(fPtr);
 
 
   return 0;

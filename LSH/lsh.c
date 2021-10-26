@@ -140,9 +140,9 @@ void destroyLSH(LSH lsh){
 
 
 void nearestNeigbor(LSH lsh,Vector q,FILE *fptr){
-  printf("ABOUT TO SEARCH NEAREST NEIGHBOR FOR : ");
-  printVector(q);
-  printVectorInFile(q,fptr);
+  // printf("ABOUT TO SEARCH NEAREST NEIGHBOR FOR : ");
+  // printVector(q);
+  // printVectorInFile(q,fptr);
   Vector nearest=NULL;
   double nearestDist=-1;
   int l = getL(lsh);
@@ -167,9 +167,9 @@ void nearestNeigbor(LSH lsh,Vector q,FILE *fptr){
 }
 
 void kNearestNeigbors(LSH lsh,Vector q,int k,FILE* fptr){
-  printf("ABOUT TO SEARCH %d NEAREST NEIGHBORS FOR : ",k);
-  printVector(q);
-  printVectorInFile(q,fptr);
+  // printf("ABOUT TO SEARCH %d NEAREST NEIGHBORS FOR : ",k);
+  // printVector(q);
+  // printVectorInFile(q,fptr);
   Vector nearest[k];
   double knearestDists[k];
   for (int i = 0; i < k; i++){

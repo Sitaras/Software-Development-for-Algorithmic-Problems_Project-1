@@ -3,6 +3,7 @@
 
 
 void readFile(char*,LSH );
+void readQueryFile(char*,char*,LSH );
 int findDim(char* );
 
 #endif

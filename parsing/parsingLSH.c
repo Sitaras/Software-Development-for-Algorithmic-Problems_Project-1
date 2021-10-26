@@ -111,11 +111,6 @@ void readFile(char* fileName,LSH lsh){
     return;
   }
 
-  // int numberOfVectors=countLines(file);
-  // int** arrVectors = malloc(numberOfVectors * sizeof(int*));
-  // for (i = 0; i < numberOfVectors; i++)
-  //     arrVectors[i] = malloc(dimensions * sizeof(int));
-
   char buffer[MAX_INPUT_LENGTH];
 
   while(!feof(file)){
@@ -143,8 +138,59 @@ void readFile(char* fileName,LSH lsh){
 
   }
 
-
   fclose(file);
+}
+void readQueryFile(char* queryFile,char* outputFile,LSH lsh){
 
+   FILE *file = fopen(queryFile, "r"); // read mode
 
+   if (file == NULL){
+      perror("Error while opening the file.\n");
+      exit(-1);
+   }
+
+  if (feof(file)){ // empty file, return
+    return;
+  }
+  FILE* fptr;
+  fptr = fopen(outputFile, "w");
+  if(fptr == NULL){
+    /* File not created hence exit */
+    printf("Unable to create file.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  char buffer[MAX_INPUT_LENGTH];
+
+  while(!feof(file)){
+    fflush(stdin);  // clear stdin buffer
+    if(fscanf(file,"%[^\n]\n",buffer)<0){ // read a line from the file
+      continue;
+    }
+
+    double vec[d];
+    int id;
+    char * token = strtok(buffer, " ");
+    id=atoi(token);
+    token = strtok(NULL, " ");
+     // loop through the string to extract all other tokens
+     int counter = 0;
+     while( token != NULL ) {
+        // printf( " - %s\n", token ); //printing each token
+        vec[counter++]=atof(token);
+        token = strtok(NULL, " ");
+     }
+     Vector vecTmp=initVector(vec);
+     fprintf(fptr, "Query %d:\n",id);
+     printf("================================================\n");
+     nearestNeigbor(lsh,vecTmp,fptr);
+     printf("================================================\n");
+     kNearestNeigbors(lsh, vecTmp, 3,fptr);
+     printf("================================================\n");
+     // printLSH(temp);
+     radiusNeigbor(lsh,vecTmp,300.0,fptr);
+     deleteVector(vecTmp);
+  }
+  fclose(fptr);
+  fclose(file);
 }

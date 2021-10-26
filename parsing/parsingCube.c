@@ -95,11 +95,6 @@ void readFile(char* fileName,HyperCube hc){
     return;
   }
 
-  // int numberOfVectors=countLines(file);
-  // int** arrVectors = malloc(numberOfVectors * sizeof(int*));
-  // for (i = 0; i < numberOfVectors; i++)
-  //     arrVectors[i] = malloc(dimensions * sizeof(int));
-
   char buffer[MAX_INPUT_LENGTH];
 
 
@@ -132,4 +127,60 @@ void readFile(char* fileName,HyperCube hc){
   fclose(file);
 
 
+}
+
+
+
+void readQueryFile(char* queryFile,char* outputFile,int hammingDist,HyperCube hc){
+
+   FILE *file = fopen(queryFile, "r"); // read mode
+
+   if (file == NULL){
+      perror("Error while opening the file.\n");
+      exit(-1);
+   }
+
+  if (feof(file)){ // empty file, return
+    return;
+  }
+  FILE* fptr;
+  fptr = fopen(outputFile, "w");
+  if(fptr == NULL){
+    /* File not created hence exit */
+    printf("Unable to create file.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  char buffer[MAX_INPUT_LENGTH];
+
+  while(!feof(file)){
+    fflush(stdin);  // clear stdin buffer
+    if(fscanf(file,"%[^\n]\n",buffer)<0){ // read a line from the file
+      continue;
+    }
+
+    double vec[d];
+    int id;
+    char * token = strtok(buffer, " ");
+    id=atoi(token);
+    token = strtok(NULL, " ");
+     // loop through the string to extract all other tokens
+     int counter = 0;
+     while( token != NULL ) {
+        // printf( " - %s\n", token ); //printing each token
+        vec[counter++]=atof(token);
+        token = strtok(NULL, " ");
+     }
+     Vector vecTmp=initVector(vec);
+     fprintf(fptr, "Query %d:\n",id);
+     nearestNeigbor(hc,vecTmp,1,4,fptr);
+     printf("================================================\n");
+     kNearestNeigbors(hc,vecTmp,3,3,100,fptr);
+     printf("================================================\n");
+     radiusNeigbor(hc,vecTmp,25,2,100,fptr);
+     // printLSH(temp);
+     deleteVector(vecTmp);
+  }
+  fclose(fptr);
+  fclose(file);
 }
