@@ -336,6 +336,58 @@ void radiusNeigborHypercube(HyperCube hc,Vector q,double radius,int hammingDist,
 
 
 
+void searchForHammingDistanceRadiusClustering(HyperCube hc,Vector v,int *v_index,int hammingDist,int startFrom,HashTable vecsInRadius,int *numOfSearched,int maxToSearch,int radius,int *nodesSearched,int probes,int centroidIndex,List* confList,int *assignCounter,int iteration){
+  if(hammingDist<=0){
+    int new_index = binaryArrayToDecimal(v_index,new_dimension);
+    htFindNeighborsInRadiusClusteringCube(hc->hypercube,new_index,centroidIndex,confList,vecsInRadius,v,d,radius,numOfSearched,maxToSearch,assignCounter,iteration);
+    (*nodesSearched)++;
+    return;
+  }
+  for(int i=startFrom;i<new_dimension;i++){
+      v_index[i] = v_index[i]^1;
+      searchForHammingDistanceRadiusClustering(hc,v,v_index,hammingDist-1,i+1,vecsInRadius,numOfSearched,maxToSearch,radius,nodesSearched,probes,centroidIndex,confList,assignCounter,iteration);
+      // search
+      v_index[i] = v_index[i]^1;
+      if((*numOfSearched)>=maxToSearch || (*nodesSearched)>=probes){
+        break;
+      }
+  }
+}
+
+void radiusNeigborHypercubeClustering(HyperCube hc,Vector q,HashTable vecsInRadius,double radius,int hammingDist,int m,int centroidIndex,List* confList,int *assignCounter,int iteration){
+  printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
+  // fprintf(fptr,"ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
+  // HashTable vecsInRadius = htInitialize(100); // TODO: CHANGE SIZE
+
+  int index[new_dimension];
+  int searched = 0;
+  for(int i=0;i<new_dimension;i++){
+    int h_result = computeH_Cube(hc->h_functions[i],q);
+    int f_result = computeF(hc->f_funs[i],h_result);
+    index[i] = f_result;
+  }
+  int index_decimal = binaryArrayToDecimal(index,new_dimension);
+  htFindNeighborsInRadiusCube(hc->hypercube,index_decimal,vecsInRadius,q,d,radius,&searched,m);
+
+  int nodesSearched = 0;
+  for(int i=1;;i++){
+    if(searched>=m || nodesSearched>=hammingDist){
+      break;
+    }
+    searchForHammingDistanceRadiusClustering(hc,q,index,i,0,vecsInRadius,&searched,m,radius,&nodesSearched,hammingDist,centroidIndex,confList,assignCounter,iteration);
+  }
+
+
+  // fprintf(fptr,"Checked: %d  vectors\n",searched);
+  printf("Checked: %d  vectors\n",searched);
+  // fprintf(fptr,"Checked: %d  hypercube nodes\n",nodesSearched);
+  printf("Checked: %d  hypercube nodes\n",nodesSearched);
+}
+
+
+
+
+
 
 
 

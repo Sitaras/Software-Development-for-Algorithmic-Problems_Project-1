@@ -247,8 +247,67 @@ void clusteringLSH(List vecList,int numOfClusters){
   destroyLSH(lsh);
 }
 
+void reverseAssignmentHypercube(HyperCube cube,Vector *vectors,Vector *clusters,Vector *oldClusters,HashTable *clustersHt,int numOfClusters,int iteration,int m,int probes){
+  static int flag=0;
+  printf("ITERATION WITH LSH %d\n",iteration);
+  if(flag) //skip it for the first time
+    for(int i=0;i<numOfClusters;i++){
 
-void clusteringHypercube(List vecList,int numOfClusters,int m,int k){
+      Vector newCenter = htMeanOfCluster(clustersHt[i],d);
+      if(newCenter==NULL){
+        newCenter=copyVector(oldClusters[i]);
+      }
+
+      htDelete(clustersHt[i],0);
+      clustersHt[i] = htInitialize(50);
+
+      clusters[i]=newCenter;
+    }
+  double radius=DBL_MAX;
+  minDistbetweenCentroids(clusters,numOfClusters,&radius);
+  radius/=2;
+  int assignCounter = 0;
+  int previousAssigns = -1;
+  int loopCounter = 0;
+  while((double)assignCounter<(0.8*numOfVecs) && loopCounter<MAX_RECENTER_ITERATIONS){ // stop when the 80% of vectors has a cluster (do it with global var)
+    if(assignCounter==previousAssigns && assignCounter!=0){
+      break;
+    }
+    previousAssigns = assignCounter;
+    printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
+    List confList=initializeList();
+    for(int i=0;i<numOfClusters;i++){
+      radiusNeigborHypercubeClustering(cube,clusters[i],clustersHt[i],radius,probes,m,i,&confList,&assignCounter,iteration);
+    }
+    listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d);
+    printf("---- ASSINGED ITEMS = %d\n",assignCounter);
+    // manage the conflicts
+    if(confList==NULL)
+      printf("- NO CONFLICTS FOUND\n");
+    listDelete(confList,0);
+    radius*=2;
+    loopCounter++;
+  }
+  int remainderCounter = 0;
+  if(assignCounter<numOfVecs){
+    for(int i=0;i<numOfVecs;i++){
+      if(assignedToCluster(vectors[i]) && (getAssignedIteration(vectors[i])==iteration)){
+        continue;
+      }
+      int closestCentroid = findClosestCentroid(vectors[i],clusters,numOfClusters);
+      htRangeInsert(clustersHt[closestCentroid],vectors[i],-1,d);
+      setAssignedCluster(vectors[i],closestCentroid);
+      setAssignedIteration(vectors[i],iteration);
+      setAssignedAtRadius(vectors[i],radius);
+      remainderCounter++;
+    }
+  }
+  printf("---- ASSINGED REMAINING ITEMS = %d\n",remainderCounter);
+  flag=1;
+}
+
+
+void clusteringHypercube(List vecList,int numOfClusters,int m,int probes){
   Vector *vectors;
   Vector *clusters;
   Vector *oldClusters = NULL;
@@ -277,15 +336,42 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int k){
     initializeClusterInfo(vectors[i]);
     insertToHyperCube(cube,vectors[i]);
   }
+
+  int firstIterLSH = TRUE;
+  int countLSH=0;
+  while((countLSH<2) || !centroidsCovnerge(clusters,oldClusters,numOfClusters,d)){
+    if(countLSH==MAX_RECENTER_ITERATIONS)
+      break;
+  // while(firstIter || count<20){
+    countLSH++;
+    if(!firstIterLSH){
+      Vector *temp = oldClusters;
+      oldClusters=clusters;
+      clusters = temp;
+      for(int i=0;i<numOfClusters;i++){
+        if(clusters[i]!=NULL){
+          deleteVector(clusters[i]);
+          clusters[i] = NULL;
+        }
+      }
+    }
+
+    //
+    reverseAssignmentHypercube(cube,vectors,clusters,oldClusters,clustersHt,numOfClusters,countLSH,m,probes);
+
+    firstIterLSH=FALSE;
+  }
 }
 
-void clustering(List vecList,int numOfClusters,int m,int k){
+void clustering(List vecList,int numOfClusters,int m,int probes){
 
-  clusteringLloyds(vecList,numOfClusters);
+  // clusteringLloyds(vecList,numOfClusters);
 
   printf("\n==============================2\n");
 
-  clusteringLSH(vecList,numOfClusters);
+  // clusteringLSH(vecList,numOfClusters);
+
+  clusteringHypercube(vecList,numOfClusters,m,probes);
 
 
   //Reverse approach

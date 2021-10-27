@@ -119,6 +119,8 @@ int main(int argc, char *argv[]) {
   readConfFile("cluster.conf");
   readFile("query_small_id",&list,&numOfVecs);
 
+  m=100;
+  probes=15;
   clustering(list,5,m,probes);
 
 

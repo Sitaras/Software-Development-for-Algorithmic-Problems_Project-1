@@ -166,13 +166,13 @@ void nearestNeigborLSH(LSH lsh,Vector q,FILE *fptr){
   }
 }
 
-void kNearestNeigborsLSH(LSH lsh,Vector q,int k,FILE* fptr){
+void kNearestNeigborsLSH(LSH lsh,Vector q,int knn,FILE* fptr){
   // printf("ABOUT TO SEARCH %d NEAREST NEIGHBORS FOR : ",k);
   // printVector(q);
   // printVectorInFile(q,fptr);
-  Vector nearest[k];
-  double knearestDists[k];
-  for (int i = 0; i < k; i++){
+  Vector nearest[knn];
+  double knearestDists[knn];
+  for (int i = 0; i < knn; i++){
     knearestDists[i]=-1;
     nearest[i]=NULL;
   }
@@ -183,10 +183,10 @@ void kNearestNeigborsLSH(LSH lsh,Vector q,int k,FILE* fptr){
   for(int i=0;i<l;i++){
     int q_ID;
     int q_index = computeG(gfuns[i],q,&q_ID);
-    htKFindNearestNeighbors(hts[i], q_index, q, nearest, knearestDists, d,k,q_ID);
+    htKFindNearestNeighbors(hts[i], q_index, q, nearest, knearestDists, d,knn,q_ID);
   }
   int flag=1;
-  for (int i = k-1; i >= 0; i--){
+  for (int i = knn-1; i >= 0; i--){
     if (knearestDists[i] >= 0 && nearest[i] != NULL){
       printf("FOUND %d NEAREST NEIGHBOR: ",i);
       fprintf(fptr,"FOUND %d NEAREST NEIGHBOR: ",i);
