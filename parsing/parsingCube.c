@@ -175,11 +175,11 @@ void readQueryFile(char* queryFile,char* outputFile,int hammingDist,HyperCube hc
      }
      Vector vecTmp=initVector(vec,name);
      fprintf(fptr, "Query %d:\n",id);
-     nearestNeigbor(hc,vecTmp,1,4,fptr);
+     nearestNeigborHypercube(hc,vecTmp,1,4,fptr);
      printf("================================================\n");
-     kNearestNeigbors(hc,vecTmp,3,3,100,fptr);
+     kNearestNeigborsHypercube(hc,vecTmp,3,3,100,fptr);
      printf("================================================\n");
-     radiusNeigbor(hc,vecTmp,25,2,100,fptr);
+     radiusNeigborHypercube(hc,vecTmp,25,2,100,fptr);
      // printLSH(temp);
      deleteVector(vecTmp);
   }

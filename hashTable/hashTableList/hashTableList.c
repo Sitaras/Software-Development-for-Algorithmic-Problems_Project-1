@@ -428,6 +428,41 @@ void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List* confL
   }
 }
 
+void listFindNeighborsInRadiusClusteringCube(List list,int centroidIndex,List* confList,HashTable storeNeighbors,Vector q,int d,int radius,int *numOfSearched,int maxToSearch,int *assignCounter,int iteration){
+  if(list==NULL){ return;}
+  List temp=list;
+  while(temp!=NULL){
+      if((*numOfSearched)>=maxToSearch){
+        return;
+      }
+      (*numOfSearched)++;
+      double dist = distance_metric(temp->v,q,d);
+      if(dist<=radius){
+        if(assignedToCluster(temp->v) && (getAssignedIteration(temp->v)==iteration)){
+          int assignedCluster = getAssignedCluster(temp->v);
+          if(assignedCluster==centroidIndex || (((int)getAssignedAtRadius(temp->v))!=radius)){
+          // if(assignedCluster==centroidIndex){
+            temp=temp->next;
+            continue;
+          }else{
+            *confList=listUniqueInsert(*confList,temp->v,-1);
+            // printf("SURE NOT NULL\n");
+            temp=temp->next;
+            continue;
+          }
+        }else{
+          htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
+          setAssignedCluster(temp->v,centroidIndex);
+          setAssignedIteration(temp->v,iteration);
+          setAssignedAtRadius(temp->v,radius);
+          (*assignCounter)++;
+        }
+        // move it at the end of the list
+      }
+    temp=temp->next;
+  }
+}
+
 void listSolveRangeConflicts(List conflictList,HashTable *clustersHt,Vector *clusters,int numOfClusters,int d){
   if(conflictList==NULL){ return;}
   List temp=conflictList;

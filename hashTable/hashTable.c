@@ -123,6 +123,10 @@ void htFindNeighborsInRadiusClustering(HashTable ht,int index,int centroidIndex,
   listFindNeighborsInRadiusClustering(ht->table[index].head,centroidIndex,confList,storeNeighbors,q,d,id,radius,assignCounter,iteration);
 }
 
+void htFindNeighborsInRadiusClusteringCube(HashTable ht,int index,int centroidIndex,List* confList,HashTable storeNeighbors,Vector q,int d,int radius,int *numOfSearched,int maxToSearch,int *assignCounter,int iteration){
+  listFindNeighborsInRadiusClusteringCube(ht->table[index].head,centroidIndex,confList,storeNeighbors,q,d,radius,numOfSearched,maxToSearch,assignCounter,iteration);
+}
+
 
 void htFindNearestNeighborCube(HashTable ht,int index,Vector q,Vector *nearest,double *nearestDist,int d,int *numOfSearched,int maxToSearch){
   listFindNearestNeighborCube(ht->table[index].head,q,nearest,nearestDist,d,numOfSearched,maxToSearch);

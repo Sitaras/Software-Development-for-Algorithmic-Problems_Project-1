@@ -11,7 +11,8 @@
 int d;
 
 int w;
-int k;
+// int k;
+int k_LSH;
 int hashTableSize;
 
 
@@ -36,9 +37,9 @@ int main(int argc, char *argv[])  {
   int l=6;
   int n=1;
   int r=10000;
-  k=4;
+  k_LSH=4;
   hashTableSize = 50;
-  k = 6;
+  k_LSH = 6;
   w = 8;
 
   while((option = getopt(argc, argv, "i:q:k:L:o:N:R:")) != -1){
@@ -56,8 +57,8 @@ int main(int argc, char *argv[])  {
         break;
 
         case 'k':
-        k=atoi(optarg);
-        printf("k : %d\n", k);
+        k_LSH=atoi(optarg);
+        printf("k : %d\n", k_LSH);
         break;
 
         case 'L':

@@ -10,7 +10,7 @@
 
 extern int w;
 extern int d;
-extern int k;
+extern int k_LSH;
 extern int hashTableSize;
 
 
@@ -44,7 +44,7 @@ g_function *getGfuns(LSH lsh){
 
 /* H FUNCTIONS*/
 
-void generateH(h_function *hfun){
+void generateH_LSH(h_function *hfun){
   hfun->v=malloc(d*sizeof(double));
   for(int i=0;i<d;i++){
     hfun->v[i] = normalRandom();
@@ -52,11 +52,11 @@ void generateH(h_function *hfun){
   hfun->t=uniform_distribution(0,w);
 }
 
-void destroyH(h_function h){
+void destroyH_LSH(h_function h){
   free(h.v);
 }
 
-int computeH(h_function hfun,Vector vector){
+int computeH_LSH(h_function hfun,Vector vector){
   double pv = dot_product(hfun.v,getCoords(vector),d);
   double temp = (double) (pv+hfun.t)/(double)w;
   return floor(temp);
@@ -65,20 +65,20 @@ int computeH(h_function hfun,Vector vector){
 /* G FUNCTIONS*/
 
 void generateG(g_function *gfun){
-  gfun->h_functions = malloc(k*sizeof(h_function));
-  for(int i=0;i<k;i++){
-     generateH(&gfun->h_functions[i]);
+  gfun->h_functions = malloc(k_LSH*sizeof(h_function));
+  for(int i=0;i<k_LSH;i++){
+     generateH_LSH(&gfun->h_functions[i]);
   }
-  gfun->r = malloc(k*sizeof(int));
-  for(int i=0;i<k;i++){
+  gfun->r = malloc(k_LSH*sizeof(int));
+  for(int i=0;i<k_LSH;i++){
      gfun->r[i]=rand();
   }
   gfun->m=(UINT_MAX-4);
 }
 
 void destroyG(g_function g){
-  for(int i=0;i<k;i++){
-    destroyH(g.h_functions[i]);
+  for(int i=0;i<k_LSH;i++){
+    destroyH_LSH(g.h_functions[i]);
   }
   free(g.h_functions);
   free(g.r);
@@ -86,8 +86,8 @@ void destroyG(g_function g){
 
 int computeG(g_function gfun,Vector p,int *id){
   int sum = 0;
-  for(int i=0;i<k;i++){
-    sum += mod(gfun.r[i]*computeH(gfun.h_functions[i],p),gfun.m);
+  for(int i=0;i<k_LSH;i++){
+    sum += mod(gfun.r[i]*computeH_LSH(gfun.h_functions[i],p),gfun.m);
   }
   int temp_ID = mod(sum,gfun.m);
   (*id) = temp_ID;
@@ -139,7 +139,7 @@ void destroyLSH(LSH lsh){
 }
 
 
-void nearestNeigbor(LSH lsh,Vector q,FILE *fptr){
+void nearestNeigborLSH(LSH lsh,Vector q,FILE *fptr){
   // printf("ABOUT TO SEARCH NEAREST NEIGHBOR FOR : ");
   // printVector(q);
   // printVectorInFile(q,fptr);
@@ -166,13 +166,13 @@ void nearestNeigbor(LSH lsh,Vector q,FILE *fptr){
   }
 }
 
-void kNearestNeigbors(LSH lsh,Vector q,int k,FILE* fptr){
+void kNearestNeigborsLSH(LSH lsh,Vector q,int knn,FILE* fptr){
   // printf("ABOUT TO SEARCH %d NEAREST NEIGHBORS FOR : ",k);
   // printVector(q);
   // printVectorInFile(q,fptr);
-  Vector nearest[k];
-  double knearestDists[k];
-  for (int i = 0; i < k; i++){
+  Vector nearest[knn];
+  double knearestDists[knn];
+  for (int i = 0; i < knn; i++){
     knearestDists[i]=-1;
     nearest[i]=NULL;
   }
@@ -183,10 +183,10 @@ void kNearestNeigbors(LSH lsh,Vector q,int k,FILE* fptr){
   for(int i=0;i<l;i++){
     int q_ID;
     int q_index = computeG(gfuns[i],q,&q_ID);
-    htKFindNearestNeighbors(hts[i], q_index, q, nearest, knearestDists, d,k,q_ID);
+    htKFindNearestNeighbors(hts[i], q_index, q, nearest, knearestDists, d,knn,q_ID);
   }
   int flag=1;
-  for (int i = k-1; i >= 0; i--){
+  for (int i = knn-1; i >= 0; i--){
     if (knearestDists[i] >= 0 && nearest[i] != NULL){
       printf("FOUND %d NEAREST NEIGHBOR: ",i);
       fprintf(fptr,"FOUND %d NEAREST NEIGHBOR: ",i);
@@ -203,7 +203,7 @@ void kNearestNeigbors(LSH lsh,Vector q,int k,FILE* fptr){
   }
 }
 
-void radiusNeigbor(LSH lsh,Vector q,double radius,FILE *fptr){
+void radiusNeigborLSH(LSH lsh,Vector q,double radius,FILE *fptr){
   printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
   fprintf(fptr,"ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
   HashTable vecsInRadius = htInitialize(100); // TODO: CHANGE SIZE

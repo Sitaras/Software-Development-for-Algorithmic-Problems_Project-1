@@ -10,12 +10,14 @@
 #include "./parsing/parsingCluster.h"
 #include "./Clustering/clustering.h"
 int d;
-int k;
+// int k;
+int new_dimension;
 int m;
 int probes;
 int w;
 int numOfVecs;
 int hashTableSize;
+int k_LSH;
 
 void printOptions(){
   printf("_________________Options____________________\n\n");
@@ -39,7 +41,10 @@ int main(int argc, char *argv[]) {
   int m=10;
   int n=1;
   int checkflag=0;
-  k=14;
+  int probes = 3;
+  new_dimension = 4;  // number of bits in hypercube
+  w = 6;  // window of LSH
+  k_LSH = 6;  // number of hash functions for every g in LSH
 
   while((option = getopt(argc, argv, "i:c:o:M:m:")) != -1){
      switch(option){
@@ -107,8 +112,6 @@ int main(int argc, char *argv[]) {
   //   printf("Given output File : %s\n", outputFile);
   // }
 
-  k = 4;
-  w = 6;
   d = findDim("query_small_id");
   printf("DIMENSION = %d\n",d);
 
@@ -116,14 +119,9 @@ int main(int argc, char *argv[]) {
   readConfFile("cluster.conf");
   readFile("query_small_id",&list,&numOfVecs);
 
-  clustering(list,5);
-
-
-  // printHyperCube(hc);
-  // listPrint(list);
-
-  double vec[6] = {21,  3,  3,  18,  25,  11};
-  Vector vecTmp=initVector(vec,"TEMPNAME");
+  m=100;
+  probes=15;
+  clustering(list,5,m,probes);
 
 
 
@@ -157,6 +155,5 @@ int main(int argc, char *argv[]) {
   // }
 
   listDelete(list,0);
-  deleteVector(vecTmp);
   return 0;
 }
