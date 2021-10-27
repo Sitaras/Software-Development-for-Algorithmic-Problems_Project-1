@@ -49,8 +49,7 @@ void minDistbetweenCentroids(Vector *centroids,int numOfClusters,double *minDist
     if(centroids[i]==NULL){
       break;
     }
-    for(int j=0;j<numOfClusters;j++){
-      if(i!=j){
+    for(int j=i+1;j<numOfClusters;j++){
         if(centroids[j]==NULL){
           break;
         }
@@ -58,8 +57,6 @@ void minDistbetweenCentroids(Vector *centroids,int numOfClusters,double *minDist
         if(tempDist<(*minDistance)){
           (*minDistance) = tempDist;
         }
-      }
-
     }
   }
 }

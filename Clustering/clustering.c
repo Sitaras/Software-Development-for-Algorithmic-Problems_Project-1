@@ -383,9 +383,9 @@ void clustering(List vecList,int numOfClusters,int m,int probes){
 
   printf("\n==============================2\n");
 
-  // clusteringLSH(vecList,numOfClusters);
+  clusteringLSH(vecList,numOfClusters);
 
-  clusteringHypercube(vecList,numOfClusters,m,probes);
+  // clusteringHypercube(vecList,numOfClusters,m,probes);
 
 
   //Reverse approach
