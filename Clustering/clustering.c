@@ -361,6 +361,20 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes){
 
     firstIterLSH=FALSE;
   }
+
+  for(int i=0;i<numOfClusters;i++){
+    if(oldClusters[i]!=NULL)
+      deleteVector(oldClusters[i]);
+    if(clusters[i]!=NULL)
+      deleteVector(clusters[i]);
+    htDelete(clustersHt[i],0);
+  }
+  free(props);
+  free(vectors);
+  free(oldClusters);
+  free(clustersHt);
+  free(clusters);
+  deleteHyperCube(cube);
 }
 
 void clustering(List vecList,int numOfClusters,int m,int probes){
