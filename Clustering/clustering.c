@@ -8,6 +8,7 @@
 #include "../hashTable/hashTableList/hashTableList.h"
 #include "../hashTable/hashTable.h"
 #include "../LSH/lsh.h"
+#include "../Hypercube/hypercube.h"
 #include "./clusterHelpingFuns.h"
 #include "./kmeansPlusPlus.h"
 
@@ -179,7 +180,6 @@ void clusteringLSH(List vecList,int numOfClusters){
   for(int i=0;i<numOfClusters;i++){
     clustersHt[i]= htInitialize(50); // TODO: CHANGE SIZE
   }
-  double radius=DBL_MAX;
   vectors = transformListToArray(vecList,numOfVecs);
   clusters = malloc(numOfClusters*sizeof(Vector));
   oldClusters = malloc(numOfClusters*sizeof(Vector));
@@ -200,10 +200,6 @@ void clusteringLSH(List vecList,int numOfClusters){
     initializeClusterInfo(vectors[i]);
     insertToLSH(lsh,vectors[i]);
   }
-
-
-
-  // reverseAssignmentLSH(lsh,clusters,oldClusters,clustersHt,radius,numOfClusters);
 
   int firstIterLSH = TRUE;
   int countLSH=0;
@@ -228,16 +224,12 @@ void clusteringLSH(List vecList,int numOfClusters){
     reverseAssignmentLSH(lsh,vectors,clusters,oldClusters,clustersHt,numOfClusters,countLSH);
 
     firstIterLSH=FALSE;
-
   }
 
   for(int i=0;i<numOfClusters;i++){
     printf("- CLUSTER :%d\n",i);
     printVector(clusters[i]);
   }
-
-
-
 
   for(int i=0;i<numOfClusters;i++){
     if(oldClusters[i]!=NULL)
@@ -255,7 +247,39 @@ void clusteringLSH(List vecList,int numOfClusters){
   destroyLSH(lsh);
 }
 
-void clustering(List vecList,int numOfClusters){
+
+void clusteringHypercube(List vecList,int numOfClusters,int m,int k){
+  Vector *vectors;
+  Vector *clusters;
+  Vector *oldClusters = NULL;
+  double *props;
+  HashTable *clustersHt=malloc(numOfClusters*sizeof(HashTable *));
+  for(int i=0;i<numOfClusters;i++){
+    clustersHt[i]= htInitialize(50); // TODO: CHANGE SIZE
+  }
+  vectors = transformListToArray(vecList,numOfVecs);
+  clusters = malloc(numOfClusters*sizeof(Vector));
+  oldClusters = malloc(numOfClusters*sizeof(Vector));
+  for(int i=0;i<numOfClusters;i++){
+    clusters[i]=NULL;
+    oldClusters[i]=NULL;
+  }
+  props = calloc(numOfVecs,sizeof(double));
+  kmeansplusplus(vectors,numOfClusters,clusters,props);
+  for(int i=0;i<numOfClusters;i++){
+    printf("- CLUSTER :%d\n",i);
+    printVector(clusters[i]);
+  }
+
+  hashTableSize=numOfVecs/8;
+  HyperCube cube = initializeHyperCube();
+  for(int i=0;i<numOfVecs;i++){
+    initializeClusterInfo(vectors[i]);
+    insertToHyperCube(cube,vectors[i]);
+  }
+}
+
+void clustering(List vecList,int numOfClusters,int m,int k){
 
   clusteringLloyds(vecList,numOfClusters);
 

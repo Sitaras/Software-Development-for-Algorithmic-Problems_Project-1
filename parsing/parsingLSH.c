@@ -187,12 +187,12 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh){
      Vector vecTmp=initVector(vec,name);
      fprintf(fptr, "Query %d:\n",id);
      printf("================================================\n");
-     nearestNeigbor(lsh,vecTmp,fptr);
+     nearestNeigborLSH(lsh,vecTmp,fptr);
      printf("================================================\n");
-     kNearestNeigbors(lsh, vecTmp, 3,fptr);
+     kNearestNeigborsLSH(lsh, vecTmp, 3,fptr);
      printf("================================================\n");
      // printLSH(temp);
-     radiusNeigbor(lsh,vecTmp,300.0,fptr);
+     radiusNeigborLSH(lsh,vecTmp,300.0,fptr);
      deleteVector(vecTmp);
   }
   fclose(fptr);

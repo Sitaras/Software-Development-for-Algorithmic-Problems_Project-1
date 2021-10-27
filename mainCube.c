@@ -8,7 +8,8 @@
 #include "Hypercube/hypercube.h"
 #include "./parsing/parsingCube.h"
 int d;
-int k;
+// int k;
+int new_dimension;
 int m;
 int probes;
 int w;
@@ -38,7 +39,9 @@ int main(int argc, char *argv[]) {
   int r=10000;
   int probes=20;
   int checkflag=0;
-  k=14;
+  new_dimension=14;
+  new_dimension = 4;
+  w = 6;
 
   while((option = getopt(argc, argv, "i:q:k:M:p:o:N:R:")) != -1){
      switch(option){
@@ -55,8 +58,8 @@ int main(int argc, char *argv[]) {
         break;
 
         case 'k':
-        k=atoi(optarg);
-        printf("k : %d\n", k);
+        new_dimension=atoi(optarg);
+        printf("k : %d\n", new_dimension);
         break;
 
         case 'M':
@@ -124,8 +127,6 @@ int main(int argc, char *argv[]) {
   //   printf("Given output File : %s\n", outputFile);
   // }
 
-  k = 4;
-  w = 6;
   d = findDim("testing2.txt");
   printf("DIMENSION = %d\n",d);
 
@@ -145,11 +146,11 @@ int main(int argc, char *argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  nearestNeigbor(hc,vecTmp,4,10,fPtr);
+  nearestNeigborHypercube(hc,vecTmp,4,10,fPtr);
   printf("================================================\n");
-  kNearestNeigbors(hc,vecTmp,3,10,100,fPtr);
+  kNearestNeigborsHypercube(hc,vecTmp,3,10,100,fPtr);
   printf("================================================\n");
-  radiusNeigbor(hc,vecTmp,25,10,100,fPtr);
+  radiusNeigborHypercube(hc,vecTmp,25,10,100,fPtr);
 
   // printOptions(); // just printing the commands options for the user
   //
