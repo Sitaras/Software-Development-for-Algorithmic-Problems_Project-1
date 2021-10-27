@@ -8,128 +8,20 @@
 #include "../hashTable/hashTableList/hashTableList.h"
 #include "../hashTable/hashTable.h"
 #include "../LSH/lsh.h"
+#include "./clusterHelpingFuns.h"
+#include "./kmeansPlusPlus.h"
 
 #define SQUARE(x) ((x)*(x))
 
 #define TRUE 1
 #define FALSE 0
-#define CONVERGENCE 50
 #define MAX_RECENTER_ITERATIONS 30
 
 extern int numOfVecs;
 extern int d;
 extern int hashTableSize;
 
-int existsInArray(int *array,int check,int arraySize){
-  for(int i=0;i<arraySize;i++){
-    if(array[i]==-1){
-      return FALSE;
-    }
-    if(array[i]==check){
-      return TRUE;
-    }
-  }
-  return FALSE;
-}
 
-
-void minDistToCentroids(Vector v,Vector* vecs,Vector *clusters,int numOfClusters,double *minDistance){
-
-  for(int i=0;i<numOfClusters;i++){
-    if(clusters[i]==NULL){
-      break;
-    }
-    double tempDist = distance_metric(clusters[i],v,d);
-    if(tempDist<(*minDistance)){
-        (*minDistance) = tempDist;
-    }
-  }
-}
-
-void minDistbetweenCentroids(Vector *centroids,int numOfClusters,double *minDistance){
-  // can be impoved
-  for(int i=0;i<numOfClusters;i++){
-    if(centroids[i]==NULL){
-      break;
-    }
-    for(int j=0;j<numOfClusters;j++){
-      if(i!=j){
-        if(centroids[j]==NULL){
-          break;
-        }
-        double tempDist = distance_metric(centroids[i],centroids[j],d);
-        if(tempDist<(*minDistance)){
-          (*minDistance) = tempDist;
-        }
-      }
-
-    }
-  }
-}
-
-void kmeansplusplus(Vector* vecs,int numOfClusters,Vector* clusters,double *props){
-  int t=1;
-  int selectedCluster[numOfClusters];
-  for(int i=0;i<numOfClusters;i++){
-    selectedCluster[i] = -1;
-  }
-  int selectFirstCluster = rand()%numOfVecs;
-  selectedCluster[0] = selectFirstCluster;
-  clusters[0] = copyVector(vecs[selectFirstCluster]);
-  double sum = 0.0;
-  while(t<numOfClusters){
-    for(int i = 0; i<numOfVecs;i++){
-      if(existsInArray(selectedCluster,i,numOfClusters)){
-        continue;
-      }
-      double minDist = DBL_MAX;
-      minDistToCentroids(vecs[i],vecs,clusters,numOfClusters,&minDist);
-      props[i] = minDist;
-
-      sum += SQUARE(minDist);
-    }
-
-    double maxProb = DBL_MAX;
-    int maxProbIndex = -1;
-
-    for(int i = 0; i<numOfVecs;i++){
-      if(existsInArray(selectedCluster,i,numOfClusters)){
-        continue;
-      }
-      props[i] = SQUARE(props[i])/sum;
-      if(props[i]<maxProb){
-        maxProb=props[i];
-        maxProbIndex = i;
-      }
-    }
-    selectedCluster[t] = maxProbIndex;
-    clusters[t++] = copyVector(vecs[maxProbIndex]);
-  }
-}
-
-int centroidsCovnerge(Vector *new,Vector *old,int numOfClusters,int d){
-  if(old==NULL) return FALSE;
-  for(int i=0;i<numOfClusters;i++){
-    printf("%f\n",distance_metric(new[i],old[i],d));
-    if(distance_metric(new[i],old[i],d)>CONVERGENCE){
-      return FALSE;
-    }
-  }
-  return TRUE;
-}
-
-int findClosestCentroid(Vector v,Vector *clusters,int numOfClusters){
-  int minDistIndex = -1;
-  double minDist = DBL_MAX;
-  for(int i=0;i<numOfClusters;i++){
-    double tempDist = distance_metric(v,clusters[i],d);
-    if(tempDist<minDist){
-      minDistIndex = i;
-      minDist = tempDist;
-    }
-  }
-  return minDistIndex;
-}
 
 void lloyds(Vector* clusters,Vector *oldClusters,Vector* vectors,List* clustersList,int numberOfVectors,int numOfClusters) {
   static int flag=0;
@@ -207,7 +99,8 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
   flag=1;
 }
 
-void clustering(List vecList,int numOfClusters){
+
+void clusteringLloyds(List vecList,int numOfClusters){
   Vector *vectors;
   Vector *clusters;
   Vector *oldClusters = NULL;
@@ -270,22 +163,26 @@ void clustering(List vecList,int numOfClusters){
     deleteVector(oldClusters[i]);
     deleteVector(clusters[i]);
   }
-
+  free(clusters);
   free(props);
   free(vectors);
   free(clustersList);
-  printf("\n==============================2\n");
+  free(oldClusters);
+}
 
-
-
-
-  //Reverse approach
+void clusteringLSH(List vecList,int numOfClusters){
+  Vector *vectors;
+  Vector *clusters;
+  Vector *oldClusters = NULL;
+  double *props;
   HashTable *clustersHt=malloc(numOfClusters*sizeof(HashTable *));
   for(int i=0;i<numOfClusters;i++){
     clustersHt[i]= htInitialize(50); // TODO: CHANGE SIZE
   }
   double radius=DBL_MAX;
   vectors = transformListToArray(vecList,numOfVecs);
+  clusters = malloc(numOfClusters*sizeof(Vector));
+  oldClusters = malloc(numOfClusters*sizeof(Vector));
   for(int i=0;i<numOfClusters;i++){
     clusters[i]=NULL;
     oldClusters[i]=NULL;
@@ -356,4 +253,17 @@ void clustering(List vecList,int numOfClusters){
   free(clustersHt);
   free(clusters);
   destroyLSH(lsh);
+}
+
+void clustering(List vecList,int numOfClusters){
+
+  clusteringLloyds(vecList,numOfClusters);
+
+  printf("\n==============================2\n");
+
+  clusteringLSH(vecList,numOfClusters);
+
+
+  //Reverse approach
+
 }
