@@ -7,6 +7,7 @@
 #include "./hashTable/hashTable.h"
 #include "Hypercube/hypercube.h"
 #include "./parsing/parsingCube.h"
+#include "./hashTable/hashTableList/hashTableList.h"
 int d;
 // int k;
 int new_dimension;
@@ -38,7 +39,6 @@ int main(int argc, char *argv[]) {
   int n=1;
   int r=10000;
   int probes=20;
-  int checkflag=0;
   new_dimension=14;
   new_dimension = 4;
   w = 6;
@@ -96,93 +96,95 @@ int main(int argc, char *argv[]) {
   }
 
 
-  // if(!inputflag){
-  //   printf(">Input file name: ");
-  //   fflush(stdin); // clear stdin buffer
-  //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
-  //     perror("Error reading string with fgets\n");
-  //     exit(1);
-  //   }
-  //   strcpy(inputFile,str);
-  //   printf("Given input File : %s\n", inputFile);
-  // }
-  // if(!queryflag){
-  //   printf(">Query file name: ");
-  //   fflush(stdin); // clear stdin buffer
-  //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
-  //     perror("Error reading string with fgets\n");
-  //     exit(1);
-  //   }
-  //   strcpy(queryFile,str);
-  //   printf("Given query File : %s\n", queryFile);
-  // }
-  // if(!outputflag){
-  //   printf(">Output file name: ");
-  //   fflush(stdin); // clear stdin buffer
-  //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
-  //     perror("Error reading string with fgets\n");
-  //     exit(1);
-  //   }
-  //   strcpy(outputFile,str);
-  //   printf("Given output File : %s\n", outputFile);
-  // }
+  if(!inputflag){
+    printf(">Input file name: ");
+    fflush(stdin); // clear stdin buffer
+    if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+      perror("Error reading string with fgets\n");
+      exit(1);
+    }
+    strcpy(inputFile,str);
+    printf("Given input File : %s\n", inputFile);
+  }
+  if(!queryflag){
+    printf(">Query file name: ");
+    fflush(stdin); // clear stdin buffer
+    if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+      perror("Error reading string with fgets\n");
+      exit(1);
+    }
+    strcpy(queryFile,str);
+    printf("Given query File : %s\n", queryFile);
+  }
+  if(!outputflag){
+    printf(">Output file name: ");
+    fflush(stdin); // clear stdin buffer
+    if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+      perror("Error reading string with fgets\n");
+      exit(1);
+    }
+    strcpy(outputFile,str);
+    printf("Given output File : %s\n", outputFile);
+  }
 
-  d = findDim("testing2.txt");
+  d = findDim(inputFile);
   printf("DIMENSION = %d\n",d);
 
   HyperCube hc = initializeHyperCube();
-  readFile("testing2.txt",hc);
+  List list = initializeList();
+  // readFile("testing2.txt",hc);
+  readFile(inputFile,hc,&list);
+  readQueryFile(queryFile,outputFile,hc,list,n,r,2,m);
 
-  printHyperCube(hc);
+  // double vec[6] = {21,  3,  3,  18,  25,  11};
+  // Vector vecTmp=initVector(vec,"TEMPNAME");
 
-  double vec[6] = {21,  3,  3,  18,  25,  11};
-  Vector vecTmp=initVector(vec,"TEMPNAME");
+  // FILE* fPtr;
+  // fPtr = fopen(outputFile, "w");
+  // if(fPtr == NULL){
+  //   /* File not created hence exit */
+  //   printf("Unable to create file.\n");
+  //   exit(EXIT_FAILURE);
+  // }
+  //
+  // nearestNeigborHypercube(hc,vecTmp,4,10,fPtr);
+  // printf("================================================\n");
+  // kNearestNeigborsHypercube(hc,vecTmp,3,10,100,fPtr);
+  // printf("================================================\n");
+  // radiusNeigborHypercube(hc,vecTmp,25,10,100,fPtr);
 
-  FILE* fPtr;
-  fPtr = fopen(outputFile, "w");
-  if(fPtr == NULL){
-    /* File not created hence exit */
-    printf("Unable to create file.\n");
-    exit(EXIT_FAILURE);
+  printOptions(); // just printing the commands options for the user
+
+
+  char command[200];
+  while(1){
+
+    printf("\n");
+    printf(">Enter a command: ");
+    fflush(stdin); // clear stdin buffer
+    if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+      perror("Error reading string with fgets\n");
+      exit(1);
+    }
+    else if(strstr(str, "/repeat") != NULL) {
+      sscanf(str,"%s %s\n",command,inputFile);
+      printf("FILE: %s\n",inputFile);
+      continue;
+    }
+    else if(strcmp(str,"/exit\n")==0){
+      break;
+    }
+    else{
+      printf("\n\n  --- Wrong command ! Please, try again. ---  \n\n");
+      printOptions(); // just printing the commands options for the user
+      continue;
+    }
+
   }
 
-  nearestNeigborHypercube(hc,vecTmp,4,10,fPtr);
-  printf("================================================\n");
-  kNearestNeigborsHypercube(hc,vecTmp,3,10,100,fPtr);
-  printf("================================================\n");
-  radiusNeigborHypercube(hc,vecTmp,25,10,100,fPtr);
-
-  // printOptions(); // just printing the commands options for the user
-  //
-  //
-  // char command[200];
-  // while(1){
-  //
-  //   printf("\n");
-  //   printf(">Enter a command: ");
-  //   fflush(stdin); // clear stdin buffer
-  //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
-  //     perror("Error reading string with fgets\n");
-  //     exit(1);
-  //   }
-  //   else if(strstr(str, "/repeat") != NULL) {
-  //     sscanf(str,"%s %s\n",command,inputFile);
-  //     printf("FILE: %s\n",inputFile);
-  //     continue;
-  //   }
-  //   else if(strcmp(str,"/exit\n")==0){
-  //     break;
-  //   }
-  //   else{
-  //     printf("\n\n  --- Wrong command ! Please, try again. ---  \n\n");
-  //     printOptions(); // just printing the commands options for the user
-  //     continue;
-  //   }
-  //
-  // }
-
   deleteHyperCube(hc);
-  fclose(fPtr);
-  deleteVector(vecTmp);
+  listDelete(list,0);
+  // fclose(fPtr);
+  // deleteVector(vecTmp);
   return 0;
 }

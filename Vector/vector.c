@@ -141,6 +141,17 @@ void printVector(Vector v){
   printf(" ]\n");
 }
 
+void printVectorId(Vector v){
+  if(v==NULL)
+    return;
+  printf("%s\n",v->vec_id);
+}
+void printVectorIdInFile(Vector v,FILE *fptr){
+  if(v==NULL)
+    return;
+  fprintf(fptr,"%s\n",v->vec_id);
+}
+
 void printVectorInFile(Vector v,FILE *fptr){
   if(v==NULL)
     return;

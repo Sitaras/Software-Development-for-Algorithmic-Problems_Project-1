@@ -5,6 +5,7 @@
 #include "../Vector/vector.h"
 #include "../hashTable/hashTable.h"
 #include "../Hypercube/hypercube.h"
+#include "../hashTable/hashTableList/hashTableList.h"
 
 #define OUT    0
 #define IN    1
@@ -82,7 +83,7 @@ int findDim(char* fileName){
 }
 
 
-void readFile(char* fileName,HyperCube hc){
+void readFile(char* fileName,HyperCube hc,List *inputs){
 
    FILE *file = fopen(fileName, "r"); // read mode
 
@@ -97,7 +98,6 @@ void readFile(char* fileName,HyperCube hc){
 
   char buffer[MAX_INPUT_LENGTH];
 
-
   while(!feof(file)){
     fflush(stdin);  // clear stdin buffer
     if(fscanf(file,"%[^\n]\n",buffer)<0){ // read a line from the file
@@ -106,32 +106,31 @@ void readFile(char* fileName,HyperCube hc){
 
     double vec[d];
     char * token = strtok(buffer, " ");
+    // printf("NAME = %s\n",token);
     char name[MAX_INPUT_LENGTH];
     strcpy(name,token);
-    token = strtok(NULL, "  ");
+    token = strtok(NULL, " ");
      // loop through the string to extract all other tokens
      int counter = 0;
      while( token != NULL ) {
+        // printf( " - %s\n", token ); //printing each token
         vec[counter++]=atof(token);
-        token = strtok(NULL, "  ");
+        token = strtok(NULL, " ");
      }
      Vector vecTmp=initVector(vec,name);
      insertToHyperCube(hc,vecTmp);
-
+     (*inputs) = listInsert((*inputs),vecTmp,-1);
 
 
 
   }
 
-
   fclose(file);
-
-
 }
 
 
 
-void readQueryFile(char* queryFile,char* outputFile,int hammingDist,HyperCube hc){
+void readQueryFile(char* queryFile,char* outputFile,HyperCube hc,List inputs,int n,double radius,int hammingDist,int m){
 
    FILE *file = fopen(queryFile, "r"); // read mode
 
@@ -152,6 +151,11 @@ void readQueryFile(char* queryFile,char* outputFile,int hammingDist,HyperCube hc
   }
 
   char buffer[MAX_INPUT_LENGTH];
+  Vector nearest=NULL;
+  Vector nNearest[n];
+  double nearestDist=-1;
+  double knearestDists[n];
+  double vec[d];
 
   while(!feof(file)){
     fflush(stdin);  // clear stdin buffer
@@ -159,7 +163,11 @@ void readQueryFile(char* queryFile,char* outputFile,int hammingDist,HyperCube hc
       continue;
     }
 
-    double vec[d];
+    for (int i = 0; i < n; i++){
+      nNearest[i]=NULL;
+      knearestDists[i]=-1;
+    }
+
     int id;
     char * token = strtok(buffer, " ");
     id=atoi(token);
@@ -175,11 +183,12 @@ void readQueryFile(char* queryFile,char* outputFile,int hammingDist,HyperCube hc
      }
      Vector vecTmp=initVector(vec,name);
      fprintf(fptr, "Query %d:\n",id);
-     nearestNeigborHypercube(hc,vecTmp,1,4,fptr);
-     printf("================================================\n");
-     kNearestNeigborsHypercube(hc,vecTmp,3,3,100,fptr);
-     printf("================================================\n");
-     radiusNeigborHypercube(hc,vecTmp,25,2,100,fptr);
+     // nearestNeigborHypercube(hc,vecTmp,1,4,fptr);
+     // printf("================================================\n");
+     listFindKNearestNeighbors(inputs,vecTmp,nNearest,knearestDists,d,n,-1);
+     kNearestNeigborsHypercube(hc,vecTmp,n,hammingDist,m,knearestDists,fptr);
+     // printf("================================================\n");
+     radiusNeigborHypercube(hc,vecTmp,radius,hammingDist,m,fptr);
      // printLSH(temp);
      deleteVector(vecTmp);
   }

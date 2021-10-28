@@ -15,7 +15,7 @@ List listInsert(List, Vector,int );
 List listUniqueInsert(List ,Vector ,int );
 List listSearchId(List ,int );
 void listPrint(List );
-void listRangePrint(List ,Vector ,int,FILE* );
+void listRangePrint(List ,Vector ,int,int *,FILE* );
 List listDeleteItem(List ,Vector ,int );
 List listDelete(List ,int );
 Vector *transformListToArray(List ,int );

@@ -7,11 +7,10 @@
 #include "./hashTable/hashTable.h"
 #include "LSH/lsh.h"
 #include "./parsing/parsingLSH.h"
+#include "./hashTable/hashTableList/hashTableList.h"
 
 int d;
-
 int w;
-// int k;
 int k_LSH;
 int hashTableSize;
 
@@ -34,12 +33,11 @@ int main(int argc, char *argv[])  {
   char outputFile[100];
   strcpy(outputFile,"outputTestingLSH");
   int outputflag=0;
-  int l=6;
+  int l=5;
   int n=1;
-  int r=10000;
-  k_LSH=4;
+  double radius=10000;
   hashTableSize = 50;
-  k_LSH = 6;
+  k_LSH = 4;
   w = 8;
 
   while((option = getopt(argc, argv, "i:q:k:L:o:N:R:")) != -1){
@@ -77,58 +75,58 @@ int main(int argc, char *argv[])  {
         printf("number of nearest : %d\n", n);
         break;
         case 'R':
-         r=atoi(optarg);
-         printf("Radius : %d\n", r);
+         radius=atof(optarg);
+         printf("Radius : %f\n", radius);
          break;
         case ':':
          printf("option needs a value\n");
          break;
         default: /* '?' */
-          fprintf(stderr, "Usage: %s –i <input file> –q <query file> –k <int> -L <int> -ο <output file> -Ν <number of nearest> -R <radius> name\n",argv[0]);
+          fprintf(stderr, "Usage: %s –i <input file> –q <query file> –k <int> -L <int> -ο <output file> -Ν <number of nearest> -R <radius>\n",argv[0]);
           exit(EXIT_FAILURE);
      }
   }
 
-  // if(!inputflag){
-  //   printf(">Input file name: ");
-  //   fflush(stdin); // clear stdin buffer
-  //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
-  //     perror("Error reading string with fgets\n");
-  //     exit(1);
-  //   }
-  //   strcpy(inputFile,str);
-  //   printf("Given input File : %s\n", inputFile);
-  // }
-  // if(!queryflag){
-  //   printf(">Query file name: ");
-  //   fflush(stdin); // clear stdin buffer
-  //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
-  //     perror("Error reading string with fgets\n");
-  //     exit(1);
-  //   }
-  //   strcpy(queryFile,str);
-  //   printf("Given query File : %s\n", queryFile);
-  // }
-  // if(!outputflag){
-  //   printf(">Output file name: ");
-  //   fflush(stdin); // clear stdin buffer
-  //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
-  //     perror("Error reading string with fgets\n");
-  //     exit(1);
-  //   }
-  //   strcpy(outputFile,str);
-  //   printf("Given output File : %s\n", outputFile);
-  // }
+  if(!inputflag){
+    printf(">Input file name: ");
+    fflush(stdin); // clear stdin buffer
+    if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+      perror("Error reading string with fgets\n");
+      exit(1);
+    }
+    strcpy(inputFile,str);
+    printf("Given input File : %s\n", inputFile);
+  }
+  if(!queryflag){
+    printf(">Query file name: ");
+    fflush(stdin); // clear stdin buffer
+    if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+      perror("Error reading string with fgets\n");
+      exit(1);
+    }
+    strcpy(queryFile,str);
+    printf("Given query File : %s\n", queryFile);
+  }
+  if(!outputflag){
+    printf(">Output file name: ");
+    fflush(stdin); // clear stdin buffer
+    if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+      perror("Error reading string with fgets\n");
+      exit(1);
+    }
+    strcpy(outputFile,str);
+    printf("Given output File : %s\n", outputFile);
+  }
 
   srand(time(NULL));
-  d = findDim("input_small_id");
+  d = findDim(inputFile);
   // d = findDim("testing.txt");
   printf("DIMENSION = %d\n",d);
-
-  LSH temp = initializeLSH(l);
-  readFile("input_small_id",temp);
-  // printLSH(temp);
-  readQueryFile("query_small_id",outputFile,temp);
+  List list = initializeList();
+  LSH lsh = initializeLSH(l);
+  readFile(inputFile,lsh,&list);
+  // printLSH(lsh);
+  readQueryFile(queryFile,outputFile,lsh,list,n,radius);
 
   // double vec[128] = {1.0 , 1.0};
   // for (int i = 3; i < d; i++) {
@@ -146,46 +144,47 @@ int main(int argc, char *argv[])  {
   // }
   // fprintf(fPtr, "Query:\n");
   // printf("================================================\n");
-  // nearestNeigbor(temp,vecTmp,fPtr);
+  // nearestNeigbor(lsh,vecTmp,fPtr);
   // printf("================================================\n");
-  // kNearestNeigbors(temp, vecTmp, 3,fPtr);
+  // kNearestNeigbors(lsh, vecTmp, 3,fPtr);
   // printf("================================================\n");
-  // // printLSH(temp);
-  // radiusNeigbor(temp,vecTmp,200.0,fPtr);
+  // // printLSH(lsh);
+  // radiusNeigbor(lsh,vecTmp,200.0,fPtr);
 
 
-  // printOptions(); // just printing the commands options for the user
+  printOptions(); // just printing the commands options for the user
 
 
-  // char command[200];
-  // while(1){
-  //
-  //   printf("\n");
-  //   printf(">Enter a command: ");
-  //   fflush(stdin); // clear stdin buffer
-  //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
-  //     perror("Error reading string with fgets\n");
-  //     exit(1);
-  //   }
-  //   else if(strstr(str, "/repeat") != NULL) {
-  //     sscanf(str,"%s %s\n",command,inputFile);
-  //     printf("FILE: %s\n",inputFile);
-  //     continue;
-  //   }
-  //   else if(strcmp(str,"/exit\n")==0){
-  //     break;
-  //   }
-  //   else{
-  //     printf("\n\n  --- Wrong command ! Please, try again. ---  \n\n");
-  //     printOptions(); // just printing the commands options for the user
-  //     continue;
-  //   }
-  //
-  // }
+  char command[200];
+  while(1){
+
+    printf("\n");
+    printf(">Enter a command: ");
+    fflush(stdin); // clear stdin buffer
+    if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+      perror("Error reading string with fgets\n");
+      exit(1);
+    }
+    else if(strstr(str, "/repeat") != NULL) {
+      sscanf(str,"%s %s\n",command,inputFile);
+      printf("FILE: %s\n",inputFile);
+      continue;
+    }
+    else if(strcmp(str,"/exit\n")==0){
+      break;
+    }
+    else{
+      printf("\n\n  --- Wrong command ! Please, try again. ---  \n\n");
+      printOptions(); // just printing the commands options for the user
+      continue;
+    }
+
+  }
 
   // deleteVector(vecTmp);
 
-  destroyLSH(temp);
+  destroyLSH(lsh);
+  listDelete(list,0);
   // fclose(fPtr);
 
 

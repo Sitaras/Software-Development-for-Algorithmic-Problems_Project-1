@@ -154,19 +154,19 @@ void nearestNeigborLSH(LSH lsh,Vector q,FILE *fptr){
     htFindNearestNeighbor(hts[i],q_index,q,&nearest,&nearestDist,d,q_ID);
   }
   if(nearestDist>=0 && nearest!=NULL){
-    printf("FOUND NEAREST NEIGHBOR ");
+    // printf("FOUND NEAREST NEIGHBOR ");
     fprintf(fptr,"FOUND NEAREST NEIGHBOR ");
-    printVector(nearest);
-    printVectorInFile(nearest,fptr);
-    printf("WITH DISTANCE =  %f\n",nearestDist);
-    fprintf(fptr,"WITH DISTANCE =  %f\n",nearestDist);
+    printVectorId(nearest);
+    printVectorIdInFile(nearest,fptr);
+    // printf("distanceLSH: %f\n",nearestDist);
+    fprintf(fptr,"distanceLSH: %f\n",nearestDist);
   }else{
-    printf("- DID NOT FIND NEAREST NEIGHBOR\n");
+    // printf("- DID NOT FIND NEAREST NEIGHBOR\n");
     fprintf(fptr,"- DID NOT FIND NEAREST NEIGHBOR\n");
   }
 }
 
-void kNearestNeigborsLSH(LSH lsh,Vector q,int knn,FILE* fptr){
+void kNearestNeigborsLSH(LSH lsh,Vector q,int knn,double *knearestTrueDists,FILE* fptr){
   // printf("ABOUT TO SEARCH %d NEAREST NEIGHBORS FOR : ",k);
   // printVector(q);
   // printVectorInFile(q,fptr);
@@ -188,24 +188,25 @@ void kNearestNeigborsLSH(LSH lsh,Vector q,int knn,FILE* fptr){
   int flag=1;
   for (int i = knn-1; i >= 0; i--){
     if (knearestDists[i] >= 0 && nearest[i] != NULL){
-      printf("FOUND %d NEAREST NEIGHBOR: ",i);
-      fprintf(fptr,"FOUND %d NEAREST NEIGHBOR: ",i);
-      printVector(nearest[i]);
-      printVectorInFile(nearest[i],fptr);
-      printf("WITH DISTANCE =  %f\n", knearestDists[i]);
-      fprintf(fptr,"WITH DISTANCE =  %f\n", knearestDists[i]);
+      // printf("Nearest neighbor-%d: ",knn-i);
+      fprintf(fptr,"Nearest neighbor-%d: ",knn-i);
+      // printVectorId(nearest[i]);
+      printVectorIdInFile(nearest[i],fptr);
+      // printf("distanceLSH: %f\n", knearestDists[i]);
+      // printf("distanceTrue: %f\n", knearestTrueDists[i]);
+      fprintf(fptr,"distanceLSH: %f\n", knearestDists[i]);
+      fprintf(fptr,"distanceTrue: %f\n", knearestTrueDists[i]);
       flag=0;
     }
   }
   if(flag){
-    printf("- DID NOT FIND NEAREST NEIGHBOR\n");
+    // printf("- DID NOT FIND NEAREST NEIGHBOR\n");
     fprintf(fptr,"- DID NOT FIND NEAREST NEIGHBOR\n");
   }
 }
 
 void radiusNeigborLSH(LSH lsh,Vector q,double radius,FILE *fptr){
-  printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
-  fprintf(fptr,"ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
+  // printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
   HashTable vecsInRadius = htInitialize(100); // TODO: CHANGE SIZE
   int l = getL(lsh);
   HashTable *hts = getHts(lsh);

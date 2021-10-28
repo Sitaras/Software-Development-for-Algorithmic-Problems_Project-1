@@ -122,15 +122,17 @@ void listPrint(List list){
         temp=temp->next;
     }
 }
-void listRangePrint(List list,Vector q,int d,FILE *fptr){
+void listRangePrint(List list,Vector q,int d,int *counter,FILE *fptr){
     if(list==NULL){ return;}
     List temp=list;
     while(temp!=NULL){
-        printf("Found vector: ");
+        // printf("%d: ",(*counter));
+        fprintf(fptr,"%d: ",(*counter)++);
         fprintf(fptr,"Found vector: ");
-        printVector(temp->v);
-        printf("inside range with distance: %f\n",distance_metric(temp->v,q,d));
-        fprintf(fptr,"inside range with distance: %f\n",distance_metric(temp->v,q,d));
+        // printVectorId(temp->v);
+        printVectorIdInFile(temp->v,fptr);
+        // printf("inside range with distance: %f\n",distance_metric(temp->v,q,d));
+        // fprintf(fptr,"inside range with distance: %f\n",distance_metric(temp->v,q,d));
         temp=temp->next;
     }
 }

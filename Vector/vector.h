@@ -10,8 +10,10 @@ Vector copyVector(Vector );
 void deleteVector(Vector);
 
 void printVector(Vector );
+void printVectorId(Vector );
 
 void printVectorInFile(Vector,FILE* );
+void printVectorIdInFile(Vector,FILE* );
 
 int compareVectors(Vector , Vector );
 

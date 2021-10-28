@@ -5,6 +5,7 @@
 #include "../Vector/vector.h"
 #include "../hashTable/hashTable.h"
 #include "../LSH/lsh.h"
+#include "../hashTable/hashTableList/hashTableList.h"
 
 #define OUT    0
 #define IN    1
@@ -98,7 +99,7 @@ int findDim(char* fileName){
 }
 
 
-void readFile(char* fileName,LSH lsh){
+void readFile(char* fileName,LSH lsh,List *inputs){
 
    FILE *file = fopen(fileName, "r"); // read mode
 
@@ -134,7 +135,7 @@ void readFile(char* fileName,LSH lsh){
      }
      Vector vecTmp=initVector(vec,name);
      insertToLSH(lsh,vecTmp);
-
+     (*inputs) = listInsert((*inputs),vecTmp,-1);
 
 
 
@@ -142,7 +143,9 @@ void readFile(char* fileName,LSH lsh){
 
   fclose(file);
 }
-void readQueryFile(char* queryFile,char* outputFile,LSH lsh){
+
+
+void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,double radius){
 
    FILE *file = fopen(queryFile, "r"); // read mode
 
@@ -163,6 +166,11 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh){
   }
 
   char buffer[MAX_INPUT_LENGTH];
+  Vector nearest=NULL;
+  Vector nNearest[n];
+  double nearestDist=-1;
+  double knearestDists[n];
+  double vec[d];
 
   while(!feof(file)){
     fflush(stdin);  // clear stdin buffer
@@ -170,7 +178,10 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh){
       continue;
     }
 
-    double vec[d];
+    for (int i = 0; i < n; i++){
+      nNearest[i]=NULL;
+      knearestDists[i]=-1;
+    }
     int id;
     char * token = strtok(buffer, " ");
     char name[MAX_INPUT_LENGTH];
@@ -186,13 +197,17 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh){
      }
      Vector vecTmp=initVector(vec,name);
      fprintf(fptr, "Query %d:\n",id);
-     printf("================================================\n");
-     nearestNeigborLSH(lsh,vecTmp,fptr);
-     printf("================================================\n");
-     kNearestNeigborsLSH(lsh, vecTmp, 3,fptr);
-     printf("================================================\n");
+     // printf("Query %d:\n",id);
+     // printf("================================================\n");
+     // nearestNeigborLSH(lsh,vecTmp,fptr);
+     // listFindNearestNeighbor(inputs,vecTmp,&nearest,&nearestDist,d,-1);
+     // printf("distanceTrue: %f\n",nearestDist);
+     // printf("================================================\n");
+     listFindKNearestNeighbors(inputs,vecTmp,nNearest,knearestDists,d,n,-1);
+     kNearestNeigborsLSH(lsh, vecTmp,n,knearestDists,fptr);
+     // printf("================================================\n");
      // printLSH(temp);
-     radiusNeigborLSH(lsh,vecTmp,300.0,fptr);
+     radiusNeigborLSH(lsh,vecTmp,radius,fptr);
      deleteVector(vecTmp);
   }
   fclose(fptr);
