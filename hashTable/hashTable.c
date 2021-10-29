@@ -19,7 +19,9 @@ struct hashtable_head{
 typedef struct hashtable_head *HashTable;
 
 
-
+int getNumberOfVectors(const HashTable ht){
+  return ht->numberOfVectors;
+}
 
 
 

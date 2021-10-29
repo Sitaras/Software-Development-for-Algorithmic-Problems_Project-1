@@ -38,15 +38,11 @@ int main(int argc, char *argv[]) {
   int confflag=0;
   char outputFile[100];
   int outputflag=0;
-  int m=10;
-  int n=1;
-  int checkflag=0;
-  int probes = 3;
-  new_dimension = 4;  // number of bits in hypercube
-  w = 6;  // window of LSH
-  k_LSH = 6;  // number of hash functions for every g in LSH
+  char method[100];
+  int methodflag=0;
 
-  while((option = getopt(argc, argv, "i:c:o:M:m:")) != -1){
+
+  while((option = getopt(argc, argv, "i:c:o:m:")) != -1){
      switch(option){
         case 'i':
         inputflag++;
@@ -55,14 +51,21 @@ int main(int argc, char *argv[]) {
         break;
 
         case 'c':
-        confflag++;
-        strcpy(confFile,optarg);
-        printf("Given configuration File : %s\n", confFile);
+        printf("%d\n",optind);
+        if(strcmp(argv[optind-1],"-complete")==0){
+          printf("-Complete option\n");
+        }
+        else{
+          confflag++;
+          strcpy(confFile,optarg);
+          printf("Given configuration File : %s\n", confFile);
+        }
         break;
 
-        case 'M':
-        m=atoi(optarg);
-        printf("L : %d\n", m);
+        case 'm':
+        methodflag++;
+        strcpy(method,optarg);
+        printf("Method: %s\n", method);
         break;
 
         case 'o':
@@ -81,79 +84,102 @@ int main(int argc, char *argv[]) {
   }
 
 
-  // if(!inputflag){
-  //   printf(">Input file name: ");
-  //   fflush(stdin); // clear stdin buffer
-  //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
-  //     perror("Error reading string with fgets\n");
-  //     exit(1);
-  //   }
-  //   strcpy(inputFile,str);
-  //   printf("Given input File : %s\n", inputFile);
-  // }
-  // if(!confflag){
-  //   printf(">Conf file name: ");
-  //   fflush(stdin); // clear stdin buffer
-  //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
-  //     perror("Error reading string with fgets\n");
-  //     exit(1);
-  //   }
-  //   strcpy(queryFile,str);
-  //   printf("Given query File : %s\n", queryFile);
-  // }
-  // if(!outputflag){
-  //   printf(">Output file name: ");
-  //   fflush(stdin); // clear stdin buffer
-  //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
-  //     perror("Error reading string with fgets\n");
-  //     exit(1);
-  //   }
-  //   strcpy(outputFile,str);
-  //   printf("Given output File : %s\n", outputFile);
-  // }
+  if(!inputflag){
+    printf(">Input file name: ");
+    fflush(stdin); // clear stdin buffer
+    if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+      perror("Error reading string with fgets\n");
+      exit(1);
+    }
+    strcpy(inputFile,str);
+    printf("Given input File : %s\n", inputFile);
+  }
+  if(!confflag){
+    printf(">Conf file name: ");
+    fflush(stdin); // clear stdin buffer
+    if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+      perror("Error reading string with fgets\n");
+      exit(1);
+    }
+    strcpy(confFile,str);
+    printf("Given query File : %s\n", confFile);
+  }
+  if(!outputflag){
+    printf(">Output file name: ");
+    fflush(stdin); // clear stdin buffer
+    if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+      perror("Error reading string with fgets\n");
+      exit(1);
+    }
+    strcpy(outputFile,str);
+    printf("Given output File : %s\n", outputFile);
+  }
+  if(!methodflag){
+    printf(">Method's  name: ");
+    fflush(stdin); // clear stdin buffer
+    if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+      perror("Error reading string with fgets\n");
+      exit(1);
+    }
+    strcpy(method,str);
+    printf("Given method's name : %s\n", method);
+  }
 
-  d = findDim("query_small_id");
+  d = findDim(inputFile);
   printf("DIMENSION = %d\n",d);
-
   List list = initializeList();
-  readConfFile("cluster.conf");
-  readFile("query_small_id",&list,&numOfVecs);
+  // kHyper is "d" global variable
+  int numOfClusters=5,l=3,mHyper=10,kHyper=3,probes=2;
+  k_LSH=4;
+  readConfFile(confFile,&numOfClusters,&l,&mHyper,&kHyper,&probes);
+  readFile(inputFile,&list,&numOfVecs);
 
-  m=100;
-  probes=15;
-  clustering(list,5,m,probes);
+  FILE* fptr;
+  fptr = fopen(outputFile, "w");
+  if(fptr == NULL){
+    /* File not created hence exit */
+    printf("Unable to create file.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  clustering(list,fptr,method,numOfClusters,l,mHyper,kHyper,probes);
 
 
 
-  // printOptions(); // just printing the commands options for the user
-  //
-  //
-  // char command[200];
-  // while(1){
-  //
-  //   printf("\n");
-  //   printf(">Enter a command: ");
-  //   fflush(stdin); // clear stdin buffer
-  //   if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
-  //     perror("Error reading string with fgets\n");
-  //     exit(1);
-  //   }
-  //   else if(strstr(str, "/repeat") != NULL) {
-  //     sscanf(str,"%s %s\n",command,inputFile);
-  //     printf("FILE: %s\n",inputFile);
-  //     continue;
-  //   }
-  //   else if(strcmp(str,"/exit\n")==0){
-  //     break;
-  //   }
-  //   else{
-  //     printf("\n\n  --- Wrong command ! Please, try again. ---  \n\n");
-  //     printOptions(); // just printing the commands options for the user
-  //     continue;
-  //   }
-  //
-  // }
+  printOptions(); // just printing the commands options for the user
 
-  listDelete(list,0);
+
+  char command[200];
+  while(1){
+
+    printf("\n");
+    printf(">Enter a command: ");
+    fflush(stdin); // clear stdin buffer
+    if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+      perror("Error reading string with fgets\n");
+      exit(1);
+    }
+    else if(strstr(str, "/repeat") != NULL) {
+      sscanf(str,"%s %s\n",command,inputFile);
+      printf("FILE: %s\n",inputFile);
+      continue;
+    }
+    else if(strcmp(str,"/exit\n")==0){
+      break;
+    }
+    else{
+      printf("\n\n  --- Wrong command ! Please, try again. ---  \n\n");
+      printOptions(); // just printing the commands options for the user
+      continue;
+    }
+
+  }
+
+  if(strcmp(method,"LSH")==0 || strcmp(method,"HyperCube")==0)
+    listDelete(list,0);
+  else
+    listDelete(list,1);
+
+  fclose(fptr);
   return 0;
 }

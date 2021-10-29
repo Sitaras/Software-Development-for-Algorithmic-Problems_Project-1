@@ -132,26 +132,8 @@ int main(int argc, char *argv[]) {
 
   HyperCube hc = initializeHyperCube();
   List list = initializeList();
-  // readFile("testing2.txt",hc);
   readFile(inputFile,hc,&list);
   readQueryFile(queryFile,outputFile,hc,list,n,r,2,m);
-
-  // double vec[6] = {21,  3,  3,  18,  25,  11};
-  // Vector vecTmp=initVector(vec,"TEMPNAME");
-
-  // FILE* fPtr;
-  // fPtr = fopen(outputFile, "w");
-  // if(fPtr == NULL){
-  //   /* File not created hence exit */
-  //   printf("Unable to create file.\n");
-  //   exit(EXIT_FAILURE);
-  // }
-  //
-  // nearestNeigborHypercube(hc,vecTmp,4,10,fPtr);
-  // printf("================================================\n");
-  // kNearestNeigborsHypercube(hc,vecTmp,3,10,100,fPtr);
-  // printf("================================================\n");
-  // radiusNeigborHypercube(hc,vecTmp,25,10,100,fPtr);
 
   printOptions(); // just printing the commands options for the user
 

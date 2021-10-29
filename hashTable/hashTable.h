@@ -8,7 +8,7 @@ typedef struct listNode *List;
 int hashFunction(const HashTable,int);
 HashTable htInitialize(int);
 int htInsert(HashTable ,Vector, int,int );
-// hashtable_nodePtr htSearch(const HashTable,int);
+int getNumberOfVectors(const HashTable );
 void htPrint(const HashTable);
 void htRangePrint(const HashTable ,Vector ,int,FILE* );
 void htRangeDelete(HashTable , Vector ,int ,int );

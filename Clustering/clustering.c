@@ -101,7 +101,7 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
 }
 
 
-void clusteringLloyds(List vecList,int numOfClusters){
+void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
   Vector *vectors;
   Vector *clusters;
   Vector *oldClusters = NULL;
@@ -171,7 +171,7 @@ void clusteringLloyds(List vecList,int numOfClusters){
   free(oldClusters);
 }
 
-void clusteringLSH(List vecList,int numOfClusters){
+void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
   Vector *vectors;
   Vector *clusters;
   Vector *oldClusters = NULL;
@@ -189,10 +189,10 @@ void clusteringLSH(List vecList,int numOfClusters){
   }
   props = calloc(numOfVecs,sizeof(double));
   kmeansplusplus(vectors,numOfClusters,clusters,props);
-  for(int i=0;i<numOfClusters;i++){
-    printf("- CLUSTER :%d\n",i);
-    printVector(clusters[i]);
-  }
+  // for(int i=0;i<numOfClusters;i++){
+  //   printf("- CLUSTER :%d\n",i);
+  //   printVector(clusters[i]);
+  // }
 
   hashTableSize=numOfVecs/8;
   LSH lsh = initializeLSH(6);
@@ -227,8 +227,9 @@ void clusteringLSH(List vecList,int numOfClusters){
   }
 
   for(int i=0;i<numOfClusters;i++){
-    printf("- CLUSTER :%d\n",i);
+    printf("CLUSTER-%d {size: %d",i,getNumberOfVectors(clustersHt[i]));
     printVector(clusters[i]);
+    printf("}\n");
   }
 
   for(int i=0;i<numOfClusters;i++){
@@ -307,7 +308,7 @@ void reverseAssignmentHypercube(HyperCube cube,Vector *vectors,Vector *clusters,
 }
 
 
-void clusteringHypercube(List vecList,int numOfClusters,int m,int probes){
+void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* fptr){
   Vector *vectors;
   Vector *clusters;
   Vector *oldClusters = NULL;
@@ -325,10 +326,10 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes){
   }
   props = calloc(numOfVecs,sizeof(double));
   kmeansplusplus(vectors,numOfClusters,clusters,props);
-  for(int i=0;i<numOfClusters;i++){
-    printf("- CLUSTER :%d\n",i);
-    printVector(clusters[i]);
-  }
+  // for(int i=0;i<numOfClusters;i++){
+  //   printf("- CLUSTER :%d\n",i);
+  //   printVector(clusters[i]);
+  // }
 
   hashTableSize=numOfVecs/8;
   HyperCube cube = initializeHyperCube();
@@ -363,6 +364,12 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes){
   }
 
   for(int i=0;i<numOfClusters;i++){
+    printf("CLUSTER-%d {size: %d",i,getNumberOfVectors(clustersHt[i]));
+    printVector(clusters[i]);
+    printf("}\n");
+  }
+
+  for(int i=0;i<numOfClusters;i++){
     if(oldClusters[i]!=NULL)
       deleteVector(oldClusters[i]);
     if(clusters[i]!=NULL)
@@ -377,17 +384,19 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes){
   deleteHyperCube(cube);
 }
 
-void clustering(List vecList,int numOfClusters,int m,int probes){
+void clustering(List vecList,FILE* fptr,char* method,int numOfClusters,int l,int mHyper,int kHyper,int probes){
+  // kHyper is "d" global variable
+  if(strcmp(method,"Classic")==0)
+    clusteringLloyds(vecList,numOfClusters,fptr);
+  else if(strcmp(method,"LSH")==0)
+    clusteringLSH(vecList,numOfClusters,l,fptr);
+  else if(strcmp(method,"HyperCube")==0)
+    clusteringHypercube(vecList,numOfClusters,mHyper,probes,fptr);
+  else
+    printf("INVALID METHOD NAME!");
 
-  // clusteringLloyds(vecList,numOfClusters);
 
   printf("\n==============================2\n");
-
-  clusteringLSH(vecList,numOfClusters);
-
-  // clusteringHypercube(vecList,numOfClusters,m,probes);
-
-
   //Reverse approach
 
 }

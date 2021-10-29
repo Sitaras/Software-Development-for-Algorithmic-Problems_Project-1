@@ -14,6 +14,7 @@
 #define MAX_INPUT_LENGTH 1024
 
 extern int d;
+extern int k_LSH;
 
 // returns number of words in str
 int countWords(char *str){
@@ -69,7 +70,7 @@ int findDim(char* fileName){
 }
 
 
-void readConfFile(char* fileName){
+void readConfFile(char* fileName,int * numOfClusters,int *l,int *mHyper,int *kHyper,int *probes){
   FILE *file = fopen(fileName, "r"); // read mode
 
   if (file == NULL){
@@ -84,7 +85,6 @@ void readConfFile(char* fileName){
   char buffer[MAX_INPUT_LENGTH];
   char command[100];
   char temp[100];
-  int numOfClusters,l,kLsh,mHyper,kHyper,probes;
   while(!feof(file)){
     fflush(stdin);  // clear stdin buffer
     if(fscanf(file,"%[^\n]\n",buffer)<0){ // read a line from the file
@@ -92,38 +92,38 @@ void readConfFile(char* fileName){
     }
     if(strstr(buffer, "number_of_clusters:") != NULL) {
       sscanf(buffer,"%s %s\n",command,temp);
-      numOfClusters=atoi(temp);
-      printf("number_of_clusters: %d\n",numOfClusters);
+      *numOfClusters=atoi(temp);
+      printf("number_of_clusters: %d\n",*numOfClusters);
       continue;
     }
     else if(strstr(buffer, "number_of_vector_hash_tables:") != NULL) {
       sscanf(buffer,"%s %s\n",command,temp);
-      l=atoi(temp);
-      printf("number_of_vector_hash_tables: %d\n",l);
+      *l=atoi(temp);
+      printf("number_of_vector_hash_tables: %d\n",*l);
       continue;
     }
     else if(strstr(buffer, "number_of_vector_hash_functions:") != NULL) {
       sscanf(buffer,"%s %s\n",command,temp);
-      kLsh=atoi(temp);
-      printf("number_of_vector_hash_functions: %d\n",kLsh);
+      k_LSH=atoi(temp);
+      printf("number_of_vector_hash_functions: %d\n",k_LSH);
       continue;
     }
     else if(strstr(buffer, "max_number_M_hypercube:") != NULL) {
       sscanf(buffer,"%s %s\n",command,temp);
-      mHyper=atoi(temp);
-      printf("max_number_M_hypercube: %d\n",mHyper);
+      *mHyper=atoi(temp);
+      printf("max_number_M_hypercube: %d\n",*mHyper);
       continue;
     }
     else if(strstr(buffer, "number_of_hypercube_dimensions:") != NULL) {
       sscanf(buffer,"%s %s\n",command,temp);
-      kHyper=atoi(temp);
-      printf("number_of_hypercube_dimensions:  %d\n",kHyper);
+      *kHyper=atoi(temp);
+      printf("number_of_hypercube_dimensions:  %d\n",*kHyper);
       continue;
     }
     else if(strstr(buffer, "number_of_probes:") != NULL) {
       sscanf(buffer,"%s %s\n",command,temp);
-      probes=atoi(temp);
-      printf("number_of_probes: %d\n",probes);
+      *probes=atoi(temp);
+      printf("number_of_probes: %d\n",*probes);
       continue;
     }
   }
@@ -145,10 +145,6 @@ void readFile(char* fileName,List *list,int *numOfVecs){
   }
   (*numOfVecs)=0;
 
-  // int numberOfVectors=countLines(file);
-  // int** arrVectors = malloc(numberOfVectors * sizeof(int*));
-  // for (i = 0; i < numberOfVectors; i++)
-  //     arrVectors[i] = malloc(dimensions * sizeof(int));
 
   char buffer[MAX_INPUT_LENGTH];
 
@@ -160,21 +156,20 @@ void readFile(char* fileName,List *list,int *numOfVecs){
     }
 
     double vec[d];
-    char * token = strtok(buffer, " ");
+    char * token = strtok(buffer," ");
     char name[MAX_INPUT_LENGTH];
     strcpy(name,token);
-    token = strtok(NULL, "  ");
-     // loop through the string to extract all other tokens
+    token = strtok(NULL," ");
      int counter = 0;
      while( token != NULL ) {
         vec[counter++]=atof(token);
-        token = strtok(NULL, "  ");
+        token = strtok(NULL," ");
      }
      Vector vecTmp=initVector(vec,name);
      (*list) = listInsert((*list),vecTmp,-1);
      (*numOfVecs)++;
 
-
+     // deleteVector(vecTmp);
   }
 
 
