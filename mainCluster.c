@@ -19,6 +19,8 @@ int numOfVecs;
 int hashTableSize;
 int k_LSH;
 
+// test
+
 void printOptions(){
   printf("_________________Options____________________\n\n");
 	printf("1. /repeat <new_input_file>\n\n");
