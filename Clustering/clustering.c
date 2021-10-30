@@ -382,7 +382,6 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
 }
 
 void clustering(List vecList,FILE* fptr,char* method,int numOfClusters,int l,int mHyper,int probes){
-  // kHyper is "d" global variable
   if(strcmp(method,"Classic")==0){
     fprintf(fptr,"Algorithm: Lloyds\n");
     clusteringLloyds(vecList,numOfClusters,fptr);
