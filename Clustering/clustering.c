@@ -24,7 +24,7 @@ extern int hashTableSize;
 
 
 
-void lloyds(Vector* clusters,Vector *oldClusters,Vector* vectors,List* clustersList,int numberOfVectors,int numOfClusters) {
+void lloyds(Vector* clusters,Vector *oldClusters,Vector* vectors,List* clustersList,int numberOfVectors,int numOfClusters,int *vectorCount) {
   static int flag=0;
   if(flag) //skip it for the first time
     for(int i=0;i<numOfClusters;i++){
@@ -43,6 +43,7 @@ void lloyds(Vector* clusters,Vector *oldClusters,Vector* vectors,List* clustersL
 
   for(int i=0;i<numberOfVectors;i++){
     int closestCentroid = findClosestCentroid(vectors[i],clusters,numOfClusters);
+    vectorCount[closestCentroid] += 1;
     clustersList[closestCentroid] = listInsert(clustersList[closestCentroid],vectors[i],d);
   }
   flag=1;
@@ -106,15 +107,18 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
   Vector *clusters;
   Vector *oldClusters = NULL;
   double *props;
+  int *vectorCount;
 
   vectors = transformListToArray(vecList,numOfVecs);
   clusters = malloc(numOfClusters*sizeof(Vector));
   oldClusters = malloc(numOfClusters*sizeof(Vector));
+
   for(int i=0;i<numOfClusters;i++){
     clusters[i] = NULL;
     oldClusters[i] = NULL;
   }
   props = calloc(numOfVecs,sizeof(double));
+  vectorCount = calloc(numOfVecs,sizeof(int));
 
 
   kmeansplusplus(vectors,numOfClusters,clusters,props);
@@ -140,17 +144,18 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
           deleteVector(clusters[i]);
           clusters[i] = NULL;
         }
+        vectorCount[i] = 0;
       }
     }
 
     //
-    lloyds(clusters,oldClusters,vectors,clustersList,numOfVecs,numOfClusters);
+    lloyds(clusters,oldClusters,vectors,clustersList,numOfVecs,numOfClusters,vectorCount);
 
     firstIter=FALSE;
   }
 
   for(int i=0;i<numOfClusters;i++){
-    fprintf(fptr,"CLUSTER-%d {size: %d",i+1);
+    fprintf(fptr,"CLUSTER-%d {size: %d",i+1,vectorCount[i]);
     printVectorInFile(clusters[i],fptr);
     fprintf(fptr,"}\n");
   }
@@ -166,6 +171,7 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
   free(vectors);
   free(clustersList);
   free(oldClusters);
+  free(vectorCount);
 }
 
 void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
