@@ -12,37 +12,24 @@
 #define FALSE    0
 #define TRUE    1
 
-#define MAX_INPUT_LENGTH 1024
+#define MAX_INPUT_LENGTH 2048
 
 extern int d;
 
 // returns number of words in str
 int countWords(char *str){
-    int state = OUT;
-    int wc = 0;  // word count
+  char * token = strtok(str, " ");
+  // printf("NAME = %s\n",token);
+  token = strtok(NULL, " ");
+   // loop through the string to extract all other tokens
+   int counter = 0;
+   while( token != NULL ) {
+      // printf( " - %s\n", token ); //printing each token
+      counter++;
+      token = strtok(NULL, " ");
+   }
 
-    // Scan all characters one by one
-    while (*str)
-    {
-        // If next character is a separator, set the
-        // state as OUT
-        if (*str == ' ' || *str == '\n' || *str == '\t')
-            state = OUT;
-
-        // If next character is not a word separator and
-        // state is OUT, then set the state as IN and
-        // increment word count
-        else if (state == OUT)
-        {
-            state = IN;
-            ++wc;
-        }
-
-        // Move to next character
-        ++str;
-    }
-
-    return wc;
+  return counter;
 }
 
 int countLines(FILE *fp){
@@ -100,15 +87,16 @@ void readFile(char* fileName,HyperCube hc,List *inputs){
 
   while(!feof(file)){
     fflush(stdin);  // clear stdin buffer
-    if(fscanf(file,"%[^\n]\n",buffer)<0){ // read a line from the file
+    int read_result = fscanf(file,"%[^\n]\n",buffer);
+    if(read_result<0){ // read a line from the file
       continue;
     }
-
     double vec[d];
     char * token = strtok(buffer, " ");
     // printf("NAME = %s\n",token);
     char name[MAX_INPUT_LENGTH];
     strcpy(name,token);
+    name[strlen(name)]='\0';
     token = strtok(NULL, " ");
      // loop through the string to extract all other tokens
      int counter = 0;

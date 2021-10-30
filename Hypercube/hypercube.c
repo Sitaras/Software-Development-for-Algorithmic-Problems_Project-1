@@ -144,7 +144,6 @@ void deleteHyperCube(HyperCube hc){
 void searchForHammingDistance(HyperCube hc,Vector v,int *v_index,int hammingDist,int startFrom,Vector *nearest,double *nearestDist,int *numOfSearched,int maxToSearch,int *nodesSearched,int probes){
   if(hammingDist<=0){
     int new_index = binaryArrayToDecimal(v_index,new_dimension);
-    printf("** HAMMING INDEX =%d\n",new_index);
     htFindNearestNeighborCube(hc->hypercube,new_index,v,nearest,nearestDist,d,numOfSearched,maxToSearch);
     (*nodesSearched)++;
     return;
@@ -175,7 +174,6 @@ void nearestNeigborHypercube(HyperCube hc,Vector q,int hammingDist,int m,FILE *f
     index[i] = f_result;
   }
   int index_decimal = binaryArrayToDecimal(index,new_dimension);
-  printf("** INITIAL INDEX =%d\n",index_decimal);
   htFindNearestNeighborCube(hc->hypercube,index_decimal,q,&nearest,&nearestDist,d,&searched,m);
 
   int nodesSearched = 0;
@@ -207,7 +205,6 @@ void nearestNeigborHypercube(HyperCube hc,Vector q,int hammingDist,int m,FILE *f
 void searchForHammingDistanceKNN(HyperCube hc,Vector v,int *v_index,int hammingDist,int startFrom,Vector *nearest,double *nearestDist,int *numOfSearched,int maxToSearch,int knn,int *nodesSearched,int probes){
   if(hammingDist<=0){
     int new_index = binaryArrayToDecimal(v_index,new_dimension);
-    printf("** HAMMING INDEX =%d\n",new_index);
     htKFindNearestNeighborsCube(hc->hypercube,new_index,v,nearest,nearestDist,d,knn,numOfSearched,maxToSearch);
     (*nodesSearched)++;
     return;
@@ -264,7 +261,7 @@ void kNearestNeigborsHypercube(HyperCube hc,Vector q,int knn,int hammingDist,int
       printVectorIdInFile(nearest[i],fptr);
       // printf("distanceLSH: %f\n", knearestDists[i]);
       // printf("distanceTrue: %f\n", knearestTrueDists[i]);
-      printf("%d\n",i);
+      printf("- %d\n",i);
       fprintf(fptr,"distanceHypercube: %f\n", knearestDists[i]);
       fprintf(fptr,"distanceTrue: %f\n", knearestTrueDists[i]);
       flag=0;

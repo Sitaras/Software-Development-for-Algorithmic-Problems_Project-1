@@ -34,7 +34,8 @@ double dot_product(double *v, double *u,int d){
 
 int mod(int a, int b){
   int r = a % b;
-  return r < 0 ? r + b : r;
+  int result = (r < 0) ? (r + b) : r;
+  return result;
 }
 
 // double randn (){

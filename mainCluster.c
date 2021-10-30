@@ -17,9 +17,8 @@ int probes;
 int w;
 int numOfVecs;
 int hashTableSize;
-int k_LSH;
 
-// test
+int k_LSH;
 
 void printOptions(){
   printf("_________________Options____________________\n\n");

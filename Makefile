@@ -4,7 +4,7 @@ PARSING=./parsing
 VECTOR=./Vector
 LSH=./LSH
 HASHMAP = ./Hypercube/HashMap
-HYPERCUBE = ./HyperCube
+HYPERCUBE = ./Hypercube
 CLUSTER = ./Clustering
 
 CC=gcc
