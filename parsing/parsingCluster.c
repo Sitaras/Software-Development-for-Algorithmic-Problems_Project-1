@@ -15,6 +15,7 @@
 
 extern int d;
 extern int k_LSH;
+extern int new_dimension;
 
 // returns number of words in str
 int countWords(char *str){
@@ -70,7 +71,7 @@ int findDim(char* fileName){
 }
 
 
-void readConfFile(char* fileName,int * numOfClusters,int *l,int *mHyper,int *kHyper,int *probes){
+void readConfFile(char* fileName,int * numOfClusters,int *l,int *mHyper,int *probes){
   FILE *file = fopen(fileName, "r"); // read mode
 
   if (file == NULL){
@@ -116,8 +117,8 @@ void readConfFile(char* fileName,int * numOfClusters,int *l,int *mHyper,int *kHy
     }
     else if(strstr(buffer, "number_of_hypercube_dimensions:") != NULL) {
       sscanf(buffer,"%s %s\n",command,temp);
-      *kHyper=atoi(temp);
-      printf("number_of_hypercube_dimensions:  %d\n",*kHyper);
+      new_dimension=atoi(temp);
+      printf("number_of_hypercube_dimensions: %d\n",new_dimension);
       continue;
     }
     else if(strstr(buffer, "number_of_probes:") != NULL) {

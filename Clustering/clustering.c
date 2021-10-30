@@ -149,13 +149,10 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
     firstIter=FALSE;
   }
 
-
-  //
   for(int i=0;i<numOfClusters;i++){
-    printf("- CLUSTER :%d\n",i);
-    printVector(clusters[i]);
-    // printf("- CLUSTER LIST\n");
-    // listPrint(clustersList[i]);
+    fprintf(fptr,"CLUSTER-%d {size: %d",i+1);
+    printVectorInFile(clusters[i],fptr);
+    fprintf(fptr,"}\n");
   }
 
   // free clusters
@@ -227,9 +224,9 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
   }
 
   for(int i=0;i<numOfClusters;i++){
-    printf("CLUSTER-%d {size: %d",i,getNumberOfVectors(clustersHt[i]));
-    printVector(clusters[i]);
-    printf("}\n");
+    fprintf(fptr,"CLUSTER-%d {size: %d",i+1,getNumberOfVectors(clustersHt[i]));
+    printVectorInFile(clusters[i],fptr);
+    fprintf(fptr,"}\n");
   }
 
   for(int i=0;i<numOfClusters;i++){
@@ -364,9 +361,9 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
   }
 
   for(int i=0;i<numOfClusters;i++){
-    printf("CLUSTER-%d {size: %d",i,getNumberOfVectors(clustersHt[i]));
-    printVector(clusters[i]);
-    printf("}\n");
+    fprintf(fptr,"CLUSTER-%d {size: %d",i+1,getNumberOfVectors(clustersHt[i]));
+    printVectorInFile(clusters[i],fptr);
+    fprintf(fptr,"}\n");
   }
 
   for(int i=0;i<numOfClusters;i++){
@@ -384,14 +381,20 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
   deleteHyperCube(cube);
 }
 
-void clustering(List vecList,FILE* fptr,char* method,int numOfClusters,int l,int mHyper,int kHyper,int probes){
+void clustering(List vecList,FILE* fptr,char* method,int numOfClusters,int l,int mHyper,int probes){
   // kHyper is "d" global variable
-  if(strcmp(method,"Classic")==0)
+  if(strcmp(method,"Classic")==0){
+    fprintf(fptr,"Algorithm: Lloyds\n");
     clusteringLloyds(vecList,numOfClusters,fptr);
-  else if(strcmp(method,"LSH")==0)
+  }
+  else if(strcmp(method,"LSH")==0){
+    fprintf(fptr,"Algorithm: Range Search LSH\n");
     clusteringLSH(vecList,numOfClusters,l,fptr);
-  else if(strcmp(method,"HyperCube")==0)
+  }
+  else if(strcmp(method,"HyperCube")==0){
+    fprintf(fptr,"Algorithm: Range Search Hypercube\n");
     clusteringHypercube(vecList,numOfClusters,mHyper,probes,fptr);
+  }
   else
     printf("INVALID METHOD NAME!");
 

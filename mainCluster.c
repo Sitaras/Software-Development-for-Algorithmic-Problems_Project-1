@@ -116,23 +116,23 @@ int main(int argc, char *argv[]) {
     printf("Given output File : %s\n", outputFile);
   }
   if(!methodflag){
-    printf(">Method's  name: ");
+    printf(">Method's name: ");
     fflush(stdin); // clear stdin buffer
     if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
       perror("Error reading string with fgets\n");
       exit(1);
     }
     strcpy(method,str);
-    printf("Given method's name : %s\n", method);
+    printf("Given method's name: %s\n", method);
   }
 
   d = findDim(inputFile);
   printf("DIMENSION = %d\n",d);
   List list = initializeList();
-  // kHyper is "d" global variable
-  int numOfClusters=5,l=3,mHyper=10,kHyper=3,probes=2;
+  int numOfClusters=5,l=3,mHyper=10,probes=2;
+  new_dimension=3;
   k_LSH=4;
-  readConfFile(confFile,&numOfClusters,&l,&mHyper,&kHyper,&probes);
+  readConfFile(confFile,&numOfClusters,&l,&mHyper,&probes);
   readFile(inputFile,&list,&numOfVecs);
 
   FILE* fptr;
@@ -143,7 +143,7 @@ int main(int argc, char *argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  clustering(list,fptr,method,numOfClusters,l,mHyper,kHyper,probes);
+  clustering(list,fptr,method,numOfClusters,l,mHyper,probes);
 
 
 
