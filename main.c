@@ -36,7 +36,7 @@ int main(int argc, char *argv[])  {
   int l=5;
   int n=1;
   double radius=10000;
-  hashTableSize = 50;
+  hashTableSize = 2500;
   k_LSH = 4;
   w = 8;
 

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "../Vector/vector.h"
 #include "../hashTable/hashTable.h"
 #include "../LSH/lsh.h"
@@ -203,8 +204,20 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
      // listFindNearestNeighbor(inputs,vecTmp,&nearest,&nearestDist,d,-1);
      // printf("distanceTrue: %f\n",nearestDist);
      // printf("================================================\n");
+     clock_t begin_true = clock();
+
      listFindKNearestNeighbors(inputs,vecTmp,nNearest,knearestDists,d,n,-1);
+
+     clock_t end_true = clock();
+     double time_spent_true = (double)(end_true - begin_true) / CLOCKS_PER_SEC;
+
+     clock_t begin_lsh = clock();
      kNearestNeigborsLSH(lsh, vecTmp,n,knearestDists,fptr);
+
+     clock_t end_lsh = clock();
+     double time_spent_lsh = (double)(end_lsh - begin_lsh) / CLOCKS_PER_SEC;
+     fprintf(fptr, "tLSH: %f seconds\n",time_spent_lsh);
+     fprintf(fptr, "tTrue: %f seconds\n",time_spent_true);
      // printf("================================================\n");
      // printLSH(temp);
      radiusNeigborLSH(lsh,vecTmp,radius,fptr);
