@@ -97,6 +97,7 @@ int computeF(HashMap f_fun,Key key){
 
 
 HyperCube initializeHyperCube(){
+  printf("NEW DIMENSION OF HYPERCUBE (d') = %d\n",new_dimension);
   HyperCube hc = malloc(sizeof(cubeNode));
   hc->h_functions = malloc(new_dimension*sizeof(h_function));
   for(int i=0;i<new_dimension;i++){
@@ -261,7 +262,7 @@ void kNearestNeigborsHypercube(HyperCube hc,Vector q,int knn,int hammingDist,int
       printVectorIdInFile(nearest[i],fptr);
       // printf("distanceLSH: %f\n", knearestDists[i]);
       // printf("distanceTrue: %f\n", knearestTrueDists[i]);
-      printf("- %d\n",i);
+      // printf("- %d\n",i);
       fprintf(fptr,"distanceHypercube: %f\n", knearestDists[i]);
       fprintf(fptr,"distanceTrue: %f\n", knearestTrueDists[i]);
       flag=0;
@@ -300,8 +301,9 @@ void searchForHammingDistanceRadius(HyperCube hc,Vector v,int *v_index,int hammi
 void radiusNeigborHypercube(HyperCube hc,Vector q,double radius,int hammingDist,int m,FILE *fptr){
   // printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
   // fprintf(fptr,"ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
-  HashTable vecsInRadius = htInitialize(100); // TODO: CHANGE SIZE
 
+  int vecsInRadius_size = getNumberOfVectors(hc->hypercube);
+  HashTable vecsInRadius = htInitialize(vecsInRadius_size/8); // TODO: CHANGE SIZE
   int index[new_dimension];
   int searched = 0;
   for(int i=0;i<new_dimension;i++){

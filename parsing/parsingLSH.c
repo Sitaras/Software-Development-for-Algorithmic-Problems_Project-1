@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "../Vector/vector.h"
 #include "../hashTable/hashTable.h"
 #include "../LSH/lsh.h"
@@ -99,7 +100,7 @@ int findDim(char* fileName){
 }
 
 
-void readFile(char* fileName,LSH lsh,List *inputs){
+void readFile(char* fileName,List *inputs,int *vectorCount){
 
    FILE *file = fopen(fileName, "r"); // read mode
 
@@ -134,9 +135,9 @@ void readFile(char* fileName,LSH lsh,List *inputs){
         token = strtok(NULL, " ");
      }
      Vector vecTmp=initVector(vec,name);
-     insertToLSH(lsh,vecTmp);
+     // insertToLSH(lsh,vecTmp);
      (*inputs) = listInsert((*inputs),vecTmp,-1);
-
+     (*vectorCount)++;
 
 
   }
@@ -203,11 +204,28 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
      // listFindNearestNeighbor(inputs,vecTmp,&nearest,&nearestDist,d,-1);
      // printf("distanceTrue: %f\n",nearestDist);
      // printf("================================================\n");
+     clock_t begin_true = clock();
+
      listFindKNearestNeighbors(inputs,vecTmp,nNearest,knearestDists,d,n,-1);
+
+     clock_t end_true = clock();
+     double time_spent_true = (double)(end_true - begin_true) / CLOCKS_PER_SEC;
+
+     clock_t begin_lsh = clock();
      kNearestNeigborsLSH(lsh, vecTmp,n,knearestDists,fptr);
+
+     clock_t end_lsh = clock();
+     double time_spent_lsh = (double)(end_lsh - begin_lsh) / CLOCKS_PER_SEC;
+     fprintf(fptr, "tLSH: %f seconds\n",time_spent_lsh);
+     fprintf(fptr, "tTrue: %f seconds\n",time_spent_true);
      // printf("================================================\n");
      // printLSH(temp);
+
+     clock_t begin_radius = clock();
      radiusNeigborLSH(lsh,vecTmp,radius,fptr);
+     clock_t end_radius = clock();
+    double time_spent_radius = (double)(end_radius - begin_radius) / CLOCKS_PER_SEC;
+      fprintf(fptr, "tRadiusSearch: %f seconds\n\n\n",time_spent_radius);
      deleteVector(vecTmp);
   }
   fclose(fptr);

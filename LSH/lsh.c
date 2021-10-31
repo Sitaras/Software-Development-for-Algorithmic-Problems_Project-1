@@ -5,6 +5,7 @@
 #include <limits.h>
 #include "../Vector/vector.h"
 #include "../hashTable/hashTable.h"
+#include "../hashTable/hashTableList/hashTableList.h"
 #include "./helperFunctions.h"
 
 
@@ -119,6 +120,15 @@ void insertToLSH(LSH lsh,Vector v){
   }
 }
 
+void insertFromListToLSH(List list,LSH lsh){
+  if(list==NULL){ return;}
+  List temp=list;
+  while(temp!=NULL){
+      insertToLSH(lsh,getVector(temp));
+      temp=getNext(temp);
+  }
+}
+
 void printLSH(LSH lsh){
   int l = lsh->l;
   for(int i=0;i<l;i++){
@@ -207,10 +217,15 @@ void kNearestNeigborsLSH(LSH lsh,Vector q,int knn,double *knearestTrueDists,FILE
 
 void radiusNeigborLSH(LSH lsh,Vector q,double radius,FILE *fptr){
   // printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
-  HashTable vecsInRadius = htInitialize(100); // TODO: CHANGE SIZE
+
+  int vecsInRadius_size=1;
   int l = getL(lsh);
   HashTable *hts = getHts(lsh);
   g_function *gfuns = getGfuns(lsh);
+  if(l>0){
+    vecsInRadius_size = getNumberOfVectors(hts[0])/8;
+  }
+  HashTable vecsInRadius = htInitialize(vecsInRadius_size); // TODO: CHANGE SIZE
   for(int i=0;i<l;i++){
     int q_ID;
     int q_index = computeG(gfuns[i],q,&q_ID);

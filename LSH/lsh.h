@@ -6,6 +6,7 @@ typedef struct lsh_n * LSH;
 typedef struct listNode *List;
 LSH initializeLSH(int );
 void insertToLSH(LSH ,Vector );
+void insertFromListToLSH(List ,LSH );
 void printLSH(LSH );
 void destroyLSH(LSH );
 

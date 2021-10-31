@@ -3,6 +3,9 @@
 #include "../Vector/vector.h"
 #include "./hashTableList/hashTableList.h"
 
+#define MAX(a, b) (((a) > (b)) ? (a) : (b))
+
+
 
 struct hashtable_node{
   int key;
@@ -100,7 +103,7 @@ void htRangePrint(const HashTable ht,Vector q,int d,FILE *fptr){
   for (int i=0;i<ht->buckets;i++){
     listRangePrint(ht->table[i].head,q,d,&counter,fptr);
   }
-  fprintf(fptr,"\n\n");
+  // fprintf(fptr,"\n\n");
 }
 
 
@@ -166,3 +169,49 @@ Vector htMeanOfCluster(HashTable ht,int d){
 
   return newCentroid;
 }
+
+double htFindAverageDistanceOfVectorInCluster(HashTable ht,Vector v,int d){
+  int count=0;
+  double sumOfDists = 0.0;
+  for (int i=0;i<ht->buckets;i++){
+    sumOfDists += listFindSumOfDistancesOfVector(ht->table[i].head,v,&count,d);
+  }
+  if(count==0) return 0.0;
+  return sumOfDists/count;
+}
+
+double silhouetteofClusterLSH(HashTable *clustersHt,Vector *clusters,int current_cluster,int numOfClusters,int d){
+  HashTable ht = clustersHt[current_cluster];
+  List allBuckets[ht->buckets];
+  for (int i=0;i<ht->buckets;i++){
+    allBuckets[i]=ht->table[i].head;
+  }
+  double *a = calloc(sizeof(double),ht->numberOfVectors);
+  double *b = calloc(sizeof(double),ht->numberOfVectors);
+  int count = 0;
+  listComputeAverageDistOfEveryPointOfCluster(allBuckets,ht->buckets,clustersHt,current_cluster,clusters,numOfClusters,a,b,&count,d);
+  double sumOfS_i = 0.0;
+  for(int i=0;i<ht->numberOfVectors;i++){
+    double s_i = (b[i]-a[i])/ MAX(b[i],a[i]);
+    sumOfS_i += s_i;
+  }
+  free(a);
+  free(b);
+  return sumOfS_i/ht->numberOfVectors;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
