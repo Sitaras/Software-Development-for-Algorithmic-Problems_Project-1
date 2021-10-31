@@ -123,19 +123,16 @@ void readFile(char* fileName,List *inputs,int *vectorCount){
 
     double vec[d];
     char * token = strtok(buffer, " ");
-    // printf("NAME = %s\n",token);
     char name[MAX_INPUT_LENGTH];
     strcpy(name,token);
     token = strtok(NULL, " ");
      // loop through the string to extract all other tokens
      int counter = 0;
      while( token != NULL ) {
-        // printf( " - %s\n", token ); //printing each token
         vec[counter++]=atof(token);
         token = strtok(NULL, " ");
      }
      Vector vecTmp=initVector(vec,name);
-     // insertToLSH(lsh,vecTmp);
      (*inputs) = listInsert((*inputs),vecTmp,-1);
      (*vectorCount)++;
 
@@ -189,21 +186,14 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
     strcpy(name,token);
     id=atoi(token);
     token = strtok(NULL, " ");
-     // loop through the string to extract all other tokens
      int counter = 0;
      while( token != NULL ) {
-        // printf( " - %s\n", token ); //printing each token
         vec[counter++]=atof(token);
         token = strtok(NULL, " ");
      }
      Vector vecTmp=initVector(vec,name);
      fprintf(fptr, "Query %d:\n",id);
-     // printf("Query %d:\n",id);
-     // printf("================================================\n");
-     // nearestNeigborLSH(lsh,vecTmp,fptr);
-     // listFindNearestNeighbor(inputs,vecTmp,&nearest,&nearestDist,d,-1);
-     // printf("distanceTrue: %f\n",nearestDist);
-     // printf("================================================\n");
+
      clock_t begin_true = clock();
 
      listFindKNearestNeighbors(inputs,vecTmp,nNearest,knearestDists,d,n,-1);
@@ -218,8 +208,7 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
      double time_spent_lsh = (double)(end_lsh - begin_lsh) / CLOCKS_PER_SEC;
      fprintf(fptr, "tLSH: %f seconds\n",time_spent_lsh);
      fprintf(fptr, "tTrue: %f seconds\n",time_spent_true);
-     // printf("================================================\n");
-     // printLSH(temp);
+
 
      clock_t begin_radius = clock();
      radiusNeigborLSH(lsh,vecTmp,radius,fptr);

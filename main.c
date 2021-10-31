@@ -163,12 +163,9 @@ int main(int argc, char *argv[])  {
 
   }
 
-  // deleteVector(vecTmp);
 
   destroyLSH(lsh);
   listDelete(list,0);
-  // fclose(fPtr);
-
 
   return 0;
 }

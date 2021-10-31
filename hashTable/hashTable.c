@@ -41,19 +41,6 @@ HashTable htInitialize(int buckets) {
 }
 
 
-// hashtable_nodePtr htSearch(const HashTable ht, int id){
-//   int index=hashFunction(ht, id);
-//   listNode* ln=listSearchId(ht->table[index].head,id);
-//   if (ln != NULL){
-//     // found
-//     return &(ln->n);
-//   }
-//   else {
-//     // not found
-//     return NULL;
-//   }
-// }
-
 
 int hashFunction(const HashTable ht,Vector v,int d){ /* Hash function only used in temorary hash table of Radius Search*/
   /* Not used in LSH*/
@@ -97,13 +84,11 @@ void htPrint(const HashTable ht){
 }
 
 void htRangePrint(const HashTable ht,Vector q,int d,FILE *fptr){
-  // printf("R-near neighbors:\n"); // add a counter at radiusNeigborClustering()
   fprintf(fptr,"R-near neighbors:\n"); // add a counter at radiusNeigborClustering()
   int counter=1;
   for (int i=0;i<ht->buckets;i++){
     listRangePrint(ht->table[i].head,q,d,&counter,fptr);
   }
-  // fprintf(fptr,"\n\n");
 }
 
 
@@ -186,6 +171,8 @@ double silhouetteofClusterLSH(HashTable *clustersHt,Vector *clusters,int current
   for (int i=0;i<ht->buckets;i++){
     allBuckets[i]=ht->table[i].head;
   }
+  // a(i) = average distance of i to objects in same cluster
+  // b(i) = average distance of i to objects in next best (neighbor) cluster
   double *a = calloc(sizeof(double),ht->numberOfVectors);
   double *b = calloc(sizeof(double),ht->numberOfVectors);
   int count = 0;

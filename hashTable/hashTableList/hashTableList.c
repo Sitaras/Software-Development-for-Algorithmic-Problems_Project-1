@@ -569,10 +569,6 @@ double listFindSumOfDistancesOfVector(List list,Vector v,int *count,int d){
   double tempSum = 0.0;
   while(temp!=NULL){
     double dist = distance_metric(temp->v,v,d);
-    // if(dist==0.0){
-    //   temp=temp->next;
-    //   continue;
-    // }
     tempSum += dist;
     (*count)++;
     temp=temp->next;
@@ -584,8 +580,10 @@ void listComputeAverageDistOfEveryPointOfCluster(List *listArray,int arraySize,H
   for(int i=0;i<arraySize;i++){
     List temp = listArray[i];
     while(temp!=NULL){
+      // a(i) = average distance of i to objects in same cluster
       a[(*count)]=htFindAverageDistanceOfVectorInCluster(clustersHt[current_cluster],temp->v,d);
       int second_closest_centroid = closestCentroid(temp->v,clusters,numOfClusters,d,current_cluster);
+      // b(i) = average distance of i to objects in next best (neighbor) cluster
       b[(*count)]=htFindAverageDistanceOfVectorInCluster(clustersHt[second_closest_centroid],temp->v,d);
       (*count)++;
       temp=temp->next;
@@ -601,10 +599,6 @@ double listFindAverageDistOfVector(List list,Vector v,int d){
   int count = 0;
   while(temp!=NULL){
     double dist = distance_metric(temp->v,v,d);
-    // if(dist==0.0){
-    //   temp=temp->next;
-    //   continue;
-    // }
     tempSum += dist;
     (count)++;
     temp=temp->next;
@@ -616,8 +610,10 @@ double listFindAverageDistOfVector(List list,Vector v,int d){
 void listComputeAverageDistOfEveryPointOfClusterLloyds(List list,List *clustersLists,int current_cluster,Vector *clusters,int numOfClusters,double *a,double *b,int *count,int d){
     List temp = list;
     while(temp!=NULL){
+      // a(i) = average distance of i to objects in same cluster
       a[(*count)]=listFindAverageDistOfVector(clustersLists[current_cluster],temp->v,d);
       int second_closest_centroid = closestCentroid(temp->v,clusters,numOfClusters,d,current_cluster);
+      // b(i) = average distance of i to objects in next best (neighbor) cluster
       b[(*count)]=listFindAverageDistOfVector(clustersLists[second_closest_centroid],temp->v,d);
       (*count)++;
       temp=temp->next;
@@ -626,6 +622,8 @@ void listComputeAverageDistOfEveryPointOfClusterLloyds(List list,List *clustersL
 
 
 double silhouetteofClusterLloyds(List *clustersLists,Vector *clusters,int current_cluster,int numOfClusters,int numOfVectorsInCluster,int d){
+  // a(i) = average distance of i to objects in same cluster
+  // b(i) = average distance of i to objects in next best (neighbor) cluster
   double *a = calloc(sizeof(double),numOfVectorsInCluster);
   double *b = calloc(sizeof(double),numOfVectorsInCluster);
   int count = 0;
