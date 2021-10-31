@@ -277,11 +277,13 @@ void reverseAssignmentHypercube(HyperCube cube,Vector *vectors,Vector *clusters,
     if(assignCounter==previousAssigns && assignCounter!=0){
       break;
     }
+
     previousAssigns = assignCounter;
     printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
     List confList=initializeList();
     for(int i=0;i<numOfClusters;i++){
       radiusNeigborHypercubeClustering(cube,clusters[i],clustersHt[i],radius,probes,m,i,&confList,&assignCounter,iteration);
+      printf("******* ---- ASSINGED ITEMS = %d\n",assignCounter);
     }
     listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d);
     printf("---- ASSINGED ITEMS = %d\n",assignCounter);

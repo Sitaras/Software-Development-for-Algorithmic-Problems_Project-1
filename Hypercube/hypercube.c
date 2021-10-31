@@ -366,7 +366,8 @@ void radiusNeigborHypercubeClustering(HyperCube hc,Vector q,HashTable vecsInRadi
     index[i] = f_result;
   }
   int index_decimal = binaryArrayToDecimal(index,new_dimension);
-  htFindNeighborsInRadiusCube(hc->hypercube,index_decimal,vecsInRadius,q,d,radius,&searched,m);
+  // htFindNeighborsInRadiusCube(hc->hypercube,index_decimal,vecsInRadius,q,d,radius,&searched,m);
+  htFindNeighborsInRadiusClusteringCube(hc->hypercube,index_decimal,centroidIndex,confList,vecsInRadius,q,d,radius,&searched,m,assignCounter,iteration);
 
   int nodesSearched = 0;
   for(int i=1;;i++){

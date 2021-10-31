@@ -405,7 +405,8 @@ void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List* confL
             temp=temp->next;
             continue;
           }else{
-            *confList=listUniqueInsert(*confList,temp->v,-1);
+            // *confList=listUniqueInsert(*confList,temp->v,-1);
+            *confList=listInsert(*confList,temp->v,-1);
             // printf("SURE NOT NULL\n");
             temp=temp->next;
             continue;
@@ -463,6 +464,10 @@ void listSolveRangeConflicts(List conflictList,HashTable *clustersHt,Vector *clu
   if(conflictList==NULL){ return;}
   List temp=conflictList;
   while(temp!=NULL){
+    if(getAssignedAtRadius(temp->v)<-1){
+      temp=temp->next;
+      continue;
+    }
     htRangeDelete(clustersHt[getAssignedCluster(temp->v)],temp->v,temp->vector_ID,d);
     double minDist = DBL_MAX;
     int closestCentroid = -1;
@@ -475,7 +480,7 @@ void listSolveRangeConflicts(List conflictList,HashTable *clustersHt,Vector *clu
     }
     htRangeInsert(clustersHt[closestCentroid],temp->v,temp->vector_ID,d);
     setAssignedCluster(temp->v,closestCentroid);
-
+    setAssignedAtRadius(temp->v,-2);
     temp=temp->next;
   }
 
