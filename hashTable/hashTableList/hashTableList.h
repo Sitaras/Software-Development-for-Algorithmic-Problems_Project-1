@@ -6,6 +6,8 @@
 typedef struct listNode *List;
 typedef struct hashtable_head *HashTable;
 
+Vector getVector(List );
+List getNext(List );
 
 double distance_metric(Vector ,Vector ,int );
 

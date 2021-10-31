@@ -97,6 +97,7 @@ int computeF(HashMap f_fun,Key key){
 
 
 HyperCube initializeHyperCube(){
+  printf("NEW DIMENSION OF HYPERCUBE (d') = %d\n",new_dimension);
   HyperCube hc = malloc(sizeof(cubeNode));
   hc->h_functions = malloc(new_dimension*sizeof(h_function));
   for(int i=0;i<new_dimension;i++){

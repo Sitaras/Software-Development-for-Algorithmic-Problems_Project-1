@@ -36,7 +36,7 @@ int main(int argc, char *argv[])  {
   int l=5;
   int n=1;
   double radius=10000;
-  hashTableSize = 2500;
+  hashTableSize = 1000;
   k_LSH = 4;
   w = 8;
 
@@ -123,8 +123,14 @@ int main(int argc, char *argv[])  {
   // d = findDim("testing.txt");
   printf("DIMENSION = %d\n",d);
   List list = initializeList();
+  int numberOfVectorsInFile = 0;
+  readFile(inputFile,&list,&numberOfVectorsInFile);
+  printf("Number of vectors in input file: %d\n",numberOfVectorsInFile);
+  hashTableSize=numberOfVectorsInFile/4;
+
+
   LSH lsh = initializeLSH(l);
-  readFile(inputFile,lsh,&list);
+  insertFromListToLSH(list,lsh);
 
   readQueryFile(queryFile,outputFile,lsh,list,n,radius);
 

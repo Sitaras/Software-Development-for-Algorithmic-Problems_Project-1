@@ -5,6 +5,7 @@
 #include <limits.h>
 #include "../Vector/vector.h"
 #include "../hashTable/hashTable.h"
+#include "../hashTable/hashTableList/hashTableList.h"
 #include "./helperFunctions.h"
 
 
@@ -116,6 +117,15 @@ void insertToLSH(LSH lsh,Vector v){
     int id;
     int index = computeG(lsh->g_fun[i],v,&id);
     htInsert(lsh->hts[i],v,index,id);
+  }
+}
+
+void insertFromListToLSH(List list,LSH lsh){
+  if(list==NULL){ return;}
+  List temp=list;
+  while(temp!=NULL){
+      insertToLSH(lsh,getVector(temp));
+      temp=getNext(temp);
   }
 }
 

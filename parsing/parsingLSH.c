@@ -100,7 +100,7 @@ int findDim(char* fileName){
 }
 
 
-void readFile(char* fileName,LSH lsh,List *inputs){
+void readFile(char* fileName,List *inputs,int *vectorCount){
 
    FILE *file = fopen(fileName, "r"); // read mode
 
@@ -135,9 +135,9 @@ void readFile(char* fileName,LSH lsh,List *inputs){
         token = strtok(NULL, " ");
      }
      Vector vecTmp=initVector(vec,name);
-     insertToLSH(lsh,vecTmp);
+     // insertToLSH(lsh,vecTmp);
      (*inputs) = listInsert((*inputs),vecTmp,-1);
-
+     (*vectorCount)++;
 
 
   }

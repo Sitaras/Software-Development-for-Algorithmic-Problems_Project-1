@@ -22,12 +22,20 @@ double distance_metric(Vector v1,Vector v2,int d){
 }
 
 
-typedef struct listNode *List;
+
 struct listNode {
   Vector v;
   int vector_ID;
   List next;
 };
+typedef struct listNode *List;
+
+Vector getVector(List l ){
+  return l->v;
+}
+List getNext(List l){
+  return l->next;
+}
 
 
 List initializeList(){

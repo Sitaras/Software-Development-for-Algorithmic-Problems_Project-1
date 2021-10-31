@@ -205,7 +205,7 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
   double *props;
   HashTable *clustersHt=malloc(numOfClusters*sizeof(HashTable *));
   for(int i=0;i<numOfClusters;i++){
-    clustersHt[i]= htInitialize(50); // TODO: CHANGE SIZE
+    clustersHt[i]= htInitialize(numOfVecs/(4*numOfClusters)); // TODO: CHANGE SIZE
   }
   vectors = transformListToArray(vecList,numOfVecs);
   clusters = malloc(numOfClusters*sizeof(Vector));
@@ -221,8 +221,8 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
   //   printVector(clusters[i]);
   // }
 
-  hashTableSize=numOfVecs/8;
-  LSH lsh = initializeLSH(6);
+  hashTableSize=numOfVecs/4;
+  LSH lsh = initializeLSH(l);
   for(int i=0;i<numOfVecs;i++){
     initializeClusterInfo(vectors[i]);
     insertToLSH(lsh,vectors[i]);
@@ -352,7 +352,7 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
   double *props;
   HashTable *clustersHt=malloc(numOfClusters*sizeof(HashTable *));
   for(int i=0;i<numOfClusters;i++){
-    clustersHt[i]= htInitialize(50); // TODO: CHANGE SIZE
+    clustersHt[i]= htInitialize(numOfVecs/(4*numOfClusters)); // TODO: CHANGE SIZE
   }
   vectors = transformListToArray(vecList,numOfVecs);
   clusters = malloc(numOfClusters*sizeof(Vector));
