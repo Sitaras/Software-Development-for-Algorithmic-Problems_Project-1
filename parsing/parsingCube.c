@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "../Vector/vector.h"
 #include "../hashTable/hashTable.h"
 #include "../Hypercube/hypercube.h"
@@ -173,10 +174,23 @@ void readQueryFile(char* queryFile,char* outputFile,HyperCube hc,List inputs,int
      fprintf(fptr, "Query %d:\n",id);
      // nearestNeigborHypercube(hc,vecTmp,1,4,fptr);
      // printf("================================================\n");
+     clock_t begin_true = clock();
      listFindKNearestNeighbors(inputs,vecTmp,nNearest,knearestDists,d,n,-1);
+     clock_t end_true = clock();
+     double time_spent_true = (double)(end_true - begin_true) / CLOCKS_PER_SEC;
+
+     clock_t begin_cube = clock();
      kNearestNeigborsHypercube(hc,vecTmp,n,hammingDist,m,knearestDists,fptr);
+     clock_t end_cube = clock();
+     double time_spent_cube = (double)(end_cube - begin_cube) / CLOCKS_PER_SEC;
+     fprintf(fptr, "tCube: %f seconds\n",time_spent_cube);
+     fprintf(fptr, "tTrue: %f seconds\n",time_spent_true);
      // printf("================================================\n");
+     clock_t begin_radius = clock();
      radiusNeigborHypercube(hc,vecTmp,radius,hammingDist,m,fptr);
+     clock_t end_radius = clock();
+    double time_spent_radius = (double)(end_radius - begin_radius) / CLOCKS_PER_SEC;
+      fprintf(fptr, "tRadiusSearch: %f seconds\n\n\n",time_spent_radius);
      // printLSH(temp);
      deleteVector(vecTmp);
   }

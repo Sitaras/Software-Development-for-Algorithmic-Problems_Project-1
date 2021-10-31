@@ -103,7 +103,7 @@ void htRangePrint(const HashTable ht,Vector q,int d,FILE *fptr){
   for (int i=0;i<ht->buckets;i++){
     listRangePrint(ht->table[i].head,q,d,&counter,fptr);
   }
-  fprintf(fptr,"\n\n");
+  // fprintf(fptr,"\n\n");
 }
 
 

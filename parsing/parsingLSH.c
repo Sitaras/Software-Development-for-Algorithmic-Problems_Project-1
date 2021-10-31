@@ -220,7 +220,12 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
      fprintf(fptr, "tTrue: %f seconds\n",time_spent_true);
      // printf("================================================\n");
      // printLSH(temp);
+
+     clock_t begin_radius = clock();
      radiusNeigborLSH(lsh,vecTmp,radius,fptr);
+     clock_t end_radius = clock();
+    double time_spent_radius = (double)(end_radius - begin_radius) / CLOCKS_PER_SEC;
+      fprintf(fptr, "tRadiusSearch: %f seconds\n\n\n",time_spent_radius);
      deleteVector(vecTmp);
   }
   fclose(fptr);

@@ -262,7 +262,7 @@ void kNearestNeigborsHypercube(HyperCube hc,Vector q,int knn,int hammingDist,int
       printVectorIdInFile(nearest[i],fptr);
       // printf("distanceLSH: %f\n", knearestDists[i]);
       // printf("distanceTrue: %f\n", knearestTrueDists[i]);
-      printf("- %d\n",i);
+      // printf("- %d\n",i);
       fprintf(fptr,"distanceHypercube: %f\n", knearestDists[i]);
       fprintf(fptr,"distanceTrue: %f\n", knearestTrueDists[i]);
       flag=0;
