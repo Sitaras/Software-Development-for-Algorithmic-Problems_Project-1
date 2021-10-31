@@ -8,6 +8,7 @@
 
 
 #define SQUARE(x) ((x)*(x))
+#define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 
 double distance_metric(Vector v1,Vector v2,int d){
@@ -538,3 +539,102 @@ double *listSumOfVectors(List list,int d,int *count){
   }
   return sumDims;
 }
+
+
+int closestCentroid(Vector v,Vector *clusters,int numOfClusters,int d,int except){
+  int minDistIndex = -1;
+  double minDist = DBL_MAX;
+  for(int i=0;i<numOfClusters;i++){
+    if(i==except) continue;
+    double tempDist = distance_metric(v,clusters[i],d);
+    if(tempDist<minDist){
+      minDistIndex = i;
+      minDist = tempDist;
+    }
+  }
+  return minDistIndex;
+}
+
+double listFindSumOfDistancesOfVector(List list,Vector v,int *count,int d){
+  if(list==NULL) return 0.0;
+  List temp = list;
+  double tempSum = 0.0;
+  while(temp!=NULL){
+    double dist = distance_metric(temp->v,v,d);
+    // if(dist==0.0){
+    //   temp=temp->next;
+    //   continue;
+    // }
+    tempSum += dist;
+    (*count)++;
+    temp=temp->next;
+  }
+  return tempSum;
+}
+
+void listComputeAverageDistOfEveryPointOfCluster(List *listArray,int arraySize,HashTable *clustersHt,int current_cluster,Vector *clusters,int numOfClusters,double *a,double *b,int *count,int d){
+  for(int i=0;i<arraySize;i++){
+    List temp = listArray[i];
+    while(temp!=NULL){
+      a[(*count)]=htFindAverageDistanceOfVectorInCluster(clustersHt[current_cluster],temp->v,d);
+      int second_closest_centroid = closestCentroid(temp->v,clusters,numOfClusters,d,current_cluster);
+      b[(*count)]=htFindAverageDistanceOfVectorInCluster(clustersHt[second_closest_centroid],temp->v,d);
+      (*count)++;
+      temp=temp->next;
+    }
+  }
+}
+
+
+double listFindAverageDistOfVector(List list,Vector v,int d){
+  if(list==NULL) return 0.0;
+  List temp = list;
+  double tempSum = 0.0;
+  int count = 0;
+  while(temp!=NULL){
+    double dist = distance_metric(temp->v,v,d);
+    // if(dist==0.0){
+    //   temp=temp->next;
+    //   continue;
+    // }
+    tempSum += dist;
+    (count)++;
+    temp=temp->next;
+  }
+  if(count==0) return 0.0;
+  return tempSum/count;
+}
+
+void listComputeAverageDistOfEveryPointOfClusterLloyds(List list,List *clustersLists,int current_cluster,Vector *clusters,int numOfClusters,double *a,double *b,int *count,int d){
+    List temp = list;
+    while(temp!=NULL){
+      a[(*count)]=listFindAverageDistOfVector(clustersLists[current_cluster],temp->v,d);
+      int second_closest_centroid = closestCentroid(temp->v,clusters,numOfClusters,d,current_cluster);
+      b[(*count)]=listFindAverageDistOfVector(clustersLists[second_closest_centroid],temp->v,d);
+      (*count)++;
+      temp=temp->next;
+    }
+}
+
+
+double silhouetteofClusterLloyds(List *clustersLists,Vector *clusters,int current_cluster,int numOfClusters,int numOfVectorsInCluster,int d){
+  double *a = calloc(sizeof(double),numOfVectorsInCluster);
+  double *b = calloc(sizeof(double),numOfVectorsInCluster);
+  int count = 0;
+  listComputeAverageDistOfEveryPointOfClusterLloyds(clustersLists[current_cluster],clustersLists,current_cluster,clusters,numOfClusters,a,b,&count,d);
+  double sumOfS_i = 0.0;
+  for(int i=0;i<numOfVectorsInCluster;i++){
+    double s_i = (b[i]-a[i])/ MAX(b[i],a[i]);
+    sumOfS_i += s_i;
+  }
+  free(a);
+  free(b);
+  return sumOfS_i/numOfVectorsInCluster;
+}
+
+
+
+
+
+
+//

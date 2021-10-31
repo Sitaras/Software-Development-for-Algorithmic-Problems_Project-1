@@ -11,7 +11,7 @@
 
 #define SQUARE(x) ((x)*(x))
 
-#define CONVERGENCE 50
+#define CONVERGENCE 5
 #define TRUE 1
 #define FALSE 0
 

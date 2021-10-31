@@ -33,4 +33,7 @@ void listFindNeighborsInRadiusCube(List ,HashTable ,Vector ,int ,int ,int *,int 
 Vector listMeanOfCluster(List ,int );
 void listSolveRangeConflicts(List ,HashTable *,Vector *,int ,int );
 double *listSumOfVectors(List ,int ,int *);
+double listFindSumOfDistancesOfVector(List ,Vector ,int *,int );
+void listComputeAverageDistOfEveryPointOfCluster(List *,int ,HashTable *,int ,Vector *,int ,double *,double *,int *,int );
+double silhouetteofClusterLloyds(List *,Vector *,int ,int ,int ,int );
 #endif

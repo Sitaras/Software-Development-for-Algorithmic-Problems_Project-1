@@ -27,4 +27,6 @@ void htKFindNearestNeighborsCube(HashTable ,int ,Vector ,Vector *,double *,int ,
 void htFindNeighborsInRadiusCube(HashTable ,int ,HashTable ,Vector ,int ,int ,int *,int );
 
 Vector htMeanOfCluster(HashTable ,int );
+double htFindAverageDistanceOfVectorInCluster(HashTable ,Vector ,int );
+double silhouetteofClusterLSH(HashTable *,Vector *,int ,int ,int );
 #endif
