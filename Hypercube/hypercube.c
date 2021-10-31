@@ -301,8 +301,9 @@ void searchForHammingDistanceRadius(HyperCube hc,Vector v,int *v_index,int hammi
 void radiusNeigborHypercube(HyperCube hc,Vector q,double radius,int hammingDist,int m,FILE *fptr){
   // printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
   // fprintf(fptr,"ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
-  HashTable vecsInRadius = htInitialize(100); // TODO: CHANGE SIZE
 
+  int vecsInRadius_size = getNumberOfVectors(hc->hypercube);
+  HashTable vecsInRadius = htInitialize(vecsInRadius_size/8); // TODO: CHANGE SIZE
   int index[new_dimension];
   int searched = 0;
   for(int i=0;i<new_dimension;i++){

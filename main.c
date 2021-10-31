@@ -126,7 +126,7 @@ int main(int argc, char *argv[])  {
   int numberOfVectorsInFile = 0;
   readFile(inputFile,&list,&numberOfVectorsInFile);
   printf("Number of vectors in input file: %d\n",numberOfVectorsInFile);
-  hashTableSize=numberOfVectorsInFile/4;
+  hashTableSize=numberOfVectorsInFile/8;
 
 
   LSH lsh = initializeLSH(l);
