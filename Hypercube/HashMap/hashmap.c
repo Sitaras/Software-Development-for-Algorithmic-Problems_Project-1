@@ -129,7 +129,6 @@ Record hmSearchOrInsert(HashMap ht,Key key,Value value){
   if((double)(ht->count)>(0.9*((double)((ht->size))))){ // if the hash table is 90% full, resize it in order to keep the search/insert O(1)
       hmResize(ht);
   }
-  // int index=hash(ht,citizenId); // find in which bucket the new record should go in
   int index = mod(key,ht->size);
   Record slot=ht->table[index];  // get the overflow list of this bucket
   if(slot==NULL){   //no collitions so just insert the node with the citizen

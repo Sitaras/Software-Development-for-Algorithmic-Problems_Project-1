@@ -198,8 +198,8 @@ void nearestNeigborLSH(LSH lsh,Vector q,FILE *fptr){
 
 void kNearestNeighborsLSH(LSH lsh,Vector q,int knn,double *knearestTrueDists,FILE* fptr){
   // find the k nearest neighbours of the given vector q with the help of LSH
-  Vector nearest[knn];
-  double knearestDists[knn];
+  Vector nearest[knn]; // an array to save the  k nearest neighbours (vectors)
+  double knearestDists[knn]; // an array to save the distances of k nearest neighbours
   for (int i = 0; i < knn; i++){
     knearestDists[i]=-1;
     nearest[i]=NULL;
@@ -231,6 +231,7 @@ void kNearestNeighborsLSH(LSH lsh,Vector q,int knn,double *knearestTrueDists,FIL
 
 void radiusNeigborsLSH(LSH lsh,Vector q,double radius,FILE *fptr){
   // find the neighbours of the given vector q inside the given radius with the help of LSH
+  // store adjacent vectors in a hash table
   int vecsInRadius_size=1;
   int l = getL(lsh);
   HashTable *hts = getHts(lsh);
@@ -238,7 +239,7 @@ void radiusNeigborsLSH(LSH lsh,Vector q,double radius,FILE *fptr){
   if(l>0){
     vecsInRadius_size = getNumberOfVectors(hts[0])/8;
   }
-  HashTable vecsInRadius = htInitialize(vecsInRadius_size); // TODO: CHANGE SIZE
+  HashTable vecsInRadius = htInitialize(vecsInRadius_size);  // hash table to store the adjacent vectors of the given vector q
   // to find the neighbours of the given vector q, euclidean distance must be applied between the vector q and the vectors of the corresponding bucket that are inside the radius of every LSH hash table
   for(int i=0;i<l;i++){
     int q_ID;
