@@ -132,6 +132,7 @@ int main(int argc, char *argv[]) {
   int numOfClusters=5,l=3,mHyper=10,probes=2;
   new_dimension=3;
   k_LSH=4;
+  w=8;
   readConfFile(confFile,&numOfClusters,&l,&mHyper,&probes);
   readFile(inputFile,&list,&numOfVecs);
 

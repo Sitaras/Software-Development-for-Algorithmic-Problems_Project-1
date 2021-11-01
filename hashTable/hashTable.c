@@ -89,6 +89,9 @@ void htRangePrint(const HashTable ht,Vector q,int d,FILE *fptr){
   for (int i=0;i<ht->buckets;i++){
     listRangePrint(ht->table[i].head,q,d,&counter,fptr);
   }
+  if(counter==1){
+      fprintf(fptr," Did not find any neighbor inside the given range\n");
+  }
 }
 
 

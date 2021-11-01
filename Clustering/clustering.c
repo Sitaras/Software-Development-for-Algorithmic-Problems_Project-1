@@ -4,6 +4,7 @@
 #include <math.h>
 #include <limits.h>
 #include <float.h>
+#include <time.h>
 #include "../Vector/vector.h"
 #include "../hashTable/hashTableList/hashTableList.h"
 #include "../hashTable/hashTable.h"
@@ -149,7 +150,7 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
       }
 
       htDelete(clustersHt[i],0);
-      clustersHt[i] = htInitialize(50);
+      clustersHt[i] = htInitialize(50); // TODO: CHANGE
 
       clusters[i]=newCenter;
     }
@@ -157,7 +158,13 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
   minDistbetweenCentroids(clusters,numOfClusters,&radius);
   radius/=2;
   int assignCounter = 0;
-  while((double)assignCounter<(0.8*numOfVecs)){ // stop when the 80% of vectors has a cluster (do it with global var)
+  int previousAssigns = -1;
+  int loopCounter = 0;
+  while((double)assignCounter<(0.8*numOfVecs) && loopCounter<MAX_RECENTER_ITERATIONS){ // stop when the 80% of vectors has a cluster (do it with global var)
+    if(assignCounter==previousAssigns && assignCounter!=0 && loopCounter>5){
+      break;
+    }
+    previousAssigns = assignCounter;
     printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
     List confList=initializeList();
     for(int i=0;i<numOfClusters;i++){
@@ -170,6 +177,7 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
       printf("- NO CONFLICTS FOUND\n");
     listDelete(confList,0);
     radius*=2;
+    loopCounter++;
   }
   int remainderCounter = 0;
   if(assignCounter<numOfVecs){
@@ -221,12 +229,13 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
   //   printVector(clusters[i]);
   // }
 
-  hashTableSize=numOfVecs/4;
+  hashTableSize=numOfVecs/16;
   LSH lsh = initializeLSH(l);
   for(int i=0;i<numOfVecs;i++){
     initializeClusterInfo(vectors[i]);
     insertToLSH(lsh,vectors[i]);
   }
+
 
   int firstIterLSH = TRUE;
   int countLSH=0;
@@ -251,6 +260,7 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
     reverseAssignmentLSH(lsh,vectors,clusters,oldClusters,clustersHt,numOfClusters,countLSH);
 
     firstIterLSH=FALSE;
+
   }
 
   for(int i=0;i<numOfClusters;i++){

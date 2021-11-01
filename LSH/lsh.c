@@ -73,6 +73,7 @@ void generateG(g_function *gfun){
   // allocate and generate the h functions tha will be used at the calculation of G function, k_LSH (number of h functions) has been given from the command line
   // g function is a random combination of hi's, every g function has k_LSH h functions
   gfun->h_functions = malloc(k_LSH*sizeof(h_function));
+
   for(int i=0;i<k_LSH;i++){
      generateH_LSH(&gfun->h_functions[i]);
   }
@@ -81,7 +82,7 @@ void generateG(g_function *gfun){
   for(int i=0;i<k_LSH;i++){
      gfun->r[i]=rand();
   }
-  gfun->m=(UINT_MAX-4);
+  gfun->m=(INT_MAX-4);
 }
 
 void destroyG(g_function g){
@@ -101,7 +102,8 @@ int computeG(g_function gfun,Vector p,int *id){
   for(int i=0;i<k_LSH;i++){
     sum += mod(gfun.r[i]*computeH_LSH(gfun.h_functions[i],p),gfun.m);
   }
-  int temp_ID = mod(sum,gfun.m);
+  int temp_ID = mod(sum,hashTableSize);
+  // int temp_ID = mod(sum,hashTableSize*gfun.m);
   // Store object ID along with pointer to object (Querying trick), for all bucket elements to avoid to compute g Euclidean distance for all vectors p in bucket
   // do it only for p which: ID(p) = ID(q)
   (*id) = temp_ID;
@@ -133,12 +135,17 @@ void insertToLSH(LSH lsh,Vector v){
   // insert the given vector in all LSΗ hash tables
   // the bucket of the hash table that the vector will be inserted depends from the corresponding g function of the specific hash Table (hash function)
   // at the new node tha will be inserted at the hash Tables save the id (Querying trick)
+  // printf("-----------------------\n");
+  // printVectorId(v);
+  // printVector(v);
   int l = lsh->l;
   for(int i=0;i<l;i++){
     int id;
     int index = computeG(lsh->g_fun[i],v,&id);
+    // printf("L = %d | ID = %d | INDEX = %d\n",i,id,index);
     htInsert(lsh->hts[i],v,index,id);
   }
+  // printf("-----------------------\n");
 }
 
 void insertFromListToLSH(List list,LSH lsh){
