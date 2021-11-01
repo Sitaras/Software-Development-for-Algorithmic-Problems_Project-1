@@ -84,7 +84,7 @@ void htPrint(const HashTable ht){
 }
 
 void htRangePrint(const HashTable ht,Vector q,int d,FILE *fptr){
-  fprintf(fptr,"R-near neighbors:\n"); // add a counter at radiusNeigborClustering()
+  fprintf(fptr,"R-near neighbors:\n"); // add a counter at radiusNeigborsClustering()
   int counter=1;
   for (int i=0;i<ht->buckets;i++){
     listRangePrint(ht->table[i].head,q,d,&counter,fptr);

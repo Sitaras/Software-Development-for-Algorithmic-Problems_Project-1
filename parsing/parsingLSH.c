@@ -192,17 +192,19 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
         token = strtok(NULL, " ");
      }
      Vector vecTmp=initVector(vec,name);
+     
      fprintf(fptr, "Query %d:\n",id);
 
      clock_t begin_true = clock();
-
+     // find with the classic method the k nearest neighbor and write these at the given file for the corresponding query vector
      listFindKNearestNeighbors(inputs,vecTmp,nNearest,knearestDists,d,n,-1);
 
      clock_t end_true = clock();
      double time_spent_true = (double)(end_true - begin_true) / CLOCKS_PER_SEC;
 
      clock_t begin_lsh = clock();
-     kNearestNeigborsLSH(lsh, vecTmp,n,knearestDists,fptr);
+     // find with the help of LSH the k nearest neighbor and write these at the given file for the corresponding query vector
+     kNearestNeighborsLSH(lsh, vecTmp,n,knearestDists,fptr);
 
      clock_t end_lsh = clock();
      double time_spent_lsh = (double)(end_lsh - begin_lsh) / CLOCKS_PER_SEC;
@@ -211,7 +213,8 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
 
 
      clock_t begin_radius = clock();
-     radiusNeigborLSH(lsh,vecTmp,radius,fptr);
+     // find the neighbours inside the given radius with the help of LSH and write these at the given file for the corresponding query vector
+     radiusNeigborsLSH(lsh,vecTmp,radius,fptr);
      clock_t end_radius = clock();
     double time_spent_radius = (double)(end_radius - begin_radius) / CLOCKS_PER_SEC;
       fprintf(fptr, "tRadiusSearch: %f seconds\n\n\n",time_spent_radius);

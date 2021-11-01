@@ -9,7 +9,6 @@
 #include "./parsing/parsingCube.h"
 #include "./hashTable/hashTableList/hashTableList.h"
 int d;
-// int k;
 int new_dimension;
 int m;
 int probes;
@@ -166,7 +165,5 @@ int main(int argc, char *argv[]) {
 
   deleteHyperCube(hc);
   listDelete(list,0);
-  // fclose(fPtr);
-  // deleteVector(vecTmp);
   return 0;
 }

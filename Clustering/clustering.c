@@ -161,7 +161,7 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
     printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
     List confList=initializeList();
     for(int i=0;i<numOfClusters;i++){
-      radiusNeigborClustering(lsh,clusters[i],radius,clustersHt[i],i,&confList,&assignCounter,iteration);
+      radiusNeigborsClustering(lsh,clusters[i],radius,clustersHt[i],i,&confList,&assignCounter,iteration);
     }
     listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d);
     printf("---- ASSINGED ITEMS = %d\n",assignCounter);

@@ -4,6 +4,7 @@
 #include <math.h>
 #include <limits.h>
 
+// this constants used at normal distribution
 #define SIGMA 1.00
 #define MI 0.00
 
@@ -26,10 +27,11 @@ double normalRandom() {
 }
 
 double dot_product(double *v, double *u,int d){
-    double result = 0.0;
-    for (int i = 0; i < d; i++)
-        result += v[i]*u[i];
-    return result;
+  // calculate the dot product between the given vectors and return it
+  double result = 0.0;
+  for (int i = 0; i < d; i++)
+      result += v[i]*u[i];
+  return result;
 }
 
 int mod(int a, int b){
@@ -37,37 +39,3 @@ int mod(int a, int b){
   int result = (r < 0) ? (r + b) : r;
   return result;
 }
-
-// double randn (){
-//   double mu = 0;
-//   double sigma = 1;
-//   double U1, U2, W, mult;
-//   static double X1, X2;
-//   static int call = 0;
-//
-//   if (call == 1){
-//       call = !call;
-//       return (mu + sigma * (double) X2);
-//     }
-//   do{
-//       U1 = -1 + ((double) rand () / RAND_MAX) * 2;
-//       U2 = -1 + ((double) rand () / RAND_MAX) * 2;
-//       W = pow (U1, 2) + pow (U2, 2);
-//     }
-//   while (W >= 1 || W == 0);
-//
-//   mult = sqrt ((-2 * log (W)) / W);
-//   X1 = U1 * mult;
-//   X2 = U2 * mult;
-//
-//   call = !call;
-//
-//   return (mu + sigma * (double) X1)/RAND_MAX;
-// }
-
-// int mod(int x, int y)
-// {
-//    int t = x - ((x / y) * y);
-//    if (t < 0) t += y;
-//    return t;
-// }

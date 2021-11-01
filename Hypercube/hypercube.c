@@ -9,7 +9,6 @@
 #include "../LSH/helperFunctions.h"
 
 extern int d;
-// extern int k;
 extern int new_dimension;
 extern int m;
 extern int probes;
@@ -29,37 +28,29 @@ typedef cubeNode *HyperCube;
 
 /* Helper Functions */
 
-int binaryToDecimal(int n)
-{
+int binaryToDecimal(int n){
     int num = n;
     int dec_value = 0;
-
-    // Initializing base value to 1, i.e 2^0
-    int base = 1;
-
+    int base = 1; // Initializing base value to 1, i.e 2^0
     int temp = num;
-    while (temp) {
-        int last_digit = temp % 10;
-        temp = temp / 10;
 
-        dec_value += last_digit * base;
-
-        base = base * 2;
+    while (temp){
+      int last_digit = temp % 10;
+      temp = temp / 10;
+      dec_value += last_digit * base;
+      base = base * 2;
     }
 
     return dec_value;
 }
 
-int binaryArrayToDecimal(int s[],int size)
-{
+int binaryArrayToDecimal(int s[],int size){
     int n = 0;
     int i;
-
-    for (i = 0; i < size; ++i) {
-        n <<= 1;
-        n += s[i];
+    for (i = 0; i < size; ++i){
+      n <<= 1;
+      n += s[i];
     }
-
     return n;
 }
 

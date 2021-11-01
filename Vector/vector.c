@@ -6,7 +6,6 @@
 extern int d;
 
 typedef struct extra_info_node{
-  // add the ID of vector
   int assignedCluster;
   int iterationAssigned;
   double assignedAtRadius;
@@ -15,10 +14,9 @@ typedef extraInfoNode *extraInfo;
 
 
 typedef struct vec_node{
-  // add the ID of vector
-  char *vec_id;
-  double* coords;
-  extraInfo clusterInfo;
+  char *vec_id; // to save the corresponding id from the given file
+  double* coords; // an array to save the coordinates of the vector
+  extraInfo clusterInfo; // extra info for the vector tha used at clustering (reverseAssignment with LSH and reverseAssignment with Hypercube)
 }vec;
 typedef vec *Vector;
 
@@ -53,39 +51,6 @@ double getAssignedAtRadius(Vector v){
 void setAssignedAtRadius(Vector v,double radius){
    v->clusterInfo->assignedAtRadius = radius;
 }
-
-// void initVectorConflictArr(Vector v,int numOfClusters){
-//   v->clusterInfo->conflictArr=malloc(numOfClusters*sizeof(int));
-//   for(int i=0;i<numOfClusters;i++){
-//     v->clusterInfo->conflictArr[i]=0;
-//   }
-// }
-//
-// void setVectorConflictArrZero(Vector v,int numOfClusters){
-//   for(int i=0;i<numOfClusters;i++){
-//     v->clusterInfo->conflictArr[i]=0;
-//   }
-// }
-// void setVectorConflictArrIndex(Vector v,int index){
-//     v->clusterInfo->conflictArr[index]=1;
-// }
-//
-// void vectorCheckFlag(Vector v,int i){
-//   v->clusterInfo->checkFlag=i;
-// }
-//
-// void vectorAssignFlag(Vector v,int i){
-//   v->clusterInfo->assignFlag=i;
-// }
-//
-// int getVectorCheckFlag(Vector v){
-//   return v->clusterInfo->checkFlag;
-// }
-//
-// int getVectorAssignFlag(Vector v){
-//   return v->clusterInfo->assignFlag;
-// }
-
 
 Vector initVector(double *vec, char id[]){
   Vector v=malloc(sizeof(struct vec_node));

@@ -120,7 +120,6 @@ int main(int argc, char *argv[])  {
 
   srand(time(NULL));
   d = findDim(inputFile);
-  // d = findDim("testing.txt");
   printf("DIMENSION = %d\n",d);
   List list = initializeList();
   int numberOfVectorsInFile = 0;

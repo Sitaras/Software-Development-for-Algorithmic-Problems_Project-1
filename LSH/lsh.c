@@ -16,8 +16,8 @@ extern int hashTableSize;
 
 
 typedef struct hfunc{
-  double *v;
-  double t;
+  double *v; // v ∼ N (0, 1)^d
+  double t; // t variable uniformly ∈ R [0, w)
 }h_function;
 
 typedef struct gfunc{
@@ -27,9 +27,9 @@ typedef struct gfunc{
 }g_function;
 
 typedef struct lsh_n{
-  g_function *g_fun;
-  HashTable *hts;
   int l;
+  g_function *g_fun; // g function is a random combination of hi's, every g function has k_LSH h functions
+  HashTable *hts; // LSH has l hash tables (g functions used like hash functions at the corresponding  hash tables )
 }lshNode;
 typedef lshNode *LSH;
 
@@ -51,7 +51,7 @@ void generateH_LSH(h_function *hfun){
   for(int i=0;i<d;i++){
     hfun->v[i] = normalRandom();
   }
-  // pick t variable uniformly ∈ R [0, w).
+  // pick t variable uniformly ∈ R [0, w)
   hfun->t=uniform_distribution(0,w);
 }
 
@@ -71,7 +71,7 @@ int computeH_LSH(h_function hfun,Vector vector){
 
 void generateG(g_function *gfun){
   // allocate and generate the h functions tha will be used at the calculation of G function, k_LSH (number of h functions) has been given from the command line
-  // g is a random combination of hi's, every g function has k_LSH h functions
+  // g function is a random combination of hi's, every g function has k_LSH h functions
   gfun->h_functions = malloc(k_LSH*sizeof(h_function));
   for(int i=0;i<k_LSH;i++){
      generateH_LSH(&gfun->h_functions[i]);
@@ -173,17 +173,19 @@ void destroyLSH(LSH lsh){
 
 
 void nearestNeigborLSH(LSH lsh,Vector q,FILE *fptr){
-  // find the nearest neighbor of the given vector q
+  // find the nearest neighbor of the given vector q with the help of LSH
   Vector nearest=NULL;
   double nearestDist=-1;
   int l = getL(lsh);
   HashTable *hts = getHts(lsh);
   g_function *gfuns = getGfuns(lsh);
+  // to find the nearest neighbor of the given vector q, euclidean distance must be applied between the vector q and the vectors of the corresponding bucket of every LSH hash table
   for(int i=0;i<l;i++){
     int q_ID;
     int q_index = computeG(gfuns[i],q,&q_ID);
     htFindNearestNeighbor(hts[i],q_index,q,&nearest,&nearestDist,d,q_ID);
   }
+  // check if nearest neighbor of the given vector q found or not
   if(nearestDist>=0 && nearest!=NULL){
     fprintf(fptr,"FOUND NEAREST NEIGHBOR ");
     printVectorId(nearest);
@@ -194,14 +196,15 @@ void nearestNeigborLSH(LSH lsh,Vector q,FILE *fptr){
   }
 }
 
-void kNearestNeigborsLSH(LSH lsh,Vector q,int knn,double *knearestTrueDists,FILE* fptr){
+void kNearestNeighborsLSH(LSH lsh,Vector q,int knn,double *knearestTrueDists,FILE* fptr){
+  // find the k nearest neighbours of the given vector q with the help of LSH
   Vector nearest[knn];
   double knearestDists[knn];
   for (int i = 0; i < knn; i++){
     knearestDists[i]=-1;
     nearest[i]=NULL;
   }
-
+  // to find the k nearest neighbours of the given vector q, euclidean distance must be applied between the vector q and the vectors of the corresponding bucket of every LSH hash table
   int l = getL(lsh);
   HashTable *hts = getHts(lsh);
   g_function *gfuns = getGfuns(lsh);
@@ -212,6 +215,7 @@ void kNearestNeigborsLSH(LSH lsh,Vector q,int knn,double *knearestTrueDists,FILE
   }
   int flag=1;
   for (int i = knn-1; i >= 0; i--){
+    // check if k nearest neighbor of the given vector q found or not
     if (knearestDists[i] >= 0 && nearest[i] != NULL){
       fprintf(fptr,"Nearest neighbor-%d: ",knn-i);
       printVectorIdInFile(nearest[i],fptr);
@@ -221,12 +225,12 @@ void kNearestNeigborsLSH(LSH lsh,Vector q,int knn,double *knearestTrueDists,FILE
     }
   }
   if(flag){
-    fprintf(fptr,"- DID NOT FIND NEAREST NEIGHBOR\n");
+    fprintf(fptr,"- DID NOT FIND NEAREST NEIGHBOURS\n");
   }
 }
 
-void radiusNeigborLSH(LSH lsh,Vector q,double radius,FILE *fptr){
-
+void radiusNeigborsLSH(LSH lsh,Vector q,double radius,FILE *fptr){
+  // find the neighbours of the given vector q inside the given radius with the help of LSH
   int vecsInRadius_size=1;
   int l = getL(lsh);
   HashTable *hts = getHts(lsh);
@@ -235,6 +239,7 @@ void radiusNeigborLSH(LSH lsh,Vector q,double radius,FILE *fptr){
     vecsInRadius_size = getNumberOfVectors(hts[0])/8;
   }
   HashTable vecsInRadius = htInitialize(vecsInRadius_size); // TODO: CHANGE SIZE
+  // to find the neighbours of the given vector q, euclidean distance must be applied between the vector q and the vectors of the corresponding bucket that are inside the radius of every LSH hash table
   for(int i=0;i<l;i++){
     int q_ID;
     int q_index = computeG(gfuns[i],q,&q_ID);
@@ -244,7 +249,9 @@ void radiusNeigborLSH(LSH lsh,Vector q,double radius,FILE *fptr){
 
   htDelete(vecsInRadius,0);
 }
-void radiusNeigborClustering(LSH lsh,Vector q,double radius,HashTable vecsInRadius,int centroidIndex,List* confList,int *assignCounter,int iteration){
+void radiusNeigborsClustering(LSH lsh,Vector q,double radius,HashTable vecsInRadius,int centroidIndex,List* confList,int *assignCounter,int iteration){
+  // based on the given centroids find the clusters that the given vectors belong with the help of LSH (this function used for the "reverseAssignmentLSH")
+  // the clusters are represented by hash tables
   int l = getL(lsh);
   HashTable *hts = getHts(lsh);
   g_function *gfuns = getGfuns(lsh);

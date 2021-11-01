@@ -12,6 +12,7 @@
 
 
 double distance_metric(Vector v1,Vector v2,int d){
+  // calculate the Euclidean distance (or L2) between the given vectors and return it
   double sum = 0.0;
   double *coords1 = getCoords(v1);
   double *coords2 = getCoords(v2);
@@ -20,7 +21,6 @@ double distance_metric(Vector v1,Vector v2,int d){
   }
   return sqrt(sum);
 }
-
 
 
 struct listNode {
@@ -44,7 +44,6 @@ List initializeList(){
 
 
 // hash table's linked list
-
 List allocateListNode(Vector v,int id){
   List node=malloc(sizeof(struct listNode));
   node->v=v;
@@ -112,22 +111,11 @@ List listDeleteItem(List list,Vector v,int id){
 }
 
 
-// List listSearchId(List list, int id){
-//   List current=list;
-//   while (current!=NULL){
-//       if (current->n.id==id)
-//           return current;
-//       current=current->next;
-//   }
-//   return NULL;
-// }
-//
-//
 void listPrint(List list){
     if(list==NULL){ printf("List Empty!\n");  return;}
     List temp=list;
     while(temp!=NULL){
-        printVector(temp->v);
+        printVectorId(temp->v);
         temp=temp->next;
     }
 }
@@ -135,13 +123,9 @@ void listRangePrint(List list,Vector q,int d,int *counter,FILE *fptr){
     if(list==NULL){ return;}
     List temp=list;
     while(temp!=NULL){
-        // printf("%d: ",(*counter));
         fprintf(fptr,"%d: ",(*counter)++);
         fprintf(fptr,"Found vector: ");
-        // printVectorId(temp->v);
         printVectorIdInFile(temp->v,fptr);
-        // printf("inside range with distance: %f\n",distance_metric(temp->v,q,d));
-        // fprintf(fptr,"inside range with distance: %f\n",distance_metric(temp->v,q,d));
         temp=temp->next;
     }
 }
@@ -227,20 +211,7 @@ void swapVectors(Vector *xp, Vector *yp)
   *yp = temp;
 }
 
-// void bubbleSort(double arr[], Vector *nearest, int n)
-// {
-//   for (int i = 0; i < n - 1; i++){
-//     for (int j = 0; j < n - i - 1; j++){
-//       if (arr[j] < arr[j + 1]){
-//         swapDoubles(&arr[j], &arr[j + 1]);
-//         swapVectors(&nearest[j], &nearest[j + 1]);
-//       }
-//     }
-//   }
-// }
-
-
-// function to find the partition position
+// function to find the partition position, used at quickSort
 int partition(double arr[], Vector *nearest, int low, int high){
   double pivot = arr[high];
   int i = (low - 1);
@@ -382,9 +353,6 @@ void listFindKNearestNeighborsCube(List list,Vector q,Vector *nearest,double *ne
 
 
 
-
-
-
 void listFindNeighborsInRadius(List list,HashTable storeNeighbors,Vector q,int d,int id,int radius){
   if(list==NULL){ return;}
   List temp=list;
@@ -410,13 +378,10 @@ void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List* confL
         if(assignedToCluster(temp->v) && (getAssignedIteration(temp->v)==iteration)){
           int assignedCluster = getAssignedCluster(temp->v);
           if(assignedCluster==centroidIndex || (((int)getAssignedAtRadius(temp->v))!=radius)){
-          // if(assignedCluster==centroidIndex){
             temp=temp->next;
             continue;
           }else{
-            // *confList=listUniqueInsert(*confList,temp->v,-1);
             *confList=listInsert(*confList,temp->v,-1);
-            // printf("SURE NOT NULL\n");
             temp=temp->next;
             continue;
           }
@@ -427,7 +392,6 @@ void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List* confL
           setAssignedAtRadius(temp->v,radius);
           (*assignCounter)++;
         }
-        // move it at the end of the list
       }
     }
     temp=temp->next;
@@ -447,12 +411,10 @@ void listFindNeighborsInRadiusClusteringCube(List list,int centroidIndex,List* c
         if(assignedToCluster(temp->v) && (getAssignedIteration(temp->v)==iteration)){
           int assignedCluster = getAssignedCluster(temp->v);
           if(assignedCluster==centroidIndex || (((int)getAssignedAtRadius(temp->v))!=radius)){
-          // if(assignedCluster==centroidIndex){
             temp=temp->next;
             continue;
           }else{
             *confList=listUniqueInsert(*confList,temp->v,-1);
-            // printf("SURE NOT NULL\n");
             temp=temp->next;
             continue;
           }
@@ -463,7 +425,6 @@ void listFindNeighborsInRadiusClusteringCube(List list,int centroidIndex,List* c
           setAssignedAtRadius(temp->v,radius);
           (*assignCounter)++;
         }
-        // move it at the end of the list
       }
     temp=temp->next;
   }
