@@ -1,0 +1,20 @@
+Given input File : input_small_id
+Given query File : query_small_id
+k : 4
+L : 5
+number of nearest : 10
+Radius : 1000.000000
+Given output File : wchange
+DIMENSION = 128
+Number of vectors in input file: 10000
+*!*!**!*!* HASHSIZE = 1250
+_________________Options____________________
+
+1. /repeat <new_input_file>
+
+2. /exit
+
+_____________________________________
+
+
+>Enter a command: 

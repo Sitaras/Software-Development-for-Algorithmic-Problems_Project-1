@@ -8,10 +8,10 @@
 #define SIGMA 1.00
 #define MI 0.00
 
-int uniform_distribution(int rangeLow, int rangeHigh) {
+double uniform_distribution(int rangeLow, int rangeHigh) {
     double myRand = rand()/(1.0 + RAND_MAX);
     int range = rangeHigh - rangeLow + 1;
-    int myRand_scaled = (myRand * range) + rangeLow;
+    double myRand_scaled = (myRand * range) + rangeLow;
     return myRand_scaled;
 }
 
@@ -35,7 +35,15 @@ double dot_product(double *v, double *u,int d){
 }
 
 int mod(int a, int b){
+  if(b<0)
+    return -mod(-a,-b);
   int r = a % b;
   int result = (r < 0) ? (r + b) : r;
+  return result;
+}
+
+unsigned int modUnsignedB(long long int a, unsigned int b){
+  long long  int r = a % b;
+  unsigned int result = (r < 0) ? (r + b) : r;
   return result;
 }

@@ -150,7 +150,7 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
       }
 
       htDelete(clustersHt[i],0);
-      clustersHt[i] = htInitialize(50); // TODO: CHANGE
+      clustersHt[i] = htInitialize(numOfVecs/(4*numOfClusters)); // TODO: CHANGE
 
       clusters[i]=newCenter;
     }
@@ -305,7 +305,7 @@ void reverseAssignmentHypercube(HyperCube cube,Vector *vectors,Vector *clusters,
       }
 
       htDelete(clustersHt[i],0);
-      clustersHt[i] = htInitialize(50);
+      clustersHt[i] = htInitialize(numOfVecs/(4*numOfClusters));
 
       clusters[i]=newCenter;
     }

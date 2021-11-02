@@ -23,7 +23,7 @@ typedef struct hfunc{
 typedef struct gfunc{
   h_function *h_functions;
   int *r;
-  int m;
+  unsigned int m;
 }g_function;
 
 typedef struct lsh_n{
@@ -52,7 +52,8 @@ void generateH_LSH(h_function *hfun){
     hfun->v[i] = normalRandom();
   }
   // pick t variable uniformly ∈ R [0, w)
-  hfun->t=uniform_distribution(0,w);
+  double temp = uniform_distribution(0,w);
+  hfun->t=temp;
 }
 
 void destroyH_LSH(h_function h){
@@ -80,7 +81,11 @@ void generateG(g_function *gfun){
   // allocate and generate as many variables r (r[i] are a random int ≤ 32 bits) as the functions h
   gfun->r = malloc(k_LSH*sizeof(int));
   for(int i=0;i<k_LSH;i++){
-     gfun->r[i]=rand();
+    int temp = rand()%(RAND_MAX);
+    if(rand()%2){
+      temp*=-1;
+    }
+     gfun->r[i]=temp;
   }
   gfun->m=(INT_MAX-4);
 }
@@ -93,21 +98,25 @@ void destroyG(g_function g){
   free(g.r);
 }
 
-int computeG(g_function gfun,Vector p,int *id){
-  int sum = 0;
+int computeG(g_function gfun,Vector p,unsigned int *id){
+  long long int sum = 0;
   // g(p) = [(r1h1(p) + r2h2(p) + · · · + rkhk (p)) mod M] mod TableSize
   // g is a random combination of hi's, every g function has k_LSH h functions
   // compute g function and at the same time compute all the h functions that make it up
   // with this property of modulus operator overflow is avoided ((a _ b) mod m = ((a mod m)(b mod m)) mod m)
   for(int i=0;i<k_LSH;i++){
-    sum += mod(gfun.r[i]*computeH_LSH(gfun.h_functions[i],p),gfun.m);
+    // sum += modUnsignedB(gfun.r[i]*computeH_LSH(gfun.h_functions[i],p),gfun.m);
+    int h = computeH_LSH(gfun.h_functions[i],p);
+    sum += modUnsignedB(gfun.r[i]*h,gfun.m);
   }
-  int temp_ID = mod(sum,hashTableSize);
-  // int temp_ID = mod(sum,hashTableSize*gfun.m);
+
+  int temp_ID = modUnsignedB(sum,hashTableSize);
+  // unsigned int temp_ID = modUnsignedB(sum,gfun.m);
+
   // Store object ID along with pointer to object (Querying trick), for all bucket elements to avoid to compute g Euclidean distance for all vectors p in bucket
   // do it only for p which: ID(p) = ID(q)
   (*id) = temp_ID;
-  return mod(temp_ID,hashTableSize);
+  return modUnsignedB(temp_ID,hashTableSize);
 }
 
 
@@ -136,13 +145,14 @@ void insertToLSH(LSH lsh,Vector v){
   // the bucket of the hash table that the vector will be inserted depends from the corresponding g function of the specific hash Table (hash function)
   // at the new node tha will be inserted at the hash Tables save the id (Querying trick)
   // printf("-----------------------\n");
+  // printf("Vector : ");
   // printVectorId(v);
   // printVector(v);
   int l = lsh->l;
   for(int i=0;i<l;i++){
-    int id;
+    unsigned int id;
     int index = computeG(lsh->g_fun[i],v,&id);
-    // printf("L = %d | ID = %d | INDEX = %d\n",i,id,index);
+    // printf("L = %d | ID = %u | INDEX = %d\n",i,id,index);
     htInsert(lsh->hts[i],v,index,id);
   }
   // printf("-----------------------\n");
@@ -188,7 +198,7 @@ void nearestNeigborLSH(LSH lsh,Vector q,FILE *fptr){
   g_function *gfuns = getGfuns(lsh);
   // to find the nearest neighbor of the given vector q, euclidean distance must be applied between the vector q and the vectors of the corresponding bucket of every LSH hash table
   for(int i=0;i<l;i++){
-    int q_ID;
+    unsigned int q_ID;
     int q_index = computeG(gfuns[i],q,&q_ID);
     htFindNearestNeighbor(hts[i],q_index,q,&nearest,&nearestDist,d,q_ID);
   }
@@ -216,7 +226,7 @@ void kNearestNeighborsLSH(LSH lsh,Vector q,int knn,double *knearestTrueDists,FIL
   HashTable *hts = getHts(lsh);
   g_function *gfuns = getGfuns(lsh);
   for(int i=0;i<l;i++){
-    int q_ID;
+    unsigned int q_ID;
     int q_index = computeG(gfuns[i],q,&q_ID);
     htKFindNearestNeighbors(hts[i], q_index, q, nearest, knearestDists, d,knn,q_ID);
   }
@@ -249,7 +259,7 @@ void radiusNeigborsLSH(LSH lsh,Vector q,double radius,FILE *fptr){
   HashTable vecsInRadius = htInitialize(vecsInRadius_size);  // hash table to store the adjacent vectors of the given vector q
   // to find the neighbours of the given vector q, euclidean distance must be applied between the vector q and the vectors of the corresponding bucket that are inside the radius of every LSH hash table
   for(int i=0;i<l;i++){
-    int q_ID;
+    unsigned int q_ID;
     int q_index = computeG(gfuns[i],q,&q_ID);
     htFindNeighborsInRadius(hts[i],q_index,vecsInRadius,q,d,q_ID,radius);
   }
@@ -264,7 +274,7 @@ void radiusNeigborsClustering(LSH lsh,Vector q,double radius,HashTable vecsInRad
   HashTable *hts = getHts(lsh);
   g_function *gfuns = getGfuns(lsh);
   for(int i=0;i<l;i++){
-    int q_ID;
+    unsigned int q_ID;
     int q_index = computeG(gfuns[i],q,&q_ID);
     htFindNeighborsInRadiusClustering(hts[i],q_index,centroidIndex,confList,vecsInRadius,q,d,q_ID,radius,assignCounter,iteration);
   }

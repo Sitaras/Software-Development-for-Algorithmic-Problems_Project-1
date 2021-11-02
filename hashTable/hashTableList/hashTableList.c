@@ -271,6 +271,7 @@ void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *neares
       int added=0;
       double dist = distance_metric(temp->v,q,d);
 
+
       int index=binarySearch(nearestDist,0,k-1,dist);
       if(index!=-1 && nearest[index] != NULL && compareVectors(nearest[index], temp->v)){
         eq = 1;
