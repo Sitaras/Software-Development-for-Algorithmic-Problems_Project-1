@@ -261,7 +261,6 @@ void radiusNeigborsLSH(LSH lsh,Vector q,double radius,FILE *fptr){
   for(int i=0;i<l;i++){
     unsigned int q_ID;
     int q_index = computeG(gfuns[i],q,&q_ID);
-    printf("QINDEX = %u | QID = %u | RADIUS = %f\n",q_index,q_ID,radius);
     htFindNeighborsInRadius(hts[i],q_index,vecsInRadius,q,d,q_ID,radius);
   }
   htRangePrint(vecsInRadius,q,d,fptr);

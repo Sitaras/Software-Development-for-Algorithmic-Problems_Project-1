@@ -262,14 +262,15 @@ void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *neares
   List temp=list;
   int filled=0;
   while(temp!=NULL){
-      // if(id!=(temp->vector_ID)){
-      //   temp = temp->next;
-      //   continue;
-      // }
+      if(id!=(temp->vector_ID)){
+        temp = temp->next;
+        continue;
+      }
       int flag = 1;
       int eq = 0;
       int added=0;
       double dist = distance_metric(temp->v,q,d);
+
 
       int index=binarySearch(nearestDist,0,k-1,dist);
       if(index!=-1 && nearest[index] != NULL && compareVectors(nearest[index], temp->v)){
@@ -353,7 +354,7 @@ void listFindKNearestNeighborsCube(List list,Vector q,Vector *nearest,double *ne
 
 
 
-void listFindNeighborsInRadius(List list,HashTable storeNeighbors,Vector q,int d,unsigned int id,int radius){
+void listFindNeighborsInRadius(List list,HashTable storeNeighbors,Vector q,int d,int id,int radius){
   if(list==NULL){ return;}
   List temp=list;
   while(temp!=NULL){

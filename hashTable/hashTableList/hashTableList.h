@@ -24,7 +24,7 @@ Vector *transformListToArray(List ,int );
 
 void listFindNearestNeighbor(List ,Vector ,Vector *,double *,int ,int );
 void listFindKNearestNeighbors(List, Vector, Vector *, double *, int,int ,int );
-void listFindNeighborsInRadius(List ,HashTable ,Vector ,int ,unsigned int ,int );
+void listFindNeighborsInRadius(List ,HashTable ,Vector ,int ,int ,int );
 void listFindNeighborsInRadiusClustering(List ,int ,List* ,HashTable ,Vector ,int ,int ,int ,int *,int );
 void listFindNeighborsInRadiusClusteringCube(List ,int ,List* ,HashTable ,Vector ,int ,int ,int *,int ,int *,int );
 

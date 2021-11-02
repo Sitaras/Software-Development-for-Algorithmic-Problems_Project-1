@@ -144,6 +144,7 @@ void readFile(char* fileName,List *inputs,int *vectorCount){
 
 
 void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,double radius){
+
    FILE *file = fopen(queryFile, "r"); // read mode
 
    if (file == NULL){
@@ -162,12 +163,15 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
     exit(EXIT_FAILURE);
   }
 
+
   char buffer[MAX_INPUT_LENGTH];
   Vector nearest=NULL;
   Vector nNearest[n];
   double nearestDist=-1;
   double knearestDists[n];
   double vec[d];
+
+
 
   while(!feof(file)){
     fflush(stdin);  // clear stdin buffer
@@ -179,6 +183,7 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
       nNearest[i]=NULL;
       knearestDists[i]=-1;
     }
+
     int id;
     char * token = strtok(buffer, " ");
     char name[MAX_INPUT_LENGTH];
@@ -197,6 +202,8 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
      clock_t begin_true = clock();
      // find with the classic method the k nearest neighbor and write these at the given file for the corresponding query vector
      listFindKNearestNeighbors(inputs,vecTmp,nNearest,knearestDists,d,n,-1);
+
+
 
      clock_t end_true = clock();
      double time_spent_true = (double)(end_true - begin_true) / CLOCKS_PER_SEC;
