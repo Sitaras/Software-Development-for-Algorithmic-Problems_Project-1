@@ -19,7 +19,7 @@ void htFindNearestNeighbor(HashTable ,int ,Vector ,Vector *,double *,int ,int );
 void htKFindNearestNeighbors(HashTable, int, Vector, Vector *, double *, int ,int ,int );
 void htFindNeighborsInRadiusClustering(HashTable ,int ,int ,List* ,HashTable ,Vector ,int ,int ,int ,int *,int );
 void htFindNeighborsInRadiusClusteringCube(HashTable ,int ,int ,List* ,HashTable ,Vector ,int ,int ,int *,int ,int *,int );
-void htFindNeighborsInRadius(HashTable ,int ,HashTable ,Vector ,int ,int ,int );
+void htFindNeighborsInRadius(HashTable ,int ,HashTable ,Vector ,int ,unsigned int ,int );
 void htRangeInsert(HashTable , Vector ,int ,int );
 
 void htFindNearestNeighborCube(HashTable ,int ,Vector ,Vector *,double *,int ,int *,int );

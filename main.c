@@ -38,7 +38,7 @@ int main(int argc, char *argv[])  {
   double radius=10000;
   hashTableSize = 1000;
   k_LSH = 4;
-  w = 8;
+  w = 4;
 
   while((option = getopt(argc, argv, "i:q:k:L:o:N:R:")) != -1){
      switch(option){
@@ -130,7 +130,6 @@ int main(int argc, char *argv[])  {
 
   LSH lsh = initializeLSH(l);
   insertFromListToLSH(list,lsh);
-
   readQueryFile(queryFile,outputFile,lsh,list,n,radius);
 
   printOptions(); // just printing the commands options for the user

@@ -144,7 +144,6 @@ void readFile(char* fileName,List *inputs,int *vectorCount){
 
 
 void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,double radius){
-
    FILE *file = fopen(queryFile, "r"); // read mode
 
    if (file == NULL){
@@ -192,7 +191,7 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
         token = strtok(NULL, " ");
      }
      Vector vecTmp=initVector(vec,name);
-     
+
      fprintf(fptr, "Query %d:\n",id);
 
      clock_t begin_true = clock();
