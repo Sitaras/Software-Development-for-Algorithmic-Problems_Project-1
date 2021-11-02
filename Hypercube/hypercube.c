@@ -63,7 +63,8 @@ void generateH_Cube(h_function *hfun){
     hfun->v[i] = normalRandom();
   }
   // pick t variable uniformly ∈ R [0, w)
-  hfun->t=uniform_distribution(0,w);
+  double temp = uniform_distribution(0,w);
+  hfun->t=temp;
 }
 
 void destroyH_Cube(h_function h){
