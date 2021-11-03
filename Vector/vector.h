@@ -14,6 +14,7 @@ void printVectorId(Vector );
 
 void printVectorInFile(Vector,FILE* );
 void printVectorIdInFile(Vector,FILE* );
+void printVectorIdInFileNoNewline(Vector,FILE* );
 
 int compareVectors(Vector , Vector );
 

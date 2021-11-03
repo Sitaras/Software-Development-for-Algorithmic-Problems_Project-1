@@ -119,6 +119,19 @@ void listPrint(List list){
         temp=temp->next;
     }
 }
+
+void listPrintClusteringInFile(List list,FILE* fptr){
+    if(list==NULL){ printf("List Empty!\n");  return;}
+    List temp=list;
+    while(temp!=NULL){
+        printVectorIdInFileNoNewline(temp->v,fptr);
+        if(temp->next!=NULL)
+          fprintf(fptr,", ");
+        temp=temp->next;
+    }
+}
+
+
 void listRangePrint(List list,Vector q,int d,int *counter,FILE *fptr){
     if(list==NULL){ return;}
     List temp=list;
@@ -261,7 +274,7 @@ int binarySearch(double arr[], int l, int r, double x){
 }
 
 void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *nearestDist,int d,int k,int id){
-  // used to LSH to find the k nearest neighbors and the corresponding distance for the given vector q at a list, used at Hypercube
+  // used to LSH to find the k nearest neighbors and the corresponding distance for the given vector q at a list
   if(list==NULL){ return;}
   List temp=list;
   int filledFlag=0; // the array of k nearest neighbors initialize with NULL (nearest[i]) and "-1" value (nearestDist[i]) respectively
@@ -283,7 +296,7 @@ void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *neares
         temp = temp->next;
         continue;
       }
-      if(!filledFlag)
+      if(!filledFlag) // check if the array still has its initial values
         for (int i = 0; i < k; i++){
           if(nearestDist[i]<0){
             flag=0;
@@ -296,12 +309,12 @@ void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *neares
 
       if (flag){
         filledFlag=1;
-          if(dist<nearestDist[0]){ // array is sorted in descending order, compare the new distance only the first one distance of the array
-            // replace it
-            added = 1;
-            nearestDist[0] = dist;
-            nearest[0] = temp->v;
-          }
+        if(dist<nearestDist[0]){ // array is sorted in descending order, compare the new distance with the first one distance of the array only
+          // replace it
+          added = 1;
+          nearestDist[0] = dist;
+          nearest[0] = temp->v;
+        }
       }
 
       if(added) // check if a vector added at the corresponding arrays to do quickSort
@@ -311,14 +324,16 @@ void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *neares
 }
 
 void listFindKNearestNeighborsCube(List list,Vector q,Vector *nearest,double *nearestDist,int d,int k,int *numOfSearched,int maxToSearch){
+    // used to Hypercube to find the k nearest neighbors and the corresponding distance for the given vector q at a list
   if(list==NULL){ return;}
   List temp=list;
-  int filledFlag=0;
+  int filledFlag=0;// the array of k nearest neighbors initialize with NULL (nearest[i]) and "-1" value (nearestDist[i]) respectively
+  // this flag used to be sure that these two array will be take/initialize by real distances and vectors (then the filledFlag becomes "1")
   while(temp!=NULL){
-      if((*numOfSearched)>=maxToSearch){
+      if((*numOfSearched)>=maxToSearch){ // number of vector searches reached, stop searching
         return;
       }
-      int flag = 1;
+      int flag = 1; // this flag also used to be sure that these two array will be take/initialize by real distances and vectors (when this flag does not change value from 1 to 0, it means that the corresponding arrays are initialized)
       int added=0; // used to check if a vectoradded at the corresponding arrays to do quickSort
       double dist = distance_metric(temp->v,q,d);
       (*numOfSearched) += 1;
@@ -330,7 +345,7 @@ void listFindKNearestNeighborsCube(List list,Vector q,Vector *nearest,double *ne
         temp = temp->next;
         continue;
       }
-      if(!filledFlag)
+      if(!filledFlag) // check if the array still has its initial values
         for (int i = 0; i < k; i++){
           if(nearestDist[i]<0){
             flag=0;
@@ -343,13 +358,14 @@ void listFindKNearestNeighborsCube(List list,Vector q,Vector *nearest,double *ne
 
       if (flag){
         filledFlag=1;
-          if(dist<nearestDist[0]){
-            added = 1;
-            nearestDist[0] = dist;
-            nearest[0] = temp->v;
-          }
+        if(dist<nearestDist[0]){ // array is sorted in descending order, compare the new distance with the first one distance of the array only
+          // replace it
+          added = 1;
+          nearestDist[0] = dist;
+          nearest[0] = temp->v;
+        }
       }
-      if(added)
+      if(added) // check if a vector added at the corresponding arrays to do quickSort
         quickSort(nearestDist, nearest,0, k-1);
       temp = temp->next;
   }
@@ -358,10 +374,11 @@ void listFindKNearestNeighborsCube(List list,Vector q,Vector *nearest,double *ne
 
 
 void listFindNeighborsInRadius(List list,HashTable storeNeighbors,Vector q,int d,int id,int radius){
+  // (LSH) used to find the neighbors of the given vector q inside at the given radius
   if(list==NULL){ return;}
   List temp=list;
   while(temp!=NULL){
-    if(id==(temp->vector_ID)){
+    if(id==(temp->vector_ID)){ // (Querying trick, to avoid to compute g Euclidean distance for all vectors p in bucket)
       double dist = distance_metric(temp->v,q,d);
       if(dist<=radius){
         htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);

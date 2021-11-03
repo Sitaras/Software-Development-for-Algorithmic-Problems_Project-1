@@ -17,7 +17,7 @@ int probes;
 int w;
 int numOfVecs;
 int hashTableSize;
-
+int complete;
 int k_LSH;
 
 void printOptions(){
@@ -32,6 +32,7 @@ void printOptions(){
 int main(int argc, char *argv[]) {
   srand(time(NULL));
   int option;
+  complete=0;
   char str[200];
   char inputFile[200];
   int inputflag=0;
@@ -54,7 +55,8 @@ int main(int argc, char *argv[]) {
         case 'c':
         printf("%d\n",optind);
         if(strcmp(argv[optind-1],"-complete")==0){
-          printf("-Complete option\n");
+          printf("Complete option ON\n");
+          complete=1;
         }
         else{
           confflag++;

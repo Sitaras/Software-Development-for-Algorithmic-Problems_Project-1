@@ -22,6 +22,7 @@
 extern int numOfVecs;
 extern int d;
 extern int hashTableSize;
+extern int complete;
 
 
 
@@ -132,7 +133,16 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
   for(int i=0;i<numOfClusters;i++){
     fprintf(fptr,"s%d = %f ,",i+1,silhouettes[i]);
   }
-  fprintf(fptr,"stotal = %f ]\n",stotal/numOfVecs);
+  fprintf(fptr,"stotal = %f ]\n\n",stotal/numOfVecs);
+
+  if(complete){
+    for(int i=0;i<numOfClusters;i++){
+      fprintf(fptr,"CLUSTER-%d {",i+1);
+      printVectorInFile(clusters[i],fptr);
+      listPrintClusteringInFile(clustersList[i],fptr);
+      fprintf(fptr,"}\n\n");
+    }
+  }
 
   // free clusters
   for(int i=0;i<numOfClusters;i++){
@@ -297,7 +307,16 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
   for(int i=0;i<numOfClusters;i++){
     fprintf(fptr,"s%d = %f ,",i+1,silhouettes[i]);
   }
-  fprintf(fptr,"stotal = %f ]\n",stotal/numOfVecs);
+  fprintf(fptr,"stotal = %f ]\n\n",stotal/numOfVecs);
+
+  if(complete){
+    for(int i=0;i<numOfClusters;i++){
+      fprintf(fptr,"CLUSTER-%d {",i+1);
+      printVectorInFile(clusters[i],fptr);
+      htPrintClustering(clustersHt[i],fptr);
+      fprintf(fptr,"}\n\n");
+    }
+  }
 
   for(int i=0;i<numOfClusters;i++){
     if(oldClusters[i]!=NULL)
@@ -456,7 +475,16 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
   for(int i=0;i<numOfClusters;i++){
     fprintf(fptr,"s%d = %f ,",i+1,silhouettes[i]);
   }
-  fprintf(fptr,"stotal = %f ]\n",stotal/numOfVecs);
+  fprintf(fptr,"stotal = %f ]\n\n",stotal/numOfVecs);
+
+  if(complete){
+    for(int i=0;i<numOfClusters;i++){
+      fprintf(fptr,"CLUSTER-%d {",i+1);
+      printVectorInFile(clusters[i],fptr);
+      htPrintClustering(clustersHt[i],fptr);
+      fprintf(fptr,"}\n\n");
+    }
+  }
 
   for(int i=0;i<numOfClusters;i++){
     if(oldClusters[i]!=NULL)

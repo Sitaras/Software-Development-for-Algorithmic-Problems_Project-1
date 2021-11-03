@@ -21,6 +21,7 @@ void listRangePrint(List ,Vector ,int,int *,FILE* );
 List listDeleteItem(List ,Vector ,int );
 List listDelete(List ,int );
 Vector *transformListToArray(List ,int );
+void listPrintClusteringInFile(List ,FILE* );
 
 void listFindNearestNeighbor(List ,Vector ,Vector *,double *,int ,int );
 void listFindKNearestNeighbors(List, Vector, Vector *, double *, int,int ,int );

@@ -83,6 +83,15 @@ void htPrint(const HashTable ht){
   printf("\n\n");
 }
 
+void htPrintClustering(const HashTable ht,FILE* fptr){
+  for (int i=0;i<ht->buckets;i++){
+    listPrintClusteringInFile(ht->table[i].head,fptr);
+    if(i!=ht->buckets-1)
+      fprintf(fptr,", ");
+  }
+  printf("\n\n");
+}
+
 void htRangePrint(const HashTable ht,Vector q,int d,FILE *fptr){
   fprintf(fptr,"R-near neighbors:\n"); // add a counter at radiusNeigborsClustering()
   int counter=1;

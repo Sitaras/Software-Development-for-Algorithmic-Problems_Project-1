@@ -10,6 +10,7 @@ HashTable htInitialize(int);
 int htInsert(HashTable ,Vector, int,int );
 int getNumberOfVectors(const HashTable );
 void htPrint(const HashTable);
+void htPrintClustering(const HashTable,FILE*);
 void htRangePrint(const HashTable ,Vector ,int,FILE* );
 void htRangeDelete(HashTable , Vector ,int ,int );
 HashTable htDelete(HashTable,int );
