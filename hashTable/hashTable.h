@@ -28,5 +28,5 @@ void htFindNeighborsInRadiusCube(HashTable ,int ,HashTable ,Vector ,int ,int ,in
 
 Vector htMeanOfCluster(HashTable ,int );
 double htFindAverageDistanceOfVectorInCluster(HashTable ,Vector ,int );
-double silhouetteofClusterLSH(HashTable *,Vector *,int ,int ,int );
+double silhouetteofClusterLSH(HashTable *,Vector *,int ,int ,int ,double *);
 #endif

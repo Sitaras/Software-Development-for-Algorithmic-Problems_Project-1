@@ -620,7 +620,7 @@ void listComputeAverageDistOfEveryPointOfClusterLloyds(List list,List *clustersL
 }
 
 
-double silhouetteofClusterLloyds(List *clustersLists,Vector *clusters,int current_cluster,int numOfClusters,int numOfVectorsInCluster,int d){
+double silhouetteofClusterLloyds(List *clustersLists,Vector *clusters,int current_cluster,int numOfClusters,int numOfVectorsInCluster,int d,double *stotal){
   // a(i) = average distance of i to objects in same cluster
   // b(i) = average distance of i to objects in next best (neighbor) cluster
   double *a = calloc(sizeof(double),numOfVectorsInCluster);
@@ -630,6 +630,7 @@ double silhouetteofClusterLloyds(List *clustersLists,Vector *clusters,int curren
   double sumOfS_i = 0.0;
   for(int i=0;i<numOfVectorsInCluster;i++){
     double s_i = (b[i]-a[i])/ MAX(b[i],a[i]);
+    (*stotal) += s_i;
     sumOfS_i += s_i;
   }
   free(a);
