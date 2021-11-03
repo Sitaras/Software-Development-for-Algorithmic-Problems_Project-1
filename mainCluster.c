@@ -33,13 +33,13 @@ int main(int argc, char *argv[]) {
   srand(time(NULL));
   int option;
   char str[200];
-  char inputFile[100];
+  char inputFile[200];
   int inputflag=0;
-  char confFile[100];
+  char confFile[200];
   int confflag=0;
-  char outputFile[100];
+  char outputFile[200];
   int outputflag=0;
-  char method[100];
+  char method[200];
   int methodflag=0;
 
 
@@ -92,7 +92,7 @@ int main(int argc, char *argv[]) {
       perror("Error reading string with fgets\n");
       exit(1);
     }
-    strcpy(inputFile,str);
+    sscanf(str,"%s\n",inputFile);
     printf("Given input File : %s\n", inputFile);
   }
   if(!confflag){
@@ -102,7 +102,7 @@ int main(int argc, char *argv[]) {
       perror("Error reading string with fgets\n");
       exit(1);
     }
-    strcpy(confFile,str);
+    sscanf(str,"%s\n",confFile);
     printf("Given query File : %s\n", confFile);
   }
   if(!outputflag){
@@ -112,7 +112,7 @@ int main(int argc, char *argv[]) {
       perror("Error reading string with fgets\n");
       exit(1);
     }
-    strcpy(outputFile,str);
+    sscanf(str,"%s\n",outputFile);
     printf("Given output File : %s\n", outputFile);
   }
   if(!methodflag){
@@ -122,58 +122,63 @@ int main(int argc, char *argv[]) {
       perror("Error reading string with fgets\n");
       exit(1);
     }
-    strcpy(method,str);
+    sscanf(str,"%s\n",method);
     printf("Given method's name: %s\n", method);
   }
 
-  d = findDim(inputFile);
-  printf("DIMENSION = %d\n",d);
-  List list = initializeList();
-  int numOfClusters=5,l=3,mHyper=10,probes=2;
-  new_dimension=3;
-  k_LSH=4;
-  w=8;
-  readConfFile(confFile,&numOfClusters,&l,&mHyper,&probes);
-  readFile(inputFile,&list,&numOfVecs);
-
   FILE* fptr;
-  fptr = fopen(outputFile, "w");
-  if(fptr == NULL){
-    /* File not created hence exit */
-    printf("Unable to create file.\n");
-    exit(EXIT_FAILURE);
-  }
-
-  clustering(list,fptr,method,numOfClusters,l,mHyper,probes);
-
-
-
-  printOptions(); // just printing the commands options for the user
-
-
-  char command[200];
+  List list;
   while(1){
+    d = findDim(inputFile);
+    printf("DIMENSION = %d\n",d);
+    int numOfClusters=5,l=3,mHyper=10,probes=2;
+    new_dimension=3;
+    k_LSH=4;
+    w=8;
+    readConfFile(confFile,&numOfClusters,&l,&mHyper,&probes);
+    list = initializeList();
+    readFile(inputFile,&list,&numOfVecs);
 
-    printf("\n");
-    printf(">Enter a command: ");
-    fflush(stdin); // clear stdin buffer
-    if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
-      perror("Error reading string with fgets\n");
-      exit(1);
+    fptr = fopen(outputFile, "w");
+    if(fptr == NULL){
+      /* File not created hence exit */
+      printf("Unable to create file.\n");
+      exit(EXIT_FAILURE);
     }
-    else if(strstr(str, "/repeat") != NULL) {
-      sscanf(str,"%s %s\n",command,inputFile);
-      printf("FILE: %s\n",inputFile);
-      continue;
-    }
-    else if(strcmp(str,"/exit\n")==0){
-      break;
-    }
-    else{
-      printf("\n\n  --- Wrong command ! Please, try again. ---  \n\n");
-      printOptions(); // just printing the commands options for the user
-      continue;
-    }
+
+    clustering(list,fptr,method,numOfClusters,l,mHyper,probes);
+
+
+    printOptions(); // just printing the commands options for the user
+
+
+    char command[200];
+
+      printf("\n");
+      printf(">Enter a command: ");
+      fflush(stdin); // clear stdin buffer
+      if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+        perror("Error reading string with fgets\n");
+        exit(1);
+      }
+      else if(strstr(str, "/repeat") != NULL) {
+        sscanf(str,"%s %s\n",command,inputFile);
+        printf("FILE: %s\n",inputFile);
+        if(strcmp(method,"LSH")==0 || strcmp(method,"HyperCube")==0)
+          listDelete(list,0);
+        else
+          listDelete(list,1);
+        fclose(fptr);
+        continue;
+      }
+      else if(strcmp(str,"/exit\n")==0){
+        break;
+      }
+      else{
+        printf("\n\n  --- Wrong command ! Please, try again. ---  \n\n");
+        printOptions(); // just printing the commands options for the user
+        continue;
+      }
 
   }
 

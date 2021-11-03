@@ -119,24 +119,27 @@ int main(int argc, char *argv[])  {
   }
 
   srand(time(NULL));
-  d = findDim(inputFile);
-  printf("DIMENSION = %d\n",d);
-  List list = initializeList();
-  int numberOfVectorsInFile = 0;
-  readFile(inputFile,&list,&numberOfVectorsInFile);
-  printf("Number of vectors in input file: %d\n",numberOfVectorsInFile);
-  hashTableSize=numberOfVectorsInFile/8;
-
-
-  LSH lsh = initializeLSH(l);
-  insertFromListToLSH(list,lsh);
-  readQueryFile(queryFile,outputFile,lsh,list,n,radius);
-
-  printOptions(); // just printing the commands options for the user
-
-
   char command[200];
+
+  LSH lsh;
+  List list;
   while(1){
+    d = findDim(inputFile);
+    printf("DIMENSION = %d\n",d);
+    list = initializeList();
+    int numberOfVectorsInFile = 0;
+    readFile(inputFile,&list,&numberOfVectorsInFile);
+    printf("Number of vectors in input file: %d\n",numberOfVectorsInFile);
+    hashTableSize=numberOfVectorsInFile/8;
+
+
+    lsh = initializeLSH(l);
+    insertFromListToLSH(list,lsh);
+    readQueryFile(queryFile,outputFile,lsh,list,n,radius);
+
+    printOptions(); // just printing the commands options for the user
+
+
 
     printf("\n");
     printf(">Enter a command: ");
@@ -148,6 +151,8 @@ int main(int argc, char *argv[])  {
     else if(strstr(str, "/repeat") != NULL) {
       sscanf(str,"%s %s\n",command,inputFile);
       printf("FILE: %s\n",inputFile);
+      destroyLSH(lsh);
+      listDelete(list,0);
       continue;
     }
     else if(strcmp(str,"/exit\n")==0){

@@ -25,15 +25,15 @@ extern int hashTableSize;
 
 
 
-void lloyds(Vector* clusters,Vector *oldClusters,Vector* vectors,List* clustersList,int numberOfVectors,int numOfClusters,int *vectorCount) {
-  static int flag=0;
-  if(flag) //skip it for the first time
+void lloyds(Vector* clusters,Vector *oldClusters,Vector* vectors,List* clustersList,int numberOfVectors,int numOfClusters,int *vectorCount,int *firstTime) {
+  if(*firstTime) //skip it for the first time
     for(int i=0;i<numOfClusters;i++){
       Vector newCenter;
       if(clustersList[i]!=NULL){
         newCenter=listMeanOfCluster(clustersList[i],d);
       }
       else{
+        printVectorId(oldClusters[i]);
         newCenter=copyVector(oldClusters[i]);
       }
       listDelete(clustersList[i],0);
@@ -47,7 +47,7 @@ void lloyds(Vector* clusters,Vector *oldClusters,Vector* vectors,List* clustersL
     vectorCount[closestCentroid] += 1;
     clustersList[closestCentroid] = listInsert(clustersList[closestCentroid],vectors[i],d);
   }
-  flag=1;
+  *firstTime=1;
 }
 
 double *silhouetteLloyds(List *clustersList,Vector *clusters,int numOfClusters,int *vectorCount){
@@ -87,7 +87,8 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
     clustersList[i]=initializeList();
   }
   int count=0;
-  while((count<2) || !centroidsCovnerge(clusters,oldClusters,numOfClusters,d)){
+  int firstTime=0;
+  while((count<2) || !centroidsConverge(clusters,oldClusters,numOfClusters,d)){
   // while(firstIter || count<20){
     printf("ITER %d\n",count);
     count++;
@@ -105,7 +106,7 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
     }
 
     //
-    lloyds(clusters,oldClusters,vectors,clustersList,numOfVecs,numOfClusters,vectorCount);
+    lloyds(clusters,oldClusters,vectors,clustersList,numOfVecs,numOfClusters,vectorCount,&firstTime);
 
     firstIter=FALSE;
   }
@@ -138,10 +139,9 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
   free(vectorCount);
 }
 
-void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldClusters,HashTable *clustersHt,int numOfClusters,int iteration){
-  static int flag=0;
+void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldClusters,HashTable *clustersHt,int numOfClusters,int iteration,int *firstTime){
   printf("ITERATION WITH LSH %d\n",iteration);
-  if(flag) //skip it for the first time
+  if(*firstTime) //skip it for the first time
     for(int i=0;i<numOfClusters;i++){
 
       Vector newCenter = htMeanOfCluster(clustersHt[i],d);
@@ -194,7 +194,7 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
     }
   }
   printf("---- ASSINGED REMAINING ITEMS = %d\n",remainderCounter);
-  flag=1;
+  *firstTime=1;
 }
 
 
@@ -239,7 +239,8 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
 
   int firstIterLSH = TRUE;
   int countLSH=0;
-  while((countLSH<2) || !centroidsCovnerge(clusters,oldClusters,numOfClusters,d)){
+  int firstTime=0;
+  while((countLSH<2) || !centroidsConverge(clusters,oldClusters,numOfClusters,d)){
     if(countLSH==MAX_RECENTER_ITERATIONS)
       break;
   // while(firstIter || count<20){
@@ -257,7 +258,7 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
     }
 
     //
-    reverseAssignmentLSH(lsh,vectors,clusters,oldClusters,clustersHt,numOfClusters,countLSH);
+    reverseAssignmentLSH(lsh,vectors,clusters,oldClusters,clustersHt,numOfClusters,countLSH,&firstTime);
 
     firstIterLSH=FALSE;
 
@@ -293,10 +294,9 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
   destroyLSH(lsh);
 }
 
-void reverseAssignmentHypercube(HyperCube cube,Vector *vectors,Vector *clusters,Vector *oldClusters,HashTable *clustersHt,int numOfClusters,int iteration,int m,int probes){
-  static int flag=0;
+void reverseAssignmentHypercube(HyperCube cube,Vector *vectors,Vector *clusters,Vector *oldClusters,HashTable *clustersHt,int numOfClusters,int iteration,int m,int probes,int *firstTime){
   printf("ITERATION WITH LSH %d\n",iteration);
-  if(flag) //skip it for the first time
+  if(*firstTime) //skip it for the first time
     for(int i=0;i<numOfClusters;i++){
 
       Vector newCenter = htMeanOfCluster(clustersHt[i],d);
@@ -351,7 +351,7 @@ void reverseAssignmentHypercube(HyperCube cube,Vector *vectors,Vector *clusters,
     }
   }
   printf("---- ASSINGED REMAINING ITEMS = %d\n",remainderCounter);
-  flag=1;
+  *firstTime=1;
 }
 
 
@@ -387,7 +387,8 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
 
   int firstIterLSH = TRUE;
   int countLSH=0;
-  while((countLSH<2) || !centroidsCovnerge(clusters,oldClusters,numOfClusters,d)){
+  int firstTime=0;
+  while((countLSH<2) || !centroidsConverge(clusters,oldClusters,numOfClusters,d)){
     if(countLSH==MAX_RECENTER_ITERATIONS)
       break;
   // while(firstIter || count<20){
@@ -405,7 +406,7 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
     }
 
     //
-    reverseAssignmentHypercube(cube,vectors,clusters,oldClusters,clustersHt,numOfClusters,countLSH,m,probes);
+    reverseAssignmentHypercube(cube,vectors,clusters,oldClusters,clustersHt,numOfClusters,countLSH,m,probes,&firstTime);
 
     firstIterLSH=FALSE;
   }
@@ -453,11 +454,10 @@ void clustering(List vecList,FILE* fptr,char* method,int numOfClusters,int l,int
     fprintf(fptr,"Algorithm: Range Search Hypercube\n");
     clusteringHypercube(vecList,numOfClusters,mHyper,probes,fptr);
   }
-  else
-    printf("INVALID METHOD NAME!");
-
-
-  printf("\n==============================2\n");
-  //Reverse approach
+  else{
+    printf("%s\n",method );
+    printf("INVALID METHOD NAME!\n");
+    exit(EXIT_FAILURE);
+  }
 
 }

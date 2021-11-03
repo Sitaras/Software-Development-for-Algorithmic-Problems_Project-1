@@ -102,7 +102,7 @@ int main(int argc, char *argv[]) {
       perror("Error reading string with fgets\n");
       exit(1);
     }
-    strcpy(inputFile,str);
+    sscanf(str,"%s\n",inputFile);
     printf("Given input File : %s\n", inputFile);
   }
   if(!queryflag){
@@ -112,7 +112,7 @@ int main(int argc, char *argv[]) {
       perror("Error reading string with fgets\n");
       exit(1);
     }
-    strcpy(queryFile,str);
+    sscanf(str,"%s\n",queryFile);
     printf("Given query File : %s\n", queryFile);
   }
   if(!outputflag){
@@ -122,23 +122,25 @@ int main(int argc, char *argv[]) {
       perror("Error reading string with fgets\n");
       exit(1);
     }
-    strcpy(outputFile,str);
+    sscanf(str,"%s\n",outputFile);
     printf("Given output File : %s\n", outputFile);
   }
 
-  d = findDim(inputFile);
-  printf("DIMENSION = %d\n",d);
 
-  HyperCube hc = initializeHyperCube();
-  List list = initializeList();
-  readFile(inputFile,hc,&list);
-  readQueryFile(queryFile,outputFile,hc,list,n,r,2,m);
-
-  printOptions(); // just printing the commands options for the user
-
-
-  char command[200];
+  HyperCube hc;
+  List list;
   while(1){
+    d = findDim(inputFile);
+    printf("DIMENSION = %d\n",d);
+    hc = initializeHyperCube();
+    list = initializeList();
+    readFile(inputFile,hc,&list);
+    readQueryFile(queryFile,outputFile,hc,list,n,r,2,m);
+
+    printOptions(); // just printing the commands options for the user
+
+
+    char command[200];
 
     printf("\n");
     printf(">Enter a command: ");
@@ -150,6 +152,8 @@ int main(int argc, char *argv[]) {
     else if(strstr(str, "/repeat") != NULL) {
       sscanf(str,"%s %s\n",command,inputFile);
       printf("FILE: %s\n",inputFile);
+      deleteHyperCube(hc);
+      listDelete(list,0);
       continue;
     }
     else if(strcmp(str,"/exit\n")==0){

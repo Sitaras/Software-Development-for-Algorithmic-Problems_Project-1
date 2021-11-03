@@ -61,7 +61,7 @@ void minDistbetweenCentroids(Vector *centroids,int numOfClusters,double *minDist
   }
 }
 
-int centroidsCovnerge(Vector *new,Vector *old,int numOfClusters,int d){
+int centroidsConverge(Vector *new,Vector *old,int numOfClusters,int d){
   if(old==NULL) return FALSE;
   for(int i=0;i<numOfClusters;i++){
     printf("%f\n",distance_metric(new[i],old[i],d));
