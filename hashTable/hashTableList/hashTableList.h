@@ -27,14 +27,14 @@ void listFindNearestNeighbor(List ,Vector ,Vector *,double *,int ,int );
 void listFindKNearestNeighbors(List, Vector, Vector *, double *, int,int ,int );
 void listFindNeighborsInRadius(List ,HashTable ,Vector ,int ,int ,int );
 void listFindNeighborsInRadiusClustering(List ,int ,List* ,HashTable ,Vector ,int ,int ,int ,int *,int );
-void listFindNeighborsInRadiusClusteringCube(List ,int ,List* ,HashTable ,Vector ,int ,int ,int *,int ,int *,int );
+void listFindNeighborsInRadiusClusteringCube(List ,int ,List* ,HashTable ,Vector ,int ,double ,int *,int ,int *,int );
 
 void listFindNearestNeighborCube(List ,Vector ,Vector *,double *,int ,int *,int );
 void listFindKNearestNeighborsCube(List ,Vector ,Vector *,double *,int ,int ,int *,int );
 void listFindNeighborsInRadiusCube(List ,HashTable ,Vector ,int ,int ,int *,int );
 
 Vector listMeanOfCluster(List ,int );
-void listSolveRangeConflicts(List ,HashTable *,Vector *,int ,int );
+void listSolveRangeConflicts(List ,HashTable *,Vector *,int ,int ,int );
 double *listSumOfVectors(List ,int ,int *);
 double listFindSumOfDistancesOfVector(List ,Vector ,int *,int );
 void listComputeAverageDistOfEveryPointOfCluster(List *,int ,HashTable *,int ,Vector *,int ,double *,double *,int *,int );
