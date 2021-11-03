@@ -329,7 +329,7 @@ void radiusNeigborHypercube(HyperCube hc,Vector q,double radius,int hammingDist,
 
 
 
-void searchForHammingDistanceRadiusClustering(HyperCube hc,Vector v,int *v_index,int hammingDist,int startFrom,HashTable vecsInRadius,int *numOfSearched,int maxToSearch,int radius,int *nodesSearched,int probes,int centroidIndex,List* confList,int *assignCounter,int iteration){
+void searchForHammingDistanceRadiusClustering(HyperCube hc,Vector v,int *v_index,int hammingDist,int startFrom,HashTable vecsInRadius,int *numOfSearched,int maxToSearch,double radius,int *nodesSearched,int probes,int centroidIndex,List* confList,int *assignCounter,int iteration){
   if(hammingDist<=0){
     int new_index = binaryArrayToDecimal(v_index,new_dimension);
     htFindNeighborsInRadiusClusteringCube(hc->hypercube,new_index,centroidIndex,confList,vecsInRadius,v,d,radius,numOfSearched,maxToSearch,assignCounter,iteration);

@@ -128,7 +128,7 @@ void htFindNeighborsInRadiusClustering(HashTable ht,int index,int centroidIndex,
   listFindNeighborsInRadiusClustering(ht->table[index].head,centroidIndex,confList,storeNeighbors,q,d,id,radius,assignCounter,iteration);
 }
 
-void htFindNeighborsInRadiusClusteringCube(HashTable ht,int index,int centroidIndex,List* confList,HashTable storeNeighbors,Vector q,int d,int radius,int *numOfSearched,int maxToSearch,int *assignCounter,int iteration){
+void htFindNeighborsInRadiusClusteringCube(HashTable ht,int index,int centroidIndex,List* confList,HashTable storeNeighbors,Vector q,int d,double radius,int *numOfSearched,int maxToSearch,int *assignCounter,int iteration){
   listFindNeighborsInRadiusClusteringCube(ht->table[index].head,centroidIndex,confList,storeNeighbors,q,d,radius,numOfSearched,maxToSearch,assignCounter,iteration);
 }
 

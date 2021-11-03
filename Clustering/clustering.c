@@ -190,7 +190,7 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
     for(int i=0;i<numOfClusters;i++){
       radiusNeigborsClustering(lsh,clusters[i],radius,clustersHt[i],i,&confList,&assignCounter,iteration);
     }
-    listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d);
+    listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d,iteration);
     printf("---- ASSINGED ITEMS = %d\n",assignCounter);
     // manage the conflicts
     if(confList==NULL)
@@ -368,7 +368,7 @@ void reverseAssignmentHypercube(HyperCube cube,Vector *vectors,Vector *clusters,
       radiusNeigborHypercubeClustering(cube,clusters[i],clustersHt[i],radius,probes,m,i,&confList,&assignCounter,iteration);
       printf("******* ---- ASSINGED ITEMS = %d\n",assignCounter);
     }
-    listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d);
+    listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d,iteration);
     printf("---- ASSINGED ITEMS = %d\n",assignCounter);
     // manage the conflicts
     if(confList==NULL)
@@ -453,6 +453,7 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
     reverseAssignmentHypercube(cube,vectors,clusters,oldClusters,clustersHt,numOfClusters,countLSH,m,probes,&firstTime);
 
     firstIterLSH=FALSE;
+
   }
 
   clock_t cluster_end = clock();
