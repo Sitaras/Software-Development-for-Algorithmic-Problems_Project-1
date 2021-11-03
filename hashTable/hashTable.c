@@ -168,7 +168,7 @@ double htFindAverageDistanceOfVectorInCluster(HashTable ht,Vector v,int d){
   return sumOfDists/count;
 }
 
-double silhouetteofClusterLSH(HashTable *clustersHt,Vector *clusters,int current_cluster,int numOfClusters,int d){
+double silhouetteofClusterLSH(HashTable *clustersHt,Vector *clusters,int current_cluster,int numOfClusters,int d,double *stotal){
   HashTable ht = clustersHt[current_cluster];
   List allBuckets[ht->buckets];
   for (int i=0;i<ht->buckets;i++){
@@ -183,6 +183,7 @@ double silhouetteofClusterLSH(HashTable *clustersHt,Vector *clusters,int current
   double sumOfS_i = 0.0;
   for(int i=0;i<ht->numberOfVectors;i++){
     double s_i = (b[i]-a[i])/ MAX(b[i],a[i]);
+    (*stotal) += s_i;
     sumOfS_i += s_i;
   }
   free(a);

@@ -50,10 +50,10 @@ void lloyds(Vector* clusters,Vector *oldClusters,Vector* vectors,List* clustersL
   *firstTime=1;
 }
 
-double *silhouetteLloyds(List *clustersList,Vector *clusters,int numOfClusters,int *vectorCount){
+double *silhouetteLloyds(List *clustersList,Vector *clusters,int numOfClusters,int *vectorCount,double *stotal){
   double *silhouettes = calloc(sizeof(double),numOfClusters);
   for(int i=0;i<numOfClusters;i++){
-    silhouettes[i] = silhouetteofClusterLloyds(clustersList,clusters,i,numOfClusters,vectorCount[i],d);
+    silhouettes[i] = silhouetteofClusterLloyds(clustersList,clusters,i,numOfClusters,vectorCount[i],d,stotal);
   }
   return silhouettes;
 }
@@ -76,6 +76,7 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
   props = calloc(numOfVecs,sizeof(double));
   vectorCount = calloc(numOfVecs,sizeof(int));
 
+  clock_t cluster_start = clock();
 
   kmeansplusplus(vectors,numOfClusters,clusters,props);
 
@@ -111,18 +112,27 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
     firstIter=FALSE;
   }
 
+  clock_t cluster_end = clock();
+  double cluster_time = (double)(cluster_end - cluster_start) / CLOCKS_PER_SEC;
+
   for(int i=0;i<numOfClusters;i++){
     fprintf(fptr,"CLUSTER-%d {size: %d",i+1,vectorCount[i]);
     printVectorInFile(clusters[i],fptr);
     fprintf(fptr,"}\n");
   }
 
+  fprintf(fptr, "clustering_time: %f seconds\n",cluster_time);
+  fflush(fptr);
+
   printf("- COMPUTING SILHOUETTES FOR CLUSTERS\n");
-  double * silhouettes = silhouetteLloyds(clustersList,clusters,numOfClusters,vectorCount);
+  double stotal = 0.0;
+  double * silhouettes = silhouetteLloyds(clustersList,clusters,numOfClusters,vectorCount,&stotal);
   printf("- FINISHED COMPUTING SILHOUETTES\n");
+  fprintf(fptr, "Silhouette: [ ");
   for(int i=0;i<numOfClusters;i++){
-    printf("CLUSTER-%d { silhouette: %f }\n",i+1,silhouettes[i]);
+    fprintf(fptr,"s%d = %f ,",i+1,silhouettes[i]);
   }
+  fprintf(fptr,"stotal = %f ]\n",stotal/numOfVecs);
 
   // free clusters
   for(int i=0;i<numOfClusters;i++){
@@ -198,10 +208,10 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
 }
 
 
-double *silhouetteLSH_Hypercube(HashTable *clustersHt,Vector *clusters,int numOfClusters){
+double *silhouetteLSH_Hypercube(HashTable *clustersHt,Vector *clusters,int numOfClusters,double *stotal){
   double *silhouettes = calloc(sizeof(double),numOfClusters);
   for(int i=0;i<numOfClusters;i++){
-    silhouettes[i] = silhouetteofClusterLSH(clustersHt,clusters,i,numOfClusters,d);
+    silhouettes[i] = silhouetteofClusterLSH(clustersHt,clusters,i,numOfClusters,d,stotal);
   }
   return silhouettes;
 }
@@ -223,11 +233,6 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
     oldClusters[i]=NULL;
   }
   props = calloc(numOfVecs,sizeof(double));
-  kmeansplusplus(vectors,numOfClusters,clusters,props);
-  // for(int i=0;i<numOfClusters;i++){
-  //   printf("- CLUSTER :%d\n",i);
-  //   printVector(clusters[i]);
-  // }
 
   hashTableSize=numOfVecs/16;
   LSH lsh = initializeLSH(l);
@@ -236,6 +241,14 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
     insertToLSH(lsh,vectors[i]);
   }
 
+
+  clock_t cluster_start = clock();
+
+  kmeansplusplus(vectors,numOfClusters,clusters,props);
+  // for(int i=0;i<numOfClusters;i++){
+  //   printf("- CLUSTER :%d\n",i);
+  //   printVector(clusters[i]);
+  // }
 
   int firstIterLSH = TRUE;
   int countLSH=0;
@@ -264,18 +277,27 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
 
   }
 
+  clock_t cluster_end = clock();
+  double cluster_time = (double)(cluster_end - cluster_start) / CLOCKS_PER_SEC;
+
   for(int i=0;i<numOfClusters;i++){
     fprintf(fptr,"CLUSTER-%d {size: %d",i+1,getNumberOfVectors(clustersHt[i]));
     printVectorInFile(clusters[i],fptr);
     fprintf(fptr,"}\n");
   }
 
+  fprintf(fptr, "clustering_time: %f seconds\n",cluster_time);
+  fflush(fptr);
+
   printf("- COMPUTING SILHOUETTES FOR CLUSTERS\n");
-  double * silhouettes = silhouetteLSH_Hypercube(clustersHt,clusters,numOfClusters);
+  double stotal = 0.0;
+  double * silhouettes = silhouetteLSH_Hypercube(clustersHt,clusters,numOfClusters,&stotal);
   printf("- FINISHED COMPUTING SILHOUETTES\n");
+  fprintf(fptr, "Silhouette: [ ");
   for(int i=0;i<numOfClusters;i++){
-    printf("CLUSTER-%d { silhouette: %f }\n",i+1,silhouettes[i]);
+    fprintf(fptr,"s%d = %f ,",i+1,silhouettes[i]);
   }
+  fprintf(fptr,"stotal = %f ]\n",stotal/numOfVecs);
 
   for(int i=0;i<numOfClusters;i++){
     if(oldClusters[i]!=NULL)
@@ -295,7 +317,7 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
 }
 
 void reverseAssignmentHypercube(HyperCube cube,Vector *vectors,Vector *clusters,Vector *oldClusters,HashTable *clustersHt,int numOfClusters,int iteration,int m,int probes,int *firstTime){
-  printf("ITERATION WITH LSH %d\n",iteration);
+  printf("ITERATION WITH HYPERCUBE %d\n",iteration);
   if(*firstTime) //skip it for the first time
     for(int i=0;i<numOfClusters;i++){
 
@@ -372,18 +394,21 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
     oldClusters[i]=NULL;
   }
   props = calloc(numOfVecs,sizeof(double));
-  kmeansplusplus(vectors,numOfClusters,clusters,props);
-  // for(int i=0;i<numOfClusters;i++){
-  //   printf("- CLUSTER :%d\n",i);
-  //   printVector(clusters[i]);
-  // }
 
-  hashTableSize=numOfVecs/8;
+  hashTableSize=numOfVecs/16;
   HyperCube cube = initializeHyperCube();
   for(int i=0;i<numOfVecs;i++){
     initializeClusterInfo(vectors[i]);
     insertToHyperCube(cube,vectors[i]);
   }
+
+  clock_t cluster_start = clock();
+
+  kmeansplusplus(vectors,numOfClusters,clusters,props);
+  // for(int i=0;i<numOfClusters;i++){
+  //   printf("- CLUSTER :%d\n",i);
+  //   printVector(clusters[i]);
+  // }
 
   int firstIterLSH = TRUE;
   int countLSH=0;
@@ -411,18 +436,27 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
     firstIterLSH=FALSE;
   }
 
+  clock_t cluster_end = clock();
+  double cluster_time = (double)(cluster_end - cluster_start) / CLOCKS_PER_SEC;
+
   for(int i=0;i<numOfClusters;i++){
     fprintf(fptr,"CLUSTER-%d {size: %d",i+1,getNumberOfVectors(clustersHt[i]));
     printVectorInFile(clusters[i],fptr);
     fprintf(fptr,"}\n");
   }
 
+  fprintf(fptr, "clustering_time: %f seconds\n",cluster_time);
+  fflush(fptr);
+
   printf("- COMPUTING SILHOUETTES FOR CLUSTERS\n");
-  double * silhouettes = silhouetteLSH_Hypercube(clustersHt,clusters,numOfClusters);
+  double stotal = 0.0;
+  double * silhouettes = silhouetteLSH_Hypercube(clustersHt,clusters,numOfClusters,&stotal);
   printf("- FINISHED COMPUTING SILHOUETTES\n");
+  fprintf(fptr, "Silhouette: [ ");
   for(int i=0;i<numOfClusters;i++){
-    printf("CLUSTER-%d { silhouette: %f }\n",i+1,silhouettes[i]);
+    fprintf(fptr,"s%d = %f ,",i+1,silhouettes[i]);
   }
+  fprintf(fptr,"stotal = %f ]\n",stotal/numOfVecs);
 
   for(int i=0;i<numOfClusters;i++){
     if(oldClusters[i]!=NULL)
