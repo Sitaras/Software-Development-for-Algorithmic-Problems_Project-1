@@ -121,7 +121,7 @@ void listPrint(List list){
 }
 
 void listPrintClusteringInFile(List list,FILE* fptr){
-    if(list==NULL){ printf("List Empty!\n");  return;}
+    if(list==NULL){ return;}
     List temp=list;
     while(temp!=NULL){
         printVectorIdInFileNoNewline(temp->v,fptr);
@@ -426,7 +426,8 @@ void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List* confL
     if(id==(temp->vector_ID)){
         if(assignedToCluster(temp->v) && (getAssignedIteration(temp->v)==iteration)){
           int assignedCluster = getAssignedCluster(temp->v);
-          if(assignedCluster==centroidIndex || (((int)getAssignedAtRadius(temp->v))!=radius)){
+          // if(assignedCluster==centroidIndex || (((int)getAssignedAtRadius(temp->v))!=radius)){
+          if(assignedCluster==centroidIndex || (((int)getAssignedAtRadius(temp->v))<-1)){
             temp=temp->next;
             continue;
           }else{
@@ -470,7 +471,8 @@ void listFindNeighborsInRadiusClusteringCube(List list,int centroidIndex,List* c
           // then
           // check if vector has already been assigned at the some cluster (check the centroid index)
           // or if vector has already been assigned previously in cluster at a search with different radius
-          if(assignedCluster==centroidIndex || (getAssignedAtRadius(temp->v)!=radius)){
+          if(assignedCluster==centroidIndex || (getAssignedAtRadius(temp->v)<-1.0 )){
+          // if(assignedCluster==centroidIndex || (getAssignedAtRadius(temp->v)!=radius )){
             // ok, then skip it
             temp=temp->next;
             continue;
@@ -484,10 +486,10 @@ void listFindNeighborsInRadiusClusteringCube(List list,int centroidIndex,List* c
           }
         }
         else{
-          htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
           setAssignedCluster(temp->v,centroidIndex);
           setAssignedIteration(temp->v,iteration);
           setAssignedAtRadius(temp->v,radius);
+          htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
           (*assignCounter)++;
         }
       }
