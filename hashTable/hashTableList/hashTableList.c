@@ -464,18 +464,26 @@ void listFindNeighborsInRadiusClusteringCube(List list,int centroidIndex,List* c
       (*numOfSearched)++;
       double dist = distance_metric(temp->v,q,d);
       if(dist<=radius){
+        // check if vector has already been assigned at the same iteration in one cluster
         if(assignedToCluster(temp->v) && (getAssignedIteration(temp->v)==iteration)){
           int assignedCluster = getAssignedCluster(temp->v);
+          // then
+          // check if vector has already been assigned at the some cluster (check the centroid index)
+          // or if vector has already been assigned previously in cluster at a search with different radius
           if(assignedCluster==centroidIndex || (getAssignedAtRadius(temp->v)!=radius)){
+            // ok, then skip it
             temp=temp->next;
             continue;
-          }else{
+          }
+          else{
+            // ok, then there is conflict (vector seems be assigned in more than 1 cluster)
             *confList=listInsert(*confList,temp->v,-1);
             count++;
             temp=temp->next;
             continue;
           }
-        }else{
+        }
+        else{
           htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
           setAssignedCluster(temp->v,centroidIndex);
           setAssignedIteration(temp->v,iteration);
@@ -485,7 +493,6 @@ void listFindNeighborsInRadiusClusteringCube(List list,int centroidIndex,List* c
       }
     temp=temp->next;
   }
-  // printf("-*-* INSIDE CONFS = %d\n",count );
 }
 
 void listSolveRangeConflicts(List conflictList,HashTable *clustersHt,Vector *clusters,int numOfClusters,int d,int iteration){

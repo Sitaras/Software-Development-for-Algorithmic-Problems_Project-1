@@ -64,7 +64,6 @@ void minDistbetweenCentroids(Vector *centroids,int numOfClusters,double *minDist
 int centroidsConverge(Vector *new,Vector *old,int numOfClusters,int d){
   if(old==NULL) return FALSE;
   for(int i=0;i<numOfClusters;i++){
-    printf("%f\n",distance_metric(new[i],old[i],d));
     if(distance_metric(new[i],old[i],d)>CONVERGENCE){
       return FALSE;
     }
