@@ -145,7 +145,7 @@ void listRangePrint(List list,Vector q,int d,int *counter,FILE *fptr){
 
 
 Vector *transformListToArray(List list,int size){
-  // convert the given list to an array of vectors and return it
+  // used to convert the given list to an array of vectors and return it
   Vector *array = malloc(size*sizeof(Vector));
   List temp = list;
   int index=0;
@@ -227,8 +227,8 @@ void swapVectors(Vector *xp, Vector *yp)
   *yp = temp;
 }
 
-// function to find the partition position, used at quickSort
 int partition(double arr[], Vector *nearest, int low, int high){
+  // used at quickSort to find the partition position
   double pivot = arr[high];
   int i = (low - 1);
   for (int j = low; j < high; j++) {
@@ -420,14 +420,20 @@ void listFindNeighborsInRadius(List list,HashTable storeNeighbors,Vector q,int d
 // }
 
 void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List* confList,HashTable storeNeighbors,Vector q,int d,int id,int radius,int *assignCounter,int iteration){
+  // used at reverseAssignmentLSH to assign the vectors in to the clusters (clusters represented with hash tables)
   if(list==NULL){ return;}
   List temp=list;
   while(temp!=NULL){
     if(id==(temp->vector_ID)){
+        // check if vector has already been assigned at the same iteration in one cluster
         if(assignedToCluster(temp->v) && (getAssignedIteration(temp->v)==iteration)){
           int assignedCluster = getAssignedCluster(temp->v);
-          // if(assignedCluster==centroidIndex || (((int)getAssignedAtRadius(temp->v))!=radius)){
-          if(assignedCluster==centroidIndex || (((int)getAssignedAtRadius(temp->v))<-1)){
+          // then
+          // check if vector has already been assigned at the some cluster (check the centroid index)
+          // or if vector has already been assigned previously in cluster at a search with different radius
+          if(assignedCluster==centroidIndex || (((int)getAssignedAtRadius(temp->v))!=radius)){
+          // if(assignedCluster==centroidIndex || (((int)getAssignedAtRadius(temp->v))<-1)){
+            // ok, then skip it
             temp=temp->next;
             continue;
           }else{
@@ -441,6 +447,7 @@ void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List* confL
         }else{
           double dist = distance_metric(temp->v,q,d);
           if(dist<=radius){
+            // ok, then there is conflict (vector seems be assigned in more than 1 cluster)
             htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
             setAssignedCluster(temp->v,centroidIndex);
             setAssignedIteration(temp->v,iteration);
@@ -455,6 +462,7 @@ void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List* confL
 }
 
 void listFindNeighborsInRadiusClusteringCube(List list,int centroidIndex,List* confList,HashTable storeNeighbors,Vector q,int d,double radius,int *numOfSearched,int maxToSearch,int *assignCounter,int iteration){
+  // used at reverseAssignmentHypercube to assign the vectors in to the clusters (clusters represented with hash tables)
   if(list==NULL){ return;}
   List temp=list;
   int count=0;
@@ -471,8 +479,8 @@ void listFindNeighborsInRadiusClusteringCube(List list,int centroidIndex,List* c
           // then
           // check if vector has already been assigned at the some cluster (check the centroid index)
           // or if vector has already been assigned previously in cluster at a search with different radius
-          if(assignedCluster==centroidIndex || (getAssignedAtRadius(temp->v)<-1.0 )){
-          // if(assignedCluster==centroidIndex || (getAssignedAtRadius(temp->v)!=radius )){
+          // if(assignedCluster==centroidIndex || (getAssignedAtRadius(temp->v)<-1.0 )){
+          if(assignedCluster==centroidIndex || (getAssignedAtRadius(temp->v)!=radius )){
             // ok, then skip it
             temp=temp->next;
             continue;
@@ -498,20 +506,28 @@ void listFindNeighborsInRadiusClusteringCube(List list,int centroidIndex,List* c
 }
 
 void listSolveRangeConflicts(List conflictList,HashTable *clustersHt,Vector *clusters,int numOfClusters,int d,int iteration){
+  // used to solve the conflicts for all vectors that has been inserted in the given list
+  // more specifically these vectors has been assigned in more than one clusters previously at range search,
+  // so let's find the cluster that really belongs these vectors with the help of Euclidean Distance
   if(conflictList==NULL){ return;}
   List temp=conflictList;
   int count = 0;
-  int countreal =0;
+  int countReal =0;
   while(temp!=NULL){
     count++;
+    // check if the conflict vector has already been "solved" (at this case negative radius has been assigned)
     if(getAssignedAtRadius(temp->v)<-1.0){
+      // then skip it
       temp=temp->next;
       continue;
     }
-    countreal++;
+    // let's solve the conflict and assign the vector at the "correct" cluster based on euclidean distance
+    countReal++;
+    // first delete it from the already assigned cluster
     htRangeDelete(clustersHt[getAssignedCluster(temp->v)],temp->v,temp->vector_ID,d);
     double minDist = DBL_MAX;
     int closestCentroid = -1;
+    // and find the closest centroid based on euclidean distance
     for(int i=0;i<numOfClusters;i++){
       double dist = distance_metric(temp->v,clusters[i],d);
       if(dist<minDist){
@@ -519,16 +535,17 @@ void listSolveRangeConflicts(List conflictList,HashTable *clustersHt,Vector *clu
         closestCentroid = i;
       }
     }
+    // closest centroid found, insert the vector at the corresponding cluster
     htRangeInsert(clustersHt[closestCentroid],temp->v,temp->vector_ID,d);
     setAssignedCluster(temp->v,closestCentroid);
     setAssignedAtRadius(temp->v,-3.0);
     setAssignedIteration(temp->v,iteration);
     temp=temp->next;
-
+    // go to the next one
   }
 
   printf("--- COUNFLICTS == %d\n",count);
-  printf("--- REAL COUNFLICTS == %d\n",countreal);
+  printf("--- REAL COUNFLICTS == %d\n",countReal);
 
 }
 
@@ -550,28 +567,30 @@ void listFindNeighborsInRadiusCube(List list,HashTable storeNeighbors,Vector q,i
 
 
 Vector listMeanOfCluster(List list,int d){
+  // used to find/calculate the mean vector of one cluster (cluster is the given list)
   if(list==NULL) return NULL;
   List temp = list;
   int count=0;
   double *sumDims=calloc(d,sizeof(double));
   while(temp!=NULL){
     for(int i=0;i<d;i++){
-      sumDims[i]+=getCoords(temp->v)[i];
+      sumDims[i]+=getCoords(temp->v)[i]; // add up all the coordinates of the cluster vectors
     }
     count++;
     temp=temp->next;
   }
   for(int i=0;i<d;i++){
-    sumDims[i]/=(double)count;
+    sumDims[i]/=(double)count; // divide the coordinates with the
   }
-
+  // finally create the mean vector
   Vector newCentroid  = initVector(sumDims,"tempCentroid");
   free(sumDims);
-
+  // and return it
   return newCentroid;
 }
 
 double *listSumOfVectors(List list,int d,int *count){
+  // used to calculate the sum of vectors at one cluster (cluster is the given list)
   if(list==NULL) return NULL;
   List temp = list;
   double *sumDims=calloc(d,sizeof(double));
@@ -587,6 +606,7 @@ double *listSumOfVectors(List list,int d,int *count){
 
 
 int closestCentroid(Vector v,Vector *clusters,int numOfClusters,int d,int except){
+  // used to find for the given vector the closest centroid based on euclidean distance
   int minDistIndex = -1;
   double minDist = DBL_MAX;
   for(int i=0;i<numOfClusters;i++){
@@ -601,6 +621,7 @@ int closestCentroid(Vector v,Vector *clusters,int numOfClusters,int d,int except
 }
 
 double listFindSumOfDistancesOfVector(List list,Vector v,int *count,int d){
+  // used to find the sum of distances from the given vector to vectors of one cluster (cluster is the given list)
   if(list==NULL) return 0.0;
   List temp = list;
   double tempSum = 0.0;
@@ -614,6 +635,7 @@ double listFindSumOfDistancesOfVector(List list,Vector v,int *count,int d){
 }
 
 void listComputeAverageDistOfEveryPointOfCluster(List *listArray,int arraySize,HashTable *clustersHt,int current_cluster,Vector *clusters,int numOfClusters,double *a,double *b,int *count,int d){
+  // used to compute a(i) and b(i) for the silhouette of each cluster at reverseAssignmentLSH and reverseAssignmentHypercube Algorithms
   for(int i=0;i<arraySize;i++){
     List temp = listArray[i];
     while(temp!=NULL){
@@ -630,6 +652,7 @@ void listComputeAverageDistOfEveryPointOfCluster(List *listArray,int arraySize,H
 
 
 double listFindAverageDistOfVector(List list,Vector v,int d){
+  // used to compute average distance of given vector in the given cluster (list)
   if(list==NULL) return 0.0;
   List temp = list;
   double tempSum = 0.0;
@@ -645,6 +668,7 @@ double listFindAverageDistOfVector(List list,Vector v,int d){
 }
 
 void listComputeAverageDistOfEveryPointOfClusterLloyds(List list,List *clustersLists,int current_cluster,Vector *clusters,int numOfClusters,double *a,double *b,int *count,int d){
+  // used to compute compute a(i) and b(i) for the silhouette of each cluster at Lloyds Algorithm
     List temp = list;
     while(temp!=NULL){
       // a(i) = average distance of i to objects in same cluster
@@ -659,6 +683,7 @@ void listComputeAverageDistOfEveryPointOfClusterLloyds(List list,List *clustersL
 
 
 double silhouetteofClusterLloyds(List *clustersLists,Vector *clusters,int current_cluster,int numOfClusters,int numOfVectorsInCluster,int d,double *stotal){
+  // used to find the silhouettes of each clusters (clusters given in a array of lists)
   // a(i) = average distance of i to objects in same cluster
   // b(i) = average distance of i to objects in next best (neighbor) cluster
   double *a = calloc(sizeof(double),numOfVectorsInCluster);

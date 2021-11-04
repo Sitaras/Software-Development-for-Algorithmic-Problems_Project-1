@@ -27,24 +27,29 @@ extern int complete;
 
 
 void lloyds(Vector* clusters,Vector *oldClusters,Vector* vectors,List* clustersList,int numberOfVectors,int numOfClusters,int *vectorCount,int *firstTime) {
-  if(*firstTime) //skip it for the first time
+  // lloyds Algorithm
+  if(*firstTime) // skip it for the first time (original centroids from the kmeansPlusPlus)
     for(int i=0;i<numOfClusters;i++){
       Vector newCenter;
-      if(clustersList[i]!=NULL){
+      if(clustersList[i]!=NULL){ // check if each cluster has been formed (has vectors)
+        // ok then find the new centroid for this cluster
         newCenter=listMeanOfCluster(clustersList[i],d);
       }
       else{
-        printVectorId(oldClusters[i]);
+        // this cluster hasn't been formed, let as centroid the previous one
         newCenter=copyVector(oldClusters[i]);
       }
+      // finally delete each cluster in order to form a new one based to the new centroid
       listDelete(clustersList[i],0);
       clustersList[i] = NULL;
-
+      // save the new centroid
       clusters[i]=newCenter;
     }
 
-  for(int i=0;i<numberOfVectors;i++){
+  for(int i=0;i<numberOfVectors;i++){ // for every vector
+    // find the closest centroid with the euclidean distance
     int closestCentroid = findClosestCentroid(vectors[i],clusters,numOfClusters);
+    // and assign this vector to the corresponding cluster
     vectorCount[closestCentroid] += 1;
     clustersList[closestCentroid] = listInsert(clustersList[closestCentroid],vectors[i],d);
   }
@@ -52,6 +57,7 @@ void lloyds(Vector* clusters,Vector *oldClusters,Vector* vectors,List* clustersL
 }
 
 double *silhouetteLloyds(List *clustersList,Vector *clusters,int numOfClusters,int *vectorCount,double *stotal){
+  // used to find the silhouettes of each cluster in Lloyds Algorithm
   double *silhouettes = calloc(sizeof(double),numOfClusters);
   for(int i=0;i<numOfClusters;i++){
     silhouettes[i] = silhouetteofClusterLloyds(clustersList,clusters,i,numOfClusters,vectorCount[i],d,stotal);
@@ -67,8 +73,8 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
   int *vectorCount;
 
   vectors = transformListToArray(vecList,numOfVecs);
-  clusters = malloc(numOfClusters*sizeof(Vector));
-  oldClusters = malloc(numOfClusters*sizeof(Vector));
+  clusters = malloc(numOfClusters*sizeof(Vector)); // used to store the new centroids
+  oldClusters = malloc(numOfClusters*sizeof(Vector)); // used to store the old centroids
 
   for(int i=0;i<numOfClusters;i++){
     clusters[i] = NULL;
@@ -79,18 +85,19 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
 
   clock_t cluster_start = clock();
 
+  // find the original centroids with the kmeans++ Algorithm
   kmeansplusplus(vectors,numOfClusters,clusters,props);
 
   int firstIter = TRUE;
 
-  //lloyds
-  List *clustersList=malloc(numOfClusters*sizeof(List *));
+  List *clustersList=malloc(numOfClusters*sizeof(List *)); // array of lists, each list represents a cluster that the vectors will be stored
   for(int i=0;i<numOfClusters;i++){
     clustersList[i]=initializeList();
   }
   int count=0;
   int firstTime=0;
-  while((count<2) || !centroidsConverge(clusters,oldClusters,numOfClusters,d)){
+  // lloyds Algorithm runs until convergence between the old cluster centroids and the new ones is achieved
+  while((count<2) || !centroidsConverge(clusters,oldClusters,numOfClusters,d)){ // check for convergence after the second one iteration
   // while(firstIter || count<20){
     printf("ITER %d\n",count);
     count++;
@@ -106,8 +113,7 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
         vectorCount[i] = 0;
       }
     }
-
-    //
+    // lloyds Algorithm
     lloyds(clusters,oldClusters,vectors,clustersList,numOfVecs,numOfClusters,vectorCount,&firstTime);
 
     firstIter=FALSE;
@@ -144,12 +150,13 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
     }
   }
 
-  // free clusters
+  // free the allocated space
   for(int i=0;i<numOfClusters;i++){
     listDelete(clustersList[i],0);
     deleteVector(oldClusters[i]);
     deleteVector(clusters[i]);
   }
+
   free(silhouettes);
   free(clusters);
   free(props);
@@ -161,45 +168,49 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
 
 void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldClusters,HashTable *clustersHt,int numOfClusters,int iteration,int *firstTime){
   printf("ITERATION WITH LSH %d\n",iteration);
-  if(*firstTime) //skip it for the first time
+  if(*firstTime) // skip it for the first time (original centroids from the kmeansPlusPlus)
     for(int i=0;i<numOfClusters;i++){
 
-      Vector newCenter = htMeanOfCluster(clustersHt[i],d);
-      if(newCenter==NULL){
+      Vector newCenter = htMeanOfCluster(clustersHt[i],d); // find the new centroid for every cluster
+      if(newCenter==NULL){ // this cluster hasn't been formed, let as centroid the previous one
         newCenter=copyVector(oldClusters[i]);
       }
-
+      // finally delete each cluster in order to form a new one based to the new centroid
       htDelete(clustersHt[i],0);
       clustersHt[i] = htInitialize(numOfVecs/(4*numOfClusters)); // TODO: CHANGE
-
+      // save the new centroid
       clusters[i]=newCenter;
     }
   double radius=DBL_MAX;
+  // find the min distance between the centroids in order to initialize the radius for the range search
   minDistbetweenCentroids(clusters,numOfClusters,&radius);
   radius/=2;
   int assignCounter = 0;
   int previousAssigns = -1;
   int loopCounter = 0;
-  while((double)assignCounter<(0.8*numOfVecs) && loopCounter<MAX_RECENTER_ITERATIONS){ // stop when the 80% of vectors has a cluster (do it with global var)
-    if(assignCounter==previousAssigns && assignCounter!=0 && loopCounter>5){
+  while((double)assignCounter<(0.8*numOfVecs) && loopCounter<MAX_RECENTER_ITERATIONS){ // stop when the 80% of vectors have been assigned in to the clusters
+    if(assignCounter==previousAssigns && assignCounter!=0 && loopCounter>5){ // or stop when the assigns number stays some with the previous one for more than 5 iterations
       break;
     }
     previousAssigns = assignCounter;
     printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
-    List confList=initializeList();
+    List confList=initializeList(); // list that used to store the vectors that in range search assigned at more than one cluster
+    // assign each vector to the corresponding cluster with the help of range search
     for(int i=0;i<numOfClusters;i++){
       radiusNeigborsClustering(lsh,clusters[i],radius,clustersHt[i],i,&confList,&assignCounter,iteration);
     }
+    // manage the vectors that presenting conflict
     listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d,iteration);
     printf("---- ASSINGED ITEMS = %d\n",assignCounter);
-    // manage the conflicts
     if(confList==NULL)
       printf("- NO CONFLICTS FOUND\n");
     listDelete(confList,0);
-    radius*=2;
+    radius*=2; // doubled the radius for the next range search
     loopCounter++;
   }
   int remainderCounter = 0;
+  // finally one big percentage of vectors has been assigned into clusters
+  // the remaining vectors will be assigned based on the nearest centroid at the corresponding cluster
   if(assignCounter<numOfVecs){
     for(int i=0;i<numOfVecs;i++){
       if(assignedToCluster(vectors[i]) && (getAssignedIteration(vectors[i])==iteration)){
@@ -219,6 +230,7 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
 
 
 double *silhouetteLSH_Hypercube(HashTable *clustersHt,Vector *clusters,int numOfClusters,double *stotal){
+    // used to find the silhouettes of each cluster in reverseAssignmentHypercube
   double *silhouettes = calloc(sizeof(double),numOfClusters);
   for(int i=0;i<numOfClusters;i++){
     silhouettes[i] = silhouetteofClusterLSH(clustersHt,clusters,i,numOfClusters,d,stotal);
@@ -231,19 +243,20 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
   Vector *clusters;
   Vector *oldClusters = NULL;
   double *props;
-  HashTable *clustersHt=malloc(numOfClusters*sizeof(HashTable *));
+  HashTable *clustersHt=malloc(numOfClusters*sizeof(HashTable *)); // array of hash tables each hash table represents a cluster that the vectors will be stored
   for(int i=0;i<numOfClusters;i++){
     clustersHt[i]= htInitialize(numOfVecs/(4*numOfClusters)); // TODO: CHANGE SIZE
   }
   vectors = transformListToArray(vecList,numOfVecs);
-  clusters = malloc(numOfClusters*sizeof(Vector));
-  oldClusters = malloc(numOfClusters*sizeof(Vector));
+  clusters = malloc(numOfClusters*sizeof(Vector)); // used to store the new centroids
+  oldClusters = malloc(numOfClusters*sizeof(Vector)); // used to store the old centroids
   for(int i=0;i<numOfClusters;i++){
     clusters[i]=NULL;
     oldClusters[i]=NULL;
   }
   props = calloc(numOfVecs,sizeof(double));
 
+  // allocate and initialize the LSH with the vectors tha will be inserted into clusters
   hashTableSize=numOfVecs/32;
   LSH lsh = initializeLSH(l);
   for(int i=0;i<numOfVecs;i++){
@@ -253,17 +266,14 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
 
 
   clock_t cluster_start = clock();
-
+  // find the original centroids with the kmeans++ Algorithm
   kmeansplusplus(vectors,numOfClusters,clusters,props);
-  // for(int i=0;i<numOfClusters;i++){
-  //   printf("- CLUSTER :%d\n",i);
-  //   printVector(clusters[i]);
-  // }
 
   int firstIterLSH = TRUE;
   int countLSH=0;
   int firstTime=0;
-  while((countLSH<2) || !centroidsConverge(clusters,oldClusters,numOfClusters,d)){
+  // reverseAssignmentLSH Algorithm runs until convergence between the old cluster centroids and the new ones is achieved
+  while((countLSH<2) || !centroidsConverge(clusters,oldClusters,numOfClusters,d)){ // check for convergence after the second one iteration
     if(countLSH==MAX_RECENTER_ITERATIONS)
       break;
   // while(firstIter || count<20){
@@ -280,7 +290,7 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
       }
     }
 
-    //
+    // reverseAssignmentLSH Algorithm
     reverseAssignmentLSH(lsh,vectors,clusters,oldClusters,clustersHt,numOfClusters,countLSH,&firstTime);
 
     firstIterLSH=FALSE;
@@ -318,6 +328,7 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
     }
   }
 
+  // free the allocated space
   for(int i=0;i<numOfClusters;i++){
     if(oldClusters[i]!=NULL)
       deleteVector(oldClusters[i]);
@@ -337,47 +348,51 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
 
 void reverseAssignmentHypercube(HyperCube cube,Vector *vectors,Vector *clusters,Vector *oldClusters,HashTable *clustersHt,int numOfClusters,int iteration,int m,int probes,int *firstTime){
   printf("ITERATION WITH HYPERCUBE %d\n",iteration);
-  if(*firstTime) //skip it for the first time
+  if(*firstTime) // skip it for the first time (original centroids from the kmeansPlusPlus)
     for(int i=0;i<numOfClusters;i++){
 
-      Vector newCenter = htMeanOfCluster(clustersHt[i],d);
-      if(newCenter==NULL){
+      Vector newCenter = htMeanOfCluster(clustersHt[i],d); // find the new centroid for every cluster
+      if(newCenter==NULL){ // this cluster hasn't been formed, let as centroid the previous one
         newCenter=copyVector(oldClusters[i]);
       }
-
+        // finally delete each cluster in order to form a new one based to the new centroid
       htDelete(clustersHt[i],0);
       clustersHt[i] = htInitialize(numOfVecs/(4*numOfClusters));
-
+      // save the new centroid
       clusters[i]=newCenter;
     }
   double radius=DBL_MAX;
+  // find the min distance between the centroids in order to initialize the radius for the range search
   minDistbetweenCentroids(clusters,numOfClusters,&radius);
   radius/=2;
   int assignCounter = 0;
   int previousAssigns = -1;
   int loopCounter = 0;
-  while((double)assignCounter<(0.8*numOfVecs) && loopCounter<MAX_RECENTER_ITERATIONS){ // stop when the 80% of vectors has a cluster (do it with global var)
-    if(assignCounter==previousAssigns && assignCounter!=0){
+  while((double)assignCounter<(0.8*numOfVecs) && loopCounter<MAX_RECENTER_ITERATIONS){ // stop when the 80% of vectors have been assigned in to the clusters
+    if(assignCounter==previousAssigns && assignCounter!=0){ // or stop when the assigns number stays some with the previous one for more than 5 iterations
       break;
     }
 
     previousAssigns = assignCounter;
     printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
-    List confList=initializeList();
+    List confList=initializeList(); // list that used to store the vectors that in range search assigned at more than one cluster
+    // assign each vector to the corresponding cluster with the help of range search
     for(int i=0;i<numOfClusters;i++){
       radiusNeigborHypercubeClustering(cube,clusters[i],clustersHt[i],radius,probes,m,i,&confList,&assignCounter,iteration);
       printf("******* ---- ASSINGED ITEMS = %d | Cluster %d\n",assignCounter,i+1);
     }
+    // manage the vectors that presenting conflict
     listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d,iteration);
     printf("---- ASSINGED ITEMS = %d\n",assignCounter);
-    // manage the conflicts
     if(confList==NULL)
       printf("- NO CONFLICTS FOUND\n");
     listDelete(confList,0);
-    radius*=2;
+    radius*=2; // doubled the radius for the next range search
     loopCounter++;
   }
   int remainderCounter = 0;
+  // finally one big percentage of vectors has been assigned into clusters
+  // the remaining vectors will be assigned based on the nearest centroid at the corresponding cluster
   if(assignCounter<numOfVecs){
     for(int i=0;i<numOfVecs;i++){
       if(assignedToCluster(vectors[i]) && (getAssignedIteration(vectors[i])==iteration)){
@@ -401,19 +416,20 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
   Vector *clusters;
   Vector *oldClusters = NULL;
   double *props;
-  HashTable *clustersHt=malloc(numOfClusters*sizeof(HashTable *));
+  HashTable *clustersHt=malloc(numOfClusters*sizeof(HashTable *)); // array of hash tables each hash table represents a cluster that the vectors will be stored
   for(int i=0;i<numOfClusters;i++){
     clustersHt[i]= htInitialize(numOfVecs/(4*numOfClusters)); // TODO: CHANGE SIZE
   }
   vectors = transformListToArray(vecList,numOfVecs);
-  clusters = malloc(numOfClusters*sizeof(Vector));
-  oldClusters = malloc(numOfClusters*sizeof(Vector));
+  clusters = malloc(numOfClusters*sizeof(Vector)); // used to store the new centroids
+  oldClusters = malloc(numOfClusters*sizeof(Vector)); // used to store the old centroids
   for(int i=0;i<numOfClusters;i++){
     clusters[i]=NULL;
     oldClusters[i]=NULL;
   }
   props = calloc(numOfVecs,sizeof(double));
 
+  // allocate and initialize the Hypercube with the vectors tha will be inserted into clusters
   hashTableSize=numOfVecs/16;
   HyperCube cube = initializeHyperCube();
   for(int i=0;i<numOfVecs;i++){
@@ -422,16 +438,13 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
   }
 
   clock_t cluster_start = clock();
-
+  // find the original centroids with the kmeans++ Algorithm
   kmeansplusplus(vectors,numOfClusters,clusters,props);
-  // for(int i=0;i<numOfClusters;i++){
-  //   printf("- CLUSTER :%d\n",i);
-  //   printVector(clusters[i]);
-  // }
 
   int firstIterLSH = TRUE;
   int countLSH=0;
   int firstTime=0;
+  // reverseAssignmentHypercube Algorithm runs until convergence between the old cluster centroids and the new ones is achieved
   while((countLSH<2) || !centroidsConverge(clusters,oldClusters,numOfClusters,d)){
     if(countLSH==MAX_RECENTER_ITERATIONS)
       break;
@@ -449,7 +462,7 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
       }
     }
 
-    //
+    // reverseAssignmentHypercube Algorithm
     reverseAssignmentHypercube(cube,vectors,clusters,oldClusters,clustersHt,numOfClusters,countLSH,m,probes,&firstTime);
 
     firstIterLSH=FALSE;
@@ -487,7 +500,7 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
       fprintf(fptr,"}\n\n");
     }
   }
-
+  // free the allocated space
   for(int i=0;i<numOfClusters;i++){
     if(oldClusters[i]!=NULL)
       deleteVector(oldClusters[i]);

@@ -31,7 +31,6 @@ int existsInArray(int *array,int check,int arraySize){
 
 
 void minDistToCentroids(Vector v,Vector* vecs,Vector *clusters,int numOfClusters,double *minDistance){
-
   for(int i=0;i<numOfClusters;i++){
     if(clusters[i]==NULL){
       break;
@@ -44,7 +43,6 @@ void minDistToCentroids(Vector v,Vector* vecs,Vector *clusters,int numOfClusters
 }
 
 void minDistbetweenCentroids(Vector *centroids,int numOfClusters,double *minDistance){
-  // can be impoved
   for(int i=0;i<numOfClusters;i++){
     if(centroids[i]==NULL){
       break;
