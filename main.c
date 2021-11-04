@@ -123,19 +123,23 @@ int main(int argc, char *argv[])  {
 
   LSH lsh;
   List list;
+  int repeat=1;
   while(1){
-    d = findDim(inputFile);
-    printf("DIMENSION = %d\n",d);
-    list = initializeList();
-    int numberOfVectorsInFile = 0;
-    readFile(inputFile,&list,&numberOfVectorsInFile);
-    printf("Number of vectors in input file: %d\n",numberOfVectorsInFile);
-    hashTableSize=numberOfVectorsInFile/8;
+    if(repeat){
+      d = findDim(inputFile);
+      printf("DIMENSION = %d\n",d);
+      list = initializeList();
+      int numberOfVectorsInFile = 0;
+      readFile(inputFile,&list,&numberOfVectorsInFile);
+      printf("Number of vectors in input file: %d\n",numberOfVectorsInFile);
+      hashTableSize=numberOfVectorsInFile/8;
 
 
-    lsh = initializeLSH(l);
-    insertFromListToLSH(list,lsh);
-    readQueryFile(queryFile,outputFile,lsh,list,n,radius);
+      lsh = initializeLSH(l);
+      insertFromListToLSH(list,lsh);
+      readQueryFile(queryFile,outputFile,lsh,list,n,radius);
+    }
+    repeat=0;
 
     printOptions(); // just printing the commands options for the user
 
@@ -149,6 +153,7 @@ int main(int argc, char *argv[])  {
       exit(1);
     }
     else if(strstr(str, "/repeat") != NULL) {
+      repeat=1;
       sscanf(str,"%s %s\n",command,inputFile);
       printf("FILE: %s\n",inputFile);
       destroyLSH(lsh);

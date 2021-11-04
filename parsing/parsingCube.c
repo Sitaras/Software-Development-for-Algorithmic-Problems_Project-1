@@ -94,7 +94,6 @@ void readFile(char* fileName,HyperCube hc,List *inputs){
     }
     double vec[d];
     char * token = strtok(buffer, " ");
-    // printf("NAME = %s\n",token);
     char name[MAX_INPUT_LENGTH];
     strcpy(name,token);
     name[strlen(name)]='\0';
@@ -159,6 +158,7 @@ void readQueryFile(char* queryFile,char* outputFile,HyperCube hc,List inputs,int
 
     int id;
     char * token = strtok(buffer, " ");
+    printf("ID = %s\n",token);
     id=atoi(token);
     char name[MAX_INPUT_LENGTH];
     strcpy(name,token);

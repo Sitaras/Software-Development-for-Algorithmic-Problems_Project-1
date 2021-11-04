@@ -129,18 +129,22 @@ int main(int argc, char *argv[]) {
 
   HyperCube hc;
   List list;
+  int repeat=1;
+  char command[200];
   while(1){
-    d = findDim(inputFile);
-    printf("DIMENSION = %d\n",d);
-    hc = initializeHyperCube();
-    list = initializeList();
-    readFile(inputFile,hc,&list);
-    readQueryFile(queryFile,outputFile,hc,list,n,r,2,m);
+    if(repeat){
+      d = findDim(inputFile);
+      printf("DIMENSION = %d\n",d);
+      hc = initializeHyperCube();
+      list = initializeList();
+      readFile(inputFile,hc,&list);
+      readQueryFile(queryFile,outputFile,hc,list,n,r,2,m);
+    }
 
+    repeat=0;
     printOptions(); // just printing the commands options for the user
 
 
-    char command[200];
 
     printf("\n");
     printf(">Enter a command: ");
@@ -150,6 +154,7 @@ int main(int argc, char *argv[]) {
       exit(1);
     }
     else if(strstr(str, "/repeat") != NULL) {
+      repeat=1;
       sscanf(str,"%s %s\n",command,inputFile);
       printf("FILE: %s\n",inputFile);
       deleteHyperCube(hc);

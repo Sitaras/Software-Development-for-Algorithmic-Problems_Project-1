@@ -130,25 +130,29 @@ int main(int argc, char *argv[]) {
 
   FILE* fptr;
   List list;
+  int repeat=1;
   while(1){
-    d = findDim(inputFile);
-    printf("DIMENSION = %d\n",d);
-    int numOfClusters=5,l=3,mHyper=10,probes=2;
-    new_dimension=3;
-    k_LSH=4;
-    w=8;
-    readConfFile(confFile,&numOfClusters,&l,&mHyper,&probes);
-    list = initializeList();
-    readFile(inputFile,&list,&numOfVecs);
+    if(repeat){
+      d = findDim(inputFile);
+      printf("DIMENSION = %d\n",d);
+      int numOfClusters=5,l=3,mHyper=10,probes=2;
+      new_dimension=3;
+      k_LSH=4;
+      w=8;
+      readConfFile(confFile,&numOfClusters,&l,&mHyper,&probes);
+      list = initializeList();
+      readFile(inputFile,&list,&numOfVecs);
 
-    fptr = fopen(outputFile, "w");
-    if(fptr == NULL){
-      /* File not created hence exit */
-      printf("Unable to create file.\n");
-      exit(EXIT_FAILURE);
+      fptr = fopen(outputFile, "w");
+      if(fptr == NULL){
+        /* File not created hence exit */
+        printf("Unable to create file.\n");
+        exit(EXIT_FAILURE);
+      }
+
+      clustering(list,fptr,method,numOfClusters,l,mHyper,probes);
     }
-
-    clustering(list,fptr,method,numOfClusters,l,mHyper,probes);
+    repeat=0;
 
 
     printOptions(); // just printing the commands options for the user
@@ -164,6 +168,7 @@ int main(int argc, char *argv[]) {
         exit(1);
       }
       else if(strstr(str, "/repeat") != NULL) {
+        int repeat=1;
         sscanf(str,"%s %s\n",command,inputFile);
         printf("FILE: %s\n",inputFile);
         if(strcmp(method,"LSH")==0 || strcmp(method,"HyperCube")==0)
