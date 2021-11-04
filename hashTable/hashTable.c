@@ -86,7 +86,7 @@ void htPrint(const HashTable ht){
 void htPrintClustering(const HashTable ht,FILE* fptr){
   for (int i=0;i<ht->buckets;i++){
     listPrintClusteringInFile(ht->table[i].head,fptr);
-    if(i!=ht->buckets-1)
+    if(i!=ht->buckets-1 && (ht->table[i].head!=NULL))
       fprintf(fptr,", ");
   }
   printf("\n\n");

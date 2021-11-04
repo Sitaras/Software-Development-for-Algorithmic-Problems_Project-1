@@ -244,7 +244,7 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
   }
   props = calloc(numOfVecs,sizeof(double));
 
-  hashTableSize=numOfVecs/16;
+  hashTableSize=numOfVecs/32;
   LSH lsh = initializeLSH(l);
   for(int i=0;i<numOfVecs;i++){
     initializeClusterInfo(vectors[i]);
@@ -366,7 +366,7 @@ void reverseAssignmentHypercube(HyperCube cube,Vector *vectors,Vector *clusters,
     List confList=initializeList();
     for(int i=0;i<numOfClusters;i++){
       radiusNeigborHypercubeClustering(cube,clusters[i],clustersHt[i],radius,probes,m,i,&confList,&assignCounter,iteration);
-      printf("******* ---- ASSINGED ITEMS = %d\n",assignCounter);
+      printf("******* ---- ASSINGED ITEMS = %d | Cluster %d\n",assignCounter,i+1);
     }
     listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d,iteration);
     printf("---- ASSINGED ITEMS = %d\n",assignCounter);
@@ -467,6 +467,7 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
 
   fprintf(fptr, "clustering_time: %f seconds\n",cluster_time);
   fflush(fptr);
+  fflush(stdout);
 
   printf("- COMPUTING SILHOUETTES FOR CLUSTERS\n");
   double stotal = 0.0;
