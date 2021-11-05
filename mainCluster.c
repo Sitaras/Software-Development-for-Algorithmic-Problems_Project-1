@@ -127,7 +127,7 @@ int main(int argc, char *argv[]) {
     sscanf(str,"%s\n",method);
     printf("Given method's name: %s\n", method);
   }
-
+  //
   FILE* fptr;
   List list;
   int repeat=1;
