@@ -81,13 +81,13 @@ void generateG(g_function *gfun){
   // allocate and generate as many variables r (r[i] are a random int ≤ 32 bits) as the functions h
   gfun->r = malloc(k_LSH*sizeof(int));
   for(int i=0;i<k_LSH;i++){
-    int temp = rand()%(1000);
+    int temp = (rand()%(10)) + 1;
     // if(rand()%2){
     //   temp*=-1;
     // }
      gfun->r[i]=temp;
   }
-  gfun->m=(UINT_MAX-4);
+  gfun->m=(INT_MAX-4);
 }
 
 void destroyG(g_function g){
@@ -109,9 +109,10 @@ int computeG(g_function gfun,Vector p,unsigned int *id){
     int h = computeH_LSH(gfun.h_functions[i],p);
 
     sum += mod_LLI_UI(gfun.r[i]*h,gfun.m);
+    // sum += gfun.r[i]*h;
   }
 
-  int temp_ID = mod_LLI_I(sum,hashTableSize);
+  int temp_ID = mod_LLI_I(sum,gfun.m);
   // int temp_ID = mod_LLI_I(sum,hashTableSize*2);
 
 
