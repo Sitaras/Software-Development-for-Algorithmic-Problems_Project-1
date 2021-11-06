@@ -133,7 +133,6 @@ LSH initializeLSH(int l){
   printf("*!*!**!*!* HASHSIZE = %d\n",hashTableSize);
   // generate G functions and initialize the correspodings hash tables
   for(int i=0;i<l;i++){
-    printf("------ L = %d\n",i);
      generateG(&(tempLSH->g_fun[i]));
      tempLSH->hts[i] = htInitialize(hashTableSize);
   }
