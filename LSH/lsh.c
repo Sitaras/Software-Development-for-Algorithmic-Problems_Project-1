@@ -87,7 +87,7 @@ void generateG(g_function *gfun){
     // }
      gfun->r[i]=temp;
   }
-  gfun->m=(INT_MAX-4);
+  gfun->m=(UINT_MAX-4);
 }
 
 void destroyG(g_function g){
@@ -107,12 +107,13 @@ int computeG(g_function gfun,Vector p,unsigned int *id){
   for(int i=0;i<k_LSH;i++){
     // sum += modUnsignedB(gfun.r[i]*computeH_LSH(gfun.h_functions[i],p),gfun.m);
     int h = computeH_LSH(gfun.h_functions[i],p);
+
     sum += mod_LLI_UI(gfun.r[i]*h,gfun.m);
   }
 
+  int temp_ID = mod_LLI_I(sum,hashTableSize);
+  // int temp_ID = mod_LLI_I(sum,hashTableSize*2);
 
-  int temp_ID = mod_LLI_I(sum,hashTableSize*2);
-  // unsigned int temp_ID = modUnsignedB(sum,gfun.m);
 
   // Store object ID along with pointer to object (Querying trick), for all bucket elements to avoid to compute g Euclidean distance for all vectors p in bucket
   // do it only for p which: ID(p) = ID(q)
@@ -132,6 +133,7 @@ LSH initializeLSH(int l){
   printf("*!*!**!*!* HASHSIZE = %d\n",hashTableSize);
   // generate G functions and initialize the correspodings hash tables
   for(int i=0;i<l;i++){
+    printf("------ L = %d\n",i);
      generateG(&(tempLSH->g_fun[i]));
      tempLSH->hts[i] = htInitialize(hashTableSize);
   }

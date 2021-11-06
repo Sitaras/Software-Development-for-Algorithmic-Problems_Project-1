@@ -136,7 +136,7 @@ int main(int argc, char *argv[])  {
       double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
       printf("Parsed input file in : %f seconds\n",time_spent);
       printf("Number of vectors in input file: %d\n",numberOfVectorsInFile);
-      hashTableSize=numberOfVectorsInFile/8;
+      hashTableSize=numberOfVectorsInFile/16;
 
       begin = clock();
       lsh = initializeLSH(l);
