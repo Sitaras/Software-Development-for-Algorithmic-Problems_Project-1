@@ -133,6 +133,7 @@ int main(int argc, char *argv[]) {
   int repeat=1;
   while(1){
     if(repeat){
+      clock_t begin = clock();
       d = findDim(inputFile);
       printf("DIMENSION = %d\n",d);
       int numOfClusters=5,l=3,mHyper=10,probes=2;
@@ -142,6 +143,10 @@ int main(int argc, char *argv[]) {
       readConfFile(confFile,&numOfClusters,&l,&mHyper,&probes);
       list = initializeList();
       readFile(inputFile,&list,&numOfVecs);
+      clock_t end = clock();
+      double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+      printf("Parsed input file in : %f seconds\n",time_spent);
+      printf("Number of vectors in input file: %d\n",numOfVecs);
 
       fptr = fopen(outputFile, "w");
       if(fptr == NULL){

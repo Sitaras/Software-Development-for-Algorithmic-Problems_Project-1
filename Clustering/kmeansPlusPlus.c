@@ -52,7 +52,6 @@ void kmeansplusplus(Vector* vecs,int numOfClusters,Vector* clusters,double *prop
   int selectFirstCluster = rand() % numOfVecs;
   selectedCluster[0] = selectFirstCluster;
   clusters[0] = copyVector(vecs[selectFirstCluster]);
-
   while(t<numOfClusters){ // until the wanted number of centroids found
     double maxDi = -1.0; // to store the max distance of the min ones
     for(int i = 0; i<numOfVecs;i++){
@@ -68,8 +67,8 @@ void kmeansplusplus(Vector* vecs,int numOfClusters,Vector* clusters,double *prop
         maxDi=minDist;
       }
     }
-    double p[numOfVecs-t]; // array to save the partial sums
-    int index[numOfVecs-t]; // array to save the indexes of the vecs[] array to match with the indexes of p[] array
+    double *p = malloc(sizeof(double)*(numOfVecs-t)); // array to save the partial sums
+    int *index= malloc(sizeof(int)*(numOfVecs-t));; // array to save the indexes of the vecs[] array to match with the indexes of p[] array
     p[0]=0.0;
     index[0]=0;
     double sum = 0;
@@ -87,5 +86,7 @@ void kmeansplusplus(Vector* vecs,int numOfClusters,Vector* clusters,double *prop
     int bin_index = binarySearchKmeans(x,p,numOfVecs-t); // find the corresponding index
     selectedCluster[t] = index[bin_index];
     clusters[t++] = copyVector(vecs[index[bin_index]]); // store the new centroid
+    free(p);
+    free(index);
   }
 }

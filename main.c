@@ -126,17 +126,24 @@ int main(int argc, char *argv[])  {
   int repeat=1;
   while(1){
     if(repeat){
+      clock_t begin = clock();
       d = findDim(inputFile);
       printf("DIMENSION = %d\n",d);
       list = initializeList();
       int numberOfVectorsInFile = 0;
       readFile(inputFile,&list,&numberOfVectorsInFile);
+      clock_t end = clock();
+      double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+      printf("Parsed input file in : %f seconds\n",time_spent);
       printf("Number of vectors in input file: %d\n",numberOfVectorsInFile);
       hashTableSize=numberOfVectorsInFile/8;
 
-
+      begin = clock();
       lsh = initializeLSH(l);
       insertFromListToLSH(list,lsh);
+      end = clock();
+      time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+      printf("Created LSH in : %f seconds\n",time_spent);
       readQueryFile(queryFile,outputFile,lsh,list,n,radius);
     }
     repeat=0;

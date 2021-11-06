@@ -225,6 +225,7 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
     double time_spent_radius = (double)(end_radius - begin_radius) / CLOCKS_PER_SEC;
       fprintf(fptr, "tRadiusSearch: %f seconds\n\n\n",time_spent_radius);
      deleteVector(vecTmp);
+     break;
   }
   fclose(fptr);
   fclose(file);

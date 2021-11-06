@@ -81,10 +81,10 @@ void generateG(g_function *gfun){
   // allocate and generate as many variables r (r[i] are a random int ≤ 32 bits) as the functions h
   gfun->r = malloc(k_LSH*sizeof(int));
   for(int i=0;i<k_LSH;i++){
-    int temp = rand()%(RAND_MAX);
-    if(rand()%2){
-      temp*=-1;
-    }
+    int temp = rand()%(1000);
+    // if(rand()%2){
+    //   temp*=-1;
+    // }
      gfun->r[i]=temp;
   }
   gfun->m=(INT_MAX-4);
@@ -107,16 +107,17 @@ int computeG(g_function gfun,Vector p,unsigned int *id){
   for(int i=0;i<k_LSH;i++){
     // sum += modUnsignedB(gfun.r[i]*computeH_LSH(gfun.h_functions[i],p),gfun.m);
     int h = computeH_LSH(gfun.h_functions[i],p);
-    sum += modUnsignedB(gfun.r[i]*h,gfun.m);
+    sum += mod_LLI_UI(gfun.r[i]*h,gfun.m);
   }
 
-  int temp_ID = modUnsignedB(sum,hashTableSize);
+
+  int temp_ID = mod_LLI_I(sum,hashTableSize*2);
   // unsigned int temp_ID = modUnsignedB(sum,gfun.m);
 
   // Store object ID along with pointer to object (Querying trick), for all bucket elements to avoid to compute g Euclidean distance for all vectors p in bucket
   // do it only for p which: ID(p) = ID(q)
   (*id) = temp_ID;
-  return modUnsignedB(temp_ID,hashTableSize);
+  return mod_Int_Int(temp_ID,hashTableSize);
 }
 
 

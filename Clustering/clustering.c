@@ -17,7 +17,7 @@
 
 #define TRUE 1
 #define FALSE 0
-#define MAX_RECENTER_ITERATIONS 30
+#define MAX_RECENTER_ITERATIONS 15
 
 extern int numOfVecs;
 extern int d;
@@ -198,10 +198,11 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
     // assign each vector to the corresponding cluster with the help of range search
     for(int i=0;i<numOfClusters;i++){
       radiusNeigborsClustering(lsh,clusters[i],radius,clustersHt[i],i,&confList,&assignCounter,iteration);
+      printf("---- ASSINGED ITEMS = %d\n",assignCounter);
     }
     // manage the vectors that presenting conflict
     listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d,iteration);
-    printf("---- ASSINGED ITEMS = %d\n",assignCounter);
+    printf("---- FINAL ASSINGED ITEMS = %d\n",assignCounter);
     if(confList==NULL)
       printf("- NO CONFLICTS FOUND\n");
     listDelete(confList,0);
@@ -257,17 +258,27 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
   props = calloc(numOfVecs,sizeof(double));
 
   // allocate and initialize the LSH with the vectors tha will be inserted into clusters
-  hashTableSize=numOfVecs/32;
+  if(numOfVecs>1000){
+    hashTableSize = (int)(numOfVecs*0.005);
+  }else{
+    hashTableSize=numOfVecs/32;
+  }
+  clock_t begin = clock();
   LSH lsh = initializeLSH(l);
   for(int i=0;i<numOfVecs;i++){
     initializeClusterInfo(vectors[i]);
     insertToLSH(lsh,vectors[i]);
   }
+  clock_t end = clock();
+  double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+  printf("Created LSH in : %f seconds\n",time_spent);
 
 
   clock_t cluster_start = clock();
   // find the original centroids with the kmeans++ Algorithm
   kmeansplusplus(vectors,numOfClusters,clusters,props);
+
+  printf("Initialized clusters with Kmeans++\n");
 
   int firstIterLSH = TRUE;
   int countLSH=0;
@@ -308,6 +319,7 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
 
   fprintf(fptr, "clustering_time: %f seconds\n",cluster_time);
   fflush(fptr);
+  fflush(stdout);
 
   printf("- COMPUTING SILHOUETTES FOR CLUSTERS\n");
   double stotal = 0.0;

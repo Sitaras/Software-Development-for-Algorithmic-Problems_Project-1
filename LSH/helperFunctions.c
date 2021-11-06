@@ -34,16 +34,20 @@ double dot_product(double *v, double *u,int d){
   return result;
 }
 
-int mod(int a, int b){
-  if(b<0)
-    return -mod(-a,-b);
+int mod_Int_Int(int a, int b){
   int r = a % b;
   int result = (r < 0) ? (r + b) : r;
   return result;
 }
 
-unsigned int modUnsignedB(long long int a, unsigned int b){
+long long int mod_LLI_UI(long long int a, unsigned int b){
   long long  int r = a % b;
-  unsigned int result = (r < 0) ? (r + b) : r;
+  long long int result = (r < 0) ? (r + b) : r;
+  return result;
+}
+
+long long int mod_LLI_I(long long int a,int b){
+  long long  int r = a % b;
+  long long int result = (r < 0) ? (r + b) : r;
   return result;
 }

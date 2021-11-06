@@ -7,8 +7,10 @@ double normalRandom();
 
 double dot_product(double *, double *,int );
 
-int mod(int , int );
+int mod_Int_Int(int , int );
 
-int modUnsignedB(unsigned int , unsigned int );
+long long int mod_LLI_UI(long long int , unsigned int );
+
+long long int mod_LLI_I(long long int ,int );
 
 #endif

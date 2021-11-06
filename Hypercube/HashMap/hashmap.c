@@ -101,7 +101,7 @@ void hmResizeInsert(HashMap ht,Record rec){
   // in this way no extra allocation are done during the resize of the hash table
 
   // int index=hash(ht,rec->citizenId);
-  int index = mod(rec->key,ht->size);
+  int index = mod_Int_Int(rec->key,ht->size);
   Record slot=ht->table[index];
   if(slot==NULL){   //no collitions
     ht->table[index]=rec; //insert it to the hash table, as the first (and only) node of the list in this "Bucket"
@@ -129,7 +129,7 @@ Record hmSearchOrInsert(HashMap ht,Key key,Value value){
   if((double)(ht->count)>(0.9*((double)((ht->size))))){ // if the hash table is 90% full, resize it in order to keep the search/insert O(1)
       hmResize(ht);
   }
-  int index = mod(key,ht->size);
+  int index = mod_Int_Int(key,ht->size);
   Record slot=ht->table[index];  // get the overflow list of this bucket
   if(slot==NULL){   //no collitions so just insert the node with the citizen
     Record newnode=newNode(key,value);     //create the node of the hashTable list that contains the given citizen
@@ -155,7 +155,7 @@ Record hmSearchOrInsert(HashMap ht,Key key,Value value){
 
 Record hmSearch(HashMap ht,Key key){
   // int index=hash(ht,citizenId);   //find in wich bucket the citizen should be (using hash function)
-  int index = mod(key,ht->size);
+  int index = mod_Int_Int(key,ht->size);
   Record slot=ht->table[index];    //go to this "bucket"
   if(slot==NULL){   //no citizen exists in this slot, so it is sure that citizenId does not exist in the hash table
     return NULL;
