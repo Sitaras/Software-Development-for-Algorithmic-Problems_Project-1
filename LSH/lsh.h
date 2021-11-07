@@ -10,7 +10,7 @@ void insertFromListToLSH(List ,LSH );
 void printLSH(LSH );
 void destroyLSH(LSH );
 
-void nearestNeigborLSH(LSH ,Vector,FILE* );
+void nearestNeigborLSH(LSH ,Vector,double *,FILE* );
 void kNearestNeighborsLSH(LSH, Vector,int,double *,FILE*);
 void radiusNeigborsLSH(LSH ,Vector ,double,FILE* );
 void radiusNeigborsClustering(LSH ,Vector ,double ,HashTable ,int ,List* ,int *,int );

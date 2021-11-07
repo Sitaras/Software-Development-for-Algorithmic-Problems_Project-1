@@ -49,12 +49,10 @@ int countWords(char *str){
 // returns number of words in str
 int countWords2(char *str){
     char * token = strtok(str, " ");
-    // printf("NAME = %s\n",token);
     token = strtok(NULL, " ");
      // loop through the string to extract all other tokens
      int counter = 0;
      while( token != NULL ) {
-        // printf( " - %s\n", token ); //printing each token
         counter++;
         token = strtok(NULL, " ");
      }
@@ -165,9 +163,7 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
 
 
   char buffer[MAX_INPUT_LENGTH];
-  Vector nearest=NULL;
   Vector nNearest[n];
-  double nearestDist=-1;
   double knearestDists[n];
   double vec[d];
 
@@ -201,16 +197,20 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
 
      clock_t begin_true = clock();
      // find with the classic method the k nearest neighbor and write these at the given file for the corresponding query vector
-     listFindKNearestNeighbors(inputs,vecTmp,nNearest,knearestDists,d,n,-1);
-
-
+     if(n==1)
+        listFindNearestNeighbor(inputs,vecTmp,nNearest,knearestDists,d,-1);
+     else
+        listFindKNearestNeighbors(inputs,vecTmp,nNearest,knearestDists,d,n,-1);
 
      clock_t end_true = clock();
      double time_spent_true = (double)(end_true - begin_true) / CLOCKS_PER_SEC;
 
      clock_t begin_lsh = clock();
      // find with the help of LSH the k nearest neighbor and write these at the given file for the corresponding query vector
-     kNearestNeighborsLSH(lsh, vecTmp,n,knearestDists,fptr);
+     if(n==1)
+        nearestNeigborLSH(lsh,vecTmp,knearestDists,fptr);
+     else
+        kNearestNeighborsLSH(lsh,vecTmp,n,knearestDists,fptr);
 
      clock_t end_lsh = clock();
      double time_spent_lsh = (double)(end_lsh - begin_lsh) / CLOCKS_PER_SEC;

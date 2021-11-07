@@ -131,7 +131,7 @@ LSH initializeLSH(int l){
   tempLSH->g_fun = malloc(l*sizeof(g_function));
   // allocate the hash tables that the LSH need
   tempLSH->hts = malloc(l*sizeof(HashTable));
-  printf("*!*!**!*!* HASHSIZE = %d\n",hashTableSize);
+  printf("-HASHSIZE = %d\n",hashTableSize);
   // generate G functions and initialize the correspodings hash tables
   for(int i=0;i<l;i++){
      generateG(&(tempLSH->g_fun[i]));
@@ -147,18 +147,12 @@ void insertToLSH(LSH lsh,Vector v){
   // insert the given vector in all LSΗ hash tables
   // the bucket of the hash table that the vector will be inserted depends from the corresponding g function of the specific hash Table (hash function)
   // at the new node tha will be inserted at the hash Tables save the id (Querying trick)
-  // printf("-----------------------\n");
-  // printf("Vector : ");
-  // printVectorId(v);
-  // printVector(v);
   int l = lsh->l;
   for(int i=0;i<l;i++){
     unsigned int id;
     int index = computeG(lsh->g_fun[i],v,&id);
-    // printf("L = %d | ID = %u | INDEX = %d\n",i,id,index);
     htInsert(lsh->hts[i],v,index,id);
   }
-  // printf("-----------------------\n");
 }
 
 void insertFromListToLSH(List list,LSH lsh){
@@ -192,7 +186,7 @@ void destroyLSH(LSH lsh){
 }
 
 
-void nearestNeigborLSH(LSH lsh,Vector q,FILE *fptr){
+void nearestNeigborLSH(LSH lsh,Vector q,double *trueDist,FILE *fptr){
   // find the nearest neighbor of the given vector q with the help of LSH
   Vector nearest=NULL;
   double nearestDist=-1;
@@ -207,10 +201,10 @@ void nearestNeigborLSH(LSH lsh,Vector q,FILE *fptr){
   }
   // check if nearest neighbor of the given vector q found or not
   if(nearestDist>=0 && nearest!=NULL){
-    fprintf(fptr,"FOUND NEAREST NEIGHBOR ");
-    printVectorId(nearest);
+    fprintf(fptr,"Nearest neighbor-1: ");
     printVectorIdInFile(nearest,fptr);
     fprintf(fptr,"distanceLSH: %f\n",nearestDist);
+    fprintf(fptr,"distanceTrue: %f\n", *trueDist);
   }else{
     fprintf(fptr,"- DID NOT FIND NEAREST NEIGHBOR\n");
   }

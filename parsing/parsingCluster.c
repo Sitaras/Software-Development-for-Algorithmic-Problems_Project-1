@@ -20,12 +20,10 @@ extern int new_dimension;
 // returns number of words in str
 int countWords(char *str){
   char * token = strtok(str, " ");
-  // printf("NAME = %s\n",token);
   token = strtok(NULL, " ");
    // loop through the string to extract all other tokens
    int counter = 0;
    while( token != NULL ) {
-      // printf( " - %s\n", token ); //printing each token
       counter++;
       token = strtok(NULL, " ");
    }
