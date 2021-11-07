@@ -63,12 +63,14 @@ int main(int argc, char *argv[]) {
 
         case 'M':
         m=atoi(optarg);
-        printf("L : %d\n", m);
+        printf("M : %d\n", m);
         break;
 
         case 'p':
-        probes=atoi(optarg);
-        printf("probes : %d\n", probes);
+        if(strcmp(argv[optind-1],"-probes")==0){
+          probes=atoi(argv[optind]);
+          printf("probes : %d\n", probes);
+        }
         break;
 
         case 'o':
@@ -79,12 +81,14 @@ int main(int argc, char *argv[]) {
 
         case 'N':
         n=atoi(optarg);
-        printf("number of nearest : %d\n", n);
+        printf("number of nearest neighbors: %d\n", n);
         break;
+
         case 'R':
          r=atoi(optarg);
          printf("Radius : %d\n", r);
          break;
+
         case ':':
          printf("option needs a value\n");
          break;

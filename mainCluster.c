@@ -53,9 +53,8 @@ int main(int argc, char *argv[]) {
         break;
 
         case 'c':
-        printf("%d\n",optind);
         if(strcmp(argv[optind-1],"-complete")==0){
-          printf("Complete option ON\n");
+          printf("Complete option ON.\n");
           complete=1;
         }
         else{
@@ -80,6 +79,7 @@ int main(int argc, char *argv[]) {
         case ':':
          printf("option needs a value\n");
          break;
+         
         default: /* '?' */
           fprintf(stderr, "Usage: %s –i <input file> –c <configuration file> -o <output file> -complete <optional> -m <method: Classic OR LSH or Hypercube>\n",argv[0]);
           exit(EXIT_FAILURE);
@@ -173,7 +173,7 @@ int main(int argc, char *argv[]) {
         exit(1);
       }
       else if(strstr(str, "/repeat") != NULL) {
-        int repeat=1;
+        repeat=1;
         sscanf(str,"%s %s\n",command,inputFile);
         printf("FILE: %s\n",inputFile);
         if(strcmp(method,"LSH")==0 || strcmp(method,"HyperCube")==0)

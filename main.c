@@ -72,15 +72,18 @@ int main(int argc, char *argv[])  {
 
         case 'N':
         n=atoi(optarg);
-        printf("number of nearest : %d\n", n);
+        printf("number of nearest neighbors: %d\n", n);
         break;
+
         case 'R':
          radius=atof(optarg);
          printf("Radius : %f\n", radius);
          break;
+
         case ':':
          printf("option needs a value\n");
          break;
+
         default: /* '?' */
           fprintf(stderr, "Usage: %s –i <input file> –q <query file> –k <int> -L <int> -ο <output file> -Ν <number of nearest> -R <radius>\n",argv[0]);
           exit(EXIT_FAILURE);
