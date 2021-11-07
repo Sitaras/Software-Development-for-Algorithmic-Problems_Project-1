@@ -388,36 +388,6 @@ void listFindNeighborsInRadius(List list,HashTable storeNeighbors,Vector q,int d
   }
 }
 
-// void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List* confList,HashTable storeNeighbors,Vector q,int d,int id,int radius,int *assignCounter,int iteration){
-//   if(list==NULL){ return;}
-//   List temp=list;
-//   while(temp!=NULL){
-//     if(id==(temp->vector_ID)){
-//       double dist = distance_metric(temp->v,q,d);
-//       if(dist<=radius){
-//
-//         if(assignedToCluster(temp->v) && (getAssignedIteration(temp->v)==iteration)){
-//           int assignedCluster = getAssignedCluster(temp->v);
-//           if(assignedCluster==centroidIndex || (((int)getAssignedAtRadius(temp->v))!=radius)){
-//             temp=temp->next;
-//             continue;
-//           }else{
-//             *confList=listInsert(*confList,temp->v,-1);
-//             temp=temp->next;
-//             continue;
-//           }
-//         }else{
-//           htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
-//           setAssignedCluster(temp->v,centroidIndex);
-//           setAssignedIteration(temp->v,iteration);
-//           setAssignedAtRadius(temp->v,radius);
-//           (*assignCounter)++;
-//         }
-//       }
-//     }
-//     temp=temp->next;
-//   }
-// }
 
 void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List* confList,HashTable storeNeighbors,Vector q,int d,int id,int radius,int *assignCounter,int iteration){
   // used at reverseAssignmentLSH to assign the vectors in to the clusters (clusters represented with hash tables)

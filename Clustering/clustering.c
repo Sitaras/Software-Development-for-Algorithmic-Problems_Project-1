@@ -98,8 +98,6 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
   int firstTime=0;
   // lloyds Algorithm runs until convergence between the old cluster centroids and the new ones is achieved
   while((count<2) || !centroidsConverge(clusters,oldClusters,numOfClusters,d)){ // check for convergence after the second one iteration
-  // while(firstIter || count<20){
-    printf("ITER %d\n",count);
     count++;
     if(!firstIter){
       Vector *temp = oldClusters;
@@ -167,7 +165,6 @@ void clusteringLloyds(List vecList,int numOfClusters,FILE* fptr){
 }
 
 void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldClusters,HashTable *clustersHt,int numOfClusters,int iteration,int *firstTime){
-  printf("ITERATION WITH LSH %d\n",iteration);
   if(*firstTime) // skip it for the first time (original centroids from the kmeansPlusPlus)
     for(int i=0;i<numOfClusters;i++){
 
@@ -198,13 +195,9 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
     // assign each vector to the corresponding cluster with the help of range search
     for(int i=0;i<numOfClusters;i++){
       radiusNeigborsClustering(lsh,clusters[i],radius,clustersHt[i],i,&confList,&assignCounter,iteration);
-      printf("---- ASSINGED ITEMS = %d\n",assignCounter);
     }
     // manage the vectors that presenting conflict
     listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d,iteration);
-    printf("---- FINAL ASSINGED ITEMS = %d\n",assignCounter);
-    if(confList==NULL)
-      printf("- NO CONFLICTS FOUND\n");
     listDelete(confList,0);
     radius*=2; // doubled the radius for the next range search
     loopCounter++;
@@ -225,7 +218,6 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
       remainderCounter++;
     }
   }
-  printf("---- ASSINGED REMAINING ITEMS = %d\n",remainderCounter);
   *firstTime=1;
 }
 
@@ -359,7 +351,6 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
 }
 
 void reverseAssignmentHypercube(HyperCube cube,Vector *vectors,Vector *clusters,Vector *oldClusters,HashTable *clustersHt,int numOfClusters,int iteration,int m,int probes,int *firstTime){
-  printf("ITERATION WITH HYPERCUBE %d\n",iteration);
   if(*firstTime) // skip it for the first time (original centroids from the kmeansPlusPlus)
     for(int i=0;i<numOfClusters;i++){
 
@@ -391,13 +382,9 @@ void reverseAssignmentHypercube(HyperCube cube,Vector *vectors,Vector *clusters,
     // assign each vector to the corresponding cluster with the help of range search
     for(int i=0;i<numOfClusters;i++){
       radiusNeigborHypercubeClustering(cube,clusters[i],clustersHt[i],radius,probes,m,i,&confList,&assignCounter,iteration);
-      printf("******* ---- ASSINGED ITEMS = %d | Cluster %d\n",assignCounter,i+1);
     }
     // manage the vectors that presenting conflict
     listSolveRangeConflicts(confList,clustersHt,clusters,numOfClusters,d,iteration);
-    printf("---- ASSINGED ITEMS = %d\n",assignCounter);
-    if(confList==NULL)
-      printf("- NO CONFLICTS FOUND\n");
     listDelete(confList,0);
     radius*=2; // doubled the radius for the next range search
     loopCounter++;
@@ -418,7 +405,6 @@ void reverseAssignmentHypercube(HyperCube cube,Vector *vectors,Vector *clusters,
       remainderCounter++;
     }
   }
-  printf("---- ASSINGED REMAINING ITEMS = %d\n",remainderCounter);
   *firstTime=1;
 }
 

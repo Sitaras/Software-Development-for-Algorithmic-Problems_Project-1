@@ -137,11 +137,15 @@ int main(int argc, char *argv[]) {
   char command[200];
   while(1){
     if(repeat){
+      clock_t begin = clock();
       d = findDim(inputFile);
       printf("DIMENSION = %d\n",d);
       hc = initializeHyperCube();
       list = initializeList();
       readFile(inputFile,hc,&list);
+      clock_t end = clock();
+      double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+      printf("Created Hypercube in : %f seconds\n",time_spent);
       readQueryFile(queryFile,outputFile,hc,list,n,r,2,m);
     }
 

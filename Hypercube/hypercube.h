@@ -11,7 +11,7 @@ void printHyperCube(HyperCube );
 
 void deleteHyperCube(HyperCube );
 
-void nearestNeigborHypercube(HyperCube ,Vector ,int ,int,FILE* );
+void nearestNeigborHypercube(HyperCube ,Vector ,int ,int,double *,FILE* );
 
 void kNearestNeigborsHypercube(HyperCube ,Vector ,int ,int ,int,double *,FILE* );
 

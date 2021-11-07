@@ -98,12 +98,10 @@ void readFile(char* fileName,HyperCube hc,List *inputs){
     strcpy(name,token);
     name[strlen(name)]='\0';
     token = strtok(NULL, " ");
-     // loop through the string to extract all other tokens
-     int counter = 0;
-     while( token != NULL ) {
-        // printf( " - %s\n", token ); //printing each token
-        vec[counter++]=atof(token);
-        token = strtok(NULL, " ");
+    int counter = 0;
+    while( token != NULL ) {
+      vec[counter++]=atof(token);
+      token = strtok(NULL, " ");
      }
      Vector vecTmp=initVector(vec,name);
      insertToHyperCube(hc,vecTmp);
@@ -139,9 +137,7 @@ void readQueryFile(char* queryFile,char* outputFile,HyperCube hc,List inputs,int
   }
 
   char buffer[MAX_INPUT_LENGTH];
-  Vector nearest=NULL;
   Vector nNearest[n];
-  double nearestDist=-1;
   double knearestDists[n];
   double vec[d];
 
@@ -158,41 +154,40 @@ void readQueryFile(char* queryFile,char* outputFile,HyperCube hc,List inputs,int
 
     int id;
     char * token = strtok(buffer, " ");
-    printf("ID = %s\n",token);
     id=atoi(token);
     char name[MAX_INPUT_LENGTH];
     strcpy(name,token);
     token = strtok(NULL, " ");
-     // loop through the string to extract all other tokens
-     int counter = 0;
-     while( token != NULL ) {
-        // printf( " - %s\n", token ); //printing each token
-        vec[counter++]=atof(token);
-        token = strtok(NULL, " ");
+    int counter = 0;
+    while( token != NULL ) {
+      vec[counter++]=atof(token);
+      token = strtok(NULL, " ");
      }
-     Vector vecTmp=initVector(vec,name);
-     fprintf(fptr, "Query %d:\n",id);
-     // nearestNeigborHypercube(hc,vecTmp,1,4,fptr);
-     // printf("================================================\n");
-     clock_t begin_true = clock();
-     listFindKNearestNeighbors(inputs,vecTmp,nNearest,knearestDists,d,n,-1);
-     clock_t end_true = clock();
-     double time_spent_true = (double)(end_true - begin_true) / CLOCKS_PER_SEC;
+    Vector vecTmp=initVector(vec,name);
+    fprintf(fptr, "Query %d:\n",id);
+    clock_t begin_true = clock();
+    if(n==1)
+      listFindNearestNeighbor(inputs,vecTmp,nNearest,knearestDists,d,-1);
+    else
+      listFindKNearestNeighbors(inputs,vecTmp,nNearest,knearestDists,d,n,-1);
+    clock_t end_true = clock();
+    double time_spent_true = (double)(end_true - begin_true) / CLOCKS_PER_SEC;
 
-     clock_t begin_cube = clock();
-     kNearestNeigborsHypercube(hc,vecTmp,n,hammingDist,m,knearestDists,fptr);
-     clock_t end_cube = clock();
-     double time_spent_cube = (double)(end_cube - begin_cube) / CLOCKS_PER_SEC;
-     fprintf(fptr, "tCube: %f seconds\n",time_spent_cube);
-     fprintf(fptr, "tTrue: %f seconds\n",time_spent_true);
-     // printf("================================================\n");
-     clock_t begin_radius = clock();
-     radiusNeigborHypercube(hc,vecTmp,radius,hammingDist,m,fptr);
-     clock_t end_radius = clock();
+    clock_t begin_cube = clock();
+    if(n==1)
+      nearestNeigborHypercube(hc,vecTmp,hammingDist,m,knearestDists,fptr);
+    else
+      kNearestNeigborsHypercube(hc,vecTmp,n,hammingDist,m,knearestDists,fptr);
+    clock_t end_cube = clock();
+    double time_spent_cube = (double)(end_cube - begin_cube) / CLOCKS_PER_SEC;
+    fprintf(fptr, "tCube: %f seconds\n",time_spent_cube);
+    fprintf(fptr, "tTrue: %f seconds\n",time_spent_true);
+    clock_t begin_radius = clock();
+    radiusNeigborHypercube(hc,vecTmp,radius,hammingDist,m,fptr);
+    clock_t end_radius = clock();
     double time_spent_radius = (double)(end_radius - begin_radius) / CLOCKS_PER_SEC;
-      fprintf(fptr, "tRadiusSearch: %f seconds\n\n\n",time_spent_radius);
-     // printLSH(temp);
-     deleteVector(vecTmp);
+    fprintf(fptr, "tRadiusSearch: %f seconds\n\n\n",time_spent_radius);
+    deleteVector(vecTmp);
   }
   fclose(fptr);
   fclose(file);

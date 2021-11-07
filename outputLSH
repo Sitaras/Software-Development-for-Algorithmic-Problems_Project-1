@@ -1,1703 +1,1112 @@
 Query 1:
-Nearest neighbor-1: 673
-distanceLSH: 388.081177
+Nearest neighbor-1: 9582
+distanceLSH: 385.862670
 distanceTrue: 276.781502
-Nearest neighbor-2: 2152
-distanceLSH: 393.268356
-distanceTrue: 277.495946
-Nearest neighbor-3: 4517
-distanceLSH: 443.498591
-distanceTrue: 282.315426
-tLSH: 0.000048 seconds
-tTrue: 0.007864 seconds
+tLSH: 0.000074 seconds
+tTrue: 0.005237 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
-tRadiusSearch: 0.000061 seconds
+tRadiusSearch: 0.000253 seconds
 
 
 Query 2:
-Nearest neighbor-1: 2840
-distanceLSH: 315.123785
+Nearest neighbor-1: 2321
+distanceLSH: 316.379519
 distanceTrue: 256.852098
-Nearest neighbor-2: 1834
-distanceLSH: 315.822735
-distanceTrue: 259.913447
-Nearest neighbor-3: 3166
-distanceLSH: 335.134301
-distanceTrue: 262.895416
-tLSH: 0.000133 seconds
-tTrue: 0.005618 seconds
+tLSH: 0.000085 seconds
+tTrue: 0.006811 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
-tRadiusSearch: 0.000050 seconds
+tRadiusSearch: 0.000038 seconds
 
 
 Query 3:
-Nearest neighbor-1: 5174
-distanceLSH: 258.226645
+Nearest neighbor-1: 8223
+distanceLSH: 356.296225
 distanceTrue: 206.736547
-Nearest neighbor-2: 4704
-distanceLSH: 328.291029
-distanceTrue: 219.460703
-Nearest neighbor-3: 1702
-distanceLSH: 332.456012
-distanceTrue: 222.551118
-tLSH: 0.000053 seconds
-tTrue: 0.005508 seconds
+tLSH: 0.000155 seconds
+tTrue: 0.005425 seconds
 R-near neighbors:
-1: Found vector: 5174
-tRadiusSearch: 0.000053 seconds
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000055 seconds
 
 
 Query 4:
-Nearest neighbor-1: 9542
-distanceLSH: 290.745593
+Nearest neighbor-1: 3263
+distanceLSH: 316.577005
 distanceTrue: 215.176672
-Nearest neighbor-2: 1039
-distanceLSH: 302.165518
-distanceTrue: 216.843261
-Nearest neighbor-3: 1716
-distanceLSH: 404.706066
-distanceTrue: 236.137672
-tLSH: 0.000045 seconds
-tTrue: 0.005194 seconds
+tLSH: 0.000129 seconds
+tTrue: 0.007024 seconds
 R-near neighbors:
-1: Found vector: 9542
-tRadiusSearch: 0.000037 seconds
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000040 seconds
 
 
 Query 5:
-Nearest neighbor-1: 5586
-distanceLSH: 307.993506
+Nearest neighbor-1: 7989
+distanceLSH: 338.251386
 distanceTrue: 250.509481
-Nearest neighbor-2: 9602
-distanceLSH: 323.259957
-distanceTrue: 257.538347
-Nearest neighbor-3: 3165
-distanceLSH: 383.594838
-distanceTrue: 265.067916
-tLSH: 0.000122 seconds
-tTrue: 0.005415 seconds
+tLSH: 0.000086 seconds
+tTrue: 0.005877 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
-tRadiusSearch: 0.000048 seconds
+tRadiusSearch: 0.000063 seconds
 
 
 Query 6:
-Nearest neighbor-1: 5153
-distanceLSH: 389.692186
+Nearest neighbor-1: 9402
+distanceLSH: 390.580337
 distanceTrue: 275.150868
-Nearest neighbor-2: 3459
-distanceLSH: 404.044552
-distanceTrue: 287.503043
-Nearest neighbor-3: 9840
-distanceLSH: 431.314271
-distanceTrue: 293.819673
-tLSH: 0.000122 seconds
-tTrue: 0.005375 seconds
+tLSH: 0.000158 seconds
+tTrue: 0.007640 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
-tRadiusSearch: 0.000046 seconds
+tRadiusSearch: 0.000054 seconds
 
 
 Query 7:
-Nearest neighbor-1: 2795
-distanceLSH: 365.803226
+Nearest neighbor-1: 9541
+distanceLSH: 343.396273
 distanceTrue: 246.609002
-Nearest neighbor-2: 1541
-distanceLSH: 370.975740
-distanceTrue: 252.816139
-Nearest neighbor-3: 4429
-distanceLSH: 383.396661
-distanceTrue: 255.804613
-tLSH: 0.000045 seconds
-tTrue: 0.004704 seconds
+tLSH: 0.000084 seconds
+tTrue: 0.005012 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
-tRadiusSearch: 0.000111 seconds
+tRadiusSearch: 0.000130 seconds
 
 
 Query 8:
-Nearest neighbor-1: 6080
-distanceLSH: 250.425638
+Nearest neighbor-1: 249
+distanceLSH: 407.920335
 distanceTrue: 173.948268
-Nearest neighbor-2: 7119
-distanceLSH: 253.523174
-distanceTrue: 177.727319
-Nearest neighbor-3: 7727
-distanceLSH: 309.362247
-distanceTrue: 196.402648
-tLSH: 0.000052 seconds
-tTrue: 0.005292 seconds
+tLSH: 0.000101 seconds
+tTrue: 0.007606 seconds
 R-near neighbors:
-1: Found vector: 6080
-2: Found vector: 7119
-tRadiusSearch: 0.000043 seconds
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000086 seconds
 
 
 Query 9:
-Nearest neighbor-1: 8170
-distanceLSH: 316.205629
+Nearest neighbor-1: 9629
+distanceLSH: 248.473339
 distanceTrue: 248.473339
-Nearest neighbor-2: 3963
-distanceLSH: 354.874626
-distanceTrue: 256.214754
-Nearest neighbor-3: 3233
-distanceLSH: 383.156626
-distanceTrue: 259.011583
-tLSH: 0.000127 seconds
-tTrue: 0.005262 seconds
+tLSH: 0.000089 seconds
+tTrue: 0.005881 seconds
 R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000044 seconds
+1: Found vector: 1657
+2: Found vector: 9629
+tRadiusSearch: 0.000046 seconds
 
 
 Query 10:
-Nearest neighbor-1: 3146
-distanceLSH: 324.174336
+Nearest neighbor-1: 3279
+distanceLSH: 335.335653
 distanceTrue: 250.014000
-Nearest neighbor-2: 79
-distanceLSH: 335.644157
-distanceTrue: 251.722069
-Nearest neighbor-3: 5832
-distanceLSH: 340.724229
-distanceTrue: 254.680192
-tLSH: 0.000181 seconds
-tTrue: 0.006631 seconds
+tLSH: 0.000085 seconds
+tTrue: 0.005440 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000041 seconds
+
+
+Query 11:
+Nearest neighbor-1: 3346
+distanceLSH: 381.883490
+distanceTrue: 293.882630
+tLSH: 0.000086 seconds
+tTrue: 0.005678 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000040 seconds
+
+
+Query 12:
+Nearest neighbor-1: 3045
+distanceLSH: 303.527593
+distanceTrue: 172.162714
+tLSH: 0.000207 seconds
+tTrue: 0.007521 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
 tRadiusSearch: 0.000059 seconds
 
 
-Query 11:
-Nearest neighbor-1: 914
-distanceLSH: 359.103049
-distanceTrue: 293.882630
-Nearest neighbor-2: 8841
-distanceLSH: 373.259963
-distanceTrue: 308.914228
-Nearest neighbor-3: 185
-distanceLSH: 390.833724
-distanceTrue: 309.307291
-tLSH: 0.000080 seconds
-tTrue: 0.006811 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000084 seconds
-
-
-Query 12:
-Nearest neighbor-1: 9299
-distanceLSH: 269.130080
-distanceTrue: 172.162714
-Nearest neighbor-2: 8183
-distanceLSH: 316.763319
-distanceTrue: 206.608325
-Nearest neighbor-3: 5715
-distanceLSH: 341.086499
-distanceTrue: 224.483852
-tLSH: 0.000072 seconds
-tTrue: 0.006411 seconds
-R-near neighbors:
-1: Found vector: 9299
-tRadiusSearch: 0.000046 seconds
-
-
 Query 13:
-Nearest neighbor-1: 9640
-distanceLSH: 327.525572
+Nearest neighbor-1: 4097
+distanceLSH: 311.815651
 distanceTrue: 238.549785
-Nearest neighbor-2: 2765
-distanceLSH: 351.822398
-distanceTrue: 250.071990
-Nearest neighbor-3: 1615
-distanceLSH: 396.039139
-distanceTrue: 251.238930
-tLSH: 0.000246 seconds
-tTrue: 0.005604 seconds
+tLSH: 0.000068 seconds
+tTrue: 0.005635 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
-tRadiusSearch: 0.000049 seconds
+tRadiusSearch: 0.000037 seconds
 
 
 Query 14:
-Nearest neighbor-1: 3527
-distanceLSH: 336.547174
+Nearest neighbor-1: 2151
+distanceLSH: 371.822538
 distanceTrue: 244.677339
-Nearest neighbor-2: 3200
-distanceLSH: 363.726546
-distanceTrue: 256.739167
-Nearest neighbor-3: 3205
-distanceLSH: 379.338899
-distanceTrue: 259.674797
-tLSH: 0.000062 seconds
-tTrue: 0.006504 seconds
+tLSH: 0.000150 seconds
+tTrue: 0.005563 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
-tRadiusSearch: 0.000058 seconds
+tRadiusSearch: 0.000047 seconds
 
 
 Query 15:
-Nearest neighbor-1: 6562
-distanceLSH: 373.309523
+Nearest neighbor-1: 5009
+distanceLSH: 338.110929
 distanceTrue: 273.316666
-Nearest neighbor-2: 1358
-distanceLSH: 403.723916
-distanceTrue: 278.307384
-Nearest neighbor-3: 3071
-distanceLSH: 405.083942
-distanceTrue: 282.740163
-tLSH: 0.000054 seconds
-tTrue: 0.005993 seconds
+tLSH: 0.000151 seconds
+tTrue: 0.006132 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
-tRadiusSearch: 0.000037 seconds
+tRadiusSearch: 0.000045 seconds
 
 
 Query 16:
-Nearest neighbor-1: 3463
-distanceLSH: 316.017405
+Nearest neighbor-1: 5321
+distanceLSH: 352.542196
 distanceTrue: 253.682873
-Nearest neighbor-2: 1481
-distanceLSH: 338.090225
-distanceTrue: 254.823468
-Nearest neighbor-3: 7829
-distanceLSH: 361.885341
-distanceTrue: 256.752799
-tLSH: 0.000143 seconds
-tTrue: 0.005611 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000051 seconds
-
-
-Query 17:
-Nearest neighbor-1: 3043
-distanceLSH: 275.170856
-distanceTrue: 248.199517
-Nearest neighbor-2: 1363
-distanceLSH: 301.796289
-distanceTrue: 248.324385
-Nearest neighbor-3: 149
-distanceLSH: 333.292664
-distanceTrue: 250.667110
-tLSH: 0.000134 seconds
-tTrue: 0.005562 seconds
-R-near neighbors:
-1: Found vector: 3043
-tRadiusSearch: 0.000048 seconds
-
-
-Query 18:
-Nearest neighbor-1: 1262
-distanceLSH: 337.859438
-distanceTrue: 254.635033
-Nearest neighbor-2: 2888
-distanceLSH: 353.855903
-distanceTrue: 260.852449
-Nearest neighbor-3: 6212
-distanceLSH: 372.392266
-distanceTrue: 263.279319
-tLSH: 0.000051 seconds
-tTrue: 0.005584 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000117 seconds
-
-
-Query 19:
-Nearest neighbor-1: 9884
-distanceLSH: 333.943109
-distanceTrue: 266.889490
-Nearest neighbor-2: 2948
-distanceLSH: 352.337906
-distanceTrue: 268.527466
-Nearest neighbor-3: 6932
-distanceLSH: 358.921997
-distanceTrue: 274.341029
-tLSH: 0.000059 seconds
-tTrue: 0.005519 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000044 seconds
-
-
-Query 20:
-Nearest neighbor-1: 123
-distanceLSH: 244.401309
-distanceTrue: 224.750973
-Nearest neighbor-2: 1302
-distanceLSH: 321.130814
-distanceTrue: 230.212945
-Nearest neighbor-3: 2606
-distanceLSH: 327.313306
-distanceTrue: 233.495182
-tLSH: 0.000132 seconds
-tTrue: 0.004879 seconds
-R-near neighbors:
-1: Found vector: 123
-tRadiusSearch: 0.000049 seconds
-
-
-Query 21:
-Nearest neighbor-1: 9868
-distanceLSH: 248.118923
-distanceTrue: 192.984455
-Nearest neighbor-2: 93
-distanceLSH: 354.434761
-distanceTrue: 193.248545
-Nearest neighbor-3: 9045
-distanceLSH: 364.594295
-distanceTrue: 196.007653
-tLSH: 0.000145 seconds
-tTrue: 0.005513 seconds
-R-near neighbors:
-1: Found vector: 9868
-tRadiusSearch: 0.000052 seconds
-
-
-Query 22:
-Nearest neighbor-1: 159
-distanceLSH: 311.907037
-distanceTrue: 80.845532
-Nearest neighbor-2: 5543
-distanceLSH: 319.548118
-distanceTrue: 87.732548
-Nearest neighbor-3: 354
-distanceLSH: 340.561301
-distanceTrue: 207.301712
-tLSH: 0.000052 seconds
-tTrue: 0.005559 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000041 seconds
-
-
-Query 23:
-Nearest neighbor-1: 5431
-distanceLSH: 242.324163
-distanceTrue: 173.052015
-Nearest neighbor-2: 3335
-distanceLSH: 312.942487
-distanceTrue: 175.641681
-Nearest neighbor-3: 6259
-distanceLSH: 364.100261
-distanceTrue: 182.641726
-tLSH: 0.000047 seconds
-tTrue: 0.005543 seconds
-R-near neighbors:
-1: Found vector: 5431
-tRadiusSearch: 0.000039 seconds
-
-
-Query 24:
-Nearest neighbor-1: 9145
-distanceLSH: 295.497885
-distanceTrue: 253.940938
-Nearest neighbor-2: 5528
-distanceLSH: 320.318591
-distanceTrue: 254.876441
-Nearest neighbor-3: 1003
-distanceLSH: 323.252224
-distanceTrue: 256.676840
-tLSH: 0.000131 seconds
-tTrue: 0.005546 seconds
-R-near neighbors:
-1: Found vector: 9145
-tRadiusSearch: 0.000053 seconds
-
-
-Query 25:
-Nearest neighbor-1: 9384
-distanceLSH: 265.139586
-distanceTrue: 154.227105
-Nearest neighbor-2: 7949
-distanceLSH: 370.014865
-distanceTrue: 156.547118
-Nearest neighbor-3: 9821
-distanceLSH: 374.947996
-distanceTrue: 191.185774
-tLSH: 0.000065 seconds
-tTrue: 0.006662 seconds
-R-near neighbors:
-1: Found vector: 9384
-tRadiusSearch: 0.000061 seconds
-
-
-Query 26:
-Nearest neighbor-1: 3963
-distanceLSH: 361.734709
-distanceTrue: 271.610015
-Nearest neighbor-2: 9102
-distanceLSH: 381.003937
-distanceTrue: 286.567619
-Nearest neighbor-3: 4390
-distanceLSH: 392.237173
-distanceTrue: 288.806163
-tLSH: 0.000048 seconds
-tTrue: 0.005496 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000037 seconds
-
-
-Query 27:
-Nearest neighbor-1: 5720
-distanceLSH: 297.134650
-distanceTrue: 183.442089
-Nearest neighbor-2: 5048
-distanceLSH: 307.123754
-distanceTrue: 199.702278
-Nearest neighbor-3: 8502
-distanceLSH: 320.987539
-distanceTrue: 220.018181
-tLSH: 0.000142 seconds
-tTrue: 0.005424 seconds
-R-near neighbors:
-1: Found vector: 5720
-tRadiusSearch: 0.000055 seconds
-
-
-Query 28:
-Nearest neighbor-1: 2522
-distanceLSH: 350.124264
-distanceTrue: 175.516381
-Nearest neighbor-2: 4496
-distanceLSH: 351.318943
-distanceTrue: 200.888029
-Nearest neighbor-3: 6429
-distanceLSH: 370.194543
-distanceTrue: 212.548818
-tLSH: 0.000047 seconds
-tTrue: 0.005460 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000051 seconds
-
-
-Query 29:
-Nearest neighbor-1: 3279
-distanceLSH: 341.820128
-distanceTrue: 224.859956
-Nearest neighbor-2: 6867
-distanceLSH: 356.178326
-distanceTrue: 229.828197
-Nearest neighbor-3: 9896
-distanceLSH: 370.696641
-distanceTrue: 230.377950
-tLSH: 0.000052 seconds
-tTrue: 0.005436 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000040 seconds
-
-
-Query 30:
-Nearest neighbor-1: 6526
-distanceLSH: 358.167559
-distanceTrue: 125.379424
-Nearest neighbor-2: 5674
-distanceLSH: 389.032132
-distanceTrue: 167.821334
-Nearest neighbor-3: 1672
-distanceLSH: 395.082270
-distanceTrue: 170.868370
-tLSH: 0.000127 seconds
-tTrue: 0.005170 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000049 seconds
-
-
-Query 31:
-Nearest neighbor-1: 87
-distanceLSH: 296.718722
-distanceTrue: 265.377090
-Nearest neighbor-2: 9986
-distanceLSH: 378.808659
-distanceTrue: 267.007491
-Nearest neighbor-3: 821
-distanceLSH: 396.777015
-distanceTrue: 272.205804
-tLSH: 0.000123 seconds
-tTrue: 0.005394 seconds
-R-near neighbors:
-1: Found vector: 87
-tRadiusSearch: 0.000046 seconds
-
-
-Query 32:
-Nearest neighbor-1: 1298
-distanceLSH: 357.563980
-distanceTrue: 109.192491
-Nearest neighbor-2: 2243
-distanceLSH: 372.839107
-distanceTrue: 126.952747
-Nearest neighbor-3: 1352
-distanceLSH: 385.528209
-distanceTrue: 175.772580
-tLSH: 0.000052 seconds
-tTrue: 0.005422 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000116 seconds
-
-
-Query 33:
-Nearest neighbor-1: 3545
-distanceLSH: 375.223933
-distanceTrue: 187.563323
-Nearest neighbor-2: 5133
-distanceLSH: 383.843718
-distanceTrue: 232.768125
-Nearest neighbor-3: 3051
-distanceLSH: 385.629356
-distanceTrue: 236.243518
-tLSH: 0.000056 seconds
-tTrue: 0.004887 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000041 seconds
-
-
-Query 34:
-Nearest neighbor-1: 2935
-distanceLSH: 436.253367
-distanceTrue: 328.278845
-Nearest neighbor-2: 6152
-distanceLSH: 441.512174
-distanceTrue: 340.102926
-Nearest neighbor-3: 8767
-distanceLSH: 471.653474
-distanceTrue: 348.505380
-tLSH: 0.000151 seconds
-tTrue: 0.004987 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000053 seconds
-
-
-Query 35:
-Nearest neighbor-1: 8567
-distanceLSH: 336.670462
-distanceTrue: 248.553817
-Nearest neighbor-2: 6944
-distanceLSH: 343.888063
-distanceTrue: 262.463331
-Nearest neighbor-3: 3141
-distanceLSH: 386.199430
-distanceTrue: 272.189272
-tLSH: 0.000160 seconds
-tTrue: 0.005738 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000061 seconds
-
-
-Query 36:
-Nearest neighbor-1: 2728
-distanceLSH: 359.777709
-distanceTrue: 120.975204
-Nearest neighbor-2: 3753
-distanceLSH: 372.315726
-distanceTrue: 140.353126
-Nearest neighbor-3: 9262
-distanceLSH: 379.435106
-distanceTrue: 179.596771
-tLSH: 0.000055 seconds
-tTrue: 0.005666 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000140 seconds
-
-
-Query 37:
-Nearest neighbor-1: 2328
-distanceLSH: 341.520131
-distanceTrue: 111.458512
-Nearest neighbor-2: 4416
-distanceLSH: 361.173089
-distanceTrue: 140.135649
-Nearest neighbor-3: 8962
-distanceLSH: 376.059836
-distanceTrue: 159.909349
-tLSH: 0.000046 seconds
-tTrue: 0.004839 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000037 seconds
-
-
-Query 38:
-Nearest neighbor-1: 9112
-distanceLSH: 378.255205
-distanceTrue: 166.856226
-Nearest neighbor-2: 6468
-distanceLSH: 381.745989
-distanceTrue: 247.868917
-Nearest neighbor-3: 3606
-distanceLSH: 411.065688
-distanceTrue: 298.412466
-tLSH: 0.000128 seconds
-tTrue: 0.004801 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000048 seconds
-
-
-Query 39:
-Nearest neighbor-1: 8649
-distanceLSH: 405.072833
-distanceTrue: 156.358562
-Nearest neighbor-2: 9922
-distanceLSH: 421.684716
-distanceTrue: 159.245094
-Nearest neighbor-3: 1920
-distanceLSH: 425.229350
-distanceTrue: 162.033947
-tLSH: 0.000123 seconds
-tTrue: 0.004631 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000045 seconds
-
-
-Query 40:
-Nearest neighbor-1: 6289
-distanceLSH: 267.192814
-distanceTrue: 193.976803
-Nearest neighbor-2: 8979
-distanceLSH: 353.482673
-distanceTrue: 202.262206
-Nearest neighbor-3: 5720
-distanceLSH: 401.461082
-distanceTrue: 207.537948
-tLSH: 0.000044 seconds
-tTrue: 0.005463 seconds
-R-near neighbors:
-1: Found vector: 6289
-tRadiusSearch: 0.000037 seconds
-
-
-Query 41:
-Nearest neighbor-1: 1916
-distanceLSH: 355.782237
-distanceTrue: 153.564319
-Nearest neighbor-2: 6320
-distanceLSH: 374.981333
-distanceTrue: 185.372598
-Nearest neighbor-3: 911
-distanceLSH: 375.421097
-distanceTrue: 188.196706
-tLSH: 0.000047 seconds
-tTrue: 0.004770 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000040 seconds
-
-
-Query 42:
-Nearest neighbor-1: 9754
-distanceLSH: 258.663875
-distanceTrue: 200.494389
-Nearest neighbor-2: 6286
-distanceLSH: 291.340008
-distanceTrue: 202.667215
-Nearest neighbor-3: 742
-distanceLSH: 353.329874
-distanceTrue: 203.605010
-tLSH: 0.000124 seconds
-tTrue: 0.004458 seconds
-R-near neighbors:
-1: Found vector: 6286
-2: Found vector: 9754
-tRadiusSearch: 0.000046 seconds
-
-
-Query 43:
-Nearest neighbor-1: 9769
-distanceLSH: 337.023738
-distanceTrue: 236.772042
-Nearest neighbor-2: 1732
-distanceLSH: 368.518656
-distanceTrue: 245.409861
-Nearest neighbor-3: 1441
-distanceLSH: 373.695063
-distanceTrue: 247.911274
-tLSH: 0.000044 seconds
-tTrue: 0.004569 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000045 seconds
-
-
-Query 44:
-Nearest neighbor-1: 4493
-distanceLSH: 346.505411
-distanceTrue: 165.339046
-Nearest neighbor-2: 4717
-distanceLSH: 349.754199
-distanceTrue: 193.633675
-Nearest neighbor-3: 577
-distanceLSH: 361.615818
-distanceTrue: 272.383920
-tLSH: 0.000051 seconds
-tTrue: 0.004810 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000041 seconds
-
-
-Query 45:
-Nearest neighbor-1: 9969
-distanceLSH: 354.651942
-distanceTrue: 256.353272
-Nearest neighbor-2: 818
-distanceLSH: 394.563049
-distanceTrue: 257.079754
-Nearest neighbor-3: 4697
-distanceLSH: 413.313440
-distanceTrue: 260.084602
-tLSH: 0.000050 seconds
-tTrue: 0.005271 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000040 seconds
-
-
-Query 46:
-Nearest neighbor-1: 8035
-distanceLSH: 356.206401
-distanceTrue: 261.361818
-Nearest neighbor-2: 6048
-distanceLSH: 366.746506
-distanceTrue: 265.663321
-Nearest neighbor-3: 797
-distanceLSH: 407.779352
-distanceTrue: 266.150333
-tLSH: 0.000124 seconds
-tTrue: 0.005239 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000043 seconds
-
-
-Query 47:
-Nearest neighbor-1: 7247
-distanceLSH: 309.359015
-distanceTrue: 99.629313
-Nearest neighbor-2: 5840
-distanceLSH: 311.215360
-distanceTrue: 215.715090
-Nearest neighbor-3: 920
-distanceLSH: 341.000000
-distanceTrue: 224.006696
-tLSH: 0.000052 seconds
-tTrue: 0.004705 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000049 seconds
-
-
-Query 48:
-Nearest neighbor-1: 9127
-distanceLSH: 405.606953
-distanceTrue: 294.394293
-Nearest neighbor-2: 9674
-distanceLSH: 411.917467
-distanceTrue: 312.920118
-Nearest neighbor-3: 1070
-distanceLSH: 418.416061
-distanceTrue: 314.474164
-tLSH: 0.000049 seconds
-tTrue: 0.005290 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000039 seconds
-
-
-Query 49:
-Nearest neighbor-1: 5075
-distanceLSH: 418.887813
-distanceTrue: 155.762640
-Nearest neighbor-2: 945
-distanceLSH: 447.742113
-distanceTrue: 215.633949
-Nearest neighbor-3: 3545
-distanceLSH: 469.677549
-distanceTrue: 265.311138
-tLSH: 0.000122 seconds
-tTrue: 0.005215 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000043 seconds
-
-
-Query 50:
-Nearest neighbor-1: 5322
-distanceLSH: 256.162058
-distanceTrue: 128.782763
-Nearest neighbor-2: 6007
-distanceLSH: 311.465889
-distanceTrue: 172.397796
-Nearest neighbor-3: 1450
-distanceLSH: 369.058261
-distanceTrue: 215.016278
-tLSH: 0.000123 seconds
-tTrue: 0.004502 seconds
-R-near neighbors:
-1: Found vector: 5322
-tRadiusSearch: 0.000046 seconds
-
-
-Query 51:
-Nearest neighbor-1: 7816
-distanceLSH: 364.275994
-distanceTrue: 181.140829
-Nearest neighbor-2: 5016
-distanceLSH: 455.372375
-distanceTrue: 199.604609
-Nearest neighbor-3: 5280
-distanceLSH: 462.591613
-distanceTrue: 219.815832
-tLSH: 0.000048 seconds
-tTrue: 0.005198 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000077 seconds
-
-
-Query 52:
-Nearest neighbor-1: 1946
-distanceLSH: 301.531093
-distanceTrue: 130.812843
-Nearest neighbor-2: 4187
-distanceLSH: 303.642882
-distanceTrue: 200.399601
-Nearest neighbor-3: 5922
-distanceLSH: 353.785246
-distanceTrue: 219.824930
-tLSH: 0.000051 seconds
-tTrue: 0.005181 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000041 seconds
-
-
-Query 53:
-Nearest neighbor-1: 5172
-distanceLSH: 325.213776
-distanceTrue: 198.776256
-Nearest neighbor-2: 7589
-distanceLSH: 329.312921
-distanceTrue: 220.748726
-Nearest neighbor-3: 1818
-distanceLSH: 329.369094
-distanceTrue: 221.670927
-tLSH: 0.000088 seconds
-tTrue: 0.004388 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000046 seconds
-
-
-Query 54:
-Nearest neighbor-1: 7950
-distanceLSH: 347.534171
-distanceTrue: 194.177754
-Nearest neighbor-2: 1918
-distanceLSH: 371.346200
-distanceTrue: 227.820104
-Nearest neighbor-3: 1437
-distanceLSH: 379.849970
-distanceTrue: 233.122286
-tLSH: 0.000080 seconds
-tTrue: 0.004378 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000040 seconds
-
-
-Query 55:
-Nearest neighbor-1: 5049
-distanceLSH: 240.771676
-distanceTrue: 159.307878
-Nearest neighbor-2: 5384
-distanceLSH: 441.901573
-distanceTrue: 164.240677
-Nearest neighbor-3: 3953
-distanceLSH: 465.900204
-distanceTrue: 164.626851
-tLSH: 0.000045 seconds
-tTrue: 0.004356 seconds
-R-near neighbors:
-1: Found vector: 5049
-tRadiusSearch: 0.000076 seconds
-
-
-Query 56:
-Nearest neighbor-1: 6653
-distanceLSH: 341.364907
-distanceTrue: 184.043473
-Nearest neighbor-2: 7796
-distanceLSH: 362.895302
-distanceTrue: 197.474049
-Nearest neighbor-3: 3407
-distanceLSH: 441.904967
-distanceTrue: 197.914123
-tLSH: 0.000051 seconds
-tTrue: 0.004453 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000040 seconds
-
-
-Query 57:
-Nearest neighbor-1: 3470
-distanceLSH: 302.674743
-distanceTrue: 190.735419
-Nearest neighbor-2: 1004
-distanceLSH: 318.450938
-distanceTrue: 209.062192
-Nearest neighbor-3: 636
-distanceLSH: 325.175337
-distanceTrue: 210.713075
-tLSH: 0.000080 seconds
-tTrue: 0.004265 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000038 seconds
-
-
-Query 58:
-Nearest neighbor-1: 3972
-distanceLSH: 344.733230
-distanceTrue: 167.146642
-Nearest neighbor-2: 9962
-distanceLSH: 363.075750
-distanceTrue: 211.688450
-Nearest neighbor-3: 8693
-distanceLSH: 386.266747
-distanceTrue: 220.517573
-tLSH: 0.000081 seconds
-tTrue: 0.004278 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000042 seconds
-
-
-Query 59:
-Nearest neighbor-1: 2211
-distanceLSH: 361.852180
-distanceTrue: 65.741920
-Nearest neighbor-2: 4853
-distanceLSH: 372.370783
-distanceTrue: 281.767635
-Nearest neighbor-3: 1180
-distanceLSH: 405.733903
-distanceTrue: 302.607006
-tLSH: 0.000056 seconds
-tTrue: 0.004384 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000042 seconds
-
-
-Query 60:
-Nearest neighbor-1: 9001
-distanceLSH: 219.556371
-distanceTrue: 114.415908
-Nearest neighbor-2: 9584
-distanceLSH: 340.782922
-distanceTrue: 117.149477
-Nearest neighbor-3: 9622
-distanceLSH: 386.538485
-distanceTrue: 125.179871
-tLSH: 0.000048 seconds
-tTrue: 0.004328 seconds
-R-near neighbors:
-1: Found vector: 9001
-tRadiusSearch: 0.000041 seconds
-
-
-Query 61:
-Nearest neighbor-1: 852
-distanceLSH: 344.772389
-distanceTrue: 170.308544
-Nearest neighbor-2: 9657
-distanceLSH: 377.347320
-distanceTrue: 264.022726
-Nearest neighbor-3: 4846
-distanceLSH: 382.839392
-distanceTrue: 265.339405
-tLSH: 0.000083 seconds
-tTrue: 0.004299 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000039 seconds
-
-
-Query 62:
-Nearest neighbor-1: 2670
-distanceLSH: 350.102842
-distanceTrue: 140.356688
-Nearest neighbor-2: 7801
-distanceLSH: 403.415419
-distanceTrue: 151.993421
-Nearest neighbor-3: 1026
-distanceLSH: 410.031706
-distanceTrue: 242.295274
-tLSH: 0.000046 seconds
-tTrue: 0.004422 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000044 seconds
-
-
-Query 63:
-Nearest neighbor-1: 5296
-distanceLSH: 321.020249
-distanceTrue: 131.651054
-Nearest neighbor-2: 4693
-distanceLSH: 354.892942
-distanceTrue: 182.057683
-Nearest neighbor-3: 2523
-distanceLSH: 355.623396
-distanceTrue: 193.220082
-tLSH: 0.000039 seconds
-tTrue: 0.004311 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000034 seconds
-
-
-Query 64:
-Nearest neighbor-1: 9749
-distanceLSH: 227.528020
-distanceTrue: 94.915752
-Nearest neighbor-2: 9893
-distanceLSH: 248.636281
-distanceTrue: 124.225601
-Nearest neighbor-3: 2035
-distanceLSH: 307.758022
-distanceTrue: 133.502809
-tLSH: 0.000078 seconds
-tTrue: 0.004298 seconds
-R-near neighbors:
-1: Found vector: 9749
-2: Found vector: 9893
-tRadiusSearch: 0.000044 seconds
-
-
-Query 65:
-Nearest neighbor-1: 5469
-distanceLSH: 372.961124
-distanceTrue: 138.275088
-Nearest neighbor-2: 7421
-distanceLSH: 392.904569
-distanceTrue: 226.823720
-Nearest neighbor-3: 2714
-distanceLSH: 438.367426
-distanceTrue: 240.696905
-tLSH: 0.000081 seconds
-tTrue: 0.004263 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000041 seconds
-
-
-Query 66:
-Nearest neighbor-1: 9834
-distanceLSH: 297.716308
-distanceTrue: 173.381083
-Nearest neighbor-2: 1800
-distanceLSH: 311.155909
-distanceTrue: 219.861320
-Nearest neighbor-3: 1579
-distanceLSH: 324.266865
-distanceTrue: 224.194112
-tLSH: 0.000046 seconds
-tTrue: 0.004422 seconds
-R-near neighbors:
-1: Found vector: 9834
-tRadiusSearch: 0.000076 seconds
-
-
-Query 67:
-Nearest neighbor-1: 5362
-distanceLSH: 370.072966
-distanceTrue: 200.865627
-Nearest neighbor-2: 5540
-distanceLSH: 486.370229
-distanceTrue: 225.698914
-Nearest neighbor-3: 142
-distanceLSH: 495.113118
-distanceTrue: 230.047821
-tLSH: 0.000044 seconds
-tTrue: 0.004296 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000036 seconds
-
-
-Query 68:
-Nearest neighbor-1: 4263
-distanceLSH: 376.862044
-distanceTrue: 224.225333
-Nearest neighbor-2: 7366
-distanceLSH: 379.635351
-distanceTrue: 244.237589
-Nearest neighbor-3: 9478
-distanceLSH: 415.019277
-distanceTrue: 251.035854
-tLSH: 0.000077 seconds
-tTrue: 0.004283 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000038 seconds
-
-
-Query 69:
-Nearest neighbor-1: 1918
-distanceLSH: 318.284464
-distanceTrue: 201.310705
-Nearest neighbor-2: 874
-distanceLSH: 327.725495
-distanceTrue: 201.335541
-Nearest neighbor-3: 5698
-distanceLSH: 354.077675
-distanceTrue: 202.770807
-tLSH: 0.000085 seconds
-tTrue: 0.004428 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000044 seconds
-
-
-Query 70:
-Nearest neighbor-1: 2095
-distanceLSH: 371.511776
-distanceTrue: 266.812668
-Nearest neighbor-2: 8733
-distanceLSH: 407.219842
-distanceTrue: 268.536776
-Nearest neighbor-3: 1450
-distanceLSH: 420.502081
-distanceTrue: 276.108674
-tLSH: 0.000046 seconds
-tTrue: 0.004327 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000072 seconds
-
-
-Query 71:
-Nearest neighbor-1: 6364
-distanceLSH: 322.879234
-distanceTrue: 46.818800
-Nearest neighbor-2: 6322
-distanceLSH: 358.789632
-distanceTrue: 80.367904
-Nearest neighbor-3: 6584
-distanceLSH: 430.534551
-distanceTrue: 100.772020
-tLSH: 0.000039 seconds
-tTrue: 0.004267 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000034 seconds
-
-
-Query 72:
-Nearest neighbor-1: 4850
-distanceLSH: 371.030996
-distanceTrue: 193.674985
-Nearest neighbor-2: 2132
-distanceLSH: 383.375795
-distanceTrue: 205.701240
-Nearest neighbor-3: 8102
-distanceLSH: 394.765753
-distanceTrue: 222.800359
-tLSH: 0.000084 seconds
-tTrue: 0.004444 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000042 seconds
-
-
-Query 73:
-Nearest neighbor-1: 1047
-distanceLSH: 373.243888
-distanceTrue: 303.211148
-Nearest neighbor-2: 1682
-distanceLSH: 397.620422
-distanceTrue: 320.128099
-Nearest neighbor-3: 6889
-distanceLSH: 413.555317
-distanceTrue: 320.728857
-tLSH: 0.000085 seconds
-tTrue: 0.004277 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000045 seconds
-
-
-Query 74:
-Nearest neighbor-1: 7612
-distanceLSH: 409.412994
-distanceTrue: 230.458239
-Nearest neighbor-2: 3509
-distanceLSH: 415.031324
-distanceTrue: 289.490933
-Nearest neighbor-3: 2035
-distanceLSH: 416.078118
-distanceTrue: 289.594544
-tLSH: 0.000045 seconds
-tTrue: 0.004304 seconds
+tLSH: 0.000073 seconds
+tTrue: 0.004524 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
 tRadiusSearch: 0.000071 seconds
 
 
-Query 75:
-Nearest neighbor-1: 3981
-distanceLSH: 286.813528
-distanceTrue: 131.095385
-Nearest neighbor-2: 5501
-distanceLSH: 314.639476
-distanceTrue: 220.020454
-Nearest neighbor-3: 1137
-distanceLSH: 322.394169
-distanceTrue: 220.503968
-tLSH: 0.000049 seconds
-tTrue: 0.004260 seconds
+Query 17:
+Nearest neighbor-1: 287
+distanceLSH: 275.158136
+distanceTrue: 248.199517
+tLSH: 0.000089 seconds
+tTrue: 0.007257 seconds
 R-near neighbors:
-1: Found vector: 3981
-tRadiusSearch: 0.000041 seconds
+1: Found vector: 287
+tRadiusSearch: 0.000043 seconds
 
 
-Query 76:
-Nearest neighbor-1: 3831
-distanceLSH: 386.943148
-distanceTrue: 212.061312
-Nearest neighbor-2: 7673
-distanceLSH: 405.716650
-distanceTrue: 254.768522
-Nearest neighbor-3: 797
-distanceLSH: 410.208484
-distanceTrue: 294.258390
-tLSH: 0.000086 seconds
-tTrue: 0.004368 seconds
+Query 18:
+Nearest neighbor-1: 2746
+distanceLSH: 335.632239
+distanceTrue: 254.635033
+tLSH: 0.000071 seconds
+tTrue: 0.005564 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
-tRadiusSearch: 0.000042 seconds
+tRadiusSearch: 0.000116 seconds
 
 
-Query 77:
-Nearest neighbor-1: 9296
-distanceLSH: 361.186932
-distanceTrue: 251.256841
-Nearest neighbor-2: 1666
-distanceLSH: 364.178528
-distanceTrue: 255.996094
-Nearest neighbor-3: 1808
-distanceLSH: 399.652349
-distanceTrue: 280.836251
-tLSH: 0.000048 seconds
-tTrue: 0.004274 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000041 seconds
-
-
-Query 78:
-Nearest neighbor-1: 8713
-distanceLSH: 416.418059
-distanceTrue: 293.715849
-Nearest neighbor-2: 5886
-distanceLSH: 430.589131
-distanceTrue: 298.879574
-Nearest neighbor-3: 8287
-distanceLSH: 443.870477
-distanceTrue: 306.737673
-tLSH: 0.000046 seconds
-tTrue: 0.004270 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000036 seconds
-
-
-Query 79:
-Nearest neighbor-1: 5568
-distanceLSH: 301.166067
-distanceTrue: 226.867803
-Nearest neighbor-2: 4706
-distanceLSH: 304.662108
-distanceTrue: 245.515784
-Nearest neighbor-3: 551
-distanceLSH: 358.849551
-distanceTrue: 254.876441
-tLSH: 0.000047 seconds
-tTrue: 0.004362 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000037 seconds
-
-
-Query 80:
-Nearest neighbor-1: 6247
-distanceLSH: 320.238973
-distanceTrue: 148.165448
-Nearest neighbor-2: 479
-distanceLSH: 381.443312
-distanceTrue: 160.415087
-Nearest neighbor-3: 9012
-distanceLSH: 442.394620
-distanceTrue: 161.369142
-tLSH: 0.000081 seconds
-tTrue: 0.004263 seconds
+Query 19:
+Nearest neighbor-1: 1953
+distanceLSH: 345.466351
+distanceTrue: 266.889490
+tLSH: 0.000071 seconds
+tTrue: 0.005520 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
 tRadiusSearch: 0.000040 seconds
 
 
+Query 20:
+Nearest neighbor-1: 3351
+distanceLSH: 300.079989
+distanceTrue: 224.750973
+tLSH: 0.000086 seconds
+tTrue: 0.006218 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000040 seconds
+
+
+Query 21:
+Nearest neighbor-1: 6462
+distanceLSH: 396.334455
+distanceTrue: 192.984455
+tLSH: 0.000084 seconds
+tTrue: 0.005569 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000044 seconds
+
+
+Query 22:
+Nearest neighbor-1: 5162
+distanceLSH: 261.047888
+distanceTrue: 80.845532
+tLSH: 0.000092 seconds
+tTrue: 0.006716 seconds
+R-near neighbors:
+1: Found vector: 4537
+2: Found vector: 8217
+3: Found vector: 5162
+tRadiusSearch: 0.000052 seconds
+
+
+Query 23:
+Nearest neighbor-1: 5409
+distanceLSH: 182.641726
+distanceTrue: 173.052015
+tLSH: 0.000177 seconds
+tTrue: 0.005576 seconds
+R-near neighbors:
+1: Found vector: 881
+2: Found vector: 5409
+tRadiusSearch: 0.000060 seconds
+
+
+Query 24:
+Nearest neighbor-1: 9208
+distanceLSH: 321.404729
+distanceTrue: 253.940938
+tLSH: 0.000139 seconds
+tTrue: 0.005539 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000089 seconds
+
+
+Query 25:
+Nearest neighbor-1: 5071
+distanceLSH: 302.099321
+distanceTrue: 154.227105
+tLSH: 0.000176 seconds
+tTrue: 0.005793 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000062 seconds
+
+
+Query 26:
+Nearest neighbor-1: 7124
+distanceLSH: 386.534604
+distanceTrue: 271.610015
+tLSH: 0.000074 seconds
+tTrue: 0.005911 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000036 seconds
+
+
+Query 27:
+Nearest neighbor-1: 80
+distanceLSH: 312.209865
+distanceTrue: 183.442089
+tLSH: 0.000179 seconds
+tTrue: 0.006567 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000061 seconds
+
+
+Query 28:
+Nearest neighbor-1: 2830
+distanceLSH: 334.813381
+distanceTrue: 175.516381
+tLSH: 0.000084 seconds
+tTrue: 0.005923 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000040 seconds
+
+
+Query 29:
+Nearest neighbor-1: 4548
+distanceLSH: 291.080745
+distanceTrue: 224.859956
+tLSH: 0.000081 seconds
+tTrue: 0.005720 seconds
+R-near neighbors:
+1: Found vector: 4548
+tRadiusSearch: 0.000042 seconds
+
+
+Query 30:
+Nearest neighbor-1: 3338
+distanceLSH: 377.843883
+distanceTrue: 125.379424
+tLSH: 0.000083 seconds
+tTrue: 0.006750 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000038 seconds
+
+
+Query 31:
+Nearest neighbor-1: 5878
+distanceLSH: 284.878922
+distanceTrue: 265.377090
+tLSH: 0.000076 seconds
+tTrue: 0.005833 seconds
+R-near neighbors:
+1: Found vector: 5878
+tRadiusSearch: 0.000041 seconds
+
+
+Query 32:
+Nearest neighbor-1: 5630
+distanceLSH: 363.887345
+distanceTrue: 109.192491
+tLSH: 0.000176 seconds
+tTrue: 0.006076 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000051 seconds
+
+
+Query 33:
+Nearest neighbor-1: 2769
+distanceLSH: 382.013089
+distanceTrue: 187.563323
+tLSH: 0.000064 seconds
+tTrue: 0.005513 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000036 seconds
+
+
+Query 34:
+Nearest neighbor-1: 628
+distanceLSH: 462.528918
+distanceTrue: 328.278845
+tLSH: 0.000076 seconds
+tTrue: 0.005592 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000054 seconds
+
+
+Query 35:
+Nearest neighbor-1: 1172
+distanceLSH: 325.098447
+distanceTrue: 248.553817
+tLSH: 0.000080 seconds
+tTrue: 0.006629 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000038 seconds
+
+
+Query 36:
+Nearest neighbor-1: 6065
+distanceLSH: 358.110318
+distanceTrue: 120.975204
+tLSH: 0.000071 seconds
+tTrue: 0.005784 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000088 seconds
+
+
+Query 37:
+Nearest neighbor-1: 540
+distanceLSH: 346.161812
+distanceTrue: 111.458512
+tLSH: 0.000093 seconds
+tTrue: 0.005549 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000039 seconds
+
+
+Query 38:
+Nearest neighbor-1: 402
+distanceLSH: 427.936911
+distanceTrue: 166.856226
+tLSH: 0.000076 seconds
+tTrue: 0.004471 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000074 seconds
+
+
+Query 39:
+Nearest neighbor-1: 4582
+distanceLSH: 361.095555
+distanceTrue: 156.358562
+tLSH: 0.000063 seconds
+tTrue: 0.004554 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000037 seconds
+
+
+Query 40:
+Nearest neighbor-1: 1782
+distanceLSH: 237.632069
+distanceTrue: 193.976803
+tLSH: 0.000066 seconds
+tTrue: 0.004417 seconds
+R-near neighbors:
+1: Found vector: 1782
+tRadiusSearch: 0.000041 seconds
+
+
+Query 41:
+Nearest neighbor-1: 1123
+distanceLSH: 360.727044
+distanceTrue: 153.564319
+tLSH: 0.000348 seconds
+tTrue: 0.005112 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000108 seconds
+
+
+Query 42:
+Nearest neighbor-1: 2452
+distanceLSH: 315.696056
+distanceTrue: 200.494389
+tLSH: 0.000080 seconds
+tTrue: 0.004965 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000039 seconds
+
+
+Query 43:
+Nearest neighbor-1: 4721
+distanceLSH: 345.175318
+distanceTrue: 236.772042
+tLSH: 0.000106 seconds
+tTrue: 0.004476 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000044 seconds
+
+
+Query 44:
+Nearest neighbor-1: 1214
+distanceLSH: 338.549849
+distanceTrue: 165.339046
+tLSH: 0.000061 seconds
+tTrue: 0.004424 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000035 seconds
+
+
+Query 45:
+Nearest neighbor-1: 4437
+distanceLSH: 322.535269
+distanceTrue: 256.353272
+tLSH: 0.000178 seconds
+tTrue: 0.004654 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000059 seconds
+
+
+Query 46:
+Nearest neighbor-1: 2141
+distanceLSH: 394.020304
+distanceTrue: 261.361818
+tLSH: 0.000076 seconds
+tTrue: 0.005469 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000037 seconds
+
+
+Query 47:
+Nearest neighbor-1: 2883
+distanceLSH: 401.434926
+distanceTrue: 99.629313
+tLSH: 0.000079 seconds
+tTrue: 0.005609 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000086 seconds
+
+
+Query 48:
+Nearest neighbor-1: 8322
+distanceLSH: 386.829420
+distanceTrue: 294.394293
+tLSH: 0.000069 seconds
+tTrue: 0.004624 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000036 seconds
+
+
+Query 49:
+Nearest neighbor-1: 2248
+distanceLSH: 363.078504
+distanceTrue: 155.762640
+tLSH: 0.000066 seconds
+tTrue: 0.004450 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000039 seconds
+
+
+Query 50:
+Nearest neighbor-1: 313
+distanceLSH: 281.886502
+distanceTrue: 128.782763
+tLSH: 0.000068 seconds
+tTrue: 0.004438 seconds
+R-near neighbors:
+1: Found vector: 8651
+2: Found vector: 313
+tRadiusSearch: 0.000045 seconds
+
+
+Query 51:
+Nearest neighbor-1: 4496
+distanceLSH: 394.192846
+distanceTrue: 181.140829
+tLSH: 0.000080 seconds
+tTrue: 0.004854 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000039 seconds
+
+
+Query 52:
+Nearest neighbor-1: 1766
+distanceLSH: 317.058354
+distanceTrue: 130.812843
+tLSH: 0.000130 seconds
+tTrue: 0.005506 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000051 seconds
+
+
+Query 53:
+Nearest neighbor-1: 6084
+distanceLSH: 318.144621
+distanceTrue: 198.776256
+tLSH: 0.000081 seconds
+tTrue: 0.005665 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000039 seconds
+
+
+Query 54:
+Nearest neighbor-1: 5991
+distanceLSH: 317.075701
+distanceTrue: 194.177754
+tLSH: 0.000115 seconds
+tTrue: 0.004571 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000052 seconds
+
+
+Query 55:
+Nearest neighbor-1: 9803
+distanceLSH: 309.165004
+distanceTrue: 159.307878
+tLSH: 0.000081 seconds
+tTrue: 0.004432 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000047 seconds
+
+
+Query 56:
+Nearest neighbor-1: 9754
+distanceLSH: 317.107237
+distanceTrue: 184.043473
+tLSH: 0.000062 seconds
+tTrue: 0.004380 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000041 seconds
+
+
+Query 57:
+Nearest neighbor-1: 1360
+distanceLSH: 246.134110
+distanceTrue: 190.735419
+tLSH: 0.000095 seconds
+tTrue: 0.004948 seconds
+R-near neighbors:
+1: Found vector: 1360
+2: Found vector: 5978
+3: Found vector: 5132
+4: Found vector: 3913
+tRadiusSearch: 0.000074 seconds
+
+
+Query 58:
+Nearest neighbor-1: 8774
+distanceLSH: 280.323028
+distanceTrue: 167.146642
+tLSH: 0.000079 seconds
+tTrue: 0.005266 seconds
+R-near neighbors:
+1: Found vector: 8774
+tRadiusSearch: 0.000048 seconds
+
+
+Query 59:
+Nearest neighbor-1: 3304
+distanceLSH: 416.128586
+distanceTrue: 65.741920
+tLSH: 0.000082 seconds
+tTrue: 0.005607 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000099 seconds
+
+
+Query 60:
+Nearest neighbor-1: 1370
+distanceLSH: 428.653706
+distanceTrue: 114.415908
+tLSH: 0.000067 seconds
+tTrue: 0.004458 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000037 seconds
+
+
+Query 61:
+Nearest neighbor-1: 1889
+distanceLSH: 371.646337
+distanceTrue: 170.308544
+tLSH: 0.000066 seconds
+tTrue: 0.004381 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000038 seconds
+
+
+Query 62:
+Nearest neighbor-1: 1746
+distanceLSH: 370.529351
+distanceTrue: 140.356688
+tLSH: 0.000061 seconds
+tTrue: 0.004325 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000037 seconds
+
+
+Query 63:
+Nearest neighbor-1: 1304
+distanceLSH: 417.300851
+distanceTrue: 131.651054
+tLSH: 0.000122 seconds
+tTrue: 0.005864 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000044 seconds
+
+
+Query 64:
+Nearest neighbor-1: 7003
+distanceLSH: 258.381501
+distanceTrue: 94.915752
+tLSH: 0.000068 seconds
+tTrue: 0.004416 seconds
+R-near neighbors:
+1: Found vector: 7003
+tRadiusSearch: 0.000040 seconds
+
+
+Query 65:
+Nearest neighbor-1: 6366
+distanceLSH: 309.690168
+distanceTrue: 138.275088
+tLSH: 0.000101 seconds
+tTrue: 0.006186 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000051 seconds
+
+
+Query 66:
+Nearest neighbor-1: 9228
+distanceLSH: 367.895366
+distanceTrue: 173.381083
+tLSH: 0.000060 seconds
+tTrue: 0.004396 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000033 seconds
+
+
+Query 67:
+Nearest neighbor-1: 2211
+distanceLSH: 462.386202
+distanceTrue: 200.865627
+tLSH: 0.000059 seconds
+tTrue: 0.004359 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000070 seconds
+
+
+Query 68:
+Nearest neighbor-1: 5655
+distanceLSH: 363.300151
+distanceTrue: 224.225333
+tLSH: 0.000144 seconds
+tTrue: 0.005429 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000037 seconds
+
+
+Query 69:
+Nearest neighbor-1: 2622
+distanceLSH: 360.122201
+distanceTrue: 201.310705
+tLSH: 0.000082 seconds
+tTrue: 0.005422 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000122 seconds
+
+
+Query 70:
+Nearest neighbor-1: 1872
+distanceLSH: 348.244167
+distanceTrue: 266.812668
+tLSH: 0.000083 seconds
+tTrue: 0.004729 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000039 seconds
+
+
+Query 71:
+Nearest neighbor-1: 5913
+distanceLSH: 100.772020
+distanceTrue: 46.818800
+tLSH: 0.000081 seconds
+tTrue: 0.005035 seconds
+R-near neighbors:
+1: Found vector: 6884
+2: Found vector: 5913
+tRadiusSearch: 0.000043 seconds
+
+
+Query 72:
+Nearest neighbor-1: 7960
+distanceLSH: 374.462281
+distanceTrue: 193.674985
+tLSH: 0.000067 seconds
+tTrue: 0.004369 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000038 seconds
+
+
+Query 73:
+Nearest neighbor-1: 2072
+distanceLSH: 398.864639
+distanceTrue: 303.211148
+tLSH: 0.000061 seconds
+tTrue: 0.004357 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000042 seconds
+
+
+Query 74:
+Nearest neighbor-1: 4341
+distanceLSH: 376.174162
+distanceTrue: 230.458239
+tLSH: 0.000190 seconds
+tTrue: 0.004906 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000111 seconds
+
+
+Query 75:
+Nearest neighbor-1: 2147
+distanceLSH: 310.631615
+distanceTrue: 131.095385
+tLSH: 0.000075 seconds
+tTrue: 0.005106 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000038 seconds
+
+
+Query 76:
+Nearest neighbor-1: 7840
+distanceLSH: 401.241822
+distanceTrue: 212.061312
+tLSH: 0.000074 seconds
+tTrue: 0.004625 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000080 seconds
+
+
+Query 77:
+Nearest neighbor-1: 6316
+distanceLSH: 352.630118
+distanceTrue: 251.256841
+tLSH: 0.000074 seconds
+tTrue: 0.005784 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000037 seconds
+
+
+Query 78:
+Nearest neighbor-1: 5268
+distanceLSH: 374.522362
+distanceTrue: 293.715849
+tLSH: 0.000066 seconds
+tTrue: 0.004359 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000078 seconds
+
+
+Query 79:
+Nearest neighbor-1: 2463
+distanceLSH: 330.336192
+distanceTrue: 226.867803
+tLSH: 0.000066 seconds
+tTrue: 0.004339 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000036 seconds
+
+
+Query 80:
+Nearest neighbor-1: 6167
+distanceLSH: 267.815235
+distanceTrue: 148.165448
+tLSH: 0.000081 seconds
+tTrue: 0.005960 seconds
+R-near neighbors:
+1: Found vector: 6167
+tRadiusSearch: 0.000041 seconds
+
+
 Query 81:
-Nearest neighbor-1: 3101
-distanceLSH: 401.695158
+Nearest neighbor-1: 9837
+distanceLSH: 398.567435
 distanceTrue: 146.311312
-Nearest neighbor-2: 1994
-distanceLSH: 506.978303
-distanceTrue: 230.893915
-Nearest neighbor-3: 6708
-distanceLSH: 540.056479
-distanceTrue: 281.067608
-tLSH: 0.000038 seconds
-tTrue: 0.004264 seconds
+tLSH: 0.000067 seconds
+tTrue: 0.004378 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
 tRadiusSearch: 0.000038 seconds
 
 
 Query 82:
-Nearest neighbor-1: 2622
-distanceLSH: 370.576578
+Nearest neighbor-1: 4537
+distanceLSH: 381.832424
 distanceTrue: 276.819436
-Nearest neighbor-2: 4464
-distanceLSH: 395.332771
-distanceTrue: 295.409885
-Nearest neighbor-3: 6742
-distanceLSH: 399.120283
-distanceTrue: 297.302876
-tLSH: 0.000048 seconds
-tTrue: 0.004357 seconds
+tLSH: 0.000070 seconds
+tTrue: 0.004583 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
-tRadiusSearch: 0.000039 seconds
+tRadiusSearch: 0.000037 seconds
 
 
 Query 83:
-Nearest neighbor-1: 6509
-distanceLSH: 336.254368
+Nearest neighbor-1: 7631
+distanceLSH: 328.289506
 distanceTrue: 271.981617
-Nearest neighbor-2: 8381
-distanceLSH: 383.264921
-distanceTrue: 273.892315
-Nearest neighbor-3: 3274
-distanceLSH: 383.966144
-distanceTrue: 278.718496
-tLSH: 0.000080 seconds
-tTrue: 0.004302 seconds
+tLSH: 0.000136 seconds
+tTrue: 0.006923 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
-tRadiusSearch: 0.000040 seconds
+tRadiusSearch: 0.000048 seconds
 
 
 Query 84:
-Nearest neighbor-1: 9809
-distanceLSH: 314.671257
+Nearest neighbor-1: 9531
+distanceLSH: 413.596422
 distanceTrue: 181.606718
-Nearest neighbor-2: 5754
-distanceLSH: 359.015320
-distanceTrue: 196.987309
-Nearest neighbor-3: 6231
-distanceLSH: 416.857290
-distanceTrue: 237.667835
-tLSH: 0.000082 seconds
-tTrue: 0.004298 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000041 seconds
-
-
-Query 85:
-Nearest neighbor-1: 4904
-distanceLSH: 310.670243
-distanceTrue: 192.678489
-Nearest neighbor-2: 9115
-distanceLSH: 357.404533
-distanceTrue: 233.846103
-Nearest neighbor-3: 8646
-distanceLSH: 357.990223
-distanceTrue: 248.362638
-tLSH: 0.000049 seconds
-tTrue: 0.004282 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000076 seconds
-
-
-Query 86:
-Nearest neighbor-1: 702
-distanceLSH: 523.687884
-distanceTrue: 285.106997
-Nearest neighbor-2: 650
-distanceLSH: 529.315596
-distanceTrue: 305.612500
-Nearest neighbor-3: 3565
-distanceLSH: 531.163817
-distanceTrue: 330.969787
-tLSH: 0.000050 seconds
-tTrue: 0.004336 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000040 seconds
-
-
-Query 87:
-Nearest neighbor-1: 9038
-distanceLSH: 297.038718
-distanceTrue: 224.906647
-Nearest neighbor-2: 3635
-distanceLSH: 447.409209
-distanceTrue: 255.282197
-Nearest neighbor-3: 5500
-distanceLSH: 451.048778
-distanceTrue: 265.054711
-tLSH: 0.000088 seconds
-tTrue: 0.004288 seconds
-R-near neighbors:
-1: Found vector: 9038
-tRadiusSearch: 0.000044 seconds
-
-
-Query 88:
-Nearest neighbor-1: 5416
-distanceLSH: 284.146089
-distanceTrue: 123.559702
-Nearest neighbor-2: 7613
-distanceLSH: 454.871410
-distanceTrue: 216.025461
-Nearest neighbor-3: 6935
-distanceLSH: 461.010846
-distanceTrue: 217.935770
-tLSH: 0.000086 seconds
-tTrue: 0.004247 seconds
-R-near neighbors:
-1: Found vector: 5416
-tRadiusSearch: 0.000045 seconds
-
-
-Query 89:
-Nearest neighbor-1: 6517
-distanceLSH: 437.587705
-distanceTrue: 75.079957
-Nearest neighbor-2: 4527
-distanceLSH: 480.315521
-distanceTrue: 135.051842
-Nearest neighbor-3: 2886
-distanceLSH: 505.645132
-distanceTrue: 154.418263
-tLSH: 0.000042 seconds
-tTrue: 0.004443 seconds
+tLSH: 0.000059 seconds
+tTrue: 0.004427 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
 tRadiusSearch: 0.000034 seconds
 
 
-Query 90:
-Nearest neighbor-1: 1574
-distanceLSH: 401.307862
-distanceTrue: 114.533838
-Nearest neighbor-2: 3180
-distanceLSH: 451.805268
-distanceTrue: 157.340395
-Nearest neighbor-3: 1183
-distanceLSH: 451.922560
-distanceTrue: 191.522845
-tLSH: 0.000043 seconds
-tTrue: 0.004244 seconds
+Query 85:
+Nearest neighbor-1: 5321
+distanceLSH: 323.916656
+distanceTrue: 192.678489
+tLSH: 0.000104 seconds
+tTrue: 0.004635 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
-tRadiusSearch: 0.000037 seconds
+tRadiusSearch: 0.000044 seconds
 
 
-Query 91:
-Nearest neighbor-1: 654
-distanceLSH: 300.838827
-distanceTrue: 50.457903
-Nearest neighbor-2: 1845
-distanceLSH: 301.358590
-distanceTrue: 60.663004
-Nearest neighbor-3: 4358
-distanceLSH: 351.106821
-distanceTrue: 156.233799
-tLSH: 0.000079 seconds
-tTrue: 0.004263 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000040 seconds
-
-
-Query 92:
-Nearest neighbor-1: 5946
-distanceLSH: 437.816171
-distanceTrue: 298.026844
-Nearest neighbor-2: 2542
-distanceLSH: 461.074831
-distanceTrue: 308.970872
-Nearest neighbor-3: 3130
-distanceLSH: 462.923320
-distanceTrue: 314.189433
-tLSH: 0.000043 seconds
-tTrue: 0.004383 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000047 seconds
-
-
-Query 93:
-Nearest neighbor-1: 3825
-distanceLSH: 367.298244
-distanceTrue: 141.463776
-Nearest neighbor-2: 1377
-distanceLSH: 394.457856
-distanceTrue: 245.210114
-Nearest neighbor-3: 7193
-distanceLSH: 413.239640
-distanceTrue: 293.625612
-tLSH: 0.000046 seconds
-tTrue: 0.004284 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000037 seconds
-
-
-Query 94:
-Nearest neighbor-1: 4087
-distanceLSH: 323.074295
-distanceTrue: 234.774360
-Nearest neighbor-2: 4866
-distanceLSH: 352.613102
-distanceTrue: 258.338925
-Nearest neighbor-3: 6058
-distanceLSH: 398.364155
-distanceTrue: 259.917295
-tLSH: 0.000045 seconds
-tTrue: 0.004254 seconds
+Query 86:
+Nearest neighbor-1: 7562
+distanceLSH: 525.543528
+distanceTrue: 285.106997
+tLSH: 0.000068 seconds
+tTrue: 0.004409 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
 tRadiusSearch: 0.000038 seconds
 
 
-Query 95:
-Nearest neighbor-1: 1568
-distanceLSH: 400.348598
-distanceTrue: 160.570857
-Nearest neighbor-2: 8497
-distanceLSH: 494.984848
-distanceTrue: 236.376818
-Nearest neighbor-3: 2998
-distanceLSH: 519.808619
-distanceTrue: 245.981707
-tLSH: 0.000099 seconds
-tTrue: 0.004265 seconds
+Query 87:
+Nearest neighbor-1: 2278
+distanceLSH: 406.376673
+distanceTrue: 224.906647
+tLSH: 0.000075 seconds
+tTrue: 0.004823 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
-tRadiusSearch: 0.000097 seconds
+tRadiusSearch: 0.000215 seconds
 
 
-Query 96:
-Nearest neighbor-1: 3606
-distanceLSH: 357.649270
-distanceTrue: 305.391552
-Nearest neighbor-2: 7063
-distanceLSH: 409.829233
-distanceTrue: 313.359219
-Nearest neighbor-3: 1694
-distanceLSH: 425.835649
-distanceTrue: 313.738745
-tLSH: 0.000051 seconds
-tTrue: 0.004305 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000043 seconds
-
-
-Query 97:
-Nearest neighbor-1: 4774
-distanceLSH: 361.990331
-distanceTrue: 285.790133
-Nearest neighbor-2: 4714
-distanceLSH: 373.893033
-distanceTrue: 303.557243
-Nearest neighbor-3: 1208
-distanceLSH: 438.020547
-distanceTrue: 318.366141
-tLSH: 0.000049 seconds
-tTrue: 0.004354 seconds
-R-near neighbors:
- Did not find any neighbor inside the given range
-tRadiusSearch: 0.000038 seconds
-
-
-Query 98:
-Nearest neighbor-1: 7200
-distanceLSH: 359.558062
-distanceTrue: 233.531582
-Nearest neighbor-2: 519
-distanceLSH: 399.335698
-distanceTrue: 303.744959
-Nearest neighbor-3: 4881
-distanceLSH: 401.194467
-distanceTrue: 304.041116
-tLSH: 0.000045 seconds
-tTrue: 0.004300 seconds
+Query 88:
+Nearest neighbor-1: 7904
+distanceLSH: 466.362520
+distanceTrue: 123.559702
+tLSH: 0.000077 seconds
+tTrue: 0.005162 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
 tRadiusSearch: 0.000036 seconds
 
 
-Query 99:
-Nearest neighbor-1: 8177
-distanceLSH: 387.286715
-distanceTrue: 137.429982
-Nearest neighbor-2: 2121
-distanceLSH: 433.337051
-distanceTrue: 138.899244
-Nearest neighbor-3: 332
-distanceLSH: 480.766055
-distanceTrue: 138.964024
-tLSH: 0.000078 seconds
-tTrue: 0.004390 seconds
+Query 89:
+Nearest neighbor-1: 4759
+distanceLSH: 367.720002
+distanceTrue: 75.079957
+tLSH: 0.000065 seconds
+tTrue: 0.004373 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000073 seconds
+
+
+Query 90:
+Nearest neighbor-1: 3907
+distanceLSH: 317.219167
+distanceTrue: 114.533838
+tLSH: 0.000063 seconds
+tTrue: 0.004350 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000036 seconds
+
+
+Query 91:
+Nearest neighbor-1: 5977
+distanceLSH: 218.524598
+distanceTrue: 50.457903
+tLSH: 0.000065 seconds
+tTrue: 0.004462 seconds
+R-near neighbors:
+1: Found vector: 9708
+2: Found vector: 2073
+3: Found vector: 5977
+tRadiusSearch: 0.000043 seconds
+
+
+Query 92:
+Nearest neighbor-1: 5286
+distanceLSH: 454.085895
+distanceTrue: 298.026844
+tLSH: 0.000064 seconds
+tTrue: 0.004341 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000036 seconds
+
+
+Query 93:
+Nearest neighbor-1: 8178
+distanceLSH: 451.287048
+distanceTrue: 141.463776
+tLSH: 0.000079 seconds
+tTrue: 0.004859 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000038 seconds
+
+
+Query 94:
+Nearest neighbor-1: 5290
+distanceLSH: 362.300980
+distanceTrue: 234.774360
+tLSH: 0.000122 seconds
+tTrue: 0.005580 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000045 seconds
+
+
+Query 95:
+Nearest neighbor-1: 4866
+distanceLSH: 361.589546
+distanceTrue: 160.570857
+tLSH: 0.000060 seconds
+tTrue: 0.004392 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000034 seconds
+
+
+Query 96:
+Nearest neighbor-1: 2029
+distanceLSH: 400.311129
+distanceTrue: 305.391552
+tLSH: 0.000094 seconds
+tTrue: 0.004322 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000039 seconds
+
+
+Query 97:
+Nearest neighbor-1: 3846
+distanceLSH: 393.542882
+distanceTrue: 285.790133
+tLSH: 0.000087 seconds
+tTrue: 0.004968 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
 tRadiusSearch: 0.000040 seconds
+
+
+Query 98:
+Nearest neighbor-1: 4152
+distanceLSH: 380.064468
+distanceTrue: 233.531582
+tLSH: 0.000076 seconds
+tTrue: 0.005488 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000048 seconds
+
+
+Query 99:
+Nearest neighbor-1: 5436
+distanceLSH: 180.385698
+distanceTrue: 137.429982
+tLSH: 0.000079 seconds
+tTrue: 0.005550 seconds
+R-near neighbors:
+1: Found vector: 5914
+2: Found vector: 5436
+tRadiusSearch: 0.000045 seconds
 
 
 Query 100:
-Nearest neighbor-1: 10
-distanceLSH: 391.700140
+Nearest neighbor-1: 5980
+distanceLSH: 405.398569
 distanceTrue: 184.613109
-Nearest neighbor-2: 7364
-distanceLSH: 398.005025
-distanceTrue: 234.885078
-Nearest neighbor-3: 927
-distanceLSH: 403.744969
-distanceTrue: 308.608166
-tLSH: 0.000047 seconds
-tTrue: 0.004273 seconds
+tLSH: 0.000068 seconds
+tTrue: 0.004412 seconds
 R-near neighbors:
  Did not find any neighbor inside the given range
-tRadiusSearch: 0.000040 seconds
+tRadiusSearch: 0.000072 seconds
 
 

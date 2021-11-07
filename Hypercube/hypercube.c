@@ -99,7 +99,6 @@ int computeF(HashMap f_fun,Key key){
 
 HyperCube initializeHyperCube(){
   // allocate and initialize the hyper cube node
-  printf("NEW DIMENSION OF HYPERCUBE (d') = %d\n",new_dimension);
   HyperCube hc = malloc(sizeof(cubeNode));
   // allocate and generate h functions based on the given dimension
   hc->h_functions = malloc(new_dimension*sizeof(h_function));
@@ -169,10 +168,7 @@ void searchForHammingDistance(HyperCube hc,Vector v,int *v_index,int hammingDist
   }
 }
 
-void nearestNeigborHypercube(HyperCube hc,Vector q,int hammingDist,int m,FILE *fptr){
-  fprintf(fptr,"ABOUT TO SEARCH NEAREST NEIGHBOR FOR : ");
-  printVector(q);
-  printVectorInFile(q,fptr);
+void nearestNeigborHypercube(HyperCube hc,Vector q,int hammingDist,int m,double *trueDist,FILE *fptr){
   Vector nearest=NULL;
   double nearestDist=-1;
   int index[new_dimension];
@@ -195,15 +191,12 @@ void nearestNeigborHypercube(HyperCube hc,Vector q,int hammingDist,int m,FILE *f
   }
 
   if(nearestDist>=0 && nearest!=NULL){
-    printf("FOUND NEAREST NEIGHBOR ");
-    fprintf(fptr,"FOUND NEAREST NEIGHBOR ");
-    printVector(nearest);
-    printf("WITH DISTANCE =  %f\n",nearestDist);
-    printf("WITH DISTANCE =  %f\n",nearestDist);
-    fprintf(fptr,"WITH DISTANCE =  %f\n",nearestDist);
+    fprintf(fptr,"Nearest neighbor-1: ");
+    printVectorIdInFile(nearest,fptr);
+    fprintf(fptr,"distanceHypercube: %f\n",nearestDist);
+    fprintf(fptr,"distanceTrue: %f\n", *trueDist);
   }else{
     fprintf(fptr,"- DID NOT FIND NEAREST NEIGHBOR\n");
-    printf("- DID NOT FIND NEAREST NEIGHBOR\n");
   }
 }
 
