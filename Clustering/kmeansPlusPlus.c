@@ -24,7 +24,7 @@ int binarySearchKmeans( double key, double data[], const int len )
     while( low <= high){
         int mid = low + ((high - low) / 2);
 
-        /**/ if (data[mid] < key) low  = mid + 1;
+             if (data[mid] < key) low  = mid + 1;
         else if (data[mid] > key) high = mid - 1;
         else return                      mid + 1;
     }
