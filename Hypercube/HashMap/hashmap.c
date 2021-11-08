@@ -9,8 +9,8 @@
 
 
 typedef struct node{
-  Key key;
-  Value value;
+  Key key;  // the key of the map (the type  of the key is defined in hashmap.h file)
+  Value value;  // the value that correspons to the key (the type  of the value is defined in hashmap.h file)
   struct node *next;
 }Node;  //list node
 typedef Node *Record;    //pointer to the list node
@@ -18,7 +18,7 @@ typedef Record *HashMapArray;  //double pointer to the list node (array of lists
 
 typedef struct hash{
   int size;   // the size of the hashTable
-  int count;    //how many citizens are in the HashTable
+  int count;    //how many keys/values are in the HashTable
   HashMapArray table;   //the HashTable
 }HashHeadNode;    // dummy node for hashTable
 typedef HashHeadNode *HashMap;    //pointer to the dummy node
@@ -42,7 +42,7 @@ HashMap hmCreate(int size){ //  create/initialize the hash table
   return head;
 }
 
-Record newNode(Key key,Value value){   // creates a node of a citizen
+Record newNode(Key key,Value value){   // creates a node of a key/value set
   Record node=malloc(sizeof(Node));
   node->key=key;
   node->value=value;
@@ -50,7 +50,7 @@ Record newNode(Key key,Value value){   // creates a node of a citizen
   return node;
 }
 
-void deleteNode(Record node){  // delete a citizen node
+void deleteNode(Record node){  // delete a key/value node
   free(node);
 }
 
@@ -84,7 +84,7 @@ void hmResize(HashMap ht){  // the hash table is resizable, when it is 90% full 
     if(slot==NULL){
         continue;
     }
-    while(slot!=NULL){   //for every node (every citizen) of the overflow list
+    while(slot!=NULL){   //for every node (every key/value set) of the overflow list
         Record next=slot->next;
         hmResizeInsert(ht,slot);  // insert it to the new hash table
         // a new insert function is created for the resize so as not to delete every node of the old hash table
@@ -108,16 +108,16 @@ void hmResizeInsert(HashMap ht,Record rec){
     rec->next=NULL;
     (ht->count)++;
     return;
-  }else{    //if there are already citizens in this "bucket"
+  }else{    //if there are already key/value sets in this "bucket"
     Record prev;
     while(slot!=NULL){
-      if(getKey(slot)==rec->key){    //check if the citizen already exists
+      if(getKey(slot)==rec->key){    //check if the key already exists
         return;
       }
       prev=slot;
       slot=slot->next;
     }
-    //when we reach the last node of the list (the citizen does not exist)
+    //when we reach the last node of the list (the key does not exist)
     prev->next=rec;    //connect it to the last node of the list
     rec->next=NULL;
     (ht->count)++;
@@ -132,21 +132,21 @@ Record hmSearchOrInsert(HashMap ht,Key key,Value value){
   int index = mod_Int_Int(key,ht->size);
   Record slot=ht->table[index];  // get the overflow list of this bucket
   if(slot==NULL){   //no collitions so just insert the node with the citizen
-    Record newnode=newNode(key,value);     //create the node of the hashTable list that contains the given citizen
+    Record newnode=newNode(key,value);     //create the node of the hashTable list that contains the given key/value set
     ht->table[index]=newnode; //insert it to the hash table, as the first (and only) node of the list in this "Bucket"
     (ht->count)++;
     return newnode;
-  }else{    //if there are already citizens in this "bucket"
+  }else{    //if there are already key/value sets in this "bucket"
     Record prev;
     while(slot!=NULL){
-      if(getKey(slot)==key){    //check if the citizen already exists
+      if(getKey(slot)==key){    //check if the key already exists
         return slot;
       }
       prev=slot;
       slot=slot->next;
     }
-    //when we reach the last node of the list (the citizen does not exist)
-    Record newnode=newNode(key,value); //create the node of the hashTable list that contains the given citizen
+    //when we reach the last node of the list (the key does not exist)
+    Record newnode=newNode(key,value); //create the node of the hashTable list that contains the given key/value set
     prev->next=newnode;    // and connect it to the last node of the list
     (ht->count)++;
     return newnode;
@@ -154,34 +154,34 @@ Record hmSearchOrInsert(HashMap ht,Key key,Value value){
 }
 
 Record hmSearch(HashMap ht,Key key){
-  // int index=hash(ht,citizenId);   //find in wich bucket the citizen should be (using hash function)
-  int index = mod_Int_Int(key,ht->size);
+  // int index=hash(ht,citizenId);
+  int index = mod_Int_Int(key,ht->size);  //find in wich bucket the key/value set should be (using hash function and key)
   Record slot=ht->table[index];    //go to this "bucket"
   if(slot==NULL){   //no citizen exists in this slot, so it is sure that citizenId does not exist in the hash table
     return NULL;
   }else{
-    while(slot!=NULL){    //check every citizen in this slot (all the collitions)
-      if(getKey(slot)==key){   //if the citizen is found, return a pointer to the node
-          return slot;   //we found the citizen so return a pointer to the citizen
+    while(slot!=NULL){    //check every key in this slot (all the collitions)
+      if(getKey(slot)==key){   //if the key is found, return a pointer to the node
+          return slot;   //we found the key so return a pointer to the citizen
       }
       slot=slot->next;
     }
-    //if we traverse the whole list in this bucket and we dont find the citizen, the citizen does not exist in the hash table
+    //if we traverse the whole list in this bucket and we dont find the key, the key does not exist in the hash table
     return NULL;
   }
 }
 
-void hmDestroy(HashMap ht){   //destroys and frees the hash table (and the citizen nodes)
+void hmDestroy(HashMap ht){   //destroys and frees the hash table (and the key/value nodes)
   if(ht==NULL)
     return;
   for (int i=0;i<ht->size;++i){   //for every bucket in the hash table
-    Record slot=ht->table[i];    //take the citizen list
+    Record slot=ht->table[i];    //take the key/value set list
     if(slot==NULL){
         continue;
     }
-    for(;;){   //every node in the citizen list
+    for(;;){   //every node in the list
         if(slot->next==NULL){   //for the last node
-            deleteNode(slot);     // deleteNode()  deletes the citizen info and the list node itself
+            deleteNode(slot);     // deleteNode()  deletes the key/value info and the list node itself
             break;
         }
         Record next=slot->next;

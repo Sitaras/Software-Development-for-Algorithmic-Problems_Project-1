@@ -31,6 +31,11 @@ int getNumberOfVectors(const HashTable ht){
 HashTable htInitialize(int buckets) {
   HashTable ht=malloc(sizeof(struct hashtable_head));
   ht->table=malloc(sizeof(struct hashtable_node)*buckets);
+  if(ht->table==NULL){
+    printf("MALLOC ERROR : NOT ENOUGH MEMORY TO STORE THE HASH TABLE\n");
+    fflush(stdout);
+    exit(0);
+  }
   ht->buckets=buckets;
   for (int i=0;i<buckets;i++){
     ht->table[i].key=i;
@@ -56,7 +61,7 @@ int hashFunction(const HashTable ht,Vector v,int d){ /* Hash function only used 
 }
 
 int htInsert(HashTable ht, Vector v,int index,int id){
-  // int index=hashFunction(ht,1);
+  fflush(stdout);
   ht->table[index].head=listInsert(ht->table[index].head,v,id);
   ht->numberOfVectors++;
   return 1;

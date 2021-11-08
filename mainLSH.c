@@ -9,6 +9,8 @@
 #include "./parsing/parsingLSH.h"
 #include "./hashTable/hashTableList/hashTableList.h"
 
+#define W_VALUE 4
+
 int d;
 int w;
 int k_LSH;
@@ -37,7 +39,7 @@ int main(int argc, char *argv[])  {
   double radius=10000;
   hashTableSize = 1000;
   k_LSH = 4;
-  w = 4;
+  w = W_VALUE;
 
   while((option = getopt(argc, argv, "i:q:k:L:o:N:R:")) != -1){
      switch(option){

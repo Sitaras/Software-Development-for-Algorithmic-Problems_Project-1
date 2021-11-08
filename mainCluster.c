@@ -9,6 +9,10 @@
 #include "Hypercube/hypercube.h"
 #include "./parsing/parsingCluster.h"
 #include "./Clustering/clustering.h"
+
+#define W_VALUE 4
+
+
 int d;
 // int k;
 int new_dimension;
@@ -137,9 +141,9 @@ int main(int argc, char *argv[]) {
       d = findDim(inputFile);
       printf("DIMENSION = %d\n",d);
       int numOfClusters=5,l=3,mHyper=10,probes=2;
-      new_dimension=3;
+      new_dimension=14;
       k_LSH=4;
-      w=8;
+      w=W_VALUE;
       readConfFile(confFile,&numOfClusters,&l,&mHyper,&probes);
       list = initializeList();
       readFile(inputFile,&list,&numOfVecs);

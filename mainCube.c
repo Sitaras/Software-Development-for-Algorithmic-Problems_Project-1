@@ -8,11 +8,16 @@
 #include "Hypercube/hypercube.h"
 #include "./parsing/parsingCube.h"
 #include "./hashTable/hashTableList/hashTableList.h"
+
+#define W_VALUE 4
+
 int d;
 int new_dimension;
 int m;
 int probes;
 int w;
+
+
 
 void printOptions(){
   printf("_________________Options____________________\n\n");
@@ -38,7 +43,7 @@ int main(int argc, char *argv[]) {
   int n=1;
   int r=10000;
   int probes=2;
-  w = 4;
+  w = W_VALUE;
 
   while((option = getopt(argc, argv, "i:q:k:M:p:o:N:R:")) != -1){
      switch(option){
@@ -127,7 +132,34 @@ int main(int argc, char *argv[]) {
     sscanf(str,"%s\n",outputFile);
     printf("Given output File : %s\n", outputFile);
   }
-
+  if(new_dimension>25){
+    printf("You chose a big value for k (d') and the system may not be capable of allocating all the memory needed by the hypecube\n");
+    printf("Do you wish to continue with k=%d ? (Press \"y\" to continue or \"n\" to change the value of k)\n",new_dimension);
+    while(1){
+      fflush(stdin); // clear stdin buffer
+      if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+        perror("Error reading string with fgets\n");
+        exit(1);
+      }
+      char ans[100];
+      sscanf(str,"%s\n",ans);
+      if(strcmp(ans,"y")==0){
+        break;
+      }else if(strcmp(ans,"n")==0){
+        printf("Give new value for k: ");
+        fflush(stdin); // clear stdin buffer
+        if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+          perror("Error reading string with fgets\n");
+          exit(1);
+        }
+        sscanf(str,"%s\n",ans);
+        new_dimension = atoi(ans);
+        break;
+      }else{
+        printf("Wrong input! Press \"y\" to continue or \"n\" to change the value of k\n");
+      }
+    }
+  }
 
   HyperCube hc;
   List list;
@@ -144,7 +176,7 @@ int main(int argc, char *argv[]) {
   printf("Created Hypercube in : %f seconds\n",time_spent);
   while(1){
     if(repeat){
-      readQueryFile(queryFile,outputFile,hc,list,n,r,2,m);
+      readQueryFile(queryFile,outputFile,hc,list,n,r,probes,m);
     }
 
     repeat=0;
