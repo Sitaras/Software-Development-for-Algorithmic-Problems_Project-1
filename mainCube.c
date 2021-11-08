@@ -8,11 +8,16 @@
 #include "Hypercube/hypercube.h"
 #include "./parsing/parsingCube.h"
 #include "./hashTable/hashTableList/hashTableList.h"
+
+#define W_VALUE 4
+
 int d;
 int new_dimension;
 int m;
 int probes;
 int w;
+
+
 
 void printOptions(){
   printf("_________________Options____________________\n\n");
@@ -38,7 +43,7 @@ int main(int argc, char *argv[]) {
   int n=1;
   int r=10000;
   int probes=2;
-  w = 4;
+  w = W_VALUE;
 
   while((option = getopt(argc, argv, "i:q:k:M:p:o:N:R:")) != -1){
      switch(option){

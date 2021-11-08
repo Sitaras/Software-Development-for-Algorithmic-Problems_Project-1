@@ -174,7 +174,7 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
       }
       // finally delete each cluster in order to form a new one based to the new centroid
       htDelete(clustersHt[i],0);
-      clustersHt[i] = htInitialize(numOfVecs/(4*numOfClusters)); // TODO: CHANGE
+      clustersHt[i] = htInitialize(numOfVecs/(4*numOfClusters)); 
       // save the new centroid
       clusters[i]=newCenter;
     }
@@ -237,7 +237,7 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
   double *props;
   HashTable *clustersHt=malloc(numOfClusters*sizeof(HashTable *)); // array of hash tables each hash table represents a cluster that the vectors will be stored
   for(int i=0;i<numOfClusters;i++){
-    clustersHt[i]= htInitialize(numOfVecs/(4*numOfClusters)); // TODO: CHANGE SIZE
+    clustersHt[i]= htInitialize(numOfVecs/(4*numOfClusters));
   }
   vectors = transformListToArray(vecList,numOfVecs);
   clusters = malloc(numOfClusters*sizeof(Vector)); // used to store the new centroids
@@ -414,7 +414,7 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
   double *props;
   HashTable *clustersHt=malloc(numOfClusters*sizeof(HashTable *)); // array of hash tables each hash table represents a cluster that the vectors will be stored
   for(int i=0;i<numOfClusters;i++){
-    clustersHt[i]= htInitialize(numOfVecs/(4*numOfClusters)); // TODO: CHANGE SIZE
+    clustersHt[i]= htInitialize(numOfVecs/(4*numOfClusters));
   }
   vectors = transformListToArray(vecList,numOfVecs);
   clusters = malloc(numOfClusters*sizeof(Vector)); // used to store the new centroids

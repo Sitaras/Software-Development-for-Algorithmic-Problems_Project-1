@@ -88,8 +88,9 @@ int flipCoin(){
 
 int computeF(HashMap f_fun,Key key){
   // every f function is represented as a hashMap (the common dictionary in Python)
-  // a f function for each function h returns a specific value of 0 or 1.
+  // a f function for each  input (h(p)) returns a specific value of 0 or 1.
   // The item of a hash map is randomly generated (flipCoin) and stored in the corresponding bucket (if the key doesn't already exist).
+  // if f receive the same input twice, it returns the same output, as the hashMap is searched where the output of the flipCoin of the first time is stored
   // The value of the h function is the key of the a hash map .
   // The item of the hash map is a random value (bit) 0 or 1 .
   // hash function of hash map is: The value of the h function mod hash_map_size
@@ -154,18 +155,26 @@ void deleteHyperCube(HyperCube hc){
 
 
 void searchForHammingDistance(HyperCube hc,Vector v,int *v_index,int hammingDist,int startFrom,Vector *nearest,double *nearestDist,int *numOfSearched,int maxToSearch,int *nodesSearched,int probes){
-  if(hammingDist<=0){
-    int new_index = binaryArrayToDecimal(v_index,new_dimension);
-    htFindNearestNeighborCube(hc->hypercube,new_index,v,nearest,nearestDist,d,numOfSearched,maxToSearch);
-    (*nodesSearched)++;
+  // recursive function that computes all the numbers that have hamming distance equal to hammingDist
+  // after an index is computed, we search for nearest neighbors in that index by calling htFindNearestNeighborCube
+  // if we reach the maximum probes or the maximum vectors given by the user we stop computing new indexes and searching in them
+  if(hammingDist<=0){ // recursion end
+    // we have computed an index with the wanted hamming distance from the inital index
+    int new_index = binaryArrayToDecimal(v_index,new_dimension);  // convert the binary number to an integer
+    htFindNearestNeighborCube(hc->hypercube,new_index,v,nearest,nearestDist,d,numOfSearched,maxToSearch); // call in order to search for neighbors inside the new index of the hypercube
+    (*nodesSearched)++; // increase the counter of the nodes that we have searched (probes)
     return;
   }
-  for(int i=startFrom;i<new_dimension;i++){
-      v_index[i] = v_index[i]^1;
+  for(int i=startFrom;i<new_dimension;i++){ // start changing bits, starting from the next bit that the "father" call stoped
+      v_index[i] = v_index[i]^1;  // inverse the bit
+      // recursive call in order to start changing the next bits and start generating new indexes with the new value of the i'th bit that has just changed
+      // we decrease the wanted hamming distance by one as we have just changed a bit, so in order to achive the wanted hamming distance we have to change one less bit
+      // the new recuresive call will compute all the numbers that have hamming distance = (hammingDist-1) from the current number that we have generated
+      // if (hammingDist-1)==0 then we have generated a wanted index and the recursion will stop after this call
       searchForHammingDistance(hc,v,v_index,hammingDist-1,i+1,nearest,nearestDist,numOfSearched,maxToSearch,nodesSearched,probes);
-      // search
-      v_index[i] = v_index[i]^1;
+      v_index[i] = v_index[i]^1;  // cahnge back the bit
       if((*numOfSearched)>=maxToSearch || (*nodesSearched)>=probes){
+        // stop generating numbers if we reached the maximum probes or the maximum vectors given by the user
         break;
       }
   }
@@ -187,6 +196,10 @@ void nearestNeigborHypercube(HyperCube hc,Vector q,int hammingDist,int m,double 
   int nodesSearched = 0;
 
   for(int i=1;;i++){
+    // in every loop iteration all the indexes with hamming distance = i from the initial index (index_decimal) are computed and searched by searchForHammingDistanceKNN
+    // in the first iteration we search to all indexes with hamming distance 1 from the index_decimal, ... , in the last iteration we search to the node (only 1 exists) with hamming distance = k
+    // the loop stops when we search the max number of nodes given by the user, or we searched the maximum nodes of the hypercube (probes) given by the user
+    // or we searched all the nodes of the hypercube (i>new_dimension)
     if(searched>=m || nodesSearched>=hammingDist || i>new_dimension){
       break;
     }
@@ -204,18 +217,26 @@ void nearestNeigborHypercube(HyperCube hc,Vector q,int hammingDist,int m,double 
 }
 
 void searchForHammingDistanceKNN(HyperCube hc,Vector v,int *v_index,int hammingDist,int startFrom,Vector *nearest,double *nearestDist,int *numOfSearched,int maxToSearch,int knn,int *nodesSearched,int probes){
-  if(hammingDist<=0){
-    int new_index = binaryArrayToDecimal(v_index,new_dimension);
-    htKFindNearestNeighborsCube(hc->hypercube,new_index,v,nearest,nearestDist,d,knn,numOfSearched,maxToSearch);
-    (*nodesSearched)++;
+  // recursive function that computes all the numbers that have hamming distance equal to hammingDist
+  // after an index is computed, we search for nearest neighbors int that index by calling htKFindNearestNeighborsCube
+  // if we reach the maximum probes or the maximum vectors given by the user we stop computing new indexes and searching in them
+  if(hammingDist<=0){ // recursion end
+    // we have computed an index with the wanted hamming distance from the inital index
+    int new_index = binaryArrayToDecimal(v_index,new_dimension);   // convert the binary number to an integer
+    htKFindNearestNeighborsCube(hc->hypercube,new_index,v,nearest,nearestDist,d,knn,numOfSearched,maxToSearch); // call in order to search for neighbors inside the new index of the hypercube
+    (*nodesSearched)++;  // increase the counter of the nodes that we have searched (probes)
     return;
   }
-  for(int i=startFrom;i<new_dimension;i++){
-      v_index[i] = v_index[i]^1;
+  for(int i=startFrom;i<new_dimension;i++){ // start changing bits, starting from the next bit that the "father" call stoped
+      v_index[i] = v_index[i]^1;  // inverse the bit
+      // recursive call in order to start changing the next bits and start generating new indexes with the new value of the i'th bit that has just changed
+      // we decrease the wanted hamming distance by one as we have just changed a bit, so in order to achive the wanted hamming distance we have to change one less bit
+      // the new recuresive call will compute all the numbers that have hamming distance = (hammingDist-1) from the current number that we have generated
+      // if (hammingDist-1)==0 then we have generated a wanted index and the recursion will stop after this call
       searchForHammingDistanceKNN(hc,v,v_index,hammingDist-1,i+1,nearest,nearestDist,numOfSearched,maxToSearch,knn,nodesSearched,probes);
-      // search
-      v_index[i] = v_index[i]^1;
+      v_index[i] = v_index[i]^1;  // cahnge back the bit
       if((*numOfSearched)>=maxToSearch || (*nodesSearched)>=probes){
+        // stop generating numbers if we reached the maximum probes or the maximum vectors given by the user
         break;
       }
   }
@@ -246,6 +267,10 @@ void kNearestNeigborsHypercube(HyperCube hc,Vector q,int knn,int hammingDist,int
 
   int nodesSearched = 0;
   for(int i=1;;i++){
+    // in every loop iteration all the indexes with hamming distance = i from the initial index (index_decimal) are computed and searched by searchForHammingDistanceKNN
+    // in the first iteration we search to all indexes with hamming distance 1 from the index_decimal, ... , in the last iteration we search to the node (only 1 exists) with hamming distance = k
+    // the loop stops when we search the max number of nodes given by the user, or we searched the maximum nodes of the hypercube (probes) given by the user
+    // or we searched all the nodes of the hypercube (i>new_dimension)
     if(searched>=m || nodesSearched>=hammingDist || i>new_dimension){
       break;
     }
@@ -272,18 +297,26 @@ void kNearestNeigborsHypercube(HyperCube hc,Vector q,int knn,int hammingDist,int
 
 
 void searchForHammingDistanceRadius(HyperCube hc,Vector v,int *v_index,int hammingDist,int startFrom,HashTable vecsInRadius,int *numOfSearched,int maxToSearch,int radius,int *nodesSearched,int probes){
-  if(hammingDist<=0){
-    int new_index = binaryArrayToDecimal(v_index,new_dimension);
-    htFindNeighborsInRadiusCube(hc->hypercube,new_index,vecsInRadius,v,d,radius,numOfSearched,maxToSearch);
-    (*nodesSearched)++;
+  // recursive function that computes all the numbers that have hamming distance equal to hammingDist
+  // after an index is computed, we search for nearest neighbors in radius in that index by calling htFindNeighborsInRadiusCube
+  // if we reach the maximum probes or the maximum vectors given by the user we stop computing new indexes and searching in them
+  if(hammingDist<=0){ // recursion end
+    // we have computed an index with the wanted hamming distance from the inital index
+    int new_index = binaryArrayToDecimal(v_index,new_dimension);  // convert the binary number to an integer
+    htFindNeighborsInRadiusCube(hc->hypercube,new_index,vecsInRadius,v,d,radius,numOfSearched,maxToSearch); // call in order to search for neighbors inside the new index of the hypercube
+    (*nodesSearched)++; // increase the counter of the nodes that we have searched (probes)
     return;
   }
-  for(int i=startFrom;i<new_dimension;i++){
-      v_index[i] = v_index[i]^1;
+  for(int i=startFrom;i<new_dimension;i++){ // start changing bits, starting from the next bit that the "father" call stoped
+      v_index[i] = v_index[i]^1;  // inverse the bit
+      // recursive call in order to start changing the next bits and start generating new indexes with the new value of the i'th bit that has just changed
+      // we decrease the wanted hamming distance by one as we have just changed a bit, so in order to achive the wanted hamming distance we have to change one less bit
+      // the new recuresive call will compute all the numbers that have hamming distance = (hammingDist-1) from the current number that we have generated
+      // if (hammingDist-1)==0 then we have generated a wanted index and the recursion will stop after this call
       searchForHammingDistanceRadius(hc,v,v_index,hammingDist-1,i+1,vecsInRadius,numOfSearched,maxToSearch,radius,nodesSearched,probes);
-      // search
-      v_index[i] = v_index[i]^1;
+      v_index[i] = v_index[i]^1;  // cahnge back the bit
       if((*numOfSearched)>=maxToSearch || (*nodesSearched)>=probes){
+        // stop generating numbers if we reached the maximum probes or the maximum vectors given by the user
         break;
       }
   }
@@ -311,6 +344,10 @@ void radiusNeigborsHypercube(HyperCube hc,Vector q,double radius,int hammingDist
 
   int nodesSearched = 0;
   for(int i=1;;i++){
+    // in every loop iteration all the indexes with hamming distance = i from the initial index (index_decimal) are computed and searched by searchForHammingDistanceKNN
+    // in the first iteration we search to all indexes with hamming distance 1 from the index_decimal, ... , in the last iteration we search to the node (only 1 exists) with hamming distance = k
+    // the loop stops when we search the max number of nodes given by the user, or we searched the maximum nodes of the hypercube (probes) given by the user
+    // or we searched all the nodes of the hypercube (i>new_dimension)
     if(searched>=m || nodesSearched>=hammingDist || i>new_dimension){
       break;
     }
@@ -327,18 +364,26 @@ void radiusNeigborsHypercube(HyperCube hc,Vector q,double radius,int hammingDist
 
 
 void searchForHammingDistanceRadiusClustering(HyperCube hc,Vector v,int *v_index,int hammingDist,int startFrom,HashTable vecsInRadius,int *numOfSearched,int maxToSearch,double radius,int *nodesSearched,int probes,int centroidIndex,List* confList,int *assignCounter,int iteration){
-  if(hammingDist<=0){
-    int new_index = binaryArrayToDecimal(v_index,new_dimension);
-    htFindNeighborsInRadiusClusteringCube(hc->hypercube,new_index,centroidIndex,confList,vecsInRadius,v,d,radius,numOfSearched,maxToSearch,assignCounter,iteration);
-    (*nodesSearched)++;
+  // recursive function that computes all the numbers that have hamming distance equal to hammingDist
+  // after an index is computed, we search for nearest neighbors in radius in that index by calling htFindNeighborsInRadiusClusteringCube
+  // if we reach the maximum probes or the maximum vectors given by the user we stop computing new indexes and searching in them
+  if(hammingDist<=0){ // recursion end
+    // we have computed an index with the wanted hamming distance from the inital index
+    int new_index = binaryArrayToDecimal(v_index,new_dimension);  // convert the binary number to an integer
+    htFindNeighborsInRadiusClusteringCube(hc->hypercube,new_index,centroidIndex,confList,vecsInRadius,v,d,radius,numOfSearched,maxToSearch,assignCounter,iteration); // call in order to search for neighbors inside the new index of the hypercube
+    (*nodesSearched)++; // increase the counter of the nodes that we have searched (probes)
     return;
   }
-  for(int i=startFrom;i<new_dimension;i++){
-      v_index[i] = v_index[i]^1;
+  for(int i=startFrom;i<new_dimension;i++){ // start changing bits, starting from the next bit that the "father" call stoped
+      v_index[i] = v_index[i]^1;  // inverse the bit
+      // recursive call in order to start changing the next bits and start generating new indexes with the new value of the i'th bit that has just changed
+      // we decrease the wanted hamming distance by one as we have just changed a bit, so in order to achive the wanted hamming distance we have to change one less bit
+      // the new recuresive call will compute all the numbers that have hamming distance = (hammingDist-1) from the current number that we have generated
+      // if (hammingDist-1)==0 then we have generated a wanted index and the recursion will stop after this call
       searchForHammingDistanceRadiusClustering(hc,v,v_index,hammingDist-1,i+1,vecsInRadius,numOfSearched,maxToSearch,radius,nodesSearched,probes,centroidIndex,confList,assignCounter,iteration);
-      // search
-      v_index[i] = v_index[i]^1;
+      v_index[i] = v_index[i]^1;  // cahnge back the bit
       if((*numOfSearched)>=maxToSearch || (*nodesSearched)>=probes){
+        // stop generating numbers if we reached the maximum probes or the maximum vectors given by the user
         break;
       }
   }
@@ -363,6 +408,10 @@ void radiusNeigborHypercubeClustering(HyperCube hc,Vector q,HashTable vecsInRadi
 
   int nodesSearched = 0;
   for(int i=1;;i++){
+    // in every loop iteration all the indexes with hamming distance = i from the initial index (index_decimal) are computed and searched by searchForHammingDistanceKNN
+    // in the first iteration we search to all indexes with hamming distance 1 from the index_decimal, ... , in the last iteration we search to the node (only 1 exists) with hamming distance = k
+    // the loop stops when we search the max number of nodes given by the user, or we searched the maximum nodes of the hypercube (probes) given by the user
+    // or we searched all the nodes of the hypercube (i>new_dimension)
     if(searched>=m || nodesSearched>=hammingDist || i>new_dimension){
       break;
     }
