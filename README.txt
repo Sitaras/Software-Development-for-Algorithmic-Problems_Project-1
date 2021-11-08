@@ -207,7 +207,7 @@
 - - - - - - - - -
 * Η δομή του HyperCube αποτελείται από:
 	- k συναρτήσεις h, οι οποίες είναι οι ίδες με το LSH
-	- k HashMap f (που λειτουργούν σαν τα dictionaries της Python)
+	- k HashMap f (το hash map λειτουργεί σαν το dictionary της Python)
 	- και ένα HashTable
 Στην πράξη η δομή του HyperCube είναι ένα struct (το οποίο περιέχει τα παραπάνω). Η δήλωση του γίνεται στο αρχείο hypercube.c 
 
