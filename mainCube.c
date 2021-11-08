@@ -144,7 +144,7 @@ int main(int argc, char *argv[]) {
   printf("Created Hypercube in : %f seconds\n",time_spent);
   while(1){
     if(repeat){
-      readQueryFile(queryFile,outputFile,hc,list,n,r,2,m);
+      readQueryFile(queryFile,outputFile,hc,list,n,r,probes,m);
     }
 
     repeat=0;

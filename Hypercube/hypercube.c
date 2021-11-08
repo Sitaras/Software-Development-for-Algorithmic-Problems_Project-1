@@ -185,7 +185,7 @@ void nearestNeigborHypercube(HyperCube hc,Vector q,int hammingDist,int m,double 
   int nodesSearched = 0;
 
   for(int i=1;;i++){
-    if(searched>=m || nodesSearched>=hammingDist){
+    if(searched>=m || nodesSearched>=hammingDist || i>new_dimension){
       break;
     }
     searchForHammingDistance(hc,q,index,i,0,&nearest,&nearestDist,&searched,m,&nodesSearched,hammingDist);
@@ -244,7 +244,7 @@ void kNearestNeigborsHypercube(HyperCube hc,Vector q,int knn,int hammingDist,int
 
   int nodesSearched = 0;
   for(int i=1;;i++){
-    if(searched>=m || nodesSearched>=hammingDist){
+    if(searched>=m || nodesSearched>=hammingDist || i>new_dimension){
       break;
     }
     searchForHammingDistanceKNN(hc,q,index,i,0,nearest,knearestDists,&searched,m,knn,&nodesSearched,hammingDist);
@@ -264,6 +264,7 @@ void kNearestNeigborsHypercube(HyperCube hc,Vector q,int knn,int hammingDist,int
   if(flag){
     fprintf(fptr,"- DID NOT FIND NEAREST NEIGHBOR\n");
   }
+  fflush(fptr);
 }
 
 
@@ -308,7 +309,7 @@ void radiusNeigborsHypercube(HyperCube hc,Vector q,double radius,int hammingDist
 
   int nodesSearched = 0;
   for(int i=1;;i++){
-    if(searched>=m || nodesSearched>=hammingDist){
+    if(searched>=m || nodesSearched>=hammingDist || i>new_dimension){
       break;
     }
     searchForHammingDistanceRadius(hc,q,index,i,0,vecsInRadius,&searched,m,radius,&nodesSearched,hammingDist);
@@ -360,7 +361,7 @@ void radiusNeigborHypercubeClustering(HyperCube hc,Vector q,HashTable vecsInRadi
 
   int nodesSearched = 0;
   for(int i=1;;i++){
-    if(searched>=m || nodesSearched>=hammingDist){
+    if(searched>=m || nodesSearched>=hammingDist || i>new_dimension){
       break;
     }
     searchForHammingDistanceRadiusClustering(hc,q,index,i,0,vecsInRadius,&searched,m,radius,&nodesSearched,hammingDist,centroidIndex,confList,assignCounter,iteration);
