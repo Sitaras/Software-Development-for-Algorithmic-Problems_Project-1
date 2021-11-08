@@ -127,7 +127,34 @@ int main(int argc, char *argv[]) {
     sscanf(str,"%s\n",outputFile);
     printf("Given output File : %s\n", outputFile);
   }
-
+  if(new_dimension>25){
+    printf("You chose a big value for k (d') and the system may not be capable of allocating all the memory needed by the hypecube\n");
+    printf("Do you wish to continue with k=%d ? (Press \"y\" to continue or \"n\" to change the value of k)\n",new_dimension);
+    while(1){
+      fflush(stdin); // clear stdin buffer
+      if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+        perror("Error reading string with fgets\n");
+        exit(1);
+      }
+      char ans[100];
+      sscanf(str,"%s\n",ans);
+      if(strcmp(ans,"y")==0){
+        break;
+      }else if(strcmp(ans,"n")==0){
+        printf("Give new value for k: ");
+        fflush(stdin); // clear stdin buffer
+        if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+          perror("Error reading string with fgets\n");
+          exit(1);
+        }
+        sscanf(str,"%s\n",ans);
+        new_dimension = atoi(ans);
+        break;
+      }else{
+        printf("Wrong input! Press \"y\" to continue or \"n\" to change the value of k\n");
+      }
+    }
+  }
 
   HyperCube hc;
   List list;

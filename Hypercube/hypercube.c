@@ -28,17 +28,18 @@ typedef cubeNode *HyperCube;
 
 /* Helper Functions */
 
-int binaryToDecimal(int n){
-    int num = n;
+int binaryToDecimal(long long int n){
+    long long int num = n;
     int dec_value = 0;
     int base = 1; // Initializing base value to 1, i.e 2^0
-    int temp = num;
+    long long int temp = num;
 
     while (temp){
       int last_digit = temp % 10;
       temp = temp / 10;
       dec_value += last_digit * base;
       base = base * 2;
+      printf("dec_value = %d\n",dec_value );
     }
 
     return dec_value;
@@ -118,17 +119,18 @@ HyperCube initializeHyperCube(){
 
 void insertToHyperCube(HyperCube hc,Vector v){
   // insert the given vector in hyper cube (at the corresponding bucket of the hash table)
-  int index=0;
+  // long long int index=0;
+  int indexArray[new_dimension];
   for(int i=0;i<new_dimension;i++){ // form/find the corresponding index of the hypercube (hash table) that the given vector will be inserted
     int h_result = computeH_Cube(hc->h_functions[i],v); // compute the h function's value based the given v vector
     int f_result = computeF(hc->f_funs[i],h_result); // compute the f function's value based on the previous value that return the h function
     // f returns a bit, 0 or 1, take this bit and append it to the index to form that for the hypercube
-    index *=10;
-    index += f_result;
+    indexArray[i]=f_result;
     // and continue for the next dimension
   }
   // index formed, convert it to decimal
-  int decimal_index = binaryToDecimal(index); // hash Table key
+  // int decimal_index = binaryToDecimal(index); // hash Table key
+  int decimal_index = binaryArrayToDecimal(indexArray,new_dimension);  // hash Table key
   // finally insert the given vector at the hash table
   htInsert(hc->hypercube,v,decimal_index,-1);
 }
