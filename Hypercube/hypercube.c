@@ -88,9 +88,10 @@ int flipCoin(){
 int computeF(HashMap f_fun,Key key){
   // every f function is represented as a hashMap (the common dictionary in Python)
   // a f function for each function h returns a specific value of 0 or 1.
-  // The value of f is randomly initialized the first time and stored in the corresponding bin (if the key doesn't already exist).
-  // The value of the h function is the key of the hash map that will hash in the corresponding bucket to store the item (0 or 1).
-  // The value of the f function is the item of the hash Map.
+  // The item of a hash map is randomly generated (flipCoin) and stored in the corresponding bucket (if the key doesn't already exist).
+  // The value of the h function is the key of the a hash map .
+  // The item of the hash map is a random value (bit) 0 or 1 .
+  // hash function of hash map is: The value of the h function mod hash_map_size
   int bit = flipCoin();
   Record r = hmSearchOrInsert(f_fun,key,bit);
   return getValue(r);
