@@ -523,7 +523,7 @@ void clustering(List vecList,FILE* fptr,char* method,int numOfClusters,int l,int
     fprintf(fptr,"Algorithm: Range Search LSH\n");
     clusteringLSH(vecList,numOfClusters,l,fptr);
   }
-  else if(strcmp(method,"HyperCube")==0){
+  else if(strcmp(method,"Hypercube")==0){
     fprintf(fptr,"Algorithm: Range Search Hypercube\n");
     clusteringHypercube(vecList,numOfClusters,mHyper,probes,fptr);
   }
