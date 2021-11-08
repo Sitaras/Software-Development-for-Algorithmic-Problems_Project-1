@@ -17,7 +17,7 @@ int hashTableSize;
 
 void printOptions(){
   printf("_________________Options____________________\n\n");
-	printf("1. /repeat <new_input_file>\n\n");
+	printf("1. /repeat <new_query_file> <output file>\n\n");
 	printf("2. /exit\n\n");
 	printf("_____________________________________\n\n");
 }
@@ -31,7 +31,6 @@ int main(int argc, char *argv[])  {
   char queryFile[100];
   int queryflag=0;
   char outputFile[100];
-  strcpy(outputFile,"outputTestingLSH");
   int outputflag=0;
   int l=5;
   int n=1;
@@ -127,26 +126,26 @@ int main(int argc, char *argv[])  {
   LSH lsh;
   List list;
   int repeat=1;
+  clock_t begin = clock();
+  d = findDim(inputFile);
+  printf("DIMENSION = %d\n",d);
+  list = initializeList();
+  int numberOfVectorsInFile = 0;
+  readFile(inputFile,&list,&numberOfVectorsInFile);
+  clock_t end = clock();
+  double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+  printf("Parsed input file in : %f seconds\n",time_spent);
+  printf("Number of vectors in input file: %d\n",numberOfVectorsInFile);
+  hashTableSize=numberOfVectorsInFile/16;
+
+  begin = clock();
+  lsh = initializeLSH(l);
+  insertFromListToLSH(list,lsh);
+  end = clock();
+  time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+  printf("Created LSH in : %f seconds\n",time_spent);
   while(1){
     if(repeat){
-      clock_t begin = clock();
-      d = findDim(inputFile);
-      printf("DIMENSION = %d\n",d);
-      list = initializeList();
-      int numberOfVectorsInFile = 0;
-      readFile(inputFile,&list,&numberOfVectorsInFile);
-      clock_t end = clock();
-      double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-      printf("Parsed input file in : %f seconds\n",time_spent);
-      printf("Number of vectors in input file: %d\n",numberOfVectorsInFile);
-      hashTableSize=numberOfVectorsInFile/16;
-
-      begin = clock();
-      lsh = initializeLSH(l);
-      insertFromListToLSH(list,lsh);
-      end = clock();
-      time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-      printf("Created LSH in : %f seconds\n",time_spent);
       readQueryFile(queryFile,outputFile,lsh,list,n,radius);
     }
     repeat=0;
@@ -164,10 +163,9 @@ int main(int argc, char *argv[])  {
     }
     else if(strstr(str, "/repeat") != NULL) {
       repeat=1;
-      sscanf(str,"%s %s\n",command,inputFile);
-      printf("FILE: %s\n",inputFile);
-      destroyLSH(lsh);
-      listDelete(list,0);
+      sscanf(str,"%s %s %s\n",command,queryFile,outputFile);
+      printf("query File: %s\n",queryFile);
+      printf("output File: %s\n",outputFile);
       continue;
     }
     else if(strcmp(str,"/exit\n")==0){

@@ -287,7 +287,7 @@ void searchForHammingDistanceRadius(HyperCube hc,Vector v,int *v_index,int hammi
 }
 
 
-void radiusNeigborHypercube(HyperCube hc,Vector q,double radius,int hammingDist,int m,FILE *fptr){
+void radiusNeigborsHypercube(HyperCube hc,Vector q,double radius,int hammingDist,int m,FILE *fptr){
   // find the neighbours of the given vector q inside the given radius with the help of hypercube
   // store adjacent vectors in a hash table
   int vecsInRadius_size = getNumberOfVectors(hc->hypercube);

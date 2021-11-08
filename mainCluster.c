@@ -22,7 +22,7 @@ int k_LSH;
 
 void printOptions(){
   printf("_________________Options____________________\n\n");
-	printf("1. /repeat <new_input_file>\n\n");
+		printf("1. /repeat <new_query_file> <configuration file> <method: Classic OR LSH or Hypercube> <output file> \n\n");
 	printf("2. /exit\n\n");
 	printf("_____________________________________\n\n");
 }
@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
         case ':':
          printf("option needs a value\n");
          break;
-         
+
         default: /* '?' */
           fprintf(stderr, "Usage: %s –i <input file> –c <configuration file> -o <output file> -complete <optional> -m <method: Classic OR LSH or Hypercube>\n",argv[0]);
           exit(EXIT_FAILURE);
@@ -105,7 +105,7 @@ int main(int argc, char *argv[]) {
       exit(1);
     }
     sscanf(str,"%s\n",confFile);
-    printf("Given query File : %s\n", confFile);
+    printf("Given configuration File : %s\n", confFile);
   }
   if(!outputflag){
     printf(">Output file name: ");
@@ -174,8 +174,11 @@ int main(int argc, char *argv[]) {
       }
       else if(strstr(str, "/repeat") != NULL) {
         repeat=1;
-        sscanf(str,"%s %s\n",command,inputFile);
+        sscanf(str,"%s %s %s %s %s\n",command,inputFile,confFile,method,outputFile);
         printf("FILE: %s\n",inputFile);
+        printf("Given configuration File : %s\n", confFile);
+        printf("Given method : %s\n", method);
+        printf("Given output File : %s\n", outputFile);
         if(strcmp(method,"LSH")==0 || strcmp(method,"HyperCube")==0)
           listDelete(list,0);
         else

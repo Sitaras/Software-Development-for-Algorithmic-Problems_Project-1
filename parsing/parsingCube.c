@@ -20,12 +20,10 @@ extern int d;
 // returns number of words in str
 int countWords(char *str){
   char * token = strtok(str, " ");
-  // printf("NAME = %s\n",token);
   token = strtok(NULL, " ");
    // loop through the string to extract all other tokens
    int counter = 0;
    while( token != NULL ) {
-      // printf( " - %s\n", token ); //printing each token
       counter++;
       token = strtok(NULL, " ");
    }
@@ -183,7 +181,7 @@ void readQueryFile(char* queryFile,char* outputFile,HyperCube hc,List inputs,int
     fprintf(fptr, "tCube: %f seconds\n",time_spent_cube);
     fprintf(fptr, "tTrue: %f seconds\n",time_spent_true);
     clock_t begin_radius = clock();
-    radiusNeigborHypercube(hc,vecTmp,radius,hammingDist,m,fptr);
+    radiusNeigborsHypercube(hc,vecTmp,radius,hammingDist,m,fptr);
     clock_t end_radius = clock();
     double time_spent_radius = (double)(end_radius - begin_radius) / CLOCKS_PER_SEC;
     fprintf(fptr, "tRadiusSearch: %f seconds\n\n\n",time_spent_radius);

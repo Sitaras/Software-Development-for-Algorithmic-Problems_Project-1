@@ -190,7 +190,6 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
       break;
     }
     previousAssigns = assignCounter;
-    printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
     List confList=initializeList(); // list that used to store the vectors that in range search assigned at more than one cluster
     // assign each vector to the corresponding cluster with the help of range search
     for(int i=0;i<numOfClusters;i++){
@@ -377,7 +376,6 @@ void reverseAssignmentHypercube(HyperCube cube,Vector *vectors,Vector *clusters,
     }
 
     previousAssigns = assignCounter;
-    printf("ABOUT TO SEARCH FOR NEIGHBORS INSIDE RANGE : %f\n",radius);
     List confList=initializeList(); // list that used to store the vectors that in range search assigned at more than one cluster
     // assign each vector to the corresponding cluster with the help of range search
     for(int i=0;i<numOfClusters;i++){

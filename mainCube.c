@@ -16,7 +16,7 @@ int w;
 
 void printOptions(){
   printf("_________________Options____________________\n\n");
-	printf("1. /repeat <new_input_file>\n\n");
+	printf("1. /repeat <new_query_file> <output file>\n\n");
 	printf("2. /exit\n\n");
 	printf("_____________________________________\n\n");
 }
@@ -32,15 +32,13 @@ int main(int argc, char *argv[]) {
   char queryFile[100];
   int queryflag=0;
   char outputFile[100];
-  strcpy(outputFile,"outputTestingHyper");
   int outputflag=0;
+  new_dimension=14;
   int m=10;
   int n=1;
   int r=10000;
-  int probes=20;
-  new_dimension=14;
-  new_dimension = 4;
-  w = 6;
+  int probes=2;
+  w = 4;
 
   while((option = getopt(argc, argv, "i:q:k:M:p:o:N:R:")) != -1){
      switch(option){
@@ -135,24 +133,22 @@ int main(int argc, char *argv[]) {
   List list;
   int repeat=1;
   char command[200];
+  clock_t begin = clock();
+  d = findDim(inputFile);
+  printf("DIMENSION = %d\n",d);
+  hc = initializeHyperCube();
+  list = initializeList();
+  readFile(inputFile,hc,&list);
+  clock_t end = clock();
+  double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+  printf("Created Hypercube in : %f seconds\n",time_spent);
   while(1){
     if(repeat){
-      clock_t begin = clock();
-      d = findDim(inputFile);
-      printf("DIMENSION = %d\n",d);
-      hc = initializeHyperCube();
-      list = initializeList();
-      readFile(inputFile,hc,&list);
-      clock_t end = clock();
-      double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-      printf("Created Hypercube in : %f seconds\n",time_spent);
       readQueryFile(queryFile,outputFile,hc,list,n,r,2,m);
     }
 
     repeat=0;
     printOptions(); // just printing the commands options for the user
-
-
 
     printf("\n");
     printf(">Enter a command: ");
@@ -163,10 +159,9 @@ int main(int argc, char *argv[]) {
     }
     else if(strstr(str, "/repeat") != NULL) {
       repeat=1;
-      sscanf(str,"%s %s\n",command,inputFile);
-      printf("FILE: %s\n",inputFile);
-      deleteHyperCube(hc);
-      listDelete(list,0);
+      sscanf(str,"%s %s %s\n",command,queryFile,outputFile);
+      printf("query File: %s\n",queryFile);
+      printf("output File: %s\n",outputFile);
       continue;
     }
     else if(strcmp(str,"/exit\n")==0){
