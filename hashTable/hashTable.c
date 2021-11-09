@@ -47,7 +47,7 @@ HashTable htInitialize(int buckets) {
 
 
 
-int hashFunction(const HashTable ht,Vector v,int d){ /* Hash function only used in temorary hash table of Radius Search*/
+int hashFunction(const HashTable ht,Vector v,int d){ /* Hash function used for hash tables in Radius Search and in clustering (reverseAssignmentLSH and reverseAssignmentHypercube) */
   /* Not used in LSH*/
   /* Based on djb2 hash function*/
   double *coords = getCoords(v);

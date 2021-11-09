@@ -402,11 +402,11 @@ void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List* confL
           // check if vector has already been assigned at the some cluster (check the centroid index)
           // or if vector has already been assigned previously in cluster at a search with different radius
           if(assignedCluster==centroidIndex || (((int)getAssignedAtRadius(temp->v))!=radius)){
-          // if(assignedCluster==centroidIndex || (((int)getAssignedAtRadius(temp->v))<-1)){
             // ok, then skip it
             temp=temp->next;
             continue;
-          }else{
+          }
+          else{ // current vector lies in ≥ 2 clusters, add it into the confList
             double dist = distance_metric(temp->v,q,d);
             if(dist<=radius){
               *confList=listInsert(*confList,temp->v,-1);
@@ -449,14 +449,12 @@ void listFindNeighborsInRadiusClusteringCube(List list,int centroidIndex,List* c
           // then
           // check if vector has already been assigned at the some cluster (check the centroid index)
           // or if vector has already been assigned previously in cluster at a search with different radius
-          // if(assignedCluster==centroidIndex || (getAssignedAtRadius(temp->v)<-1.0 )){
           if(assignedCluster==centroidIndex || (getAssignedAtRadius(temp->v)!=radius )){
             // ok, then skip it
             temp=temp->next;
             continue;
           }
-          else{
-            // ok, then there is conflict (vector seems be assigned in more than 1 cluster)
+          else{ // current vector lies in ≥ 2 clusters, add it into the confList 
             *confList=listInsert(*confList,temp->v,-1);
             count++;
             temp=temp->next;
