@@ -278,7 +278,6 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
   while((countLSH<2) || !centroidsConverge(clusters,oldClusters,numOfClusters,d)){ // check for convergence after the second one iteration
     if(countLSH==MAX_RECENTER_ITERATIONS)
       break;
-  // while(firstIter || count<20){
     countLSH++;
     if(!firstIterLSH){
       Vector *temp = oldClusters;
@@ -444,7 +443,6 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
   while((countLSH<2) || !centroidsConverge(clusters,oldClusters,numOfClusters,d)){
     if(countLSH==MAX_RECENTER_ITERATIONS)
       break;
-  // while(firstIter || count<20){
     countLSH++;
     if(!firstIterLSH){
       Vector *temp = oldClusters;
