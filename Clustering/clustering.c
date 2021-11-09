@@ -18,7 +18,7 @@
 #define TRUE 1
 #define FALSE 0
 #define MAX_RECENTER_ITERATIONS 10
-#define W_DIVIDER 80
+#define W_DIVIDER 10
 
 extern int numOfVecs;
 extern int d;
