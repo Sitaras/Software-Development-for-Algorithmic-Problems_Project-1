@@ -188,7 +188,7 @@ void listFindNearestNeighbor(List list,Vector q,Vector *nearest,double *nearestD
   if(list==NULL){ return;}
   List temp=list;
   while(temp!=NULL){
-    if(id==(temp->vector_ID)){ // (Querying trick, to avoid to compute g Euclidean distance for all vectors p in bucket)
+    if(id==(temp->vector_ID)){ // (Querying trick, to avoid to compute Euclidean distance for all vectors in bucket)
       double dist = distance_metric(temp->v,q,d);
       if(dist<(*nearestDist) || (*nearestDist)<0){
         (*nearestDist) = dist;
@@ -283,7 +283,7 @@ void listFindKNearestNeighbors(List list,Vector q,Vector *nearest,double *neares
   int filledFlag=0; // the array of k nearest neighbors initialize with NULL (nearest[i]) and "-1" value (nearestDist[i]) respectively
   // this flag used to be sure that these two array will be take/initialize by real distances and vectors (then the filledFlag becomes "1")
   while(temp!=NULL){
-      if(id!=(temp->vector_ID)){ // (Querying trick, to avoid to compute g Euclidean distance for all vectors p in bucket)
+      if(id!=(temp->vector_ID)){ // (Querying trick, to avoid to compute Euclidean distance for all vectors in bucket)
         temp = temp->next;
         continue;
       }
@@ -381,7 +381,7 @@ void listFindNeighborsInRadius(List list,HashTable storeNeighbors,Vector q,int d
   if(list==NULL){ return;}
   List temp=list;
   while(temp!=NULL){
-    if(id==(temp->vector_ID)){ // (Querying trick, to avoid to compute g Euclidean distance for all vectors p in bucket)
+    if(id==(temp->vector_ID)){ // (Querying trick, to avoid to compute Euclidean distance for all vectors in bucket)
       double dist = distance_metric(temp->v,q,d);
       if(dist<=radius){
         htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
@@ -397,7 +397,7 @@ void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List* confL
   if(list==NULL){ return;}
   List temp=list;
   while(temp!=NULL){
-    if(id==(temp->vector_ID)){
+    if(id==(temp->vector_ID)){ // (Querying trick, to avoid to compute Euclidean distance for all vectors in bucket)
         // check if vector has already been assigned at the same iteration in one cluster
         if(assignedToCluster(temp->v) && (getAssignedIteration(temp->v)==iteration)){
           int assignedCluster = getAssignedCluster(temp->v);
@@ -409,18 +409,19 @@ void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List* confL
             temp=temp->next;
             continue;
           }
-          else{ // current vector lies in ≥ 2 clusters, add it into the confList
+          else{ 
             double dist = distance_metric(temp->v,q,d);
-            if(dist<=radius){
+            if(dist<=radius){ // check if for the given radius the current vector lies in ≥ 2 clusters, add it into the confList
               *confList=listInsert(*confList,temp->v,-1);
             }
             temp=temp->next;
             continue;
           }
-        }else{
+        }
+        else{
           double dist = distance_metric(temp->v,q,d);
           if(dist<=radius){
-            // ok, then there is conflict (vector seems be assigned in more than 1 cluster)
+            // insert the vector at the corresponding cluster (hash table)
             htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
             setAssignedCluster(temp->v,centroidIndex);
             setAssignedIteration(temp->v,iteration);
@@ -438,42 +439,44 @@ void listFindNeighborsInRadiusClusteringCube(List list,int centroidIndex,List* c
   // used at reverseAssignmentHypercube to assign the vectors in to the clusters (clusters represented with hash tables)
   if(list==NULL){ return;}
   List temp=list;
-  int count=0;
   while(temp!=NULL){
       if((*numOfSearched)>=maxToSearch){
         return;
       }
       (*numOfSearched)++;
-      double dist = distance_metric(temp->v,q,d);
-      if(dist<=radius){
-        // check if vector has already been assigned at the same iteration in one cluster
-        if(assignedToCluster(temp->v) && (getAssignedIteration(temp->v)==iteration)){
-          int assignedCluster = getAssignedCluster(temp->v);
-          // then
-          // check if vector has already been assigned at the some cluster (check the centroid index)
-          // or if vector has already been assigned previously in cluster at a search with different radius
-          if(assignedCluster==centroidIndex || (getAssignedAtRadius(temp->v)!=radius )){
-            // ok, then skip it
-            temp=temp->next;
-            continue;
-          }
-          else{ // current vector lies in ≥ 2 clusters, add it into the confList
-            *confList=listInsert(*confList,temp->v,-1);
-            count++;
-            temp=temp->next;
-            continue;
-          }
+      // check if vector has already been assigned at the same iteration in one cluster
+      if(assignedToCluster(temp->v) && (getAssignedIteration(temp->v)==iteration)){
+        int assignedCluster = getAssignedCluster(temp->v);
+        // then
+        // check if vector has already been assigned at the some cluster (check the centroid index)
+        // or if vector has already been assigned previously in cluster at a search with different radius
+        if(assignedCluster==centroidIndex || (getAssignedAtRadius(temp->v)!=radius )){
+          // ok, then skip it
+          temp=temp->next;
+          continue;
         }
         else{
+          double dist = distance_metric(temp->v,q,d);
+          if(dist<=radius){ // check if for the given radius the current vector lies in ≥ 2 clusters, add it into the confList
+            *confList=listInsert(*confList,temp->v,-1);
+          }
+          temp=temp->next;
+          continue;
+        }
+      }
+      else{
+        double dist = distance_metric(temp->v,q,d);
+        if(dist<=radius){
+          // insert the vector at the corresponding cluster (hash table)
+          htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
           setAssignedCluster(temp->v,centroidIndex);
           setAssignedIteration(temp->v,iteration);
           setAssignedAtRadius(temp->v,radius);
-          htRangeInsert(storeNeighbors,temp->v,temp->vector_ID,d);
           (*assignCounter)++;
         }
       }
     temp=temp->next;
-  }
+    }
 }
 
 void listSolveRangeConflicts(List conflictList,HashTable *clustersHt,Vector *clusters,int numOfClusters,int d,int iteration){
@@ -514,9 +517,6 @@ void listSolveRangeConflicts(List conflictList,HashTable *clustersHt,Vector *clu
     temp=temp->next;
     // go to the next one
   }
-
-  printf("--- COUNFLICTS == %d\n",count);
-  printf("--- REAL COUNFLICTS == %d\n",countReal);
 
 }
 

@@ -6,9 +6,9 @@
 extern int d;
 
 typedef struct extra_info_node{
-  int assignedCluster;
-  int iterationAssigned;
-  double assignedAtRadius;
+  int assignedCluster; // index of cluster that the vector assigned
+  int iterationAssigned; // iteration that the vector assigned
+  double assignedAtRadius; // radius that the vector assigned
 }extraInfoNode;
 typedef extraInfoNode *extraInfo;
 
