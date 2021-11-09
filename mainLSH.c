@@ -10,7 +10,7 @@
 #include "./parsing/parsingLSH.h"
 #include "./hashTable/hashTableList/hashTableList.h"
 
-#define W_DIVIDER 10
+#define W_DIVIDER 80
 
 int d;
 int w;
