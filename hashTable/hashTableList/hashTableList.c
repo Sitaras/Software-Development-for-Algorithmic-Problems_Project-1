@@ -112,12 +112,15 @@ List listDeleteItem(List list,Vector v,int id){
 
 
 void listPrint(List list){
+  int count =0;
     if(list==NULL){ printf("List Empty!\n");  return;}
     List temp=list;
     while(temp!=NULL){
-        printVectorId(temp->v);
+        // printVectorId(temp->v);
+        count++;
         temp=temp->next;
     }
+    printf(" %d\n",count);
 }
 
 void listPrintClusteringInFile(List list,FILE* fptr){
@@ -454,7 +457,7 @@ void listFindNeighborsInRadiusClusteringCube(List list,int centroidIndex,List* c
             temp=temp->next;
             continue;
           }
-          else{ // current vector lies in ≥ 2 clusters, add it into the confList 
+          else{ // current vector lies in ≥ 2 clusters, add it into the confList
             *confList=listInsert(*confList,temp->v,-1);
             count++;
             temp=temp->next;

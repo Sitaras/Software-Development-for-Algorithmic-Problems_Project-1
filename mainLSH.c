@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <math.h>
 #include "Vector/vector.h"
 #include "./hashTable/hashTable.h"
 #include "LSH/lsh.h"
@@ -16,6 +17,25 @@ int w;
 int k_LSH;
 int hashTableSize;
 
+int wValueCalculation(List list,int numberOfVectorsInFile){
+  long double sumDist = 0.0;
+  int count=0;
+  int stopBound = 0.001*numberOfVectorsInFile*numberOfVectorsInFile;
+  while(list!=NULL){
+    List nested = list;
+    while(nested!=NULL){
+      if(count>stopBound){
+        printf("%d\n",count);
+        return floor(sumDist/count);
+      }
+      sumDist += distance_metric(getVector(list),getVector(nested),d);
+      count++;
+      nested = getNext(nested);
+    }
+    list=getNext(list);
+  }
+  return floor(sumDist/count);
+}
 
 void printOptions(){
   printf("_________________Options____________________\n\n");
@@ -140,12 +160,22 @@ int main(int argc, char *argv[])  {
   printf("Number of vectors in input file: %d\n",numberOfVectorsInFile);
   hashTableSize=numberOfVectorsInFile/16;
 
+  printf("Findind optimal value of w based on the input file\n");
+  begin = clock();
+  w = wValueCalculation(list,numberOfVectorsInFile);
+  w /= 10;
+  // w=6;
+  end = clock();
+  time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+  printf("Found value of w in %f seconds, w = %d\n",time_spent,w );
+
   begin = clock();
   lsh = initializeLSH(l);
   insertFromListToLSH(list,lsh);
   end = clock();
   time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
   printf("Created LSH in : %f seconds\n",time_spent);
+
   while(1){
     if(repeat){
       readQueryFile(queryFile,outputFile,lsh,list,n,radius);
