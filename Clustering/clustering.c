@@ -17,7 +17,7 @@
 
 #define TRUE 1
 #define FALSE 0
-#define MAX_RECENTER_ITERATIONS 15
+#define MAX_RECENTER_ITERATIONS 10
 #define W_DIVIDER 80
 
 extern int numOfVecs;
@@ -321,7 +321,6 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
     if(countLSH==MAX_RECENTER_ITERATIONS)
       break;
     countLSH++;
-    printf("LOOP %d\n",countLSH);
     if(!firstIterLSH){
       Vector *temp = oldClusters;
       oldClusters=clusters;
