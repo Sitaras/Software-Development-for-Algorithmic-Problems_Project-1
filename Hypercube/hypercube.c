@@ -5,6 +5,7 @@
 #include <limits.h>
 #include "../Vector/vector.h"
 #include "../hashTable/hashTable.h"
+#include "../hashTable/hashTableList/hashTableList.h"
 #include "HashMap/hashmap.h"
 #include "../LSH/helperFunctions.h"
 
@@ -134,6 +135,16 @@ void insertToHyperCube(HyperCube hc,Vector v){
   int decimal_index = binaryArrayToDecimal(indexArray,new_dimension);  // hash Table key
   // finally insert the given vector at the hash table
   htInsert(hc->hypercube,v,decimal_index,-1);
+}
+
+void insertFromListToHyperCube(List list,HyperCube hc){
+  // insert every vector of the list at the corresponding LSH
+  if(list==NULL){ return;}
+  List temp=list;
+  while(temp!=NULL){
+      insertToHyperCube(hc,getVector(temp));
+      temp=getNext(temp);
+  }
 }
 
 void printHyperCube(HyperCube hc){

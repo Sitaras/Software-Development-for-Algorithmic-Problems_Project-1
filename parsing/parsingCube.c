@@ -69,7 +69,7 @@ int findDim(char* fileName){
 }
 
 
-void readFile(char* fileName,HyperCube hc,List *inputs){
+void readFile(char* fileName,List *inputs,int *vectorCount){
 
    FILE *file = fopen(fileName, "r"); // read mode
 
@@ -102,11 +102,8 @@ void readFile(char* fileName,HyperCube hc,List *inputs){
       token = strtok(NULL, " ");
      }
      Vector vecTmp=initVector(vec,name);
-     insertToHyperCube(hc,vecTmp);
      (*inputs) = listInsert((*inputs),vecTmp,-1);
-
-
-
+     (*vectorCount)++;
   }
 
   fclose(file);

@@ -168,7 +168,6 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
   double vec[d];
 
 
-
   while(!feof(file)){
     fflush(stdin);  // clear stdin buffer
     if(fscanf(file,"%[^\n]\n",buffer)<0){ // read a line from the file
@@ -225,6 +224,7 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
     double time_spent_radius = (double)(end_radius - begin_radius) / CLOCKS_PER_SEC;
       fprintf(fptr, "tRadiusSearch: %f seconds\n\n\n",time_spent_radius);
      deleteVector(vecTmp);
+
   }
   fclose(fptr);
   fclose(file);

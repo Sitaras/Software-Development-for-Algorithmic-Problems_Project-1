@@ -3,19 +3,49 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <math.h>
 #include "Vector/vector.h"
 #include "./hashTable/hashTable.h"
 #include "Hypercube/hypercube.h"
 #include "./parsing/parsingCube.h"
 #include "./hashTable/hashTableList/hashTableList.h"
 
-#define W_VALUE 4
+#define W_DIVIDER 80
 
 int d;
 int new_dimension;
 int m;
 int probes;
 int w;
+
+int wValueCalculation(List list,int numberOfVectorsInFile){
+  long double sumDist = 0.0;
+  int count=0;
+  double persentageToCheck;
+  if(numberOfVectorsInFile<=1000){
+    persentageToCheck = 0.1;
+  }else if(numberOfVectorsInFile<=10000){
+    persentageToCheck = 0.001;
+  }else if (numberOfVectorsInFile<=100000){
+    persentageToCheck = 0.0001;
+  }else{
+    persentageToCheck = 0.000001;
+  }
+  int stopBound = persentageToCheck*numberOfVectorsInFile*numberOfVectorsInFile;
+  while(list!=NULL){
+    List nested = list;
+    while(nested!=NULL){
+      if(count>stopBound){
+        return floor(sumDist/count);
+      }
+      sumDist += distance_metric(getVector(list),getVector(nested),d);
+      count++;
+      nested = getNext(nested);
+    }
+    list=getNext(list);
+  }
+  return floor(sumDist/count);
+}
 
 
 
@@ -43,7 +73,6 @@ int main(int argc, char *argv[]) {
   int n=1;
   int r=10000;
   int probes=2;
-  w = W_VALUE;
 
   while((option = getopt(argc, argv, "i:q:k:M:p:o:N:R:")) != -1){
      switch(option){
@@ -161,19 +190,38 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  HyperCube hc;
+
   List list;
   int repeat=1;
   char command[200];
   clock_t begin = clock();
   d = findDim(inputFile);
   printf("DIMENSION = %d\n",d);
-  hc = initializeHyperCube();
+
   list = initializeList();
-  readFile(inputFile,hc,&list);
+  int numberOfVectorsInFile = 0;
+  readFile(inputFile,&list,&numberOfVectorsInFile);
   clock_t end = clock();
   double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-  printf("Created Hypercube in : %f seconds\n",time_spent);
+  printf("Parsed input file in : %f seconds\n",time_spent);
+  printf("Number of vectors in input file: %d\n",numberOfVectorsInFile);
+
+  printf("Findind optimal value of w based on the input file\n");
+  begin = clock();
+  w = wValueCalculation(list,numberOfVectorsInFile);
+  w /= W_DIVIDER;
+  end = clock();
+  time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+  printf("Found value of w in %f seconds, w = %d\n",time_spent,w );
+
+  HyperCube hc;
+  begin = clock();
+  hc = initializeHyperCube();
+  insertFromListToHyperCube(list,hc);
+  end = clock();
+  time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+  printf("Created HyperCube in : %f seconds\n",time_spent);
+
   while(1){
     if(repeat){
       readQueryFile(queryFile,outputFile,hc,list,n,r,probes,m);
