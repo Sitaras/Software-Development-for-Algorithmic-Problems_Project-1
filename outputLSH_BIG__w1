@@ -1,0 +1,178 @@
+Query 1:
+Nearest neighbor-1: 932086
+distanceLSH: 232.871209
+distanceTrue: 232.871209
+Nearest neighbor-2: 934877
+distanceLSH: 234.714720
+distanceTrue: 234.714720
+Nearest neighbor-3: 561814
+distanceLSH: 243.989754
+distanceTrue: 243.989754
+Nearest neighbor-4: 708178
+distanceLSH: 255.460369
+distanceTrue: 255.460369
+Nearest neighbor-5: 706772
+distanceLSH: 256.314260
+distanceTrue: 256.314260
+tLSH: 0.295768 seconds
+tTrue: 1.267798 seconds
+R-near neighbors:
+1: Found vector: 876973
+2: Found vector: 914189
+3: Found vector: 236452
+4: Found vector: 997624
+5: Found vector: 813702
+6: Found vector: 523765
+7: Found vector: 882962
+8: Found vector: 722838
+9: Found vector: 568574
+10: Found vector: 49875
+11: Found vector: 403036
+12: Found vector: 377462
+13: Found vector: 871067
+14: Found vector: 592900
+15: Found vector: 919198
+16: Found vector: 938545
+17: Found vector: 831925
+18: Found vector: 731217
+19: Found vector: 876464
+20: Found vector: 403443
+21: Found vector: 868474
+22: Found vector: 871569
+23: Found vector: 828458
+24: Found vector: 480766
+25: Found vector: 435346
+26: Found vector: 875748
+27: Found vector: 619661
+28: Found vector: 95546
+29: Found vector: 180956
+30: Found vector: 722643
+31: Found vector: 930568
+32: Found vector: 529987
+33: Found vector: 14219
+34: Found vector: 695757
+35: Found vector: 706772
+36: Found vector: 866172
+37: Found vector: 565105
+38: Found vector: 879898
+39: Found vector: 811431
+40: Found vector: 562595
+41: Found vector: 843564
+42: Found vector: 486458
+43: Found vector: 955882
+44: Found vector: 910120
+45: Found vector: 454264
+46: Found vector: 977463
+47: Found vector: 391656
+48: Found vector: 63350
+49: Found vector: 454390
+50: Found vector: 934877
+51: Found vector: 904912
+52: Found vector: 237162
+53: Found vector: 102904
+54: Found vector: 159954
+55: Found vector: 772328
+56: Found vector: 871601
+57: Found vector: 530401
+58: Found vector: 61062
+59: Found vector: 222239
+60: Found vector: 564959
+61: Found vector: 985198
+62: Found vector: 886631
+63: Found vector: 898960
+64: Found vector: 871049
+65: Found vector: 527310
+66: Found vector: 17311
+67: Found vector: 908245
+68: Found vector: 238550
+69: Found vector: 860057
+70: Found vector: 391083
+71: Found vector: 68300
+72: Found vector: 956633
+73: Found vector: 244267
+74: Found vector: 778653
+75: Found vector: 886659
+76: Found vector: 561736
+77: Found vector: 875126
+78: Found vector: 879794
+79: Found vector: 376162
+80: Found vector: 779713
+81: Found vector: 732474
+82: Found vector: 374618
+83: Found vector: 224850
+84: Found vector: 656998
+85: Found vector: 913506
+86: Found vector: 696063
+87: Found vector: 710645
+88: Found vector: 374320
+89: Found vector: 224264
+90: Found vector: 915483
+91: Found vector: 392033
+92: Found vector: 988167
+93: Found vector: 845067
+94: Found vector: 561695
+95: Found vector: 561814
+96: Found vector: 710806
+97: Found vector: 670104
+98: Found vector: 564475
+99: Found vector: 708178
+100: Found vector: 15848
+101: Found vector: 932086
+102: Found vector: 678386
+103: Found vector: 988994
+104: Found vector: 478815
+105: Found vector: 394539
+106: Found vector: 887762
+107: Found vector: 868611
+108: Found vector: 480498
+109: Found vector: 679409
+110: Found vector: 398307
+111: Found vector: 843385
+112: Found vector: 496222
+113: Found vector: 631061
+114: Found vector: 754071
+115: Found vector: 221340
+116: Found vector: 746239
+117: Found vector: 923812
+118: Found vector: 688091
+119: Found vector: 827373
+120: Found vector: 594826
+121: Found vector: 201885
+122: Found vector: 899810
+123: Found vector: 565751
+124: Found vector: 703422
+125: Found vector: 158641
+126: Found vector: 882944
+127: Found vector: 368703
+128: Found vector: 689719
+129: Found vector: 711702
+130: Found vector: 956845
+131: Found vector: 361497
+132: Found vector: 561296
+133: Found vector: 12981
+134: Found vector: 730998
+135: Found vector: 931949
+136: Found vector: 158760
+137: Found vector: 141845
+138: Found vector: 562168
+139: Found vector: 293552
+140: Found vector: 390778
+141: Found vector: 703632
+142: Found vector: 839680
+143: Found vector: 59845
+144: Found vector: 88585
+145: Found vector: 932069
+146: Found vector: 989763
+147: Found vector: 453448
+148: Found vector: 287109
+149: Found vector: 86761
+150: Found vector: 721707
+151: Found vector: 489262
+152: Found vector: 933011
+153: Found vector: 554510
+154: Found vector: 528324
+155: Found vector: 3753
+156: Found vector: 526405
+tRadiusSearch: 0.296349 seconds
+
+

@@ -10,7 +10,7 @@
 #include "./parsing/parsingLSH.h"
 #include "./hashTable/hashTableList/hashTableList.h"
 
-#define W_VALUE 4
+#define W_DIVIDER 10
 
 int d;
 int w;
@@ -20,12 +20,21 @@ int hashTableSize;
 int wValueCalculation(List list,int numberOfVectorsInFile){
   long double sumDist = 0.0;
   int count=0;
-  int stopBound = 0.001*numberOfVectorsInFile*numberOfVectorsInFile;
+  double persentageToCheck;
+  if(numberOfVectorsInFile<=1000){
+    persentageToCheck = 0.1;
+  }else if(numberOfVectorsInFile<=10000){
+    persentageToCheck = 0.001;
+  }else if (numberOfVectorsInFile<=100000){
+    persentageToCheck = 0.0001;
+  }else{
+    persentageToCheck = 0.000001;
+  }
+  int stopBound = persentageToCheck*numberOfVectorsInFile*numberOfVectorsInFile;
   while(list!=NULL){
     List nested = list;
     while(nested!=NULL){
       if(count>stopBound){
-        printf("%d\n",count);
         return floor(sumDist/count);
       }
       sumDist += distance_metric(getVector(list),getVector(nested),d);
@@ -59,7 +68,6 @@ int main(int argc, char *argv[])  {
   double radius=10000;
   hashTableSize = 1000;
   k_LSH = 4;
-  w = W_VALUE;
 
   while((option = getopt(argc, argv, "i:q:k:L:o:N:R:")) != -1){
      switch(option){
@@ -163,8 +171,7 @@ int main(int argc, char *argv[])  {
   printf("Findind optimal value of w based on the input file\n");
   begin = clock();
   w = wValueCalculation(list,numberOfVectorsInFile);
-  w /= 10;
-  // w=6;
+  w /= W_DIVIDER;
   end = clock();
   time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
   printf("Found value of w in %f seconds, w = %d\n",time_spent,w );

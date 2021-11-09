@@ -18,11 +18,43 @@
 #define TRUE 1
 #define FALSE 0
 #define MAX_RECENTER_ITERATIONS 15
+#define W_DIVIDER 80
 
 extern int numOfVecs;
 extern int d;
 extern int hashTableSize;
 extern int complete;
+extern int w;
+
+
+int wValueCalculation(List list,int numberOfVectorsInFile){
+  long double sumDist = 0.0;
+  int count=0;
+  double persentageToCheck;
+  if(numberOfVectorsInFile<=1000){
+    persentageToCheck = 0.1;
+  }else if(numberOfVectorsInFile<=10000){
+    persentageToCheck = 0.001;
+  }else if (numberOfVectorsInFile<=100000){
+    persentageToCheck = 0.0001;
+  }else{
+    persentageToCheck = 0.000001;
+  }
+  int stopBound = persentageToCheck*numberOfVectorsInFile*numberOfVectorsInFile;
+  while(list!=NULL){
+    List nested = list;
+    while(nested!=NULL){
+      if(count>stopBound){
+        return floor(sumDist/count);
+      }
+      sumDist += distance_metric(getVector(list),getVector(nested),d);
+      count++;
+      nested = getNext(nested);
+    }
+    list=getNext(list);
+  }
+  return floor(sumDist/count);
+}
 
 
 
@@ -174,7 +206,7 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
       }
       // finally delete each cluster in order to form a new one based to the new centroid
       htDelete(clustersHt[i],0);
-      clustersHt[i] = htInitialize(numOfVecs/(4*numOfClusters)); 
+      clustersHt[i] = htInitialize(numOfVecs/(4*numOfClusters));
       // save the new centroid
       clusters[i]=newCenter;
     }
@@ -254,14 +286,24 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
   }else{
     hashTableSize=numOfVecs/32;
   }
+
   clock_t begin = clock();
+  w = wValueCalculation(vecList,numOfVecs);
+  w /= W_DIVIDER;
+  clock_t end = clock();
+  double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+  printf("Found value of w in %f seconds, w = %d\n",time_spent,w );
+
+
+
+  begin = clock();
   LSH lsh = initializeLSH(l);
   for(int i=0;i<numOfVecs;i++){
     initializeClusterInfo(vectors[i]);
     insertToLSH(lsh,vectors[i]);
   }
-  clock_t end = clock();
-  double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+  end = clock();
+  time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
   printf("Created LSH in : %f seconds\n",time_spent);
 
 
@@ -278,8 +320,8 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
   while((countLSH<2) || !centroidsConverge(clusters,oldClusters,numOfClusters,d)){ // check for convergence after the second one iteration
     if(countLSH==MAX_RECENTER_ITERATIONS)
       break;
-  // while(firstIter || count<20){
     countLSH++;
+    printf("LOOP %d\n",countLSH);
     if(!firstIterLSH){
       Vector *temp = oldClusters;
       oldClusters=clusters;
@@ -425,13 +467,24 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
   }
   props = calloc(numOfVecs,sizeof(double));
 
+  clock_t begin = clock();
+  w = wValueCalculation(vecList,numOfVecs);
+  w /= W_DIVIDER;
+  clock_t end = clock();
+  double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+  printf("Found value of w in %f seconds, w = %d\n",time_spent,w );
+
   // allocate and initialize the Hypercube with the vectors tha will be inserted into clusters
   hashTableSize=numOfVecs/16;
+  begin = clock();
   HyperCube cube = initializeHyperCube();
   for(int i=0;i<numOfVecs;i++){
     initializeClusterInfo(vectors[i]);
     insertToHyperCube(cube,vectors[i]);
   }
+  end = clock();
+  time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+  printf("Created Hypercube in : %f seconds\n",time_spent);
 
   clock_t cluster_start = clock();
   // find the original centroids with the kmeans++ Algorithm

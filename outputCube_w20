@@ -1,0 +1,2355 @@
+Query 1:
+Nearest neighbor-1: 2838
+distanceHypercube: 284.596205
+distanceTrue: 276.781502
+Nearest neighbor-2: 191
+distanceHypercube: 292.936853
+distanceTrue: 277.495946
+Nearest neighbor-3: 1293
+distanceHypercube: 324.010802
+distanceTrue: 282.315426
+tCube: 0.001200 seconds
+tTrue: 0.017783 seconds
+R-near neighbors:
+1: Found vector: 191
+2: Found vector: 2838
+tRadiusSearch: 0.001030 seconds
+
+
+Query 2:
+Nearest neighbor-1: 1151
+distanceHypercube: 279.969641
+distanceTrue: 256.852098
+Nearest neighbor-2: 9521
+distanceHypercube: 282.333137
+distanceTrue: 259.913447
+Nearest neighbor-3: 3684
+distanceHypercube: 289.965515
+distanceTrue: 262.895416
+tCube: 0.000750 seconds
+tTrue: 0.020011 seconds
+R-near neighbors:
+1: Found vector: 1151
+2: Found vector: 3684
+3: Found vector: 463
+4: Found vector: 9521
+5: Found vector: 801
+tRadiusSearch: 0.000690 seconds
+
+
+Query 3:
+Nearest neighbor-1: 9721
+distanceHypercube: 268.877295
+distanceTrue: 206.736547
+Nearest neighbor-2: 1961
+distanceHypercube: 274.683454
+distanceTrue: 219.460703
+Nearest neighbor-3: 8565
+distanceHypercube: 287.294274
+distanceTrue: 222.551118
+tCube: 0.000677 seconds
+tTrue: 0.013044 seconds
+R-near neighbors:
+1: Found vector: 6565
+2: Found vector: 9721
+3: Found vector: 2048
+4: Found vector: 8605
+5: Found vector: 8646
+6: Found vector: 8565
+7: Found vector: 1961
+tRadiusSearch: 0.005880 seconds
+
+
+Query 4:
+Nearest neighbor-1: 9582
+distanceHypercube: 260.568609
+distanceTrue: 215.176672
+Nearest neighbor-2: 9806
+distanceHypercube: 278.761547
+distanceTrue: 216.843261
+Nearest neighbor-3: 2782
+distanceHypercube: 297.333146
+distanceTrue: 236.137672
+tCube: 0.000755 seconds
+tTrue: 0.013450 seconds
+R-near neighbors:
+1: Found vector: 9582
+2: Found vector: 2782
+3: Found vector: 9806
+tRadiusSearch: 0.000622 seconds
+
+
+Query 5:
+Nearest neighbor-1: 4560
+distanceHypercube: 282.733090
+distanceTrue: 250.509481
+Nearest neighbor-2: 6109
+distanceHypercube: 302.046354
+distanceTrue: 257.538347
+Nearest neighbor-3: 6403
+distanceHypercube: 302.259822
+distanceTrue: 265.067916
+tCube: 0.000886 seconds
+tTrue: 0.015737 seconds
+R-near neighbors:
+1: Found vector: 4560
+tRadiusSearch: 0.000766 seconds
+
+
+Query 6:
+Nearest neighbor-1: 4247
+distanceHypercube: 317.998428
+distanceTrue: 275.150868
+Nearest neighbor-2: 536
+distanceHypercube: 319.598185
+distanceTrue: 287.503043
+Nearest neighbor-3: 8667
+distanceHypercube: 334.010479
+distanceTrue: 293.819673
+tCube: 0.000992 seconds
+tTrue: 0.014619 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000826 seconds
+
+
+Query 7:
+Nearest neighbor-1: 2639
+distanceHypercube: 277.973020
+distanceTrue: 246.609002
+Nearest neighbor-2: 3250
+distanceHypercube: 286.473384
+distanceTrue: 252.816139
+Nearest neighbor-3: 1469
+distanceHypercube: 288.626056
+distanceTrue: 255.804613
+tCube: 0.000936 seconds
+tTrue: 0.012615 seconds
+R-near neighbors:
+1: Found vector: 2108
+2: Found vector: 1469
+3: Found vector: 3250
+4: Found vector: 2639
+5: Found vector: 2703
+tRadiusSearch: 0.000800 seconds
+
+
+Query 8:
+Nearest neighbor-1: 8709
+distanceHypercube: 261.210643
+distanceTrue: 173.948268
+Nearest neighbor-2: 7367
+distanceHypercube: 267.211527
+distanceTrue: 177.727319
+Nearest neighbor-3: 99
+distanceHypercube: 268.354243
+distanceTrue: 196.402648
+tCube: 0.000969 seconds
+tTrue: 0.012659 seconds
+R-near neighbors:
+1: Found vector: 7842
+2: Found vector: 2666
+3: Found vector: 7367
+4: Found vector: 8709
+5: Found vector: 6678
+6: Found vector: 6901
+7: Found vector: 8492
+8: Found vector: 99
+9: Found vector: 6721
+tRadiusSearch: 0.000848 seconds
+
+
+Query 9:
+Nearest neighbor-1: 3019
+distanceHypercube: 283.263129
+distanceTrue: 248.473339
+Nearest neighbor-2: 8382
+distanceHypercube: 291.223282
+distanceTrue: 256.214754
+Nearest neighbor-3: 8223
+distanceHypercube: 294.170019
+distanceTrue: 259.011583
+tCube: 0.000760 seconds
+tTrue: 0.012816 seconds
+R-near neighbors:
+1: Found vector: 3019
+2: Found vector: 8382
+3: Found vector: 8223
+tRadiusSearch: 0.000655 seconds
+
+
+Query 10:
+Nearest neighbor-1: 1672
+distanceHypercube: 269.247098
+distanceTrue: 250.014000
+Nearest neighbor-2: 7124
+distanceHypercube: 271.071946
+distanceTrue: 251.722069
+Nearest neighbor-3: 9530
+distanceHypercube: 297.193540
+distanceTrue: 254.680192
+tCube: 0.000756 seconds
+tTrue: 0.012779 seconds
+R-near neighbors:
+1: Found vector: 7124
+2: Found vector: 1672
+3: Found vector: 9530
+tRadiusSearch: 0.000603 seconds
+
+
+Query 11:
+Nearest neighbor-1: 2961
+distanceHypercube: 324.077151
+distanceTrue: 293.882630
+Nearest neighbor-2: 186
+distanceHypercube: 337.376644
+distanceTrue: 308.914228
+Nearest neighbor-3: 3366
+distanceHypercube: 343.199650
+distanceTrue: 309.307291
+tCube: 0.001027 seconds
+tTrue: 0.012782 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000849 seconds
+
+
+Query 12:
+Nearest neighbor-1: 206
+distanceHypercube: 250.233891
+distanceTrue: 172.162714
+Nearest neighbor-2: 162
+distanceHypercube: 254.894096
+distanceTrue: 206.608325
+Nearest neighbor-3: 2919
+distanceHypercube: 256.571627
+distanceTrue: 224.483852
+tCube: 0.000845 seconds
+tTrue: 0.012764 seconds
+R-near neighbors:
+1: Found vector: 6354
+2: Found vector: 4630
+3: Found vector: 117
+4: Found vector: 5187
+5: Found vector: 881
+6: Found vector: 1277
+7: Found vector: 2919
+8: Found vector: 4392
+9: Found vector: 7765
+10: Found vector: 162
+11: Found vector: 3
+12: Found vector: 5555
+13: Found vector: 544
+14: Found vector: 7050
+15: Found vector: 4741
+16: Found vector: 3378
+17: Found vector: 9415
+18: Found vector: 6501
+19: Found vector: 206
+20: Found vector: 21
+21: Found vector: 102
+22: Found vector: 9258
+23: Found vector: 2195
+24: Found vector: 3468
+25: Found vector: 4479
+26: Found vector: 6892
+27: Found vector: 961
+28: Found vector: 4391
+29: Found vector: 9523
+30: Found vector: 307
+31: Found vector: 4829
+32: Found vector: 4992
+33: Found vector: 1137
+tRadiusSearch: 0.000800 seconds
+
+
+Query 13:
+Nearest neighbor-1: 484
+distanceHypercube: 261.407728
+distanceTrue: 238.549785
+Nearest neighbor-2: 3249
+distanceHypercube: 279.957140
+distanceTrue: 250.071990
+Nearest neighbor-3: 9714
+distanceHypercube: 281.581249
+distanceTrue: 251.238930
+tCube: 0.000954 seconds
+tTrue: 0.012889 seconds
+R-near neighbors:
+1: Found vector: 9714
+2: Found vector: 3249
+3: Found vector: 263
+4: Found vector: 484
+5: Found vector: 148
+6: Found vector: 172
+7: Found vector: 126
+tRadiusSearch: 0.000821 seconds
+
+
+Query 14:
+Nearest neighbor-1: 9816
+distanceHypercube: 256.739167
+distanceTrue: 244.677339
+Nearest neighbor-2: 121
+distanceHypercube: 291.912658
+distanceTrue: 256.739167
+Nearest neighbor-3: 618
+distanceHypercube: 301.774750
+distanceTrue: 259.674797
+tCube: 0.000774 seconds
+tTrue: 0.012753 seconds
+R-near neighbors:
+1: Found vector: 9816
+2: Found vector: 121
+tRadiusSearch: 0.000627 seconds
+
+
+Query 15:
+Nearest neighbor-1: 9164
+distanceHypercube: 319.510563
+distanceTrue: 273.316666
+Nearest neighbor-2: 306
+distanceHypercube: 338.833292
+distanceTrue: 278.307384
+Nearest neighbor-3: 5961
+distanceHypercube: 341.351725
+distanceTrue: 282.740163
+tCube: 0.000638 seconds
+tTrue: 0.012793 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000504 seconds
+
+
+Query 16:
+Nearest neighbor-1: 3326
+distanceHypercube: 262.032441
+distanceTrue: 253.682873
+Nearest neighbor-2: 9041
+distanceHypercube: 305.913386
+distanceTrue: 254.823468
+Nearest neighbor-3: 985
+distanceHypercube: 308.155805
+distanceTrue: 256.752799
+tCube: 0.001238 seconds
+tTrue: 0.015542 seconds
+R-near neighbors:
+1: Found vector: 3326
+tRadiusSearch: 0.001222 seconds
+
+
+Query 17:
+Nearest neighbor-1: 3936
+distanceHypercube: 265.260250
+distanceTrue: 248.199517
+Nearest neighbor-2: 422
+distanceHypercube: 265.324330
+distanceTrue: 248.324385
+Nearest neighbor-3: 1599
+distanceHypercube: 276.086943
+distanceTrue: 250.667110
+tCube: 0.001142 seconds
+tTrue: 0.014003 seconds
+R-near neighbors:
+1: Found vector: 4037
+2: Found vector: 3196
+3: Found vector: 1201
+4: Found vector: 1599
+5: Found vector: 1379
+6: Found vector: 177
+7: Found vector: 422
+8: Found vector: 9823
+9: Found vector: 540
+10: Found vector: 3936
+11: Found vector: 3615
+tRadiusSearch: 0.001020 seconds
+
+
+Query 18:
+Nearest neighbor-1: 1152
+distanceHypercube: 269.273096
+distanceTrue: 254.635033
+Nearest neighbor-2: 9702
+distanceHypercube: 284.668228
+distanceTrue: 260.852449
+Nearest neighbor-3: 9652
+distanceHypercube: 287.165458
+distanceTrue: 263.279319
+tCube: 0.001176 seconds
+tTrue: 0.012710 seconds
+R-near neighbors:
+1: Found vector: 3650
+2: Found vector: 9780
+3: Found vector: 9652
+4: Found vector: 9714
+5: Found vector: 1152
+6: Found vector: 293
+7: Found vector: 132
+8: Found vector: 3043
+9: Found vector: 9702
+10: Found vector: 2775
+11: Found vector: 4008
+12: Found vector: 225
+tRadiusSearch: 0.003169 seconds
+
+
+Query 19:
+Nearest neighbor-1: 1904
+distanceHypercube: 291.130555
+distanceTrue: 266.889490
+Nearest neighbor-2: 2615
+distanceHypercube: 291.917797
+distanceTrue: 268.527466
+Nearest neighbor-3: 5286
+distanceHypercube: 295.005085
+distanceTrue: 274.341029
+tCube: 0.000978 seconds
+tTrue: 0.012587 seconds
+R-near neighbors:
+1: Found vector: 2615
+2: Found vector: 1904
+3: Found vector: 5286
+tRadiusSearch: 0.000858 seconds
+
+
+Query 20:
+Nearest neighbor-1: 3013
+distanceHypercube: 267.632210
+distanceTrue: 224.750973
+Nearest neighbor-2: 2155
+distanceHypercube: 294.952539
+distanceTrue: 230.212945
+Nearest neighbor-3: 1370
+distanceHypercube: 296.706926
+distanceTrue: 233.495182
+tCube: 0.000701 seconds
+tTrue: 0.013495 seconds
+R-near neighbors:
+1: Found vector: 2155
+2: Found vector: 9781
+3: Found vector: 3013
+4: Found vector: 1370
+tRadiusSearch: 0.000576 seconds
+
+
+Query 21:
+Nearest neighbor-1: 8225
+distanceHypercube: 250.195923
+distanceTrue: 192.984455
+Nearest neighbor-2: 7344
+distanceHypercube: 251.990079
+distanceTrue: 193.248545
+Nearest neighbor-3: 9854
+distanceHypercube: 252.162646
+distanceTrue: 196.007653
+tCube: 0.001056 seconds
+tTrue: 0.012659 seconds
+R-near neighbors:
+1: Found vector: 9798
+2: Found vector: 9854
+3: Found vector: 6524
+4: Found vector: 5914
+5: Found vector: 6137
+6: Found vector: 7599
+7: Found vector: 4857
+8: Found vector: 1663
+9: Found vector: 9466
+10: Found vector: 7344
+11: Found vector: 9483
+12: Found vector: 5464
+13: Found vector: 7818
+14: Found vector: 3388
+15: Found vector: 1697
+16: Found vector: 6732
+17: Found vector: 1003
+18: Found vector: 5072
+19: Found vector: 7159
+20: Found vector: 414
+21: Found vector: 7338
+22: Found vector: 5778
+23: Found vector: 8102
+24: Found vector: 8225
+tRadiusSearch: 0.002255 seconds
+
+
+Query 22:
+Nearest neighbor-1: 4672
+distanceHypercube: 225.997788
+distanceTrue: 80.845532
+Nearest neighbor-2: 7135
+distanceHypercube: 235.677746
+distanceTrue: 87.732548
+Nearest neighbor-3: 4798
+distanceHypercube: 240.640811
+distanceTrue: 207.301712
+tCube: 0.001125 seconds
+tTrue: 0.012622 seconds
+R-near neighbors:
+1: Found vector: 550
+2: Found vector: 4854
+3: Found vector: 8146
+4: Found vector: 8003
+5: Found vector: 8798
+6: Found vector: 4822
+7: Found vector: 5568
+8: Found vector: 9707
+9: Found vector: 4509
+10: Found vector: 604
+11: Found vector: 7146
+12: Found vector: 7399
+13: Found vector: 7491
+14: Found vector: 4508
+15: Found vector: 114
+16: Found vector: 4827
+17: Found vector: 5358
+18: Found vector: 5216
+19: Found vector: 8719
+20: Found vector: 10
+21: Found vector: 7309
+22: Found vector: 5627
+23: Found vector: 4709
+24: Found vector: 5643
+25: Found vector: 196
+26: Found vector: 4798
+27: Found vector: 5674
+28: Found vector: 7265
+29: Found vector: 4672
+30: Found vector: 7135
+31: Found vector: 5382
+tRadiusSearch: 0.001073 seconds
+
+
+Query 23:
+Nearest neighbor-1: 4855
+distanceHypercube: 223.966515
+distanceTrue: 173.052015
+Nearest neighbor-2: 5133
+distanceHypercube: 231.631172
+distanceTrue: 175.641681
+Nearest neighbor-3: 6492
+distanceHypercube: 232.542469
+distanceTrue: 182.641726
+tCube: 0.000988 seconds
+tTrue: 0.012611 seconds
+R-near neighbors:
+1: Found vector: 9096
+2: Found vector: 9610
+3: Found vector: 4594
+4: Found vector: 5260
+5: Found vector: 5903
+6: Found vector: 609
+7: Found vector: 8216
+8: Found vector: 9547
+9: Found vector: 5432
+10: Found vector: 59
+11: Found vector: 2828
+12: Found vector: 4856
+13: Found vector: 491
+14: Found vector: 2994
+15: Found vector: 4855
+16: Found vector: 6266
+17: Found vector: 3439
+18: Found vector: 8650
+19: Found vector: 4365
+20: Found vector: 6492
+21: Found vector: 1526
+22: Found vector: 7642
+23: Found vector: 6402
+24: Found vector: 55
+25: Found vector: 5520
+26: Found vector: 7328
+27: Found vector: 5133
+28: Found vector: 9333
+29: Found vector: 4591
+30: Found vector: 7840
+31: Found vector: 4640
+32: Found vector: 5977
+tRadiusSearch: 0.000917 seconds
+
+
+Query 24:
+Nearest neighbor-1: 8336
+distanceHypercube: 253.940938
+distanceTrue: 253.940938
+Nearest neighbor-2: 4477
+distanceHypercube: 263.575416
+distanceTrue: 254.876441
+Nearest neighbor-3: 5327
+distanceHypercube: 290.143068
+distanceTrue: 256.676840
+tCube: 0.001262 seconds
+tTrue: 0.012749 seconds
+R-near neighbors:
+1: Found vector: 8336
+2: Found vector: 4477
+3: Found vector: 5327
+4: Found vector: 327
+tRadiusSearch: 0.001137 seconds
+
+
+Query 25:
+Nearest neighbor-1: 4555
+distanceHypercube: 156.547118
+distanceTrue: 154.227105
+Nearest neighbor-2: 5210
+distanceHypercube: 253.086942
+distanceTrue: 156.547118
+Nearest neighbor-3: 9103
+distanceHypercube: 259.472542
+distanceTrue: 191.185774
+tCube: 0.001023 seconds
+tTrue: 0.012681 seconds
+R-near neighbors:
+1: Found vector: 2059
+2: Found vector: 5210
+3: Found vector: 5407
+4: Found vector: 9384
+5: Found vector: 4555
+6: Found vector: 3479
+7: Found vector: 5322
+8: Found vector: 4587
+9: Found vector: 9421
+10: Found vector: 7948
+11: Found vector: 935
+12: Found vector: 5571
+13: Found vector: 9103
+14: Found vector: 2549
+15: Found vector: 586
+tRadiusSearch: 0.000910 seconds
+
+
+Query 26:
+Nearest neighbor-1: 5301
+distanceHypercube: 271.610015
+distanceTrue: 271.610015
+Nearest neighbor-2: 5408
+distanceHypercube: 308.063305
+distanceTrue: 286.567619
+Nearest neighbor-3: 9306
+distanceHypercube: 315.036506
+distanceTrue: 288.806163
+tCube: 0.001135 seconds
+tTrue: 0.012691 seconds
+R-near neighbors:
+1: Found vector: 5301
+tRadiusSearch: 0.000968 seconds
+
+
+Query 27:
+Nearest neighbor-1: 4684
+distanceHypercube: 223.098633
+distanceTrue: 183.442089
+Nearest neighbor-2: 58
+distanceHypercube: 265.887194
+distanceTrue: 199.702278
+Nearest neighbor-3: 5526
+distanceHypercube: 266.407582
+distanceTrue: 220.018181
+tCube: 0.000951 seconds
+tTrue: 0.012729 seconds
+R-near neighbors:
+1: Found vector: 2791
+2: Found vector: 706
+3: Found vector: 4684
+4: Found vector: 7422
+5: Found vector: 9522
+6: Found vector: 5667
+7: Found vector: 58
+8: Found vector: 7744
+9: Found vector: 7907
+10: Found vector: 4795
+11: Found vector: 4458
+12: Found vector: 106
+13: Found vector: 5224
+14: Found vector: 5526
+15: Found vector: 751
+16: Found vector: 8040
+17: Found vector: 5279
+18: Found vector: 9920
+19: Found vector: 6680
+20: Found vector: 3421
+tRadiusSearch: 0.000887 seconds
+
+
+Query 28:
+Nearest neighbor-1: 2058
+distanceHypercube: 247.149752
+distanceTrue: 175.516381
+Nearest neighbor-2: 7950
+distanceHypercube: 282.665881
+distanceTrue: 200.888029
+Nearest neighbor-3: 7479
+distanceHypercube: 285.035086
+distanceTrue: 212.548818
+tCube: 0.000691 seconds
+tTrue: 0.012826 seconds
+R-near neighbors:
+1: Found vector: 7950
+2: Found vector: 4465
+3: Found vector: 4471
+4: Found vector: 7479
+5: Found vector: 2058
+6: Found vector: 4780
+7: Found vector: 2141
+8: Found vector: 1047
+9: Found vector: 4504
+tRadiusSearch: 0.000585 seconds
+
+
+Query 29:
+Nearest neighbor-1: 5407
+distanceHypercube: 250.453589
+distanceTrue: 224.859956
+Nearest neighbor-2: 2549
+distanceHypercube: 280.973308
+distanceTrue: 229.828197
+Nearest neighbor-3: 8337
+distanceHypercube: 285.735892
+distanceTrue: 230.377950
+tCube: 0.000706 seconds
+tTrue: 0.012767 seconds
+R-near neighbors:
+1: Found vector: 5407
+2: Found vector: 9384
+3: Found vector: 8337
+4: Found vector: 4621
+5: Found vector: 2549
+6: Found vector: 6521
+tRadiusSearch: 0.000572 seconds
+
+
+Query 30:
+Nearest neighbor-1: 5217
+distanceHypercube: 185.612500
+distanceTrue: 125.379424
+Nearest neighbor-2: 6488
+distanceHypercube: 188.124958
+distanceTrue: 167.821334
+Nearest neighbor-3: 6126
+distanceHypercube: 189.370008
+distanceTrue: 170.868370
+tCube: 0.001061 seconds
+tTrue: 0.012771 seconds
+R-near neighbors:
+1: Found vector: 6911
+2: Found vector: 6567
+3: Found vector: 5615
+4: Found vector: 9854
+5: Found vector: 4274
+6: Found vector: 7820
+7: Found vector: 6126
+8: Found vector: 8253
+9: Found vector: 5250
+10: Found vector: 5914
+11: Found vector: 5217
+12: Found vector: 5489
+13: Found vector: 4857
+14: Found vector: 9466
+15: Found vector: 6955
+16: Found vector: 9483
+17: Found vector: 8254
+18: Found vector: 5464
+19: Found vector: 7222
+20: Found vector: 5436
+21: Found vector: 1697
+22: Found vector: 6732
+23: Found vector: 6488
+24: Found vector: 7338
+25: Found vector: 8266
+tRadiusSearch: 0.000976 seconds
+
+
+Query 31:
+Nearest neighbor-1: 5946
+distanceHypercube: 280.039283
+distanceTrue: 265.377090
+Nearest neighbor-2: 4553
+distanceHypercube: 284.066894
+distanceTrue: 267.007491
+Nearest neighbor-3: 5878
+distanceHypercube: 284.878922
+distanceTrue: 272.205804
+tCube: 0.000853 seconds
+tTrue: 0.012756 seconds
+R-near neighbors:
+1: Found vector: 7310
+2: Found vector: 4553
+3: Found vector: 5946
+4: Found vector: 5878
+tRadiusSearch: 0.000698 seconds
+
+
+Query 32:
+Nearest neighbor-1: 4154
+distanceHypercube: 333.715448
+distanceTrue: 109.192491
+Nearest neighbor-2: 2063
+distanceHypercube: 340.733033
+distanceTrue: 126.952747
+Nearest neighbor-3: 4318
+distanceHypercube: 345.528581
+distanceTrue: 175.772580
+tCube: 0.000982 seconds
+tTrue: 0.012815 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000852 seconds
+
+
+Query 33:
+Nearest neighbor-1: 6963
+distanceHypercube: 277.614841
+distanceTrue: 187.563323
+Nearest neighbor-2: 7512
+distanceHypercube: 301.836048
+distanceTrue: 232.768125
+Nearest neighbor-3: 430
+distanceHypercube: 305.296577
+distanceTrue: 236.243518
+tCube: 0.000567 seconds
+tTrue: 0.012826 seconds
+R-near neighbors:
+1: Found vector: 6963
+tRadiusSearch: 0.000451 seconds
+
+
+Query 34:
+Nearest neighbor-1: 1194
+distanceHypercube: 360.037498
+distanceTrue: 328.278845
+Nearest neighbor-2: 7357
+distanceHypercube: 377.304916
+distanceTrue: 340.102926
+Nearest neighbor-3: 7274
+distanceHypercube: 384.354003
+distanceTrue: 348.505380
+tCube: 0.000591 seconds
+tTrue: 0.012803 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000482 seconds
+
+
+Query 35:
+Nearest neighbor-1: 3050
+distanceHypercube: 276.139458
+distanceTrue: 248.553817
+Nearest neighbor-2: 6801
+distanceHypercube: 278.662879
+distanceTrue: 262.463331
+Nearest neighbor-3: 9720
+distanceHypercube: 284.803441
+distanceTrue: 272.189272
+tCube: 0.001162 seconds
+tTrue: 0.012779 seconds
+R-near neighbors:
+1: Found vector: 9720
+2: Found vector: 3050
+3: Found vector: 6801
+tRadiusSearch: 0.001003 seconds
+
+
+Query 36:
+Nearest neighbor-1: 1606
+distanceHypercube: 303.646176
+distanceTrue: 120.975204
+Nearest neighbor-2: 3292
+distanceHypercube: 318.221621
+distanceTrue: 140.353126
+Nearest neighbor-3: 923
+distanceHypercube: 330.196911
+distanceTrue: 179.596771
+tCube: 0.000968 seconds
+tTrue: 0.012871 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000809 seconds
+
+
+Query 37:
+Nearest neighbor-1: 3615
+distanceHypercube: 304.392838
+distanceTrue: 111.458512
+Nearest neighbor-2: 8583
+distanceHypercube: 315.735649
+distanceTrue: 140.135649
+Nearest neighbor-3: 2773
+distanceHypercube: 316.779103
+distanceTrue: 159.909349
+tCube: 0.001133 seconds
+tTrue: 0.012760 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000968 seconds
+
+
+Query 38:
+Nearest neighbor-1: 6179
+distanceHypercube: 306.822424
+distanceTrue: 166.856226
+Nearest neighbor-2: 796
+distanceHypercube: 346.186366
+distanceTrue: 247.868917
+Nearest neighbor-3: 3968
+distanceHypercube: 347.690955
+distanceTrue: 298.412466
+tCube: 0.000974 seconds
+tTrue: 0.012773 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000807 seconds
+
+
+Query 39:
+Nearest neighbor-1: 5644
+distanceHypercube: 316.344749
+distanceTrue: 156.358562
+Nearest neighbor-2: 237
+distanceHypercube: 328.747624
+distanceTrue: 159.245094
+Nearest neighbor-3: 7040
+distanceHypercube: 330.564668
+distanceTrue: 162.033947
+tCube: 0.001131 seconds
+tTrue: 0.012778 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000966 seconds
+
+
+Query 40:
+Nearest neighbor-1: 4693
+distanceHypercube: 212.807425
+distanceTrue: 193.976803
+Nearest neighbor-2: 4108
+distanceHypercube: 215.260308
+distanceTrue: 202.262206
+Nearest neighbor-3: 4866
+distanceHypercube: 224.866627
+distanceTrue: 207.537948
+tCube: 0.001022 seconds
+tTrue: 0.012782 seconds
+R-near neighbors:
+1: Found vector: 866
+2: Found vector: 5002
+3: Found vector: 6985
+4: Found vector: 1593
+5: Found vector: 811
+6: Found vector: 8127
+7: Found vector: 4866
+8: Found vector: 8076
+9: Found vector: 6504
+10: Found vector: 1782
+11: Found vector: 4108
+12: Found vector: 4693
+13: Found vector: 1915
+14: Found vector: 1181
+tRadiusSearch: 0.000864 seconds
+
+
+Query 41:
+Nearest neighbor-1: 1421
+distanceHypercube: 272.427972
+distanceTrue: 153.564319
+Nearest neighbor-2: 1400
+distanceHypercube: 297.623924
+distanceTrue: 185.372598
+Nearest neighbor-3: 2432
+distanceHypercube: 300.660939
+distanceTrue: 188.196706
+tCube: 0.001015 seconds
+tTrue: 0.012739 seconds
+R-near neighbors:
+1: Found vector: 1421
+2: Found vector: 1400
+tRadiusSearch: 0.000860 seconds
+
+
+Query 42:
+Nearest neighbor-1: 7392
+distanceHypercube: 202.667215
+distanceTrue: 200.494389
+Nearest neighbor-2: 561
+distanceHypercube: 213.269782
+distanceTrue: 202.667215
+Nearest neighbor-3: 9194
+distanceHypercube: 235.331681
+distanceTrue: 203.605010
+tCube: 0.001057 seconds
+tTrue: 0.012756 seconds
+R-near neighbors:
+1: Found vector: 69
+2: Found vector: 5565
+3: Found vector: 947
+4: Found vector: 7489
+5: Found vector: 898
+6: Found vector: 7548
+7: Found vector: 1888
+8: Found vector: 331
+9: Found vector: 9194
+10: Found vector: 7746
+11: Found vector: 7392
+12: Found vector: 6612
+13: Found vector: 9811
+14: Found vector: 561
+15: Found vector: 6576
+16: Found vector: 6523
+17: Found vector: 6286
+18: Found vector: 1092
+19: Found vector: 6422
+20: Found vector: 6214
+21: Found vector: 9909
+22: Found vector: 6660
+23: Found vector: 4377
+24: Found vector: 9263
+tRadiusSearch: 0.000988 seconds
+
+
+Query 43:
+Nearest neighbor-1: 1465
+distanceHypercube: 258.843582
+distanceTrue: 236.772042
+Nearest neighbor-2: 9864
+distanceHypercube: 311.735465
+distanceTrue: 245.409861
+Nearest neighbor-3: 575
+distanceHypercube: 317.225472
+distanceTrue: 247.911274
+tCube: 0.001105 seconds
+tTrue: 0.012747 seconds
+R-near neighbors:
+1: Found vector: 1465
+tRadiusSearch: 0.000931 seconds
+
+
+Query 44:
+Nearest neighbor-1: 767
+distanceHypercube: 302.678047
+distanceTrue: 165.339046
+Nearest neighbor-2: 5513
+distanceHypercube: 303.052801
+distanceTrue: 193.633675
+Nearest neighbor-3: 5904
+distanceHypercube: 303.176516
+distanceTrue: 272.383920
+tCube: 0.001028 seconds
+tTrue: 0.012827 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000886 seconds
+
+
+Query 45:
+Nearest neighbor-1: 5149
+distanceHypercube: 267.014981
+distanceTrue: 256.353272
+Nearest neighbor-2: 7394
+distanceHypercube: 296.922549
+distanceTrue: 257.079754
+Nearest neighbor-3: 5499
+distanceHypercube: 306.370691
+distanceTrue: 260.084602
+tCube: 0.000846 seconds
+tTrue: 0.012773 seconds
+R-near neighbors:
+1: Found vector: 7394
+2: Found vector: 5149
+tRadiusSearch: 0.000689 seconds
+
+
+Query 46:
+Nearest neighbor-1: 4872
+distanceHypercube: 299.811608
+distanceTrue: 261.361818
+Nearest neighbor-2: 5885
+distanceHypercube: 308.674586
+distanceTrue: 265.663321
+Nearest neighbor-3: 2048
+distanceHypercube: 314.906335
+distanceTrue: 266.150333
+tCube: 0.001025 seconds
+tTrue: 0.012743 seconds
+R-near neighbors:
+1: Found vector: 4872
+tRadiusSearch: 0.000845 seconds
+
+
+Query 47:
+Nearest neighbor-1: 9161
+distanceHypercube: 242.752961
+distanceTrue: 99.629313
+Nearest neighbor-2: 6775
+distanceHypercube: 261.736509
+distanceTrue: 215.715090
+Nearest neighbor-3: 9453
+distanceHypercube: 263.776420
+distanceTrue: 224.006696
+tCube: 0.000889 seconds
+tTrue: 0.012754 seconds
+R-near neighbors:
+1: Found vector: 9161
+2: Found vector: 9453
+3: Found vector: 2805
+4: Found vector: 7103
+5: Found vector: 6775
+tRadiusSearch: 0.000741 seconds
+
+
+Query 48:
+Nearest neighbor-1: 4272
+distanceHypercube: 353.353930
+distanceTrue: 294.394293
+Nearest neighbor-2: 2457
+distanceHypercube: 367.241065
+distanceTrue: 312.920118
+Nearest neighbor-3: 3182
+distanceHypercube: 369.764790
+distanceTrue: 314.474164
+tCube: 0.001031 seconds
+tTrue: 0.012839 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000855 seconds
+
+
+Query 49:
+Nearest neighbor-1: 8188
+distanceHypercube: 326.049076
+distanceTrue: 155.762640
+Nearest neighbor-2: 8329
+distanceHypercube: 331.348759
+distanceTrue: 215.633949
+Nearest neighbor-3: 4665
+distanceHypercube: 334.929843
+distanceTrue: 265.311138
+tCube: 0.000956 seconds
+tTrue: 0.012780 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000787 seconds
+
+
+Query 50:
+Nearest neighbor-1: 114
+distanceHypercube: 222.476965
+distanceTrue: 128.782763
+Nearest neighbor-2: 5597
+distanceHypercube: 231.503780
+distanceTrue: 172.397796
+Nearest neighbor-3: 4822
+distanceHypercube: 246.058936
+distanceTrue: 215.016278
+tCube: 0.001197 seconds
+tTrue: 0.012752 seconds
+R-near neighbors:
+1: Found vector: 6610
+2: Found vector: 60
+3: Found vector: 2512
+4: Found vector: 690
+5: Found vector: 2710
+6: Found vector: 2918
+7: Found vector: 9623
+8: Found vector: 4854
+9: Found vector: 8302
+10: Found vector: 4822
+11: Found vector: 6025
+12: Found vector: 5597
+13: Found vector: 4680
+14: Found vector: 9707
+15: Found vector: 4509
+16: Found vector: 7399
+17: Found vector: 114
+18: Found vector: 608
+19: Found vector: 8972
+20: Found vector: 5381
+21: Found vector: 5541
+22: Found vector: 4798
+23: Found vector: 1467
+24: Found vector: 4672
+25: Found vector: 5862
+tRadiusSearch: 0.001144 seconds
+
+
+Query 51:
+Nearest neighbor-1: 5560
+distanceHypercube: 308.630847
+distanceTrue: 181.140829
+Nearest neighbor-2: 658
+distanceHypercube: 333.818813
+distanceTrue: 199.604609
+Nearest neighbor-3: 5821
+distanceHypercube: 351.920446
+distanceTrue: 219.815832
+tCube: 0.001087 seconds
+tTrue: 0.012750 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000922 seconds
+
+
+Query 52:
+Nearest neighbor-1: 5465
+distanceHypercube: 267.693855
+distanceTrue: 130.812843
+Nearest neighbor-2: 4762
+distanceHypercube: 288.178764
+distanceTrue: 200.399601
+Nearest neighbor-3: 6951
+distanceHypercube: 288.485702
+distanceTrue: 219.824930
+tCube: 0.001315 seconds
+tTrue: 0.012817 seconds
+R-near neighbors:
+1: Found vector: 7961
+2: Found vector: 8661
+3: Found vector: 5746
+4: Found vector: 6951
+5: Found vector: 4762
+6: Found vector: 5465
+7: Found vector: 9860
+tRadiusSearch: 0.001184 seconds
+
+
+Query 53:
+Nearest neighbor-1: 1003
+distanceHypercube: 230.110843
+distanceTrue: 198.776256
+Nearest neighbor-2: 61
+distanceHypercube: 257.171149
+distanceTrue: 220.748726
+Nearest neighbor-3: 2917
+distanceHypercube: 261.933198
+distanceTrue: 221.670927
+tCube: 0.001176 seconds
+tTrue: 0.012736 seconds
+R-near neighbors:
+1: Found vector: 6823
+2: Found vector: 2071
+3: Found vector: 6883
+4: Found vector: 7218
+5: Found vector: 5121
+6: Found vector: 6524
+7: Found vector: 2917
+8: Found vector: 1748
+9: Found vector: 9466
+10: Found vector: 1822
+11: Found vector: 61
+12: Found vector: 5008
+13: Found vector: 5633
+14: Found vector: 6506
+15: Found vector: 4348
+16: Found vector: 1525
+17: Found vector: 1003
+18: Found vector: 8190
+19: Found vector: 4717
+20: Found vector: 4694
+21: Found vector: 7840
+22: Found vector: 5343
+tRadiusSearch: 0.001077 seconds
+
+
+Query 54:
+Nearest neighbor-1: 2641
+distanceHypercube: 227.820104
+distanceTrue: 194.177754
+Nearest neighbor-2: 1322
+distanceHypercube: 241.149331
+distanceTrue: 227.820104
+Nearest neighbor-3: 5121
+distanceHypercube: 254.947053
+distanceTrue: 233.122286
+tCube: 0.001058 seconds
+tTrue: 0.012746 seconds
+R-near neighbors:
+1: Found vector: 5714
+2: Found vector: 9854
+3: Found vector: 5121
+4: Found vector: 6524
+5: Found vector: 4857
+6: Found vector: 5730
+7: Found vector: 9919
+8: Found vector: 5561
+9: Found vector: 61
+10: Found vector: 6129
+11: Found vector: 2641
+12: Found vector: 6506
+13: Found vector: 1322
+14: Found vector: 243
+tRadiusSearch: 0.000970 seconds
+
+
+Query 55:
+Nearest neighbor-1: 6677
+distanceHypercube: 167.050890
+distanceTrue: 159.307878
+Nearest neighbor-2: 6646
+distanceHypercube: 189.261724
+distanceTrue: 164.240677
+Nearest neighbor-3: 2338
+distanceHypercube: 196.099465
+distanceTrue: 164.626851
+tCube: 0.000925 seconds
+tTrue: 0.012736 seconds
+R-near neighbors:
+1: Found vector: 7282
+2: Found vector: 6998
+3: Found vector: 6160
+4: Found vector: 8426
+5: Found vector: 6184
+6: Found vector: 8220
+7: Found vector: 6677
+8: Found vector: 2296
+9: Found vector: 8617
+10: Found vector: 665
+11: Found vector: 6646
+12: Found vector: 6070
+13: Found vector: 7815
+14: Found vector: 7111
+15: Found vector: 100
+16: Found vector: 6011
+17: Found vector: 4746
+18: Found vector: 2338
+19: Found vector: 4599
+20: Found vector: 7076
+tRadiusSearch: 0.000812 seconds
+
+
+Query 56:
+Nearest neighbor-1: 7703
+distanceHypercube: 270.131449
+distanceTrue: 184.043473
+Nearest neighbor-2: 7285
+distanceHypercube: 300.114978
+distanceTrue: 197.474049
+Nearest neighbor-3: 9286
+distanceHypercube: 311.420937
+distanceTrue: 197.914123
+tCube: 0.000919 seconds
+tTrue: 0.012829 seconds
+R-near neighbors:
+1: Found vector: 7703
+tRadiusSearch: 0.000749 seconds
+
+
+Query 57:
+Nearest neighbor-1: 4593
+distanceHypercube: 236.746700
+distanceTrue: 190.735419
+Nearest neighbor-2: 4480
+distanceHypercube: 240.800748
+distanceTrue: 209.062192
+Nearest neighbor-3: 7051
+distanceHypercube: 244.161832
+distanceTrue: 210.713075
+tCube: 0.001011 seconds
+tTrue: 0.012747 seconds
+R-near neighbors:
+1: Found vector: 6206
+2: Found vector: 9259
+3: Found vector: 4695
+4: Found vector: 4806
+5: Found vector: 9115
+6: Found vector: 4873
+7: Found vector: 7127
+8: Found vector: 5978
+9: Found vector: 2926
+10: Found vector: 4506
+11: Found vector: 4538
+12: Found vector: 4876
+13: Found vector: 4562
+14: Found vector: 4366
+15: Found vector: 4861
+16: Found vector: 654
+17: Found vector: 2659
+18: Found vector: 19
+19: Found vector: 4513
+20: Found vector: 9793
+21: Found vector: 9474
+22: Found vector: 4593
+23: Found vector: 3957
+24: Found vector: 6828
+25: Found vector: 4480
+26: Found vector: 3404
+27: Found vector: 6840
+28: Found vector: 4764
+29: Found vector: 9559
+30: Found vector: 3823
+31: Found vector: 7182
+32: Found vector: 5163
+33: Found vector: 7125
+34: Found vector: 7051
+35: Found vector: 159
+tRadiusSearch: 0.000985 seconds
+
+
+Query 58:
+Nearest neighbor-1: 2965
+distanceHypercube: 260.161488
+distanceTrue: 167.146642
+Nearest neighbor-2: 107
+distanceHypercube: 265.335637
+distanceTrue: 211.688450
+Nearest neighbor-3: 1842
+distanceHypercube: 269.553334
+distanceTrue: 220.517573
+tCube: 0.001008 seconds
+tTrue: 0.012758 seconds
+R-near neighbors:
+1: Found vector: 1489
+2: Found vector: 4172
+3: Found vector: 2965
+4: Found vector: 8774
+5: Found vector: 4097
+6: Found vector: 1842
+7: Found vector: 8207
+8: Found vector: 4302
+9: Found vector: 107
+10: Found vector: 2678
+11: Found vector: 4271
+tRadiusSearch: 0.000897 seconds
+
+
+Query 59:
+Nearest neighbor-1: 7288
+distanceHypercube: 319.785866
+distanceTrue: 65.741920
+Nearest neighbor-2: 5215
+distanceHypercube: 346.551583
+distanceTrue: 281.767635
+Nearest neighbor-3: 2727
+distanceHypercube: 350.955838
+distanceTrue: 302.607006
+tCube: 0.000877 seconds
+tTrue: 0.012739 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000710 seconds
+
+
+Query 60:
+Nearest neighbor-1: 7172
+distanceHypercube: 140.459959
+distanceTrue: 114.415908
+Nearest neighbor-2: 5066
+distanceHypercube: 196.781605
+distanceTrue: 117.149477
+Nearest neighbor-3: 6297
+distanceHypercube: 202.034650
+distanceTrue: 125.179871
+tCube: 0.001126 seconds
+tTrue: 0.012811 seconds
+R-near neighbors:
+1: Found vector: 7172
+2: Found vector: 7792
+3: Found vector: 5517
+4: Found vector: 2684
+5: Found vector: 4420
+6: Found vector: 5066
+7: Found vector: 5563
+8: Found vector: 7196
+9: Found vector: 5566
+10: Found vector: 7341
+11: Found vector: 8164
+12: Found vector: 4598
+13: Found vector: 6297
+14: Found vector: 2206
+15: Found vector: 7934
+16: Found vector: 9930
+17: Found vector: 5506
+18: Found vector: 8487
+19: Found vector: 9472
+tRadiusSearch: 0.001054 seconds
+
+
+Query 61:
+Nearest neighbor-1: 5388
+distanceHypercube: 289.758520
+distanceTrue: 170.308544
+Nearest neighbor-2: 5052
+distanceHypercube: 298.901322
+distanceTrue: 264.022726
+Nearest neighbor-3: 8714
+distanceHypercube: 307.845741
+distanceTrue: 265.339405
+tCube: 0.000770 seconds
+tTrue: 0.012768 seconds
+R-near neighbors:
+1: Found vector: 5052
+2: Found vector: 5388
+tRadiusSearch: 0.000619 seconds
+
+
+Query 62:
+Nearest neighbor-1: 8403
+distanceHypercube: 140.356688
+distanceTrue: 140.356688
+Nearest neighbor-2: 2482
+distanceHypercube: 257.344128
+distanceTrue: 151.993421
+Nearest neighbor-3: 3817
+distanceHypercube: 259.310625
+distanceTrue: 242.295274
+tCube: 0.001376 seconds
+tTrue: 0.012752 seconds
+R-near neighbors:
+1: Found vector: 5771
+2: Found vector: 3817
+3: Found vector: 8403
+4: Found vector: 4682
+5: Found vector: 2482
+tRadiusSearch: 0.001230 seconds
+
+
+Query 63:
+Nearest neighbor-1: 7001
+distanceHypercube: 274.879974
+distanceTrue: 131.651054
+Nearest neighbor-2: 5264
+distanceHypercube: 283.022967
+distanceTrue: 182.057683
+Nearest neighbor-3: 6632
+distanceHypercube: 288.298456
+distanceTrue: 193.220082
+tCube: 0.000760 seconds
+tTrue: 0.012747 seconds
+R-near neighbors:
+1: Found vector: 6027
+2: Found vector: 5264
+3: Found vector: 6632
+4: Found vector: 7001
+tRadiusSearch: 0.000653 seconds
+
+
+Query 64:
+Nearest neighbor-1: 6322
+distanceHypercube: 94.915752
+distanceTrue: 94.915752
+Nearest neighbor-2: 5328
+distanceHypercube: 226.795062
+distanceTrue: 124.225601
+Nearest neighbor-3: 9895
+distanceHypercube: 239.883305
+distanceTrue: 133.502809
+tCube: 0.000797 seconds
+tTrue: 0.012814 seconds
+R-near neighbors:
+1: Found vector: 4460
+2: Found vector: 2483
+3: Found vector: 5363
+4: Found vector: 6322
+5: Found vector: 9895
+6: Found vector: 5328
+7: Found vector: 415
+8: Found vector: 9842
+9: Found vector: 3818
+tRadiusSearch: 0.000686 seconds
+
+
+Query 65:
+Nearest neighbor-1: 5391
+distanceHypercube: 308.423410
+distanceTrue: 138.275088
+Nearest neighbor-2: 8903
+distanceHypercube: 311.085197
+distanceTrue: 226.823720
+Nearest neighbor-3: 2433
+distanceHypercube: 347.846230
+distanceTrue: 240.696905
+tCube: 0.001028 seconds
+tTrue: 0.012757 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000850 seconds
+
+
+Query 66:
+Nearest neighbor-1: 7601
+distanceHypercube: 238.595893
+distanceTrue: 173.381083
+Nearest neighbor-2: 2338
+distanceHypercube: 251.724055
+distanceTrue: 219.861320
+Nearest neighbor-3: 377
+distanceHypercube: 254.501473
+distanceTrue: 224.194112
+tCube: 0.001125 seconds
+tTrue: 0.012740 seconds
+R-near neighbors:
+1: Found vector: 377
+2: Found vector: 3459
+3: Found vector: 7340
+4: Found vector: 8220
+5: Found vector: 665
+6: Found vector: 6646
+7: Found vector: 4746
+8: Found vector: 2338
+9: Found vector: 4599
+10: Found vector: 7601
+tRadiusSearch: 0.001021 seconds
+
+
+Query 67:
+Nearest neighbor-1: 5670
+distanceHypercube: 225.698914
+distanceTrue: 200.865627
+Nearest neighbor-2: 6727
+distanceHypercube: 340.791725
+distanceTrue: 225.698914
+Nearest neighbor-3: 4135
+distanceHypercube: 354.809808
+distanceTrue: 230.047821
+tCube: 0.000674 seconds
+tTrue: 0.012753 seconds
+R-near neighbors:
+1: Found vector: 5670
+tRadiusSearch: 0.000541 seconds
+
+
+Query 68:
+Nearest neighbor-1: 9296
+distanceHypercube: 313.625573
+distanceTrue: 224.225333
+Nearest neighbor-2: 6539
+distanceHypercube: 317.080431
+distanceTrue: 244.237589
+Nearest neighbor-3: 7736
+distanceHypercube: 322.380210
+distanceTrue: 251.035854
+tCube: 0.000900 seconds
+tTrue: 0.012815 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000729 seconds
+
+
+Query 69:
+Nearest neighbor-1: 9876
+distanceHypercube: 224.873298
+distanceTrue: 201.310705
+Nearest neighbor-2: 6440
+distanceHypercube: 240.468293
+distanceTrue: 201.335541
+Nearest neighbor-3: 5712
+distanceHypercube: 251.805480
+distanceTrue: 202.770807
+tCube: 0.000842 seconds
+tTrue: 0.012802 seconds
+R-near neighbors:
+1: Found vector: 6565
+2: Found vector: 9876
+3: Found vector: 9721
+4: Found vector: 8299
+5: Found vector: 5712
+6: Found vector: 7944
+7: Found vector: 1724
+8: Found vector: 7409
+9: Found vector: 6440
+10: Found vector: 8196
+11: Found vector: 6915
+12: Found vector: 5991
+13: Found vector: 8439
+tRadiusSearch: 0.000729 seconds
+
+
+Query 70:
+Nearest neighbor-1: 5381
+distanceHypercube: 302.849798
+distanceTrue: 266.812668
+Nearest neighbor-2: 5597
+distanceHypercube: 307.262103
+distanceTrue: 268.536776
+Nearest neighbor-3: 333
+distanceHypercube: 316.131302
+distanceTrue: 276.108674
+tCube: 0.001382 seconds
+tTrue: 0.012796 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.001216 seconds
+
+
+Query 71:
+Nearest neighbor-1: 5913
+distanceHypercube: 100.772020
+distanceTrue: 46.818800
+Nearest neighbor-2: 7487
+distanceHypercube: 132.280006
+distanceTrue: 80.367904
+Nearest neighbor-3: 7766
+distanceHypercube: 149.305057
+distanceTrue: 100.772020
+tCube: 0.001331 seconds
+tTrue: 0.012763 seconds
+R-near neighbors:
+1: Found vector: 6899
+2: Found vector: 3389
+3: Found vector: 6596
+4: Found vector: 6330
+5: Found vector: 5951
+6: Found vector: 8908
+7: Found vector: 8359
+8: Found vector: 6747
+9: Found vector: 5075
+10: Found vector: 879
+11: Found vector: 6356
+12: Found vector: 2240
+13: Found vector: 6754
+14: Found vector: 7480
+15: Found vector: 7964
+16: Found vector: 5913
+17: Found vector: 4054
+18: Found vector: 2387
+19: Found vector: 7121
+20: Found vector: 8243
+21: Found vector: 6739
+22: Found vector: 7811
+23: Found vector: 5469
+24: Found vector: 9940
+25: Found vector: 5746
+26: Found vector: 7193
+27: Found vector: 4225
+28: Found vector: 6951
+29: Found vector: 7487
+30: Found vector: 6294
+31: Found vector: 5488
+32: Found vector: 6328
+33: Found vector: 5465
+34: Found vector: 5926
+35: Found vector: 8182
+36: Found vector: 7766
+37: Found vector: 5197
+38: Found vector: 6047
+tRadiusSearch: 0.001289 seconds
+
+
+Query 72:
+Nearest neighbor-1: 5827
+distanceHypercube: 193.674985
+distanceTrue: 193.674985
+Nearest neighbor-2: 1278
+distanceHypercube: 311.708197
+distanceTrue: 205.701240
+Nearest neighbor-3: 8050
+distanceHypercube: 313.367197
+distanceTrue: 222.800359
+tCube: 0.000943 seconds
+tTrue: 0.012784 seconds
+R-near neighbors:
+1: Found vector: 5827
+tRadiusSearch: 0.000823 seconds
+
+
+Query 73:
+Nearest neighbor-1: 3594
+distanceHypercube: 328.329103
+distanceTrue: 303.211148
+Nearest neighbor-2: 2032
+distanceHypercube: 355.287208
+distanceTrue: 320.128099
+Nearest neighbor-3: 5303
+distanceHypercube: 359.952775
+distanceTrue: 320.728857
+tCube: 0.001029 seconds
+tTrue: 0.012722 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000867 seconds
+
+
+Query 74:
+Nearest neighbor-1: 4241
+distanceHypercube: 289.594544
+distanceTrue: 230.458239
+Nearest neighbor-2: 3803
+distanceHypercube: 295.585859
+distanceTrue: 289.490933
+Nearest neighbor-3: 7961
+distanceHypercube: 331.520738
+distanceTrue: 289.594544
+tCube: 0.001363 seconds
+tTrue: 0.012750 seconds
+R-near neighbors:
+1: Found vector: 3803
+2: Found vector: 4241
+tRadiusSearch: 0.001213 seconds
+
+
+Query 75:
+Nearest neighbor-1: 7365
+distanceHypercube: 131.095385
+distanceTrue: 131.095385
+Nearest neighbor-2: 7807
+distanceHypercube: 232.813230
+distanceTrue: 220.020454
+Nearest neighbor-3: 2072
+distanceHypercube: 253.100770
+distanceTrue: 220.503968
+tCube: 0.000771 seconds
+tTrue: 0.012746 seconds
+R-near neighbors:
+1: Found vector: 9105
+2: Found vector: 9560
+3: Found vector: 785
+4: Found vector: 1009
+5: Found vector: 1068
+6: Found vector: 4512
+7: Found vector: 4981
+8: Found vector: 5058
+9: Found vector: 5880
+10: Found vector: 5556
+11: Found vector: 3164
+12: Found vector: 7807
+13: Found vector: 7921
+14: Found vector: 352
+15: Found vector: 4497
+16: Found vector: 8722
+17: Found vector: 4777
+18: Found vector: 3709
+19: Found vector: 4780
+20: Found vector: 6021
+21: Found vector: 9611
+22: Found vector: 5859
+23: Found vector: 8520
+24: Found vector: 4496
+25: Found vector: 5609
+26: Found vector: 7365
+27: Found vector: 2072
+28: Found vector: 5628
+tRadiusSearch: 0.000695 seconds
+
+
+Query 76:
+Nearest neighbor-1: 9062
+distanceHypercube: 330.912375
+distanceTrue: 212.061312
+Nearest neighbor-2: 3846
+distanceHypercube: 331.501131
+distanceTrue: 254.768522
+Nearest neighbor-3: 9465
+distanceHypercube: 337.730662
+distanceTrue: 294.258390
+tCube: 0.001251 seconds
+tTrue: 0.012817 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.001130 seconds
+
+
+Query 77:
+Nearest neighbor-1: 7904
+distanceHypercube: 251.256841
+distanceTrue: 251.256841
+Nearest neighbor-2: 340
+distanceHypercube: 297.336510
+distanceTrue: 255.996094
+Nearest neighbor-3: 4446
+distanceHypercube: 342.505474
+distanceTrue: 280.836251
+tCube: 0.001266 seconds
+tTrue: 0.012766 seconds
+R-near neighbors:
+1: Found vector: 340
+2: Found vector: 7904
+tRadiusSearch: 0.001104 seconds
+
+
+Query 78:
+Nearest neighbor-1: 6785
+distanceHypercube: 335.331180
+distanceTrue: 293.715849
+Nearest neighbor-2: 1412
+distanceHypercube: 338.365187
+distanceTrue: 298.879574
+Nearest neighbor-3: 6879
+distanceHypercube: 342.016081
+distanceTrue: 306.737673
+tCube: 0.001117 seconds
+tTrue: 0.012753 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000952 seconds
+
+
+Query 79:
+Nearest neighbor-1: 9793
+distanceHypercube: 245.515784
+distanceTrue: 226.867803
+Nearest neighbor-2: 4624
+distanceHypercube: 254.876441
+distanceTrue: 245.515784
+Nearest neighbor-3: 5235
+distanceHypercube: 272.688467
+distanceTrue: 254.876441
+tCube: 0.001030 seconds
+tTrue: 0.012780 seconds
+R-near neighbors:
+1: Found vector: 4624
+2: Found vector: 5355
+3: Found vector: 9793
+4: Found vector: 9474
+5: Found vector: 5235
+tRadiusSearch: 0.000865 seconds
+
+
+Query 80:
+Nearest neighbor-1: 6647
+distanceHypercube: 216.757929
+distanceTrue: 148.165448
+Nearest neighbor-2: 6821
+distanceHypercube: 246.880538
+distanceTrue: 160.415087
+Nearest neighbor-3: 7704
+distanceHypercube: 253.345614
+distanceTrue: 161.369142
+tCube: 0.000902 seconds
+tTrue: 0.012786 seconds
+R-near neighbors:
+1: Found vector: 6167
+2: Found vector: 5553
+3: Found vector: 9978
+4: Found vector: 6647
+5: Found vector: 560
+6: Found vector: 7704
+7: Found vector: 6821
+tRadiusSearch: 0.000770 seconds
+
+
+Query 81:
+Nearest neighbor-1: 4444
+distanceHypercube: 361.741620
+distanceTrue: 146.311312
+Nearest neighbor-2: 8622
+distanceHypercube: 362.006906
+distanceTrue: 230.893915
+Nearest neighbor-3: 755
+distanceHypercube: 363.994505
+distanceTrue: 281.067608
+tCube: 0.000586 seconds
+tTrue: 0.012754 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000462 seconds
+
+
+Query 82:
+Nearest neighbor-1: 381
+distanceHypercube: 313.800892
+distanceTrue: 276.819436
+Nearest neighbor-2: 3939
+distanceHypercube: 333.908670
+distanceTrue: 295.409885
+Nearest neighbor-3: 931
+distanceHypercube: 335.743950
+distanceTrue: 297.302876
+tCube: 0.000903 seconds
+tTrue: 0.012766 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000770 seconds
+
+
+Query 83:
+Nearest neighbor-1: 1508
+distanceHypercube: 308.037335
+distanceTrue: 271.981617
+Nearest neighbor-2: 3946
+distanceHypercube: 313.311347
+distanceTrue: 273.892315
+Nearest neighbor-3: 3035
+distanceHypercube: 319.286705
+distanceTrue: 278.718496
+tCube: 0.000859 seconds
+tTrue: 0.012734 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000723 seconds
+
+
+Query 84:
+Nearest neighbor-1: 2167
+distanceHypercube: 296.454044
+distanceTrue: 181.606718
+Nearest neighbor-2: 8855
+distanceHypercube: 304.937699
+distanceTrue: 196.987309
+Nearest neighbor-3: 6276
+distanceHypercube: 305.152421
+distanceTrue: 237.667835
+tCube: 0.000958 seconds
+tTrue: 0.012774 seconds
+R-near neighbors:
+1: Found vector: 2167
+tRadiusSearch: 0.000791 seconds
+
+
+Query 85:
+Nearest neighbor-1: 9465
+distanceHypercube: 248.362638
+distanceTrue: 192.678489
+Nearest neighbor-2: 7008
+distanceHypercube: 276.385600
+distanceTrue: 233.846103
+Nearest neighbor-3: 6684
+distanceHypercube: 278.055750
+distanceTrue: 248.362638
+tCube: 0.001251 seconds
+tTrue: 0.012706 seconds
+R-near neighbors:
+1: Found vector: 5303
+2: Found vector: 1827
+3: Found vector: 4005
+4: Found vector: 9465
+5: Found vector: 5380
+6: Found vector: 4795
+7: Found vector: 7008
+8: Found vector: 5738
+9: Found vector: 6684
+tRadiusSearch: 0.001149 seconds
+
+
+Query 86:
+Nearest neighbor-1: 2156
+distanceHypercube: 420.885970
+distanceTrue: 285.106997
+Nearest neighbor-2: 3341
+distanceHypercube: 425.775763
+distanceTrue: 305.612500
+Nearest neighbor-3: 3265
+distanceHypercube: 441.381921
+distanceTrue: 330.969787
+tCube: 0.000705 seconds
+tTrue: 0.012825 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000552 seconds
+
+
+Query 87:
+Nearest neighbor-1: 3529
+distanceHypercube: 327.368294
+distanceTrue: 224.906647
+Nearest neighbor-2: 7804
+distanceHypercube: 336.674917
+distanceTrue: 255.282197
+Nearest neighbor-3: 8279
+distanceHypercube: 347.031699
+distanceTrue: 265.054711
+tCube: 0.000777 seconds
+tTrue: 0.012776 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000653 seconds
+
+
+Query 88:
+Nearest neighbor-1: 5691
+distanceHypercube: 216.025461
+distanceTrue: 123.559702
+Nearest neighbor-2: 6652
+distanceHypercube: 316.824873
+distanceTrue: 216.025461
+Nearest neighbor-3: 7736
+distanceHypercube: 350.034284
+distanceTrue: 217.935770
+tCube: 0.000994 seconds
+tTrue: 0.013675 seconds
+R-near neighbors:
+1: Found vector: 5691
+tRadiusSearch: 0.000916 seconds
+
+
+Query 89:
+Nearest neighbor-1: 3838
+distanceHypercube: 305.900311
+distanceTrue: 75.079957
+Nearest neighbor-2: 6845
+distanceHypercube: 308.303422
+distanceTrue: 135.051842
+Nearest neighbor-3: 6376
+distanceHypercube: 329.293182
+distanceTrue: 154.418263
+tCube: 0.002769 seconds
+tTrue: 0.015678 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000556 seconds
+
+
+Query 90:
+Nearest neighbor-1: 8870
+distanceHypercube: 255.380109
+distanceTrue: 114.533838
+Nearest neighbor-2: 5923
+distanceHypercube: 265.024527
+distanceTrue: 157.340395
+Nearest neighbor-3: 6522
+distanceHypercube: 265.512712
+distanceTrue: 191.522845
+tCube: 0.001267 seconds
+tTrue: 0.012613 seconds
+R-near neighbors:
+1: Found vector: 5923
+2: Found vector: 2503
+3: Found vector: 5536
+4: Found vector: 4747
+5: Found vector: 4773
+6: Found vector: 9889
+7: Found vector: 6044
+8: Found vector: 6522
+9: Found vector: 4380
+10: Found vector: 9957
+11: Found vector: 6020
+12: Found vector: 8870
+13: Found vector: 4159
+14: Found vector: 2220
+15: Found vector: 5858
+16: Found vector: 3309
+tRadiusSearch: 0.001146 seconds
+
+
+Query 91:
+Nearest neighbor-1: 4741
+distanceHypercube: 192.546098
+distanceTrue: 50.457903
+Nearest neighbor-2: 4740
+distanceHypercube: 197.380343
+distanceTrue: 60.663004
+Nearest neighbor-3: 6490
+distanceHypercube: 197.974746
+distanceTrue: 156.233799
+tCube: 0.000939 seconds
+tTrue: 0.012578 seconds
+R-near neighbors:
+1: Found vector: 1661
+2: Found vector: 4630
+3: Found vector: 6217
+4: Found vector: 5138
+5: Found vector: 8673
+6: Found vector: 5719
+7: Found vector: 5187
+8: Found vector: 2919
+9: Found vector: 4392
+10: Found vector: 5567
+11: Found vector: 591
+12: Found vector: 8231
+13: Found vector: 4740
+14: Found vector: 7124
+15: Found vector: 3035
+16: Found vector: 4463
+17: Found vector: 4703
+18: Found vector: 5209
+19: Found vector: 5940
+20: Found vector: 4741
+21: Found vector: 5019
+22: Found vector: 168
+23: Found vector: 7118
+24: Found vector: 4727
+25: Found vector: 3981
+26: Found vector: 2073
+27: Found vector: 206
+28: Found vector: 8649
+29: Found vector: 4710
+30: Found vector: 7183
+31: Found vector: 9258
+32: Found vector: 4907
+33: Found vector: 3468
+34: Found vector: 4479
+35: Found vector: 6416
+36: Found vector: 9097
+37: Found vector: 3913
+38: Found vector: 6490
+39: Found vector: 9792
+40: Found vector: 2270
+41: Found vector: 4829
+42: Found vector: 5047
+tRadiusSearch: 0.000940 seconds
+
+
+Query 92:
+Nearest neighbor-1: 9994
+distanceHypercube: 308.970872
+distanceTrue: 298.026844
+Nearest neighbor-2: 7982
+distanceHypercube: 362.162947
+distanceTrue: 308.970872
+Nearest neighbor-3: 7674
+distanceHypercube: 375.447733
+distanceTrue: 314.189433
+tCube: 0.001057 seconds
+tTrue: 0.012771 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000902 seconds
+
+
+Query 93:
+Nearest neighbor-1: 7145
+distanceHypercube: 339.602709
+distanceTrue: 141.463776
+Nearest neighbor-2: 5956
+distanceHypercube: 371.417555
+distanceTrue: 245.210114
+Nearest neighbor-3: 5717
+distanceHypercube: 380.289364
+distanceTrue: 293.625612
+tCube: 0.000586 seconds
+tTrue: 0.012704 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000461 seconds
+
+
+Query 94:
+Nearest neighbor-1: 4108
+distanceHypercube: 281.023131
+distanceTrue: 234.774360
+Nearest neighbor-2: 1478
+distanceHypercube: 285.576610
+distanceTrue: 258.338925
+Nearest neighbor-3: 1275
+distanceHypercube: 295.242273
+distanceTrue: 259.917295
+tCube: 0.000811 seconds
+tTrue: 0.012710 seconds
+R-near neighbors:
+1: Found vector: 8076
+2: Found vector: 1275
+3: Found vector: 4108
+4: Found vector: 1478
+tRadiusSearch: 0.000659 seconds
+
+
+Query 95:
+Nearest neighbor-1: 8055
+distanceHypercube: 283.148371
+distanceTrue: 160.570857
+Nearest neighbor-2: 6997
+distanceHypercube: 329.525416
+distanceTrue: 236.376818
+Nearest neighbor-3: 1060
+distanceHypercube: 338.124238
+distanceTrue: 245.981707
+tCube: 0.001025 seconds
+tTrue: 0.012765 seconds
+R-near neighbors:
+1: Found vector: 8055
+tRadiusSearch: 0.000871 seconds
+
+
+Query 96:
+Nearest neighbor-1: 8547
+distanceHypercube: 340.869476
+distanceTrue: 305.391552
+Nearest neighbor-2: 5539
+distanceHypercube: 370.723617
+distanceTrue: 313.359219
+Nearest neighbor-3: 9878
+distanceHypercube: 371.466015
+distanceTrue: 313.738745
+tCube: 0.000817 seconds
+tTrue: 0.012768 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000648 seconds
+
+
+Query 97:
+Nearest neighbor-1: 4615
+distanceHypercube: 334.276831
+distanceTrue: 285.790133
+Nearest neighbor-2: 7784
+distanceHypercube: 336.940648
+distanceTrue: 303.557243
+Nearest neighbor-3: 1381
+distanceHypercube: 341.054248
+distanceTrue: 318.366141
+tCube: 0.000759 seconds
+tTrue: 0.012734 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000617 seconds
+
+
+Query 98:
+Nearest neighbor-1: 6143
+distanceHypercube: 304.041116
+distanceTrue: 233.531582
+Nearest neighbor-2: 2592
+distanceHypercube: 340.489354
+distanceTrue: 303.744959
+Nearest neighbor-3: 5755
+distanceHypercube: 364.378924
+distanceTrue: 304.041116
+tCube: 0.000897 seconds
+tTrue: 0.012732 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000724 seconds
+
+
+Query 99:
+Nearest neighbor-1: 5811
+distanceHypercube: 138.964024
+distanceTrue: 137.429982
+Nearest neighbor-2: 5774
+distanceHypercube: 143.457311
+distanceTrue: 138.899244
+Nearest neighbor-3: 6746
+distanceHypercube: 150.469266
+distanceTrue: 138.964024
+tCube: 0.000980 seconds
+tTrue: 0.012741 seconds
+R-near neighbors:
+1: Found vector: 7006
+2: Found vector: 7813
+3: Found vector: 5295
+4: Found vector: 5265
+5: Found vector: 5476
+6: Found vector: 5788
+7: Found vector: 6163
+8: Found vector: 5257
+9: Found vector: 6429
+10: Found vector: 6996
+11: Found vector: 6746
+12: Found vector: 5811
+13: Found vector: 1652
+14: Found vector: 5774
+15: Found vector: 5747
+16: Found vector: 1956
+17: Found vector: 7134
+18: Found vector: 6407
+19: Found vector: 8873
+20: Found vector: 7078
+21: Found vector: 3191
+22: Found vector: 4826
+23: Found vector: 5159
+24: Found vector: 8073
+25: Found vector: 7502
+26: Found vector: 4607
+27: Found vector: 2170
+28: Found vector: 1090
+29: Found vector: 8878
+30: Found vector: 9153
+31: Found vector: 4559
+32: Found vector: 1767
+33: Found vector: 6438
+tRadiusSearch: 0.000957 seconds
+
+
+Query 100:
+Nearest neighbor-1: 9943
+distanceHypercube: 318.940433
+distanceTrue: 184.613109
+Nearest neighbor-2: 4693
+distanceHypercube: 358.806354
+distanceTrue: 234.885078
+Nearest neighbor-3: 1915
+distanceHypercube: 374.658511
+distanceTrue: 308.608166
+tCube: 0.000968 seconds
+tTrue: 0.012766 seconds
+R-near neighbors:
+ Did not find any neighbor inside the given range
+tRadiusSearch: 0.000811 seconds
+
+

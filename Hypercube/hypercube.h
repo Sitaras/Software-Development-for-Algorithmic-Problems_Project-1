@@ -6,6 +6,7 @@ typedef struct hc_n *HyperCube;
 HyperCube initializeHyperCube();
 
 void insertToHyperCube(HyperCube ,Vector );
+void insertFromListToHyperCube(List ,HyperCube );
 
 void printHyperCube(HyperCube );
 
