@@ -174,7 +174,7 @@ void reverseAssignmentLSH(LSH lsh,Vector *vectors,Vector *clusters,Vector *oldCl
       }
       // finally delete each cluster in order to form a new one based to the new centroid
       htDelete(clustersHt[i],0);
-      clustersHt[i] = htInitialize(numOfVecs/(4*numOfClusters)); 
+      clustersHt[i] = htInitialize(numOfVecs/(4*numOfClusters));
       // save the new centroid
       clusters[i]=newCenter;
     }
