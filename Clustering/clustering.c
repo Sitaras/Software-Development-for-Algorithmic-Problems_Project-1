@@ -18,7 +18,8 @@
 #define TRUE 1
 #define FALSE 0
 #define MAX_RECENTER_ITERATIONS 10
-#define W_DIVIDER 10
+#define W_DIVIDER_LSH 60
+#define W_DIVIDER_CUBE 20
 
 extern int numOfVecs;
 extern int d;
@@ -289,7 +290,7 @@ void clusteringLSH(List vecList,int numOfClusters,int l,FILE* fptr){
 
   clock_t begin = clock();
   w = wValueCalculation(vecList,numOfVecs);
-  w /= W_DIVIDER;
+  w /= W_DIVIDER_LSH;
   clock_t end = clock();
   double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
   printf("Found value of w in %f seconds, w = %d\n",time_spent,w );
@@ -468,7 +469,7 @@ void clusteringHypercube(List vecList,int numOfClusters,int m,int probes,FILE* f
 
   clock_t begin = clock();
   w = wValueCalculation(vecList,numOfVecs);
-  w /= W_DIVIDER;
+  w /= W_DIVIDER_CUBE;
   clock_t end = clock();
   double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
   printf("Found value of w in %f seconds, w = %d\n",time_spent,w );
