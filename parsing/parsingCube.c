@@ -132,8 +132,8 @@ void readQueryFile(char* queryFile,char* outputFile,HyperCube hc,List inputs,int
   }
 
   char buffer[MAX_INPUT_LENGTH];
-  Vector nNearest[n];
-  double knearestDists[n];
+  Vector nNearest[n]; // here store the true k nearest neighbors
+  double knearestDists[n]; // here store the true distances from the k nearest neighbors
   double vec[d];
 
   while(!feof(file)){
@@ -160,7 +160,8 @@ void readQueryFile(char* queryFile,char* outputFile,HyperCube hc,List inputs,int
      }
     Vector vecTmp=initVector(vec,name);
     fprintf(fptr, "Query %d:\n",id);
-    clock_t begin_true = clock();
+    clock_t begin_true = clock(); // time calculation for the brute force method
+    // find with the brute force method the k nearest neighbors for the corresponding query vector
     if(n==1)
       listFindNearestNeighbor(inputs,vecTmp,nNearest,knearestDists,d,-1);
     else
@@ -168,7 +169,9 @@ void readQueryFile(char* queryFile,char* outputFile,HyperCube hc,List inputs,int
     clock_t end_true = clock();
     double time_spent_true = (double)(end_true - begin_true) / CLOCKS_PER_SEC;
 
-    clock_t begin_cube = clock();
+    clock_t begin_cube = clock(); // time calculation for the Hypercube
+
+    // find with the help of Hypercube the k nearest neighbors corresponding query vector
     if(n==1)
       nearestNeigborHypercube(hc,vecTmp,hammingDist,m,knearestDists,fptr);
     else
@@ -177,7 +180,10 @@ void readQueryFile(char* queryFile,char* outputFile,HyperCube hc,List inputs,int
     double time_spent_cube = (double)(end_cube - begin_cube) / CLOCKS_PER_SEC;
     fprintf(fptr, "tCube: %f seconds\n",time_spent_cube);
     fprintf(fptr, "tTrue: %f seconds\n",time_spent_true);
-    clock_t begin_radius = clock();
+
+
+    clock_t begin_radius = clock(); // time calculation for the range search with Hypercube
+    // neighbors range search of Hyper Cube for the corresponding query vector
     radiusNeigborsHypercube(hc,vecTmp,radius,hammingDist,m,fptr);
     clock_t end_radius = clock();
     double time_spent_radius = (double)(end_radius - begin_radius) / CLOCKS_PER_SEC;

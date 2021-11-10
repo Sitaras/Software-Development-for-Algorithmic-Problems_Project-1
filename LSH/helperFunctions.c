@@ -4,7 +4,7 @@
 #include <math.h>
 #include <limits.h>
 
-// this constants used at normal distribution
+// these constants used at normal distribution
 #define SIGMA 1.00
 #define MI 0.00
 

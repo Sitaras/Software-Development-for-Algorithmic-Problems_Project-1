@@ -121,7 +121,6 @@ HyperCube initializeHyperCube(){
 
 void insertToHyperCube(HyperCube hc,Vector v){
   // insert the given vector in hyper cube (at the corresponding bucket of the hash table)
-  // long long int index=0;
   int indexArray[new_dimension];
   for(int i=0;i<new_dimension;i++){ // form/find the corresponding index of the hypercube (hash table) that the given vector will be inserted
     int h_result = computeH_Cube(hc->h_functions[i],v); // compute the h function's value based the given v vector
@@ -131,7 +130,6 @@ void insertToHyperCube(HyperCube hc,Vector v){
     // and continue for the next dimension
   }
   // index formed, convert it to decimal
-  // int decimal_index = binaryToDecimal(index); // hash Table key
   int decimal_index = binaryArrayToDecimal(indexArray,new_dimension);  // hash Table key
   // finally insert the given vector at the hash table
   htInsert(hc->hypercube,v,decimal_index,-1);
@@ -196,12 +194,16 @@ void nearestNeigborHypercube(HyperCube hc,Vector q,int hammingDist,int m,double 
   double nearestDist=-1;
   int index[new_dimension];
   int searched = 0;
-  for(int i=0;i<new_dimension;i++){
-    int h_result = computeH_Cube(hc->h_functions[i],q);
-    int f_result = computeF(hc->f_funs[i],h_result);
+  for(int i=0;i<new_dimension;i++){ // form/find the index of the hypercube (hash table) based on the given vector
+    int h_result = computeH_Cube(hc->h_functions[i],q); // compute the h function's value based on the givenvector
+    int f_result = computeF(hc->f_funs[i],h_result); // compute the f function's value based on the previous value that return the h function
+    // f returns a bit, 0 or 1, take this bit and append it to the index to form that for the hypercube
     index[i] = f_result;
+    // and continue for the next dimension
   }
+  // index formed, convert it to decimal
   int index_decimal = binaryArrayToDecimal(index,new_dimension);
+  // go at the corresponding bucket and search for the nearest neighbor of the given vector
   htFindNearestNeighborCube(hc->hypercube,index_decimal,q,&nearest,&nearestDist,d,&searched,m);
 
   int nodesSearched = 0;
@@ -216,7 +218,7 @@ void nearestNeigborHypercube(HyperCube hc,Vector q,int hammingDist,int m,double 
     }
     searchForHammingDistance(hc,q,index,i,0,&nearest,&nearestDist,&searched,m,&nodesSearched,hammingDist);
   }
-
+  // write the nearest neighbor that found at the corresponding file
   if(nearestDist>=0 && nearest!=NULL){
     fprintf(fptr,"Nearest neighbor-1: ");
     printVectorIdInFile(nearest,fptr);
@@ -264,8 +266,8 @@ void kNearestNeigborsHypercube(HyperCube hc,Vector q,int knn,int hammingDist,int
 
   int index[new_dimension];
   int searched = 0;
-  for(int i=0;i<new_dimension;i++){ // form/find the corresponding index of the hypercube (hash table) that the given vector will be inserted
-    int h_result = computeH_Cube(hc->h_functions[i],q); // compute the h function's value based the given v vector
+  for(int i=0;i<new_dimension;i++){ // form/find the index of the hypercube (hash table) based on the given vector
+    int h_result = computeH_Cube(hc->h_functions[i],q); // compute the h function's value based on the given  vector
     int f_result = computeF(hc->f_funs[i],h_result); // compute the f function's value based on the previous value that return the h function
     // f returns a bit, 0 or 1, take this bit and append it to the index to form that for the hypercube
     index[i] = f_result;
@@ -273,7 +275,7 @@ void kNearestNeigborsHypercube(HyperCube hc,Vector q,int knn,int hammingDist,int
   }
   // index formed, convert it to decimal
   int index_decimal = binaryArrayToDecimal(index,new_dimension);
-  // finally search k nearest neighbors for the given vector at the corresponding bucket of the hash table
+  // search k nearest neighbors for the given vector at the corresponding bucket of the hash table
   htKFindNearestNeighborsCube(hc->hypercube,index_decimal,q,nearest,knearestDists,d,knn,&searched,m);
 
   int nodesSearched = 0;
@@ -289,6 +291,7 @@ void kNearestNeigborsHypercube(HyperCube hc,Vector q,int knn,int hammingDist,int
   }
 
   int flag=1;
+  // write the k nearest neighbors that found at the corresponding file
   for (int i = knn-1; i >= 0; i--){
     if (knearestDists[i] >= 0 && nearest[i] != NULL){
       // check if k nearest neighbor of the given vector q found or not
@@ -341,8 +344,8 @@ void radiusNeigborsHypercube(HyperCube hc,Vector q,double radius,int hammingDist
   HashTable vecsInRadius = htInitialize(vecsInRadius_size/8); // hash table to store the adjacent vectors of the given vector q
   int index[new_dimension];
   int searched = 0;
-  for(int i=0;i<new_dimension;i++){ // form/find the corresponding index of the hypercube (hash table) that the given vector will be inserted
-    int h_result = computeH_Cube(hc->h_functions[i],q); // compute the h function's value based the given v vector
+  for(int i=0;i<new_dimension;i++){ // form/find the index of the hypercube (hash table) based on the given vector
+    int h_result = computeH_Cube(hc->h_functions[i],q); // compute the h function's value based on the given v vector
     int f_result = computeF(hc->f_funs[i],h_result); // compute the f function's value based on the previous value that return the h function
     // f returns a bit, 0 or 1, take this bit and append it to the index to form that for the hypercube
     index[i] = f_result;
@@ -364,7 +367,7 @@ void radiusNeigborsHypercube(HyperCube hc,Vector q,double radius,int hammingDist
     }
     searchForHammingDistanceRadius(hc,q,index,i,0,vecsInRadius,&searched,m,radius,&nodesSearched,hammingDist);
   }
-
+  // write the neighbors that found at the corresponding file
   htRangePrint(vecsInRadius,q,d,fptr);
 
   htDelete(vecsInRadius,0);
@@ -405,8 +408,8 @@ void radiusNeigborHypercubeClustering(HyperCube hc,Vector q,HashTable vecsInRadi
   // the clusters are represented by hash tables
   int index[new_dimension];
   int searched = 0;
-  for(int i=0;i<new_dimension;i++){ // form/find the corresponding index of the hypercube (hash table) that the given vector will be inserted
-    int h_result = computeH_Cube(hc->h_functions[i],q);  // compute the h function's value based the given v vector
+  for(int i=0;i<new_dimension;i++){ // form/find the index of the hypercube (hash table) based on the given vector
+    int h_result = computeH_Cube(hc->h_functions[i],q);  // compute the h function's value based on the given vector
     int f_result = computeF(hc->f_funs[i],h_result); // compute the f function's value based on the previous value that return the h function
     // f returns a bit, 0 or 1, take this bit and append it to the index to form that for the hypercube
     index[i] = f_result;
@@ -414,7 +417,7 @@ void radiusNeigborHypercubeClustering(HyperCube hc,Vector q,HashTable vecsInRadi
   }
   // index formed, convert it to decimal
   int index_decimal = binaryArrayToDecimal(index,new_dimension);
-  // finally go at the corresponding bucket of the hash table to assign the vectors in to the clusters
+  // finally go at the corresponding bucket of the hash table to assign the vectors in to the clusters based on centroids
   htFindNeighborsInRadiusClusteringCube(hc->hypercube,index_decimal,centroidIndex,confList,vecsInRadius,q,d,radius,&searched,m,assignCounter,iteration);
 
   int nodesSearched = 0;

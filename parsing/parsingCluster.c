@@ -17,7 +17,7 @@ extern int d;
 extern int k_LSH;
 extern int new_dimension;
 
-// returns number of words in str
+// returns the number of words in string
 int countWords(char *str){
   char * token = strtok(str, " ");
   token = strtok(NULL, " ");
@@ -168,7 +168,6 @@ void readFile(char* fileName,List *list,int *numOfVecs){
      (*list) = listInsert((*list),vecTmp,-1);
      (*numOfVecs)++;
 
-     // deleteVector(vecTmp);
   }
 
 

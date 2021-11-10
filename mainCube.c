@@ -206,7 +206,7 @@ int main(int argc, char *argv[]) {
   printf("Parsed input file in : %f seconds\n",time_spent);
   printf("Number of vectors in input file: %d\n",numberOfVectorsInFile);
 
-  printf("Findind optimal value of w based on the input file\n");
+  printf("Finding optimal value of w based on the input file\n");
   begin = clock();
   w = wValueCalculation(list,numberOfVectorsInFile);
   w /= W_DIVIDER;

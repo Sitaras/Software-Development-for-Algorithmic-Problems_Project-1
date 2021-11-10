@@ -25,7 +25,7 @@ double distance_metric(Vector v1,Vector v2,int d){
 
 struct listNode {
   Vector v;
-  int vector_ID;
+  int vector_ID; // ID used to LSH for th Querying trick, (at the other implementations ID initialized with -1 )
   List next;
 };
 typedef struct listNode *List;
@@ -43,7 +43,6 @@ List initializeList(){
 }
 
 
-// hash table's linked list
 List allocateListNode(Vector v,int id){
   List node=malloc(sizeof(struct listNode));
   node->v=v;
@@ -409,7 +408,7 @@ void listFindNeighborsInRadiusClustering(List list,int centroidIndex,List* confL
             temp=temp->next;
             continue;
           }
-          else{ 
+          else{
             double dist = distance_metric(temp->v,q,d);
             if(dist<=radius){ // check if for the given radius the current vector lies in ≥ 2 clusters, add it into the confList
               *confList=listInsert(*confList,temp->v,-1);
@@ -538,7 +537,7 @@ void listFindNeighborsInRadiusCube(List list,HashTable storeNeighbors,Vector q,i
 
 
 Vector listMeanOfCluster(List list,int d){
-  // used to find/calculate the mean vector of one cluster (cluster is the given list)
+  // used to find/calculate the centroid of the cluster (cluster is the given list)
   if(list==NULL) return NULL;
   List temp = list;
   int count=0;
@@ -551,9 +550,9 @@ Vector listMeanOfCluster(List list,int d){
     temp=temp->next;
   }
   for(int i=0;i<d;i++){
-    sumDims[i]/=(double)count; // divide the coordinates with the
+    sumDims[i]/=(double)count; // divide the coordinates with their number
   }
-  // finally create the mean vector
+  // finally create the centroid
   Vector newCentroid  = initVector(sumDims,"tempCentroid");
   free(sumDims);
   // and return it

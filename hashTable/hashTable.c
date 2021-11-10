@@ -98,7 +98,7 @@ void htPrintClustering(const HashTable ht,FILE* fptr){
 }
 
 void htRangePrint(const HashTable ht,Vector q,int d,FILE *fptr){
-  fprintf(fptr,"R-near neighbors:\n"); // add a counter at radiusNeigborsClustering()
+  fprintf(fptr,"R-near neighbors:\n");
   int counter=1;
   for (int i=0;i<ht->buckets;i++){
     listRangePrint(ht->table[i].head,q,d,&counter,fptr);
@@ -151,24 +151,27 @@ void htFindNeighborsInRadiusCube(HashTable ht,int index,HashTable storeNeighbors
 }
 
 Vector htMeanOfCluster(HashTable ht,int d){
-  int count =0;
+  // used to find the centroid of the cluster
+  // cluster represented by the hash table
+  int count = 0;
   double *sumDims=calloc(d,sizeof(double));
   for (int i=0;i<ht->buckets;i++){
     double *tempSum = listSumOfVectors(ht->table[i].head,d,&count);
     if(tempSum!=NULL){
       for(int i=0;i<d;i++){
-        sumDims[i]+=tempSum[i];
+        sumDims[i]+=tempSum[i]; // add up all the coordinates of the cluster vectors
       }
       free(tempSum);
     }
   }
   if(count==0){ free(sumDims); return NULL;}
   for(int i=0;i<d;i++){
-    sumDims[i]/=(double)count;
+    sumDims[i]/=(double)count; // divide the coordinates with their number
   }
+  // finally create the centroid
   Vector newCentroid  = initVector(sumDims,"temp");
   free(sumDims);
-
+  // and return it
   return newCentroid;
 }
 

@@ -163,8 +163,8 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
 
 
   char buffer[MAX_INPUT_LENGTH];
-  Vector nNearest[n];
-  double knearestDists[n];
+  Vector nNearest[n]; // here store the true k nearest neighbors
+  double knearestDists[n]; // here store the true distances from the k nearest neighbors
   double vec[d];
 
 
@@ -185,46 +185,45 @@ void readQueryFile(char* queryFile,char* outputFile,LSH lsh,List inputs,int n,do
     strcpy(name,token);
     id=atoi(token);
     token = strtok(NULL, " ");
-     int counter = 0;
-     while( token != NULL ) {
-        vec[counter++]=atof(token);
-        token = strtok(NULL, " ");
-     }
-     Vector vecTmp=initVector(vec,name);
+    int counter = 0;
+    while( token != NULL ) {
+      vec[counter++]=atof(token);
+      token = strtok(NULL, " ");
+    }
+    Vector vecTmp=initVector(vec,name);
 
-     fprintf(fptr, "Query %d:\n",id);
+    fprintf(fptr, "Query %d:\n",id);
 
-     clock_t begin_true = clock();
-     // find with the classic method the k nearest neighbor and write these at the given file for the corresponding query vector
-     if(n==1)
-        listFindNearestNeighbor(inputs,vecTmp,nNearest,knearestDists,d,-1);
-     else
-        listFindKNearestNeighbors(inputs,vecTmp,nNearest,knearestDists,d,n,-1);
+    clock_t begin_true = clock(); // time calculation for the k nearest neighbors with brute force method
+    // find with the brute force method the k nearest neighbors for the corresponding query vector
+    if(n==1)
+      listFindNearestNeighbor(inputs,vecTmp,nNearest,knearestDists,d,-1);
+    else
+      listFindKNearestNeighbors(inputs,vecTmp,nNearest,knearestDists,d,n,-1);
 
-     clock_t end_true = clock();
-     double time_spent_true = (double)(end_true - begin_true) / CLOCKS_PER_SEC;
+    clock_t end_true = clock();
+    double time_spent_true = (double)(end_true - begin_true) / CLOCKS_PER_SEC;
 
-     clock_t begin_lsh = clock();
-     // find with the help of LSH the k nearest neighbor and write these at the given file for the corresponding query vector
-     if(n==1)
-        nearestNeigborLSH(lsh,vecTmp,knearestDists,fptr);
-     else
-        kNearestNeighborsLSH(lsh,vecTmp,n,knearestDists,fptr);
+    clock_t begin_lsh = clock(); // time calculation for the k nearest neighbors with LSH
+    // find with the help of LSH the k nearest neighbor for the corresponding query vector
+    if(n==1)
+      nearestNeigborLSH(lsh,vecTmp,knearestDists,fptr);
+    else
+      kNearestNeighborsLSH(lsh,vecTmp,n,knearestDists,fptr);
 
-     clock_t end_lsh = clock();
-     double time_spent_lsh = (double)(end_lsh - begin_lsh) / CLOCKS_PER_SEC;
-     fprintf(fptr, "tLSH: %f seconds\n",time_spent_lsh);
-     fprintf(fptr, "tTrue: %f seconds\n",time_spent_true);
+    clock_t end_lsh = clock();
+    double time_spent_lsh = (double)(end_lsh - begin_lsh) / CLOCKS_PER_SEC;
+    fprintf(fptr, "tLSH: %f seconds\n",time_spent_lsh);
+    fprintf(fptr, "tTrue: %f seconds\n",time_spent_true);
 
 
-     clock_t begin_radius = clock();
-     // find the neighbours inside the given radius with the help of LSH and write these at the given file for the corresponding query vector
-     radiusNeigborsLSH(lsh,vecTmp,radius,fptr);
-     clock_t end_radius = clock();
+    clock_t begin_radius = clock(); // time calculation for the range search with LSH
+    // neighbors range search of LSH for the corresponding query vector
+    radiusNeigborsLSH(lsh,vecTmp,radius,fptr);
+    clock_t end_radius = clock();
     double time_spent_radius = (double)(end_radius - begin_radius) / CLOCKS_PER_SEC;
-      fprintf(fptr, "tRadiusSearch: %f seconds\n\n\n",time_spent_radius);
-     deleteVector(vecTmp);
-
+    fprintf(fptr, "tRadiusSearch: %f seconds\n\n\n",time_spent_radius);
+    deleteVector(vecTmp);
   }
   fclose(fptr);
   fclose(file);
