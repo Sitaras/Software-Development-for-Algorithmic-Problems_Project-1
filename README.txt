@@ -3,7 +3,7 @@
 -Δημήτριος Σιταράς	|
  1115201800178 	 	|
 —————————————————————————
-Github link: https://github.com/Sitaras/Project1_Emirhs
+Github link: https://github.com/Sitaras/Software-Development-for-Algorithmic-Problems_Project-1
 —————————————————————————
 
 ► Οργάνωση Κώδικα:
@@ -67,7 +67,7 @@ Github link: https://github.com/Sitaras/Project1_Emirhs
 	→ Πληρούνται όλες οι προϋποθέσεις / απαιτήσεις που αναγράφονται στην εκφώνηση της άσκησης.
 
         → Η υλοποίηση του project έγινε με τη χρήση συστήματος διαχείρισης εκδόσεων λογισμικού και συνεργασίας (Git).
-          Ο σύνδεσμος του project είναι: https://github.com/Sitaras/Project1_Emirhs
+          Ο σύνδεσμος του project είναι: https://github.com/Sitaras/Software-Development-for-Algorithmic-Problems_Project-1
 
 	→ Όλη η μνήμη που δεσμεύεται δυναμικά κατά την εκτέλεση του προγράμματος, αποδεσμεύεται πλήρως.
   	  ( Έχει ελεγχθεί μέσω valgrind στα μηχανήματα linux της σχολής. )
