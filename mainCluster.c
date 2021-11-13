@@ -148,7 +148,7 @@ int main(int argc, char *argv[]) {
       while(numOfClusters<2){ // clusters number should be >=2
         if(numOfClusters<2)
           printf("\n(Clusters number should be >=2)\n");
-        printf("\n>Number of clusters: ");
+        printf("\n>Give number of clusters: ");
         fflush(stdin); // clear stdin buffer
         if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
           perror("Error reading string with fgets\n");
