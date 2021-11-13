@@ -14,7 +14,7 @@ OBJ1= mainLSH.o $(HASHTABLE)/hashTable.o $(HASHTABLELIST)/hashTableList.o $(PARS
 OBJ2= mainCube.o $(HASHTABLE)/hashTable.o $(HASHTABLELIST)/hashTableList.o $(PARSING)/parsingCube.o $(VECTOR)/vector.o $(HYPERCUBE)/hypercube.o $(HASHMAP)/hashmap.o $(LSH)/helperFunctions.o
 OBJ3= mainCluster.o $(HASHTABLE)/hashTable.o $(HASHTABLELIST)/hashTableList.o $(PARSING)/parsingCluster.o $(VECTOR)/vector.o $(HASHMAP)/hashmap.o $(LSH)/lsh.o $(LSH)/helperFunctions.o $(CLUSTER)/clustering.o $(CLUSTER)/clusterHelpingFuns.o $(CLUSTER)/kmeansPlusPlus.o $(HYPERCUBE)/hypercube.o
 
-EXEC1 = lsh
+EXEC1 = demolsh
 EXEC2 = cube
 EXEC3 = cluster
 

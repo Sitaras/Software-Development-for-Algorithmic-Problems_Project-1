@@ -80,8 +80,8 @@ Github link: https://github.com/Sitaras/Software-Development-for-Algorithmic-Pro
 
 	→ Εντολές εκτέλεσης για κάθε ένα από τα τρία εκτελέσιμα:
 
-				► ./lsh –i <input file> –q <query file> –k <int> -L <int> -ο <output file> -Ν <number of nearest> -R <radius>
-				  ( π.χ. ./lsh -i input_small_id -q query_small_id -o outputLSH -k 6 -L 8 -N 3 -R 300 )
+				► ./demolsh –i <input file> –q <query file> –k <int> -L <int> -ο <output file> -Ν <number of nearest> -R <radius>
+				  ( π.χ. ./demolsh -i input_small_id -q query_small_id -o outputLSH -k 6 -L 8 -N 3 -R 300 )
 
 				► ./cube –i <input file> –q <query file> –k <int> -M <int> -probes <int> -ο <output file> -Ν <number of nearest> -R <radius>
 				  ( π.χ. ./cube -i input_small_id -q query_small_id -o outputCube -k 6 -M 8 -probes 3 -N 3 -R 300 )
