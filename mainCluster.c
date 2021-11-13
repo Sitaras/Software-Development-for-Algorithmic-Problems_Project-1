@@ -140,13 +140,13 @@ int main(int argc, char *argv[]) {
       clock_t begin = clock();
       d = findDim(inputFile);
       printf("DIMENSION = %d\n",d);
-      int numOfClusters=-1,l=3,mHyper=10,probes=2;
+      int numOfClusters=-100,l=3,mHyper=10,probes=2;
       new_dimension=3;
       k_LSH=4;
       w=W_VALUE;
       readConfFile(confFile,&numOfClusters,&l,&mHyper,&probes);
       while(numOfClusters<2){ // clusters number should be >=2
-        if(numOfClusters<2)
+        if(numOfClusters!=-100)
           printf("\n(Clusters number should be >=2)\n");
         printf("\n>Give number of clusters: ");
         fflush(stdin); // clear stdin buffer
