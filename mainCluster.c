@@ -131,7 +131,7 @@ int main(int argc, char *argv[]) {
     sscanf(str,"%s\n",method);
     printf("Given method's name: %s\n", method);
   }
-  
+
   FILE* fptr;
   List list;
   int repeat=1;
@@ -140,11 +140,21 @@ int main(int argc, char *argv[]) {
       clock_t begin = clock();
       d = findDim(inputFile);
       printf("DIMENSION = %d\n",d);
-      int numOfClusters=5,l=3,mHyper=10,probes=2;
-      new_dimension=14;
+      int numOfClusters=-1,l=3,mHyper=10,probes=2;
+      new_dimension=3;
       k_LSH=4;
       w=W_VALUE;
       readConfFile(confFile,&numOfClusters,&l,&mHyper,&probes);
+      if(numOfClusters==-1){
+        printf("\n>Number of clusters: ");
+        fflush(stdin); // clear stdin buffer
+        if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
+          perror("Error reading string with fgets\n");
+          exit(1);
+        }
+        numOfClusters=atoi(str);
+        printf("numOfClusters : %d\n\n", numOfClusters);
+      }
       list = initializeList();
       readFile(inputFile,&list,&numOfVecs);
       clock_t end = clock();
