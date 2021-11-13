@@ -145,7 +145,9 @@ int main(int argc, char *argv[]) {
       k_LSH=4;
       w=W_VALUE;
       readConfFile(confFile,&numOfClusters,&l,&mHyper,&probes);
-      if(numOfClusters==-1){
+      while(numOfClusters<2){ // clusters number should be >=2
+        if(numOfClusters<2)
+          printf("\n(Clusters number should be >=2)\n");
         printf("\n>Number of clusters: ");
         fflush(stdin); // clear stdin buffer
         if (fgets(str, sizeof(char)*200, stdin) == NULL) { // read a command
